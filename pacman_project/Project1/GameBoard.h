@@ -5,14 +5,16 @@ using namespace std;
 
 class GameBoard
 {
-private:
-    const int startingRow = 1;
-    const int endingRow = 30;
-    const int startingCol = 1;
-    const int endingCol = 30;
-    char border = '|';
-    
-    //Color = ?
 public:
-    void printBorders();
+    const char space = ' ';
+    const char border = 254;
+    const int boardSize = 30;
+
+private:
+    char board[30][30];
+    //Color = ?
+
+public:
+    void initBoard();
+    void printBoard();
 };
