@@ -11,5 +11,5 @@ void GameBoard::printBorders()
         cout << border ;
     for (int i = startingRow ; i <= endingRow ; i++)
         cout << border ;
-    
+    //check if it works
 }
