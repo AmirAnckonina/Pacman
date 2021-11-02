@@ -2,7 +2,9 @@
 using namespace std;
 
 #include "Windows.h"
-
+/// <summary>
+///HELLO_TEST
+/// </summary>
 class Point
 {
 private:
