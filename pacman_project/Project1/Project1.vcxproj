@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="NewHeaderTest.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ThePacmanGame.h" />
