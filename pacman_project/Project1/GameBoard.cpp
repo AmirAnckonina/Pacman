@@ -2,41 +2,109 @@
 
 void GameBoard::initBoard()
 {
-    int rowInd, colInd;
-
-    for (rowInd = 0; rowInd < ROWMAX ; rowInd++)
-        _board[rowInd][0] = BORDER_VERTICAL;
-
-    for (colInd = 0; colInd < COLMAX ; colInd++)
-        _board[0][colInd] = BORDER_HORIZONTAL;
-    
-    for (rowInd = 1; rowInd < ROWMAX; rowInd++)
-        _board[rowInd][COLMAX - 1] = BORDER_VERTICAL;
-
-    for (colInd = 0 ; colInd < COLMAX ; colInd++)
-        _board[ROWMAX - 1][colInd] = BORDER_HORIZONTAL;
-    
-    for (rowInd = 1; rowInd < ROWMAX - 1; rowInd++)
-        for (colInd = 1; colInd < COLMAX - 1; colInd++)
-            _board[rowInd][colInd] = SPACE; 
-
-    initInnerWalls(_board);
+    allocateBoard();
+    initOuterBorders();
+    initInnerWalls();
 }
 
-void GameBoard::initInnerWalls(char board[][COLMAX])
+void GameBoard::initOuterBorders()
 {
-    int rowInd, colInd, k;
-   
-    for (rowInd = 0 ,colInd = 0 ; rowInd < ROWMAX && colInd < COLMAX ; rowInd += 2)
+    int rowInd, colInd;
+
+    for (rowInd = 0; rowInd < ROWMAX; rowInd++)
+        _board[rowInd][0] = BORDER;
+
+    for (colInd = 0; colInd < COLMAX; colInd++)
+        _board[0][colInd] = BORDER;
+
+    for (rowInd = 1; rowInd < ROWMAX; rowInd++)
+        _board[rowInd][COLMAX - 1] = BORDER;
+
+    for (colInd = 0; colInd < COLMAX; colInd++)
+        _board[ROWMAX - 1][colInd] = BORDER;
+
+    for (rowInd = 1; rowInd < ROWMAX - 1; rowInd++)
+        for (colInd = 1; colInd < COLMAX - 1; colInd++)
+            _board[rowInd][colInd] = SPACE;
+
+}
+
+void GameBoard::initInnerWalls()//char board[][COLMAX])
+{
+    int rowInd, colInd;
+
+    //Tunnels
+    for (rowInd = 10, colInd = 0; colInd <= 5; colInd++)
+            _board[rowInd][colInd] = BORDER;
+    for (rowInd = 14, colInd = 0; colInd <= 5; colInd++)
+        _board[rowInd][colInd] = BORDER;
+    for (rowInd = 10, colInd = 74; colInd <= 79; colInd++)
+        _board[rowInd][colInd] = BORDER;
+    for (rowInd = 14, colInd = 74; colInd <= 79; colInd++)
+        _board[rowInd][colInd] = BORDER;
+    for (rowInd = 11; rowInd <= 13; rowInd++)
     {
-        colInd = rowInd * 2;
-        for (k = 0; k < 6; k++)
-            board[rowInd][colInd++] = BORDER_HORIZONTAL;
+        _board[rowInd][0] = SPACE;
+        _board[rowInd][COLMAX - 1] = SPACE;
     }
 
 
+    //Big rectangle in the middle
+    for (rowInd = 10; rowInd <= 14; rowInd++)
+        for (colInd = 20; colInd <= 60; colInd++)
+            _board[rowInd][colInd] = BORDER;
+
+    // Long lines
+    for (rowInd = 17, colInd = 6; colInd <= 30; colInd++)
+        _board[rowInd][colInd] = BORDER;
+    
+    for (rowInd = 17, colInd = 50; colInd <= 74; colInd++)
+        _board[rowInd][colInd] = BORDER;
+
+    for (rowInd = 7, colInd = 6; colInd <= 30; colInd++)
+        _board[rowInd][colInd] = BORDER;
+
+    for (rowInd = 7, colInd = 50; colInd <= 74; colInd++)
+        _board[rowInd][colInd] = BORDER;
+
+    //Short Lines
+    for (rowInd = 12, colInd = 19; colInd >= 13; colInd--)
+        _board[rowInd][colInd] = BORDER;
+
+    for (rowInd = 12, colInd = 61; colInd <= 67; colInd++)
+        _board[rowInd][colInd] = BORDER;
+
+    //Small recatngles
+    for (rowInd = 0; rowInd <= 5; rowInd++)
+        for (colInd = 36; colInd <= 44; colInd++)
+            _board[rowInd][colInd] = BORDER;
+    for (rowInd = 24; rowInd >= 19; rowInd--)
+        for (colInd = 36; colInd <= 44; colInd++)
+            _board[rowInd][colInd] = BORDER;
+
+    //Small squares
+    for (rowInd = 2; rowInd <= 4; rowInd++)
+        for (colInd = 2; colInd <= 19; colInd++)
+            _board[rowInd][colInd] = BORDER;
+    for (rowInd = 2; rowInd <= 4; rowInd++)
+        for (colInd = 77; colInd >= 60; colInd--)
+            _board[rowInd][colInd] = BORDER;
+
+    for (rowInd = 20; rowInd <= 22; rowInd++)
+        for (colInd = 2; colInd <= 19; colInd++)
+            _board[rowInd][colInd] = BORDER;
+    for (rowInd = 20; rowInd <= 22; rowInd++)
+        for (colInd = 77; colInd >= 60; colInd--)
+            _board[rowInd][colInd] = BORDER;
+    
 
 }
+
+void GameBoard::initBreadcrumbs()
+{
+
+}
+
 void GameBoard::printBoard()
 {
     //gotoxy(1,1);
@@ -50,3 +118,18 @@ void GameBoard::printBoard()
     }
 
 }
+
+void GameBoard::allocateBoard()
+{
+    _board = new char*[ROWMAX];
+
+    for (int rowInd = 0; rowInd < ROWMAX; rowInd++)
+        _board[rowInd] = new char[COLMAX];
+}
+
+char** GameBoard::getBoard()
+{
+    return _board;
+}
+
+

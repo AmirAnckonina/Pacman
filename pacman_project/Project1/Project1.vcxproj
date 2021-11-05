@@ -140,12 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameBoard.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="ThePacmanGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ThePacmanGame.h" />
   </ItemGroup>
