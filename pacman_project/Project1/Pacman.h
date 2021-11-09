@@ -1,9 +1,7 @@
-// Pacman.h
-
 #pragma once
 
 using namespace std;
-#include "Point.h"
+#include "Position.h"
 #include <iostream>
 #include <cstring>
 #include <stdlib.h>
@@ -13,26 +11,26 @@ using namespace std;
 
 class Pacman
 {
-	int startingX = 1;
-	int startingY = 1;
-	int currXInd;
+public: //enum??? const??? should check about it.
+	const int WRONG_KEY = -1;
+
+private: //A little bit messy? we should arrange it again?
 	int score = 0;
-	int currYind;
-	char currUserDirection;
-	Point startingPoint, currPoint;
-	GameBoard board;
-	const char PacmanArtifact = '@';
-	enum directions { UP = 119, DOWN = 115, LEFT = 97, RIGHT = 100 };
+	Position currPos, nextPos;
+	const char pacmanFigure = '@';
+	enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100 , STAY = 115 };
+	int pacDirection = 115, directionSaver = 115; //Direction Saver might not necessary?
 
 public:
-	void updateBoard();
-	bool isMoveValid();
-	void setPacman()
-	{
-		startingPoint.printPoint(startingX, startingY);
-		startingPoint.gotoxy();
-	}
-	void movePacman(int currX, int currY);
+	//Get-Set
+	char getDirection(char key);
+	void setDirection(int direction);
+	int getScore() const { return score; }
+
+	//Others
+	void setPacman(GameBoard& board); //Not good - currPos.setXPos(1); currPos.setYPos(1); }
+	void movePacman(GameBoard& board);
+	void setNextPos();
 
 
 };

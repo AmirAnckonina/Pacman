@@ -143,16 +143,18 @@
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pacman.cpp" />
-    <ClCompile Include="point.cpp" />
+    <ClCompile Include="Position.cpp" />
     <ClCompile Include="ThePacmanGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="Ghost.h" />
-    <ClInclude Include="NewHeaderTest.h" />
     <ClInclude Include="Pacman.h" />
-    <ClInclude Include="Point.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="ThePacmanGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

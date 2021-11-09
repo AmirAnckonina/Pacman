@@ -6,13 +6,9 @@ using namespace std;
 
 int main()
 {
-    //CHANGE_TESTGIT
-    /*ThePacmanGame game;
-    game.initGame();
-    game.runGame();*/
+	ThePacmanGame game;
+	game.initGame();
+	game.runGame();
 
-    GameBoard board;
-    board.initBoard();
-    board.printBoard();
-    return 0;
+	return 0;
 }

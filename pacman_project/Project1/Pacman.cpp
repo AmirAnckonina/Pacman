@@ -1,48 +1,101 @@
-//pacman.cpp
+﻿#include "Pacman.h"
 
-#include "Pacman.h"
-
-
-void Pacman::movePacman(int currX, int currY)
+//Set pacman on board.
+void Pacman::setPacman(GameBoard& board)
 {
-	cin >> currUserDirection;
-	while (!isMoveValid)
+	board.setCellInBoard(currPos, pacmanFigure);
+	currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+	cout << pacmanFigure;
+}
+
+//Move pacman - important. also updating currPos according to inner condition.
+void Pacman::movePacman(GameBoard& board)
+{
+	//Stage 1 - validation check (to the cell)
+	if (pacDirection != STAY && nextPos.isPositionValid(board)) //So we should move the pacman
 	{
-		cin >> currUserDirection;
+		directionSaver = pacDirection;
+		board.setCellInBoard(currPos, SPACE);
+		if (board.getCellInBoard(nextPos) == BREADCRUMB)
+		{
+			score++;
+		}
+		board.setCellInBoard(nextPos, pacmanFigure);
+		currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+		cout << SPACE;
+		//board.printCellInBoard(currPos);
+		currPos = nextPos; //??????? Check later how to do it right
+		currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+		cout << pacmanFigure;
 	}
-	board[currX][currY] = board.space;//puts white space in the previous location of the pacman
-	currPoint.gotoxy(currX, currY);
-	cout << board.space;
-	switch (currUserDirection)
+	else
+	{
+		nextPos = currPos;
+		pacDirection = STAY;
+	}
+} 
+	
+//Set next position, in order to check later if the next cell required is valid to move to.
+void Pacman::setNextPos()
+{
+	int tmpX = currPos.getXPos();
+	int tmpY = currPos.getYPos();
+
+	switch (pacDirection)
 	{
 	case UP:
-		currY -= 1;
+		tmpY -= 1;
+		nextPos.setYPos(tmpY);
+		break;
 
 	case DOWN:
-		board[currX][currY] = board.space;
-		if (board[currX][currY + 1] == board.breadCrumb)
-			score++;
-		currPoint.gotoxy(currX, currY);
-		cout << board.space;
-		Sleep(100);
-		currY -= 1;
-		currPoint.gotoxy(currX, currY);
-		cout << PacmanArtifact;
-	case LEFT:
-	case RIGHT:
+		tmpY += 1;
+		nextPos.setYPos(tmpY);
+		break;
 
-	default:
+	case LEFT:
+		if (tmpX == 0 && tmpY > 10 && tmpY < 14)
+			tmpX = 79;
+		else
+			tmpX -= 1;
+		nextPos.setXPos(tmpX);
+		break;
+
+	case RIGHT:
+		if (tmpX == 0 && tmpY > 10 && tmpY < 14)
+			tmpX = 0;
+		else
+			tmpX += 1;
+		nextPos.setXPos(tmpX);
+		break;
+
+	default: //STAY
 		break;
 	}
+}
 
-}
-bool Pacman::isMoveValid()
+//Feels like a very stupid function, maybe we can arrange it better?
+char Pacman::getDirection(char key)
 {
-	if (board[currXInd][currYind] != space || board[currXInd][currYind] != breadCrumb)
-		return false;
-	return true;
+	switch (key)
+	{
+	case UP:
+	case DOWN:
+	case STAY:
+	case RIGHT:
+	case LEFT:
+		return key;
+	default:
+		return WRONG_KEY;
+	}
 }
-void Pacman::updateBoard(char Direction)
-{
 
+void Pacman::setDirection(int direction)
+{
+	pacDirection = direction;
 }
+
+//void Pacman::setDirectionSaver(int direction)
+//{
+//	directionSaver = direction;
+//}

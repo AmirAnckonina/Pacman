@@ -1,5 +1,6 @@
-#pragma once
+/*#pragma once
 using namespace std;
+
 #include "Point.h"
 #include <iostream>
 #include <cstring>
@@ -7,15 +8,15 @@ using namespace std;
 #include <conio.h>
 #include <windows.h>
 
-class Ghosts
+class Ghost
 {
-	const char ghostsArtifact = '$';
-
+	const char ghostArtifact = '$';
+	Position currPos,
 
 public:
 
 	void moveGhost1();
-	void moveGhost2();
+	//void moveGhost2();
 
 
-};
+};*/
