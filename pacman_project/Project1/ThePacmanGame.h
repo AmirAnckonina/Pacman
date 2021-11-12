@@ -9,17 +9,25 @@ using namespace std;
 #include "Pacman.h"
 #include "Ghost.h"
 
+const int numOfGhosts = 2;
+
 class ThePacmanGame
 {
 
 private:
+	bool holdTheGhosts = true;//to insure that the ghosts will move slowly than the pacman
 	enum { ESC = 27 };
 	GameBoard game_board;
 	Pacman pacman;
-	//Ghost ghost[2];
-
-
+	Ghost ghost[numOfGhosts];
+	Position pausePos;
+	
 public:
 	void initGame();
 	void runGame();
+	void pauseGame();
+	bool checkCollision();
+	void resetAfterCollision();
+	void printFigures();
+	void printCellRestore();
 };

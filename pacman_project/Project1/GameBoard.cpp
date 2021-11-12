@@ -5,6 +5,7 @@ void GameBoard::initBoard()
 	initOuterBorders();
 	initInnerWalls();
 	initBreadcrumbs();
+	//initInvisibleTunnels();
 }
 
 void GameBoard::initOuterBorders()
@@ -44,8 +45,8 @@ void GameBoard::initInnerWalls()//char board[][COLMAX])
 		_board[rowInd][colInd] = BORDER;
 	for (rowInd = 11; rowInd <= 13; rowInd++)
 	{
-		_board[rowInd][0] = SPACE;
-		_board[rowInd][COLMAX - 1] = SPACE;
+		_board[rowInd][0] = TUNNEL;
+		_board[rowInd][COLMAX - 1] = TUNNEL;
 	}
 
 
@@ -116,7 +117,24 @@ void GameBoard::initBreadcrumbs()
 		}
 	}
 }
+/*void GameBoard::initInvisibleTunnels()
+{
+	int rowInd, colInd;
 
+	for (rowInd = 11; rowInd < 13; rowInd++)
+	{
+
+		_board[rowInd][COLMAX] = '|';
+
+	}
+	for (rowInd = 11; rowInd < 13; rowInd++)
+	{
+
+		_board[rowInd][0] = '|';
+
+	}
+
+}*/
 void GameBoard::printBoard()
 {
 	//gotoxy(1,1);
@@ -131,13 +149,12 @@ void GameBoard::printBoard()
 
 }
 
-void GameBoard:: setCellInBoard(Position& pos, char ch)
+void GameBoard::setCellInBoard(Position& pos, char ch)
 {
 	_board[pos.getYPos()][pos.getXPos()] = ch;
 }
-char GameBoard:: getCellInBoard(Position& pos) const
+char GameBoard::getCellInBoard(Position& pos) const
 {
 	return _board[pos.getYPos()][pos.getXPos()];
 }
-
 

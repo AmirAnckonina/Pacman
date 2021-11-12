@@ -5,12 +5,14 @@
 1. setPacman() -> using constructor? VVV
 2. Position - new class. will hold: "isPositionValid" function VVV
 3. nextPosition function - we should check the next position *before* moving any of the figures VVV
-4. Does directionSaver is necessary ???
 
-5. diffrences between using enum or const int ?
-6. creating moveGhost
-7. considering to put part of "movePacman" inside position function? also add there what relevant from "moveGhost"
-8. building flow of the game - collision functions , etc.
-9. handle ESC conditio
+5. diffrences between using enum or const int ? Ask Naama on Sunday
+
+8. building flow of the game - collision functions ,pauses etc VVV
+9. handle ESC condition - Chen VVV
+
+
 10. colors and graphic design ?
-
+11. create friend function (gotoxy)
+12. Function that unite all occurences of game ending.
+13. set relevant function as const
