@@ -16,3 +16,5 @@
 11. create friend function (gotoxy)
 12. Function that unite all occurences of game ending.
 13. set relevant function as const
+
+14.test!!!
