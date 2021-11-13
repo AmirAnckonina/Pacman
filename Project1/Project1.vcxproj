@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="ghost.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="GameBoard.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="ThePacmanGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Color.h" />
     <ClInclude Include="ghost.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="GameBoard.h" />

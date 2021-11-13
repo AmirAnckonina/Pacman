@@ -21,11 +21,10 @@ private:
 	int ghDirecrtion;
 
 public:
+	Position getCurrPos() { return currPos; }
 	void moveGhost(GameBoard& board);
 	void setGhost(int xCoord, int yCoord);
-	void resetGhost();
-	Position getCurrPos() { return currPos; }
+	void updatePos() { currPos = nextPos; };
 	void setRandomDirection();
 	void printGhost();
-	void updatePos() { currPos = nextPos; };
 };

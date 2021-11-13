@@ -29,14 +29,6 @@ void Pacman::movePacman(GameBoard& board)
 		if (board.getCellInBoard(currPos) != TUNNEL)
 			board.setCellInBoard(currPos, SPACE);
 
-		/*if (board.getCellInBoard(nextPos) == BREADCRUMB)
-		{
-			score++;
-			currPos.gotoxy(20, 26);
-			cout << "                                ";
-			cout << "The score is = " << score;
-		}*/
-
 		currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
 		cout << SPACE;
 	}
@@ -70,12 +62,21 @@ char Pacman::getDirection(char key) const
 {
 	switch (key)
 	{
-	case UP:
-	case DOWN:
-	case STAY:
-	case RIGHT:
-	case LEFT:
-		return key;
+	case 'w':
+	case 'W':
+		return UP;
+	case 'x':
+	case 'X':
+		return DOWN;
+	case 's':
+	case 'S':
+		return STAY;
+	case 'd':
+	case 'D':
+		return RIGHT;
+	case 'a':
+	case 'A':
+		return LEFT;
 	default:
 		return WRONG_KEY;
 	}

@@ -10,6 +10,5 @@ int main()
 	ThePacmanGame game;
 	game.initGame();
 	game.runGame();
-
 	return 0;
 }

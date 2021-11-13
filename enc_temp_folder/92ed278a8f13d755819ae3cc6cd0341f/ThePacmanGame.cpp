@@ -19,6 +19,7 @@ void ThePacmanGame::entryMenu()
 	
 	while (key != '1')
 	{
+		system("cls");
 		cout << "Welcome to Pacman game!" << endl;
 		cout << "Press (1) to Start" << endl;
 		cout << "Press (8) for Instructions" << endl;

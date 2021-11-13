@@ -15,7 +15,6 @@ private:
 public:
 	//C'tor
 	Position(int x = 1, int y = 1) { _x = x; _y = y; }
-	void gotoxy(int x = 1, int y = 1);
 
 	//Get-Set.
 	void setXPos(int x = 1) { _x = x; }
@@ -24,6 +23,8 @@ public:
 	int getYPos() const { return _y; }
 
 	//Others
+	void gotoxy(int x = 1, int y = 1);
 	bool isPositionValid(GameBoard& board, char figure);
 	void setNextPos(int direction);
+	friend void gotoXY(int x, int y);
 };
