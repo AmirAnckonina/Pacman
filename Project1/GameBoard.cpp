@@ -5,7 +5,6 @@ void GameBoard::initBoard()
 	initOuterBorders();
 	initInnerWalls();
 	initBreadcrumbs();
-	//initInvisibleTunnels();
 }
 
 void GameBoard::initOuterBorders()
@@ -112,23 +111,12 @@ void GameBoard::initBreadcrumbs()
 			if (_board[rowInd][colInd] == SPACE)
 			{
 				_board[rowInd][colInd] = BREADCRUMB;
-				numOfbreadcrumbs++;
+				totalBreadcrumbs++;
 			}
 		}
 	}
 }
-/*void GameBoard::initInvisibleTunnels()
-{
-	int rowInd, colInd;
-	for (rowInd = 11; rowInd < 13; rowInd++)
-	{
-		_board[rowInd][COLMAX] = '|';
-	}
-	for (rowInd = 11; rowInd < 13; rowInd++)
-	{
-		_board[rowInd][0] = '|';
-	}
-}*/
+
 void GameBoard::printBoard()
 {
 	//gotoxy(1,1);
@@ -147,6 +135,7 @@ void GameBoard::setCellInBoard(Position& pos, char ch)
 {
 	_board[pos.getYPos()][pos.getXPos()] = ch;
 }
+
 char GameBoard::getCellInBoard(Position& pos) const
 {
 	return _board[pos.getYPos()][pos.getXPos()];

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 using namespace std;
 
@@ -15,7 +15,7 @@ class Pacman
 public: //enum??? const??? should check about it.
 	const int WRONG_KEY = -1;
 
-private: //A little bit messy? we should arrange it again?
+private: 
 	static int livesLeft;
 	static int score;
 	Position currPos, nextPos;
