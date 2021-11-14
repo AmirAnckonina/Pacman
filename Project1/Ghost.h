@@ -12,8 +12,8 @@ using namespace std;
 
 class Ghost
 {
-public:
-	enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115 };
+	//public:
+	//	enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115 };
 
 private:
 	const char ghostFigure = '$';

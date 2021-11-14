@@ -14,7 +14,8 @@ void Ghost::moveGhost(GameBoard& board)
 			nextPos = currPos;
 	}
 
-	currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+	Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (board.getCellInBoard(currPos) == BREADCRUMB)//the ghost moved and we want the board to return to the way it was.
 		cout << BREADCRUMB;
 	else cout << SPACE;
@@ -25,7 +26,8 @@ void Ghost::setGhost(int xCoord, int yCoord)
 	currPos.setXPos(xCoord);
 	currPos.setYPos(yCoord);
 	nextPos = currPos; //Prevent a bug in the beginning which the ghost jumped to the pacman location
-	currPos.gotoxy(xCoord, yCoord);//print the pacman on board
+	//currPos.gotoxy(xCoord, yCoord);//print the pacman on board
+	Utilities::gotoxy(xCoord, yCoord);
 	cout << ghostFigure;
 }
 
@@ -33,7 +35,8 @@ void Ghost::setGhost(int xCoord, int yCoord)
 
 void Ghost::printGhost()
 {
-	currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+	Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
 	cout << ghostFigure;
 }
 

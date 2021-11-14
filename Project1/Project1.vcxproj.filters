@@ -33,7 +33,7 @@
     <ClCompile Include="Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Color.cpp">
+    <ClCompile Include="Utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClInclude Include="Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
+    <ClInclude Include="Utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

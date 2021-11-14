@@ -5,44 +5,46 @@
 void ThePacmanGame::initGame()
 {
 	entryMenu();
-	game_board.initBoard();
-	game_board.printBoard();
-	printLives();
-	pacman.setPacman(); 
-	ghost[0].setGhost(40, 9);
-	ghost[1].setGhost(40, 15);
+	if (userKey != '9')
+	{
+		game_board.initBoard();
+		game_board.printBoard();
+		printLives();
+		pacman.setPacman();
+		ghost[0].setGhost(40, 9);
+		ghost[1].setGhost(40, 15);
+	}
+	else
+		cout << endl << "Goodbye" << endl;
 }
 
 void ThePacmanGame::entryMenu()
 {
-	char key = 0;
-	
-	while (key != '1')
+	cout << "Press any key to enter the game menu..." << endl;
+	userKey = _getch();
+	userKey = 0;
+
+	while (userKey != '1' && userKey != '9')
 	{
-		cout << "Welcome to Pacman game!" << endl;
-		cout << "Press (1) to Start" << endl;
-		cout << "Press (8) for Instructions" << endl;
-		cout << "press (9) to exit" << endl;
+		if (userKey == 0)
+			printMenu();
 
-		key = _getch();
-		
-		if (key == '9')
-		{
-			cout << endl << "Goodbye" << endl;
-			exit(1);
-		}
-
-		else if (key == '8')
-		{
+		userKey = _getch();
+		if (userKey == '8')
 			printInstructions();
-		}
 
-		
-		key = _getch();
 	}
 
 	system("cls");
-	Sleep(100);
+	//Sleep(100);
+}
+
+void ThePacmanGame::printMenu()
+{
+	cout << "Welcome to Pacman game!" << endl;
+	cout << "Press (1) to Start" << endl;
+	cout << "Press (8) for Instructions" << endl;
+	cout << "press (9) to exit" << endl;
 }
 
 void ThePacmanGame::printInstructions()
@@ -50,13 +52,13 @@ void ThePacmanGame::printInstructions()
 	system("cls");
 
 	cout << "Welcome to Pacman game!" << endl;
-	cout << "Pac - MAN has 3 life in this game."  << endl;
+	cout << "Pac - MAN has 3 life in this game." << endl;
 	cout << "Pac - MAN will gain points by collecting all the breadcrumbs in the maze." << endl;
 	cout << "You should avoid any interactions with the ghosts. Otherwise, you will be eaten and lose lives." << endl;
 	cout << "To win the game you should eat ALL the breadcrumbs" << endl;
 	cout << endl;
 	cout << endl;
-	cout << "Keys instruction:" << endl;
+	cout << "Keys instruction: " << endl;
 	cout << "Move UP: press w or W " << endl;
 	cout << "Move DOWN: press x or X" << endl;
 	cout << "Move LEFT: press a or A" << endl;
@@ -66,11 +68,11 @@ void ThePacmanGame::printInstructions()
 	cout << endl;
 	cout << "Press ESC to return the main menu." << endl;
 
-	char key = 0; 
+	while (userKey != ESC)
+		userKey = _getch();
 
-	key = _getch();
-	while (key != ESC)
-		key = _getch();
+	system("cls");
+	userKey = 0;
 
 }
 
@@ -79,7 +81,7 @@ void ThePacmanGame::runGame()
 {
 	char key = 0;
 	int currDir;
-	
+
 	do
 	{
 		if (_kbhit())
@@ -103,10 +105,10 @@ void ThePacmanGame::runGame()
 
 	} while (!GameFinished());
 
-	printPos.gotoxy(0, 30);
+	Utilities::gotoxy(0, 30);
 	printResult();
-	//system("cls");
-	
+	system("cls");
+
 }
 
 void ThePacmanGame::singleGhostsSession()
@@ -149,7 +151,7 @@ void ThePacmanGame::pauseGame()
 {
 	char key;
 
-	printPos.gotoxy(20, 26);
+	Utilities::gotoxy(20, 26);
 	cout << "Game paused, press ESC again to continue";
 
 	key = _getch();
@@ -157,7 +159,7 @@ void ThePacmanGame::pauseGame()
 	while (key != ESC)// not ESC, to continue
 		key = _getch();
 
-	printPos.gotoxy(20, 26);
+	Utilities::gotoxy(20, 26);
 	cout << "                                        ";//remove everything that was written
 }
 
@@ -180,12 +182,14 @@ bool ThePacmanGame::checkCollision()
 }
 void ThePacmanGame::resetAfterCollision()
 {
+
 	printCellRestore();
 	pacman.resetPacman();
 	pacman.setLivesLeft();
 	printLives();
 	ghost[0].setGhost(40, 9);//was (40,9)
 	ghost[1].setGhost(40, 15);
+	Sleep(1000);
 }
 
 void ThePacmanGame::printCellRestore()
@@ -196,7 +200,8 @@ void ThePacmanGame::printCellRestore()
 	x = pacman.getCurrPos().getXPos();
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
-	pacman.getCurrPos().gotoxy(x, y);
+	//pacman.getCurrPos().gotoxy(x, y);
+	Utilities::gotoxy(x, y);
 	cout << cell;
 
 	for (auto& gh : ghost)
@@ -204,14 +209,15 @@ void ThePacmanGame::printCellRestore()
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
-		gh.getCurrPos().gotoxy(x, y);
+		//gh.getCurrPos().gotoxy(x, y);
+		Utilities::gotoxy(x, y);
 		cout << cell;
 	}
 
 }
 void ThePacmanGame::printLives()
 {
-	printPos.gotoxy(32, 27);
+	Utilities::gotoxy(32, 27);
 	cout << "Lives Left: " << pacman.getLivesLeft();
 }
 
@@ -219,8 +225,7 @@ bool ThePacmanGame::GameFinished()
 {
 	if (pacman.getLivesLeft() > 0 && game_board.getBreadcrumbs() != pacman.getScore())
 		return false;
-
-	else if (pacman.getLivesLeft() == 0)
+	if (pacman.getLivesLeft() == 0)
 		playerWon = false;
 	else if (game_board.getBreadcrumbs() == pacman.getScore())
 		playerWon = true;
@@ -233,7 +238,9 @@ void ThePacmanGame::printResult()
 	if (playerWon == true)
 		cout << "Congratulations, You WON!" << endl << "your score is: " << pacman.getScore() << endl;
 	else
-		cout << "GAME OVER Shiback, your final score is: " << pacman.getScore() <<  endl;
+		cout << "GAME OVER Shiback, your final score is: " << pacman.getScore() << endl;
 
 	cout << "Thanks for playing" << endl;
+
+	Sleep(2000);
 }

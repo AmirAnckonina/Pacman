@@ -7,8 +7,19 @@ using namespace std;
 
 int main()
 {
-	ThePacmanGame game;
-	game.initGame();
-	game.runGame();
+	bool activate = true;
+
+	while (activate)
+	{
+		ThePacmanGame game;
+		game.initGame();
+		if (game.getUserKey() == '9')
+			activate = false;
+		else
+			game.runGame();
+	}
+
 	return 0;
 }
+
+

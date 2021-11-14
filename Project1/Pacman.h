@@ -9,15 +9,14 @@ using namespace std;
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
+#include "Utilities.h"
 
 class Pacman
 {
-public: //enum??? const??? should check about it.
-	const int WRONG_KEY = -1;
 
-private: 
-	static int livesLeft;
-	static int score;
+private:
+	int livesLeft = 3;
+	int score = 0;
 	Position currPos, nextPos;
 	const char pacmanFigure = '@';
 	enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115 };

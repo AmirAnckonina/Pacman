@@ -3,12 +3,12 @@ using namespace std;
 
 #include "Windows.h"
 #include "GameBoard.h"
+#include "Utilities.h"
 
 class GameBoard; //Forward declaraion.
 class Position
 {
-public:
-	//enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115 };
+
 private:
 	int _x = 1, _y = 1;
 
@@ -23,8 +23,8 @@ public:
 	int getYPos() const { return _y; }
 
 	//Others
-	void gotoxy(int x = 1, int y = 1);
+
 	bool isPositionValid(GameBoard& board, char figure);
 	void setNextPos(int direction);
-	friend void gotoXY(int x, int y);
+
 };

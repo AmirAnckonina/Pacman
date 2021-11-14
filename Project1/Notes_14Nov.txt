@@ -1,0 +1,18 @@
+
+
+
+/// Notes
+
+1. How to set global function correctly?
+
+2. sending board [2D Array] by reference? & is necessary?
+
+
+//Assignments
+
+1.global functions?
+2.graphic and colors design
+3.readme.txt - mention we implemented bonus
+4.testing
+5.const signiture to relevant functions
+6.code review and documentation

@@ -1,13 +1,15 @@
 #include "Pacman.h"
 
-int Pacman::score = 0;
-int Pacman::livesLeft = 3;
+
+
 
 //Set pacman on board.
 void Pacman::setPacman() //Note if should gave by ref
 {
 	pacDirection = STAY;
-	currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+	Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
+	nextPos = currPos;
 	cout << pacmanFigure;
 }
 
@@ -29,7 +31,8 @@ void Pacman::movePacman(GameBoard& board)
 		if (board.getCellInBoard(currPos) != TUNNEL)
 			board.setCellInBoard(currPos, SPACE);
 
-		currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+		//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
+		Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
 		cout << SPACE;
 	}
 	else
@@ -44,7 +47,8 @@ void Pacman::updateScore(GameBoard& board)
 	if (pacDirection != STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 	{
 		score++;
-		currPos.gotoxy(0, 26);
+		//currPos.gotoxy(0, 26);
+		Utilities::gotoxy(0, 26);
 		cout << "                                ";
 		cout << "The score is = " << score;
 	}
@@ -52,7 +56,8 @@ void Pacman::updateScore(GameBoard& board)
 
 void Pacman::printPacman()
 {
-	currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+	Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
 	cout << pacmanFigure;
 }
 

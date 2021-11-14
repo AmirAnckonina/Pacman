@@ -45,17 +45,7 @@ void Position::setNextPos(int direction)
 	}
 }
 
-//Gotoxy implemtation.
-void Position::gotoxy(int x, int y)
-{
-	HANDLE hConsoleOutput;
-	COORD dwCursorPosition;
-	cout.flush();
-	dwCursorPosition.X = x;
-	dwCursorPosition.Y = y;
-	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
-}
+
 
 //Check Forum.
 void gotoXY(int x, int y)
