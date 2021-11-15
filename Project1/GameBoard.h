@@ -19,7 +19,8 @@ private:
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
 	gameColors bordersColor = CYAN ; 
-	gameColors bcColor = WHITE;
+	gameColors bcColor = GREEN;
+	gameColors tunColor = RED;
 
 public:
 
@@ -27,12 +28,9 @@ public:
 	void initOuterBorders();
 	void initInnerWalls();
 	void initBreadcrumbs();
-	void printBoard();
-	void setBordersColor(gameColors color) { bordersColor = color; }
-	void setbcColor(gameColors color) { bcColor = color; }
-	gameColors getBordersColor() { return bordersColor; }
-	gameColors getbcColor() { return bcColor; }
+	void printBoard(bool printColorized);
 	int getBreadcrumbs() { return totalBreadcrumbs - 1000; }
+	gameColors getbcColor() { return bcColor; }
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
 	void setCellInBoard(Position& pos, char ch);
 	char getCellInBoard(int x, int y) { return _board[y][x]; }

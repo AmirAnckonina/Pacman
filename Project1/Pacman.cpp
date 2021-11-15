@@ -56,6 +56,10 @@ void Pacman::updateScore(GameBoard& board)
 
 void Pacman::printPacman()
 {
+	//We should have a condition that checks if the pacDirecton != STAY
+	/*gotoxy(currPos.getXPos(), currPos.getYPos());
+	cout << SPACE;*/
+
 	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	cout << pacmanFigure;
