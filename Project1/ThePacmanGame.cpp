@@ -9,7 +9,7 @@ void ThePacmanGame::initGame()
 	if (userKey != '9')
 	{
 		game_board.initBoard();
-		game_board.printBoard();
+		game_board.printBoard(printColorized);
 		printLives();
 		pacman.setPacman();
 		ghost[0].setGhost(40, 9);
@@ -26,27 +26,21 @@ void ThePacmanGame::entryMenu()
 	userKey = _getch();
 	userKey = 0;
 
-	while (userKey != '1' && userKey != '2' ,userKey != '9')
+	while (userKey != '1' && userKey != '2' && userKey != '9')
 
 	{
-		/*if (userKey == 0)
-			printMenu();*/
+		if (userKey == 0)
+			printMenu();
 
 		userKey = _getch();
-		demandKey = getUserChoice();
 		if (userKey == '8')
 			printInstructions();
-		
-
+		if (userKey == '2')
+			printColorized = true;
 	}
 
 	system("cls");
 	//Sleep(100);
-}
-
-bool ThePacmanGame::getUserChoice()
-{
-
 }
 
 void ThePacmanGame::printMenu()

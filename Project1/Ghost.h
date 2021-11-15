@@ -25,11 +25,11 @@ private:
 
 public:
 	Position getCurrPos() { return currPos; }
-	void setGhostColor(gameColors color) { ghColor = color; }
+	//void setGhostColor(gameColors color) { ghColor = color; }
 	gameColors getGhostColor() { return ghColor; }
 	void moveGhost(GameBoard& board);
 	void setGhost(int xCoord, int yCoord);
 	void updatePos() { currPos = nextPos; };
 	void setRandomDirection();
-	void printGhost();
+	void printGhost(bool printColorized);
 };

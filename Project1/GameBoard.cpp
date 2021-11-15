@@ -117,14 +117,26 @@ void GameBoard::initBreadcrumbs()
 	}
 }
 
-void GameBoard::printBoard()
+void GameBoard::printBoard(bool printColorized)
 {
 	//gotoxy(1,1);
 	int rowInd, colInd;
 	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
 	{
 		for (colInd = 0; colInd < COLMAX; colInd++)
+		{
+			if (printColorized)
+			{
+				if (_board[rowInd][colInd] == BORDER)
+					setTextColor(bordersColor);
+				else if (_board[rowInd][colInd] == BREADCRUMB)
+					setTextColor(bcColor);
+				else //TUNNEL
+					setTextColor(tunColor);
+			}
 			cout << _board[rowInd][colInd];
+
+		}
 
 		cout << endl;
 	}
