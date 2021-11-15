@@ -1,5 +1,7 @@
 #pragma once
 using namespace std;
+
+#include "Utilities.h"
 #include "Position.h"
 #include <iostream>
 #include <cstring>
@@ -17,11 +19,14 @@ class Ghost
 
 private:
 	const char ghostFigure = '$';
+	gameColors ghColor = BLUE;
 	Position currPos, nextPos;
 	int ghDirecrtion;
 
 public:
 	Position getCurrPos() { return currPos; }
+	void setGhostColor(gameColors color) { ghColor = color; }
+	gameColors getGhostColor() { return ghColor; }
 	void moveGhost(GameBoard& board);
 	void setGhost(int xCoord, int yCoord);
 	void updatePos() { currPos = nextPos; };

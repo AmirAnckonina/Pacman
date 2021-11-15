@@ -1,10 +1,11 @@
 #pragma once
 using namespace std;
 
+#include "Utilities.h"
+#include "Position.h"
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
-#include "Position.h"
 
 
 class Position; //Forward declaration.
@@ -12,25 +13,25 @@ class Position; //Forward declaration.
 const int ROWMAX = 25;
 const int COLMAX = 80;
 
-
-//enum symbols { SPACE = ' ', BORDER = 219, BREADCRUMB = '*', TUNNEL = '|' };
-//enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115 };
-
 class GameBoard
 {
 private:
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
-	//Color = ?
+	gameColors bordersColor = CYAN ; 
+	gameColors bcColor = WHITE;
 
 public:
 
 	void initBoard();
 	void initOuterBorders();
 	void initInnerWalls();
-	//void initInvisibleTunnels();
 	void initBreadcrumbs();
 	void printBoard();
+	void setBordersColor(gameColors color) { bordersColor = color; }
+	void setbcColor(gameColors color) { bcColor = color; }
+	gameColors getBordersColor() { return bordersColor; }
+	gameColors getbcColor() { return bcColor; }
 	int getBreadcrumbs() { return totalBreadcrumbs - 1000; }
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
 	void setCellInBoard(Position& pos, char ch);

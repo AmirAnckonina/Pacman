@@ -17,6 +17,7 @@ private:
 	char userKey = 0;
 	bool ghostsTurn = false;//to insure that the ghosts will move slowly than the pacman
 	bool playerWon = false;
+	bool withColors = false;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
@@ -28,6 +29,7 @@ public:
 	void runGame();
 	void pauseGame();
 	void entryMenu();
+	bool getUserChoice();
 	void printMenu();
 	void printInstructions();
 	bool checkCollision();

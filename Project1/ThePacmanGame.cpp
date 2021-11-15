@@ -4,6 +4,7 @@
 //Creating creatures, initialize lives, printing rules or instructions.
 void ThePacmanGame::initGame()
 {
+	hideCursor();
 	entryMenu();
 	if (userKey != '9')
 	{
@@ -20,18 +21,22 @@ void ThePacmanGame::initGame()
 
 void ThePacmanGame::entryMenu()
 {
+	bool demandKey = true;
 	cout << "Press any key to enter the game menu..." << endl;
 	userKey = _getch();
 	userKey = 0;
 
-	while (userKey != '1' && userKey != '9')
+	while (userKey != '1' && userKey != '2' ,userKey != '9')
+
 	{
-		if (userKey == 0)
-			printMenu();
+		/*if (userKey == 0)
+			printMenu();*/
 
 		userKey = _getch();
+		demandKey = getUserChoice();
 		if (userKey == '8')
 			printInstructions();
+		
 
 	}
 
@@ -39,10 +44,16 @@ void ThePacmanGame::entryMenu()
 	//Sleep(100);
 }
 
+bool ThePacmanGame::getUserChoice()
+{
+
+}
+
 void ThePacmanGame::printMenu()
 {
 	cout << "Welcome to Pacman game!" << endl;
-	cout << "Press (1) to Start" << endl;
+	cout << "Press (1) to Start without colors" << endl;
+	cout << "Press (2) to Start with colors" << endl;
 	cout << "Press (8) for Instructions" << endl;
 	cout << "press (9) to exit" << endl;
 }
@@ -73,7 +84,6 @@ void ThePacmanGame::printInstructions()
 
 	system("cls");
 	userKey = 0;
-
 }
 
 //Running a game session, according to do-while loop condition
@@ -105,7 +115,7 @@ void ThePacmanGame::runGame()
 
 	} while (!GameFinished());
 
-	Utilities::gotoxy(0, 30);
+	gotoxy(0, 30);
 	printResult();
 	system("cls");
 
@@ -151,7 +161,7 @@ void ThePacmanGame::pauseGame()
 {
 	char key;
 
-	Utilities::gotoxy(20, 26);
+	gotoxy(20, 26);
 	cout << "Game paused, press ESC again to continue";
 
 	key = _getch();
@@ -159,7 +169,7 @@ void ThePacmanGame::pauseGame()
 	while (key != ESC)// not ESC, to continue
 		key = _getch();
 
-	Utilities::gotoxy(20, 26);
+	gotoxy(20, 26);
 	cout << "                                        ";//remove everything that was written
 }
 
@@ -201,7 +211,7 @@ void ThePacmanGame::printCellRestore()
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
 	//pacman.getCurrPos().gotoxy(x, y);
-	Utilities::gotoxy(x, y);
+	gotoxy(x, y);
 	cout << cell;
 
 	for (auto& gh : ghost)
@@ -210,14 +220,14 @@ void ThePacmanGame::printCellRestore()
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
 		//gh.getCurrPos().gotoxy(x, y);
-		Utilities::gotoxy(x, y);
+		gotoxy(x, y);
 		cout << cell;
 	}
 
 }
 void ThePacmanGame::printLives()
 {
-	Utilities::gotoxy(32, 27);
+	gotoxy(32, 27);
 	cout << "Lives Left: " << pacman.getLivesLeft();
 }
 

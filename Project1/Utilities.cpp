@@ -1,12 +1,6 @@
 #include "Utilities.h"
 
-/*void Color::setTextColor(int c)
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
-}*/
-//Gotoxy implemtation.
-
-void Utilities::gotoxy(int x, int y)
+void gotoxy(int x, int y)
 {
 	HANDLE hConsoleOutput;
 	COORD dwCursorPosition;
@@ -15,4 +9,18 @@ void Utilities::gotoxy(int x, int y)
 	dwCursorPosition.Y = y;
 	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
+}
+
+void setTextColor(gameColors c)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)c);
+}
+
+void hideCursor()
+{
+	HANDLE myconsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO CURSOR;
+	CURSOR.dwSize = 1;
+	CURSOR.bVisible = FALSE;
+	SetConsoleCursorInfo(myconsole, &CURSOR);//second argument need pointer
 }

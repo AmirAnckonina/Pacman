@@ -2,25 +2,25 @@
 
 using namespace std;
 
+#include "Utilities.h"
 #include "Position.h"
 #include "GameBoard.h"
 #include <iostream>
-#include <cstring>
 #include <stdlib.h>
+#include <cstring>
 #include <conio.h>
 #include <windows.h>
-#include "Utilities.h"
 
 class Pacman
 {
 
 private:
+	const char pacmanFigure = '@';
+	gameColors pacColor = YELLOW;
+	Position currPos, nextPos;
+	int pacDirection = 115; 
 	int livesLeft = 3;
 	int score = 0;
-	Position currPos, nextPos;
-	const char pacmanFigure = '@';
-	enum directions { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115 };
-	int pacDirection = 115; //Direction Saver might not necessary?
 
 public:
 	//Get-Set
@@ -30,7 +30,8 @@ public:
 	int getScore() const { return score; }
 	void setLivesLeft() { livesLeft--; }
 	int getLivesLeft() { return livesLeft; }
-
+	void setPacColor(gameColors color) { pacColor = color; }
+	gameColors getPacColor() { return pacColor; }
 	//Others
 	void setPacman(); //Not good - currPos.setXPos(1); currPos.setYPos(1); }
 	void resetPacman();

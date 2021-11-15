@@ -8,7 +8,7 @@ void Pacman::setPacman() //Note if should gave by ref
 {
 	pacDirection = STAY;
 	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
-	Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
+	gotoxy(currPos.getXPos(), currPos.getYPos());
 	nextPos = currPos;
 	cout << pacmanFigure;
 }
@@ -32,7 +32,7 @@ void Pacman::movePacman(GameBoard& board)
 			board.setCellInBoard(currPos, SPACE);
 
 		//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
-		Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
+		gotoxy(currPos.getXPos(), currPos.getYPos());
 		cout << SPACE;
 	}
 	else
@@ -48,7 +48,7 @@ void Pacman::updateScore(GameBoard& board)
 	{
 		score++;
 		//currPos.gotoxy(0, 26);
-		Utilities::gotoxy(0, 26);
+		gotoxy(0, 26);
 		cout << "                                ";
 		cout << "The score is = " << score;
 	}
@@ -57,7 +57,7 @@ void Pacman::updateScore(GameBoard& board)
 void Pacman::printPacman()
 {
 	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
-	Utilities::gotoxy(currPos.getXPos(), currPos.getYPos());
+	gotoxy(currPos.getXPos(), currPos.getYPos());
 	cout << pacmanFigure;
 }
 
