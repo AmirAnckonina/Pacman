@@ -58,9 +58,9 @@ void Pacman::printPacman()
 	//	gotoxy(currPos.getXPos(), currPos.getYPos());
 	//	cout << SPACE;
 	//}
-	
+
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (pacColor != WHITE) { setTextColor(pacColor); }
+	if (pacColor != gameColors::WHITE) { setTextColor(pacColor); }
 	cout << pacmanFigure;
 }
 
