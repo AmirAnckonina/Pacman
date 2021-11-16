@@ -19,15 +19,16 @@ private:
 	const char pacmanFigure = '@';
 	gameColors pacColor = gameColors::WHITE;
 	Position currPos, nextPos;
-	int pacmanDirection = 115;
+
+	Direction pacmanDirection = Direction::STAY; 
 	int livesLeft = 3;
 	int score = 0;
 
 public:
 	//Get-Set
 	Position getCurrPos() { return currPos; }
-	char getDirection(char key) const;
-	void setDirection(int direction);
+	Direction getDirection(char key) const;
+	void setDirection(Direction dir);
 	int getScore() const { return score; }
 	void setLivesLeft() { livesLeft--; }
 	int getLivesLeft() { return livesLeft; }

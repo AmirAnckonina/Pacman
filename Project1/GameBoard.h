@@ -20,6 +20,7 @@ class GameBoard
 private:
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
+
 	gameColors borderColor = gameColors::WHITE;
 	gameColors breadcrumbColor = gameColors::WHITE;
 	gameColors tunnelColor = gameColors::WHITE;
