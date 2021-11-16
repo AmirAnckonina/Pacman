@@ -24,3 +24,8 @@ void hideCursor()
 	CURSOR.bVisible = FALSE;
 	SetConsoleCursorInfo(myconsole, &CURSOR);//second argument need pointer
 }
+
+void resetColors()
+{
+	setTextColor(WHITE);
+}
