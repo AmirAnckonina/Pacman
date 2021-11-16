@@ -19,9 +19,9 @@ class Ghost
 
 private:
 	const char ghostFigure = '$';
-	gameColors ghostColor = WHITE;
+	gameColors ghostColor = gameColors::WHITE;
 	Position currPos, nextPos;
-	int ghDirecrtion;
+	Direction ghDirecrtion;
 
 public:
 	void setGhostColor(gameColors color) { ghostColor = color; }

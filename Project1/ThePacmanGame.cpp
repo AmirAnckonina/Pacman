@@ -6,7 +6,7 @@ void ThePacmanGame::initGame()
 {
 	hideCursor();
 	entryMenu();
-	if (userKey != '9')
+	if (userKey != Keys::EXIT)
 	{
 		game_board.initBoard();
 		game_board.printBoard();
@@ -21,21 +21,20 @@ void ThePacmanGame::initGame()
 
 void ThePacmanGame::entryMenu()
 {
-	bool demandKey = true;
 	cout << "Press any key to enter the game menu..." << endl;
 	userKey = _getch();
 	userKey = 0;
 
-	while (userKey != '1' && userKey != '2' && userKey != '9')
+	while (userKey != Keys::START && userKey != Keys::STARTCOLORIZED && userKey != Keys::EXIT)
 
 	{
 		if (userKey == 0)
 			printMenu();
 
 		userKey = _getch();
-		if (userKey == '8')
+		if (userKey == Keys::INSTRUCTIONS)
 			printInstructions();
-		if (userKey == '2')
+		if (userKey == Keys::STARTCOLORIZED)
 		{
 			gameColorized = true;
 			setGameColors();
@@ -86,7 +85,7 @@ void ThePacmanGame::printInstructions()
 	cout << endl;
 	cout << "Press ESC to return the main menu." << endl;
 
-	while (userKey != ESC)
+	while (userKey != Keys::ESC)
 		userKey = _getch();
 
 	system("cls");
@@ -97,7 +96,7 @@ void ThePacmanGame::printInstructions()
 void ThePacmanGame::runGame()
 {
 	char key = 0;
-	int currDir;
+	Direction currDir;
 
 	do
 	{
@@ -105,7 +104,7 @@ void ThePacmanGame::runGame()
 		{
 			key = _getch();
 			currDir = pacman.getDirection(key); //A kind of key validation.
-			if (currDir != -1)
+			if (currDir != Direction::WRONG_KEY)
 				pacman.setDirection(currDir);
 		}
 		singleGhostsSession();
@@ -115,7 +114,7 @@ void ThePacmanGame::runGame()
 		if (key == ESC)
 		{
 			pauseGame();
-			key = currDir; //So pacman will continue as he was before pausing.
+			key = 0; //So pacman will continue as he was before pausing.
 		}
 
 		Sleep(75);

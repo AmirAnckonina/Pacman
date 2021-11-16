@@ -3,7 +3,7 @@
 //Set pacman on board.
 void Pacman::setPacman() //Note if should gave by ref
 {
-	pacmanDirection = STAY;
+	pacmanDirection = userKeys::STAY;
 	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	nextPos = currPos;
@@ -23,7 +23,7 @@ void Pacman::movePacman(GameBoard& board)
 	//Setting new potential position to pacman
 	nextPos.setNextPos(pacmanDirection);
 	//Stage 1 - validation check (to the cell)
-	if (pacmanDirection != STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
+	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
 	{
 		if (board.getCellInBoard(currPos) != TUNNEL)
 			board.setCellInBoard(currPos, SPACE);
@@ -40,7 +40,7 @@ void Pacman::movePacman(GameBoard& board)
 
 void Pacman::updateScore(GameBoard& board)
 {
-	if (pacmanDirection != gameKeys::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
+	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 	{
 		score++;
 		//currPos.gotoxy(0, 26);
@@ -60,37 +60,37 @@ void Pacman::printPacman()
 	//}
 	
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (pacColor != WHITE) { setTextColor(pacColor); }
+	if (pacColor != gameColors::WHITE) { setTextColor(pacColor); }
 	cout << pacmanFigure;
 }
 
 
 //Feels like a very stupid function, maybe we can arrange it better?
-char Pacman::getDirection(char key) const
+Direction Pacman::getDirection(char key) const
 {
 	switch (key)
 	{
 	case 'w':
 	case 'W':
-		return UP;
+		return Direction::UP;
 	case 'x':
 	case 'X':
-		return DOWN;
+		return Direction::DOWN;
 	case 's':
 	case 'S':
-		return STAY;
+		return Direction::STAY;
 	case 'd':
 	case 'D':
-		return RIGHT;
+		return Direction::RIGHT;
 	case 'a':
 	case 'A':
-		return LEFT;
+		return Direction::LEFT;
 	default:
-		return WRONG_KEY;
+		return Direction::WRONG_KEY;
 	}
 }
 
-void Pacman::setDirection(int direction)
+void Pacman::setDirection(Direction dir)
 {
-	pacmanDirection = direction;
+	pacmanDirection = dir;
 }
