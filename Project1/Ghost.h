@@ -1,5 +1,5 @@
 #pragma once
-using namespace std;
+//using namespace std;
 
 #include "Utilities.h"
 #include "Position.h"
@@ -11,7 +11,8 @@ using namespace std;
 #include "GameBoard.h"
 #include <conio.h>
 #include <windows.h>
-
+using std::cout;
+using std::endl;
 class Ghost
 {
 	//public:

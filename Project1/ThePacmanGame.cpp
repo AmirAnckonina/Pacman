@@ -47,12 +47,12 @@ void ThePacmanGame::entryMenu()
 
 void ThePacmanGame::setGameColors()
 {
-	game_board.setBorderColor(LIGHTCYAN);
-	game_board.setBreadcrumbColor(GREEN);
-	game_board.settunnelColor(RED);
-	pacman.setPacColor(YELLOW);
+	game_board.setBorderColor(gameColors::LIGHTCYAN);
+	game_board.setBreadcrumbColor(gameColors::GREEN);
+	game_board.settunnelColor(gameColors::RED);
+	pacman.setPacColor(gameColors::YELLOW);
 	for (auto& gh : ghost)
-		gh.setGhostColor(BLUE);
+		gh.setGhostColor(gameColors::BLUE);
 }
 
 void ThePacmanGame::printMenu()

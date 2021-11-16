@@ -125,7 +125,7 @@ void GameBoard::printBoard()
 	{
 		for (colInd = 0; colInd < COLMAX; colInd++)
 		{
-			if (borderColor != WHITE || breadcrumbColor != WHITE || tunnelColor != WHITE)
+			if (borderColor != gameColors::WHITE || breadcrumbColor != gameColors::WHITE || tunnelColor != gameColors::WHITE)
 			{
 				if (_board[rowInd][colInd] == BORDER)
 					setTextColor(borderColor);

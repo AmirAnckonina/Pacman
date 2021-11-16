@@ -1,10 +1,11 @@
 #pragma once
-using namespace std;
+//using namespace std;
 
 #include "Windows.h"
 #include "GameBoard.h"
 #include "Utilities.h"
-
+using std::cout;
+using std::endl;
 class GameBoard; //Forward declaraion.
 class Position
 {

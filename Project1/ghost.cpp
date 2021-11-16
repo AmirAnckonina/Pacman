@@ -39,8 +39,8 @@ void Ghost::setGhost(int xCoord, int yCoord)
 void Ghost::printGhost()
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	
-	if (ghostColor != WHITE) { setTextColor(ghostColor); }
+
+	if (ghostColor != gameColors::WHITE) { setTextColor(ghostColor); }
 	cout << ghostFigure;
 }
 

@@ -1,12 +1,14 @@
 #pragma once
-using namespace std;
+//using ostream::;
+
 
 #include "Utilities.h"
 #include "Position.h"
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
-
+using std::cout;
+using std::endl;
 
 class Position; //Forward declaration.
 
@@ -18,7 +20,8 @@ class GameBoard
 private:
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
-	gameColors borderColor = gameColors::WHITE; 
+
+	gameColors borderColor = gameColors::WHITE;
 	gameColors breadcrumbColor = gameColors::WHITE;
 	gameColors tunnelColor = gameColors::WHITE;
 
