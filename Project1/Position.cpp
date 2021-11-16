@@ -14,26 +14,26 @@ bool Position::isPositionValid(GameBoard& board, char figure)
 	return true;
 }
 
-void Position::setNextPos(int direction)
+void Position::setNextPos(Direction dir)
 {
-	switch (direction)
+	switch (dir)
 	{
-	case UP:
+	case Direction::UP :
 		_y -= 1;
 		break;
 
-	case DOWN:
+	case Direction::DOWN :
 		_y += 1;
 		break;
 
-	case LEFT:
+	case Direction::LEFT :
 		if (_x == 1 && _y > 10 && _y < 14)
 			_x = 78;
 		else
 			_x -= 1;
 		break;
 
-	case RIGHT:
+	case Direction::RIGHT :
 		if (_x == 78 && _y > 10 && _y < 14)
 			_x = 1;
 		else

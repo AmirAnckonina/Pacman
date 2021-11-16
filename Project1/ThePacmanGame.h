@@ -15,7 +15,7 @@ const int numOfGhosts = 2;
 class ThePacmanGame
 {
 private:
-	char userKey = 0;
+	char userKey;
 	bool ghostsTurn = false;//to insure that the ghosts will move slowly than the pacman
 	bool playerWon = false;
 	bool gameColorized = false;

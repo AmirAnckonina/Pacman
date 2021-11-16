@@ -22,7 +22,7 @@ private:
 	const char ghostFigure = '$';
 	gameColors ghostColor = gameColors::WHITE;
 	Position currPos, nextPos;
-	int ghDirecrtion;
+	Direction ghDirecrtion;
 
 public:
 	void setGhostColor(gameColors color) { ghostColor = color; }
