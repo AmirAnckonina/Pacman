@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-using namespace std;
+//using namespace std;
 
 #include "Utilities.h"
 #include "Position.h"
@@ -10,15 +10,16 @@ using namespace std;
 #include <cstring>
 #include <conio.h>
 #include <windows.h>
-
+using std::cout;
+using std::endl;
 class Pacman
 {
 
 private:
 	const char pacmanFigure = '@';
-	gameColors pacColor = WHITE;
+	gameColors pacColor = gameColors::WHITE;
 	Position currPos, nextPos;
-	int pacmanDirection = 115; 
+	int pacmanDirection = 115;
 	int livesLeft = 3;
 	int score = 0;
 
