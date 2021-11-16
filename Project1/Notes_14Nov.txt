@@ -3,15 +3,14 @@
 
 /// Notes
 
-1. How to set global function correctly?
-
-2. sending board [2D Array] by reference? & is necessary?
-
+1. Ask Wissam about creating new object in every loop itertion.
+Move constructor?
+2. Global consts
 
 //Assignments
 
-1.global functions?
-2.graphic and colors design
+
+2.graphic and colors design, printing
 3.readme.txt - mention we implemented bonus
 4.testing
 5.const signiture to relevant functions
