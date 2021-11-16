@@ -51,11 +51,11 @@ void Ghost::setRandomDirection()
 	switch (dirInd)
 	{
 	case 1://up
-		ghDirecrtion = UP;
+		ghDirecrtion = gameKeys::UP;
 		break;
 
 	case 2://down
-		ghDirecrtion = DOWN;
+		ghDirecrtion = ganeKeys::DOWN;
 		break;
 
 	case 3://left

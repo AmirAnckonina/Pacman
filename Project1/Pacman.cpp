@@ -40,7 +40,7 @@ void Pacman::movePacman(GameBoard& board)
 
 void Pacman::updateScore(GameBoard& board)
 {
-	if (pacmanDirection != STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
+	if (pacmanDirection != gameKeys::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 	{
 		score++;
 		//currPos.gotoxy(0, 26);
