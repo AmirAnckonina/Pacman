@@ -3,10 +3,11 @@
 //Set pacman on board.
 void Pacman::setPacman() //Note if should gave by ref
 {
-	pacmanDirection = userKeys::STAY;
+	pacmanDirection = Direction::STAY;
 	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	nextPos = currPos;
+	if (pacColor != gameColors::WHITE) { setTextColor(getPacColor()); }
 	cout << pacmanFigure;
 }
 
@@ -34,7 +35,7 @@ void Pacman::movePacman(GameBoard& board)
 	else
 	{
 		nextPos = currPos;
-		pacmanDirection = STAY;
+		pacmanDirection = Direction::STAY;
 	}
 }
 

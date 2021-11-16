@@ -6,7 +6,7 @@ void ThePacmanGame::initGame()
 {
 	hideCursor();
 	entryMenu();
-	if (userKey != Keys::EXIT)
+	if (userKey != EXIT)
 	{
 		game_board.initBoard();
 		game_board.printBoard();
@@ -25,16 +25,16 @@ void ThePacmanGame::entryMenu()
 	userKey = _getch();
 	userKey = 0;
 
-	while (userKey != Keys::START && userKey != Keys::STARTCOLORIZED && userKey != Keys::EXIT)
+	while (userKey != START && userKey != STARTCOLORIZED && userKey != EXIT)
 
 	{
 		if (userKey == 0)
 			printMenu();
 
 		userKey = _getch();
-		if (userKey == Keys::INSTRUCTIONS)
+		if (userKey == INSTRUCTIONS)
 			printInstructions();
-		if (userKey == Keys::STARTCOLORIZED)
+		if (userKey == STARTCOLORIZED)
 		{
 			gameColorized = true;
 			setGameColors();
@@ -85,7 +85,7 @@ void ThePacmanGame::printInstructions()
 	cout << endl;
 	cout << "Press ESC to return the main menu." << endl;
 
-	while (userKey != Keys::ESC)
+	while (userKey != ESC)
 		userKey = _getch();
 
 	system("cls");
@@ -179,7 +179,7 @@ void ThePacmanGame::pauseGame()
 {
 	char key;
 
-	gotoxy(20, 26);
+	gotoxy(20, 25);
 	cout << "Game paused, press ESC again to continue";
 
 	key = _getch();
@@ -187,7 +187,7 @@ void ThePacmanGame::pauseGame()
 	while (key != ESC)// not ESC, to continue
 		key = _getch();
 
-	gotoxy(20, 26);
+	gotoxy(20, 25);
 	cout << "                                        ";//remove everything that was written
 }
 
@@ -228,7 +228,7 @@ void ThePacmanGame::printCellRestore()
 	x = pacman.getCurrPos().getXPos();
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
-	//pacman.getCurrPos().gotoxy(x, y);
+	if (cell == BREADCRUMB && game_board.getBreadcrumbColor() != gameColors::WHITE) { setTextColor(game_board.getBreadcrumbColor()); }
 	gotoxy(x, y);
 	cout << cell;
 
