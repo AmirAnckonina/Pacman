@@ -27,5 +27,5 @@ void hideCursor()
 
 void resetColors()
 {
-	setTextColor(WHITE);
+	setTextColor(gameColors::WHITE);
 }

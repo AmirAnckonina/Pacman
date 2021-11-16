@@ -1,5 +1,5 @@
 #pragma once
-using namespace std;
+//using namespace std;
 
 
 #include "Utilities.h"
@@ -8,7 +8,8 @@ using namespace std;
 #include "Ghost.h"
 #include "Position.h"
 
-
+using std::cout;
+using std::endl;
 const int numOfGhosts = 2;
 
 class ThePacmanGame
