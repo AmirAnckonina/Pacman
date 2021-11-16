@@ -1,12 +1,9 @@
 #include "Pacman.h"
 
-
-
-
 //Set pacman on board.
 void Pacman::setPacman() //Note if should gave by ref
 {
-	pacDirection = STAY;
+	pacmanDirection = STAY;
 	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	nextPos = currPos;
@@ -24,27 +21,26 @@ void Pacman::resetPacman()
 void Pacman::movePacman(GameBoard& board)
 {
 	//Setting new potential position to pacman
-	nextPos.setNextPos(pacDirection);
+	nextPos.setNextPos(pacmanDirection);
 	//Stage 1 - validation check (to the cell)
-	if (pacDirection != STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
+	if (pacmanDirection != STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
 	{
 		if (board.getCellInBoard(currPos) != TUNNEL)
 			board.setCellInBoard(currPos, SPACE);
 
-		//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());
 		gotoxy(currPos.getXPos(), currPos.getYPos());
 		cout << SPACE;
 	}
 	else
 	{
 		nextPos = currPos;
-		pacDirection = STAY;
+		pacmanDirection = STAY;
 	}
 }
 
 void Pacman::updateScore(GameBoard& board)
 {
-	if (pacDirection != STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
+	if (pacmanDirection != STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 	{
 		score++;
 		//currPos.gotoxy(0, 26);
@@ -56,12 +52,15 @@ void Pacman::updateScore(GameBoard& board)
 
 void Pacman::printPacman()
 {
-	//We should have a condition that checks if the pacDirecton != STAY
-	/*gotoxy(currPos.getXPos(), currPos.getYPos());
-	cout << SPACE;*/
-
-	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
+	////We should have a condition that checks if the pacDirecton != STAY
+	//if (pacmanDirection != STAY)
+	//{
+	//	gotoxy(currPos.getXPos(), currPos.getYPos());
+	//	cout << SPACE;
+	//}
+	
 	gotoxy(currPos.getXPos(), currPos.getYPos());
+	if (pacColor != WHITE) { setTextColor(pacColor); }
 	cout << pacmanFigure;
 }
 
@@ -93,5 +92,5 @@ char Pacman::getDirection(char key) const
 
 void Pacman::setDirection(int direction)
 {
-	pacDirection = direction;
+	pacmanDirection = direction;
 }

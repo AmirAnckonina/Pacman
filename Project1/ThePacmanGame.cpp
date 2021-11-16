@@ -9,7 +9,7 @@ void ThePacmanGame::initGame()
 	if (userKey != '9')
 	{
 		game_board.initBoard();
-		game_board.printBoard(printColorized);
+		game_board.printBoard();
 		printLives();
 		pacman.setPacman();
 		ghost[0].setGhost(40, 9);
@@ -36,11 +36,24 @@ void ThePacmanGame::entryMenu()
 		if (userKey == '8')
 			printInstructions();
 		if (userKey == '2')
-			printColorized = true;
+		{
+			gameColorized = true;
+			setGameColors();
+		}
 	}
 
 	system("cls");
 	//Sleep(100);
+}
+
+void ThePacmanGame::setGameColors()
+{
+	game_board.setBorderColor(LIGHTCYAN);
+	game_board.setBreadcrumbColor(GREEN);
+	game_board.settunnelColor(RED);
+	pacman.setPacColor(YELLOW);
+	for (auto& gh : ghost)
+		gh.setGhostColor(BLUE);
 }
 
 void ThePacmanGame::printMenu()
@@ -97,7 +110,7 @@ void ThePacmanGame::runGame()
 		}
 		singleGhostsSession();
 		singlePacmanSession();
-		printFigures();
+		//printFigures();
 
 		if (key == ESC)
 		{
@@ -109,6 +122,7 @@ void ThePacmanGame::runGame()
 
 	} while (!GameFinished());
 
+	if (gameColorized) { resetColors(); }
 	gotoxy(0, 30);
 	printResult();
 	system("cls");
@@ -127,10 +141,13 @@ void ThePacmanGame::singleGhostsSession()
 
 		if (checkCollision())
 			resetAfterCollision();
+
 		ghostsTurn = false;//they won't move in the next step/
 	}
 	else //do not move the ghosts
 		ghostsTurn = true;
+
+	printGhosts();
 }
 
 void ThePacmanGame::singlePacmanSession()
@@ -142,13 +159,21 @@ void ThePacmanGame::singlePacmanSession()
 		pacman.updateScore(game_board);
 	else
 		resetAfterCollision();
+
+	pacman.printPacman();
+}
+
+void ThePacmanGame::printGhosts()
+{
+	for (auto& gh : ghost)
+		gh.printGhost();
 }
 
 void ThePacmanGame::printFigures()
 {
-	pacman.printPacman();
-	for (auto& gh : ghost)
-		gh.printGhost();
+	//pacman.printPacman();
+	/*for (auto& gh : ghost)
+		gh.printGhost();*/
 }
 
 void ThePacmanGame::pauseGame()

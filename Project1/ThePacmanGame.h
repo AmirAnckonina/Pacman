@@ -17,7 +17,7 @@ private:
 	char userKey = 0;
 	bool ghostsTurn = false;//to insure that the ghosts will move slowly than the pacman
 	bool playerWon = false;
-	bool printColorized = false;
+	bool gameColorized = false;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
@@ -29,11 +29,13 @@ public:
 	void runGame();
 	void pauseGame();
 	void entryMenu();
+	void setGameColors();
 	void printMenu();
 	void printInstructions();
 	bool checkCollision();
 	void resetAfterCollision();
 	void printFigures();
+	void printGhosts();
 	void printCellRestore();
 	void printLives(); //new func chen build
 	bool GameFinished();

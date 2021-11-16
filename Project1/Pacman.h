@@ -16,9 +16,9 @@ class Pacman
 
 private:
 	const char pacmanFigure = '@';
-	gameColors pacColor = YELLOW;
+	gameColors pacColor = WHITE;
 	Position currPos, nextPos;
-	int pacDirection = 115; 
+	int pacmanDirection = 115; 
 	int livesLeft = 3;
 	int score = 0;
 
@@ -30,8 +30,10 @@ public:
 	int getScore() const { return score; }
 	void setLivesLeft() { livesLeft--; }
 	int getLivesLeft() { return livesLeft; }
+
 	void setPacColor(gameColors color) { pacColor = color; }
 	gameColors getPacColor() { return pacColor; }
+
 	//Others
 	void setPacman(); //Not good - currPos.setXPos(1); currPos.setYPos(1); }
 	void resetPacman();

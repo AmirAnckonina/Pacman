@@ -18,7 +18,7 @@ void Ghost::moveGhost(GameBoard& board)
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (board.getCellInBoard(currPos) == BREADCRUMB)//the ghost moved and we want the board to return to the way it was.
 	{
-		setTextColor(board.getbcColor());
+		setTextColor(board.getBreadcrumbColor());
 		cout << BREADCRUMB;
 	}
 	else cout << SPACE;
@@ -36,12 +36,11 @@ void Ghost::setGhost(int xCoord, int yCoord)
 
 
 
-void Ghost::printGhost(bool printColorized)
+void Ghost::printGhost()
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (printColorized)
-		setTextColor(getGhostColor());
-
+	
+	if (ghostColor != WHITE) { setTextColor(ghostColor); }
 	cout << ghostFigure;
 }
 

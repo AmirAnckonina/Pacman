@@ -19,17 +19,18 @@ class Ghost
 
 private:
 	const char ghostFigure = '$';
-	gameColors ghColor = BLUE;
+	gameColors ghostColor = WHITE;
 	Position currPos, nextPos;
 	int ghDirecrtion;
 
 public:
+	void setGhostColor(gameColors color) { ghostColor = color; }
+	gameColors getGhostColor() { return ghostColor; }
+
 	Position getCurrPos() { return currPos; }
-	//void setGhostColor(gameColors color) { ghColor = color; }
-	gameColors getGhostColor() { return ghColor; }
 	void moveGhost(GameBoard& board);
 	void setGhost(int xCoord, int yCoord);
 	void updatePos() { currPos = nextPos; };
 	void setRandomDirection();
-	void printGhost(bool printColorized);
+	void printGhost();
 };

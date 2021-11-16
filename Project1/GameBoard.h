@@ -18,9 +18,9 @@ class GameBoard
 private:
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
-	gameColors bordersColor = CYAN ; 
-	gameColors bcColor = GREEN;
-	gameColors tunColor = RED;
+	gameColors borderColor = WHITE; 
+	gameColors breadcrumbColor = WHITE;
+	gameColors tunnelColor = WHITE;
 
 public:
 
@@ -28,9 +28,16 @@ public:
 	void initOuterBorders();
 	void initInnerWalls();
 	void initBreadcrumbs();
-	void printBoard(bool printColorized);
+	void printBoard();
+
+	void setBorderColor(gameColors color) { borderColor = color; }
+	void setBreadcrumbColor(gameColors color) { breadcrumbColor = color; }
+	void settunnelColor(gameColors color) { tunnelColor = color; }
+	gameColors getBorderColor() { return borderColor; }
+	gameColors getBreadcrumbColor() { return breadcrumbColor; }
+	gameColors getTunnelColor() { return tunnelColor; }
+
 	int getBreadcrumbs() { return totalBreadcrumbs - 1000; }
-	gameColors getbcColor() { return bcColor; }
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
 	void setCellInBoard(Position& pos, char ch);
 	char getCellInBoard(int x, int y) { return _board[y][x]; }
