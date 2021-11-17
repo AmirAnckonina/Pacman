@@ -33,7 +33,7 @@ public:
 	void initBreadcrumbs();
 	void printBoard();
 
-	void setBorderColor(gameColors color) { borderColor = color; }
+	void setBorderColor(gameColors color = gameColors::WHITE) { borderColor = color; }
 	void setBreadcrumbColor(gameColors color) { breadcrumbColor = color; }
 	void settunnelColor(gameColors color) { tunnelColor = color; }
 	gameColors getBorderColor() { return borderColor; }

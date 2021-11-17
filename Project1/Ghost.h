@@ -30,7 +30,8 @@ public:
 
 	Position getCurrPos() { return currPos; }
 	void moveGhost(GameBoard& board);
-	void setGhost(int xCoord, int yCoord);
+	void initGhost(int xCoord, int yCoord);
+	void setGhostLocation(int xCoord, int yCoord);
 	void updatePos() { currPos = nextPos; };
 	void setRandomDirection();
 	void printGhost();

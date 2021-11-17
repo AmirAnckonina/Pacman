@@ -1,21 +1,19 @@
 #include "Pacman.h"
 
 //Set pacman on board.
-void Pacman::setPacman() //Note if should gave by ref
+void Pacman::initPacman() //Note if should gave by ref
 {
-	pacmanDirection = Direction::STAY;
-	//currPos.gotoxy(currPos.getXPos(), currPos.getYPos());//print the pacman on board
-	gotoxy(currPos.getXPos(), currPos.getYPos());
-	nextPos = currPos;
-	if (pacColor != gameColors::WHITE) { setTextColor(getPacColor()); }
-	cout << pacmanFigure;
+	score = 0;
+	livesLeft = 3;
+	pacColor = gameColors::WHITE;
+	setPacmanLocation();
 }
 
-void Pacman::resetPacman()
+void Pacman::setPacmanLocation()
 {
 	currPos.setXPos();
 	currPos.setYPos();
-	setPacman();
+	nextPos = currPos;
 }
 
 //Move pacman - important. also updating currPos according to inner condition.
@@ -53,13 +51,6 @@ void Pacman::updateScore(GameBoard& board)
 
 void Pacman::printPacman()
 {
-	////We should have a condition that checks if the pacDirecton != STAY
-	//if (pacmanDirection != STAY)
-	//{
-	//	gotoxy(currPos.getXPos(), currPos.getYPos());
-	//	cout << SPACE;
-	//}
-
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (pacColor != gameColors::WHITE) { setTextColor(pacColor); }
 	cout << pacmanFigure;

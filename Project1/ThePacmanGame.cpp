@@ -5,18 +5,14 @@
 void ThePacmanGame::initGame()
 {
 	hideCursor();
-	entryMenu();
-	if (userKey != EXIT)
-	{
-		game_board.initBoard();
-		game_board.printBoard();
-		printLives();
-		pacman.setPacman();
-		ghost[0].setGhost(40, 9);
-		ghost[1].setGhost(40, 15);
-	}
-	else
-		cout << endl << "Goodbye" << endl;
+	game_board.initBoard();
+	pacman.initPacman();
+	ghost[0].initGhost(40, 9);
+	ghost[1].initGhost(40, 15);
+	if (gameColorized) { setGameColors(); }
+	game_board.printBoard();
+	pacman.printPacman();
+	printLives();
 }
 
 void ThePacmanGame::entryMenu()
@@ -34,11 +30,8 @@ void ThePacmanGame::entryMenu()
 		userKey = _getch();
 		if (userKey == INSTRUCTIONS)
 			printInstructions();
-		if (userKey == STARTCOLORIZED)
-		{
-			gameColorized = true;
-			setGameColors();
-		}
+		if (userKey == STARTCOLORIZED) gameColorized = true;
+		else gameColorized = false;
 	}
 
 	system("cls");
@@ -146,7 +139,8 @@ void ThePacmanGame::singleGhostsSession()
 	else //do not move the ghosts
 		ghostsTurn = true;
 
-	printGhosts();
+	for (auto& gh : ghost)
+		gh.printGhost();
 }
 
 void ThePacmanGame::singlePacmanSession()
@@ -162,18 +156,6 @@ void ThePacmanGame::singlePacmanSession()
 	pacman.printPacman();
 }
 
-void ThePacmanGame::printGhosts()
-{
-	for (auto& gh : ghost)
-		gh.printGhost();
-}
-
-void ThePacmanGame::printFigures()
-{
-	//pacman.printPacman();
-	/*for (auto& gh : ghost)
-		gh.printGhost();*/
-}
 
 void ThePacmanGame::pauseGame()
 {
@@ -210,13 +192,15 @@ bool ThePacmanGame::checkCollision()
 }
 void ThePacmanGame::resetAfterCollision()
 {
-
 	printCellRestore();
-	pacman.resetPacman();
-	pacman.setLivesLeft();
+	pacman.setPacmanLocation();
+	pacman.updateLivesLeft();
+	ghost[0].setGhostLocation(40, 9);//was (40,9)
+	ghost[1].setGhostLocation(40, 15);
 	printLives();
-	ghost[0].setGhost(40, 9);//was (40,9)
-	ghost[1].setGhost(40, 15);
+	pacman.printPacman();
+	for (auto& gh : ghost)
+		gh.printGhost();
 	Sleep(1000);
 }
 
@@ -237,7 +221,6 @@ void ThePacmanGame::printCellRestore()
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
-		//gh.getCurrPos().gotoxy(x, y);
 		gotoxy(x, y);
 		cout << cell;
 	}
