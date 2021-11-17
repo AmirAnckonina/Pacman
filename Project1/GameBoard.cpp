@@ -2,6 +2,8 @@
 
 void GameBoard::initBoard()
 {
+	borderColor = breadcrumbColor = tunnelColor = gameColors::WHITE;
+	totalBreadcrumbs = 0;
 	initOuterBorders();
 	initInnerWalls();
 	initBreadcrumbs();
@@ -119,7 +121,7 @@ void GameBoard::initBreadcrumbs()
 
 void GameBoard::printBoard()
 {
-	//gotoxy(1,1);
+	gotoxy(0,0);
 	int rowInd, colInd;
 	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
 	{

@@ -30,15 +30,15 @@ public:
 	Direction getDirection(char key) const;
 	void setDirection(Direction dir);
 	int getScore() const { return score; }
-	void setLivesLeft() { livesLeft--; }
+	void updateLivesLeft() { livesLeft--; }
 	int getLivesLeft() { return livesLeft; }
 
-	void setPacColor(gameColors color) { pacColor = color; }
+	void setPacColor(gameColors color = gameColors::WHITE) { pacColor = color; }
 	gameColors getPacColor() { return pacColor; }
 
 	//Others
-	void setPacman(); //Not good - currPos.setXPos(1); currPos.setYPos(1); }
-	void resetPacman();
+	void initPacman(); //Not good - currPos.setXPos(1); currPos.setYPos(1); }
+	void setPacmanLocation();
 	void movePacman(GameBoard& board);
 	void updatePos() { currPos = nextPos; };
 	void updateScore(GameBoard& board);

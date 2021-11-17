@@ -25,6 +25,7 @@ private:
 	Position printPos /*printPos*/;
 
 public:
+
 	char getUserKey() { return userKey; }
 	void initGame();
 	void runGame();
@@ -35,8 +36,6 @@ public:
 	void printInstructions();
 	bool checkCollision();
 	void resetAfterCollision();
-	void printFigures();
-	void printGhosts();
 	void printCellRestore();
 	void printLives(); //new func chen build
 	bool GameFinished();

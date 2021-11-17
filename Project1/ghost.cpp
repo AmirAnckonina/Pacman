@@ -23,20 +23,22 @@ void Ghost::moveGhost(GameBoard& board)
 	else cout << SPACE;
 }
 
-void Ghost::setGhost(int xCoord, int yCoord)
+void Ghost::initGhost(int xCoord, int yCoord)
+{
+	ghostColor = gameColors::WHITE;
+	setGhostLocation(xCoord, yCoord);
+}
+
+void Ghost::setGhostLocation(int xCoord, int yCoord)
 {
 	currPos.setXPos(xCoord);
 	currPos.setYPos(yCoord);
 	nextPos = currPos; //Prevent a bug in the beginning which the ghost jumped to the pacman location
-	printGhost();
 }
-
-
 
 void Ghost::printGhost()
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-
 	if (ghostColor != gameColors::WHITE) { setTextColor(ghostColor); }
 	cout << ghostFigure;
 }
