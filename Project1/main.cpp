@@ -10,7 +10,6 @@ using std::endl;
 int main()
 {
 	bool activate = true;
-
 	ThePacmanGame game;
 
 	while (activate)

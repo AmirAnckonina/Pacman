@@ -8,7 +8,7 @@ void Ghost::moveGhost(GameBoard& board)
 	while (!isValid)
 	{
 		setRandomDirection();
-		nextPos.setNextPos(ghDirecrtion);
+		nextPos.setNextPos(ghDirecrtion, ghostFigure);
 		isValid = nextPos.isPositionValid(board, ghostFigure);
 		if (!isValid)
 			nextPos = currPos;

@@ -20,7 +20,7 @@ void Pacman::setPacmanLocation()
 void Pacman::movePacman(GameBoard& board)
 {
 	//Setting new potential position to pacman
-	nextPos.setNextPos(pacmanDirection);
+	nextPos.setNextPos(pacmanDirection, pacmanFigure);
 	//Stage 1 - validation check (to the cell)
 	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
 	{
@@ -42,9 +42,9 @@ void Pacman::updateScore(GameBoard& board)
 	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 	{
 		score++;
-		//currPos.gotoxy(0, 26);
-		gotoxy(0, 26);
-		cout << "                                ";
+		gotoxy(32, 13);
+		cout << "                            ";
+		gotoxy(32, 13);
 		cout << "The score is = " << score;
 	}
 }

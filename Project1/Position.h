@@ -26,6 +26,6 @@ public:
 	//Others
 
 	bool isPositionValid(GameBoard& board, char figure);
-	void setNextPos(Direction dir);
+	void setNextPos(Direction dir, char figure);
 
 };

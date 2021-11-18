@@ -7,8 +7,8 @@ void ThePacmanGame::initGame()
 	hideCursor();
 	game_board.initBoard();
 	pacman.initPacman();
-	ghost[0].initGhost(40, 9);
-	ghost[1].initGhost(40, 15);
+	ghost[0].initGhost(75, 11);//was 40,9
+	ghost[1].initGhost(75, 11);//was 40,15
 	if (gameColorized) { setGameColors(); }
 	game_board.printBoard();
 	pacman.printPacman();
@@ -40,9 +40,9 @@ void ThePacmanGame::entryMenu()
 
 void ThePacmanGame::setGameColors()
 {
-	game_board.setBorderColor(gameColors::LIGHTCYAN);
-	game_board.setBreadcrumbColor(gameColors::GREEN);
-	game_board.settunnelColor(gameColors::RED);
+	game_board.setBorderColor(gameColors::GRAY);
+	game_board.setBreadcrumbColor(gameColors::LIGHTMAGENTA);
+	game_board.settunnelColor(gameColors::YELLOW);
 	pacman.setPacColor(gameColors::YELLOW);
 	for (auto& gh : ghost)
 		gh.setGhostColor(gameColors::BLUE);
@@ -116,6 +116,7 @@ void ThePacmanGame::runGame()
 
 	if (gameColorized) { resetColors(); }
 	gotoxy(0, 30);
+	system("cls");
 	printResult();
 	system("cls");
 
@@ -161,16 +162,16 @@ void ThePacmanGame::pauseGame()
 {
 	char key;
 
-	gotoxy(20, 25);
-	cout << "Game paused, press ESC again to continue";
+	gotoxy(24, 11);
+	cout << "Game paused, press ESC to continue";
 
 	key = _getch();
 
 	while (key != ESC)// not ESC, to continue
 		key = _getch();
 
-	gotoxy(20, 25);
-	cout << "                                        ";//remove everything that was written
+	gotoxy(24, 11);
+	cout << "                                   ";//remove everything that was written
 }
 
 
@@ -221,6 +222,7 @@ void ThePacmanGame::printCellRestore()
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
+		if (cell == BREADCRUMB && game_board.getBreadcrumbColor() != gameColors::WHITE) { setTextColor(game_board.getBreadcrumbColor()); }
 		gotoxy(x, y);
 		cout << cell;
 	}
@@ -228,7 +230,8 @@ void ThePacmanGame::printCellRestore()
 }
 void ThePacmanGame::printLives()
 {
-	gotoxy(32, 27);
+	gotoxy(32, 12);
+	setTextColor(gameColors::WHITE);
 	cout << "Lives Left: " << pacman.getLivesLeft();
 }
 
@@ -246,11 +249,16 @@ bool ThePacmanGame::GameFinished()
 
 void ThePacmanGame::printResult()
 {
+	gotoxy(25, 11);
 	if (playerWon == true)
-		cout << "Congratulations, You WON!" << endl << "your score is: " << pacman.getScore() << endl;
+	{
+		cout << "Congratulations, You WON!" << endl;
+		gotoxy(25, 12);
+		cout << "your score is: " << pacman.getScore() << endl;
+	}
 	else
 		cout << "GAME OVER Shiback, your final score is: " << pacman.getScore() << endl;
-
+	gotoxy(25, 13);
 	cout << "Thanks for playing" << endl;
 
 	Sleep(2000);
