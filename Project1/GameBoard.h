@@ -1,12 +1,8 @@
 #pragma once
-//using ostream::;
-
 
 #include "Utilities.h"
 #include "Position.h"
-#include <iostream>
-#include <cstdlib>
-#include <time.h>
+
 using std::cout;
 using std::endl;
 
@@ -18,9 +14,9 @@ const int COLMAX = 80;
 class GameBoard
 {
 private:
+
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
-
 	gameColors borderColor = gameColors::WHITE;
 	gameColors breadcrumbColor = gameColors::WHITE;
 	gameColors tunnelColor = gameColors::WHITE;
@@ -37,13 +33,14 @@ public:
 	void setBorderColor(gameColors color = gameColors::WHITE) { borderColor = color; }
 	void setBreadcrumbColor(gameColors color) { breadcrumbColor = color; }
 	void settunnelColor(gameColors color) { tunnelColor = color; }
-	gameColors getBorderColor() { return borderColor; }
-	gameColors getBreadcrumbColor() { return breadcrumbColor; }
-	gameColors getTunnelColor() { return tunnelColor; }
+	gameColors getBorderColor() const { return borderColor; }
+	gameColors getBreadcrumbColor() const { return breadcrumbColor; }
+	gameColors getTunnelColor() const { return tunnelColor; }
 
-	int getBreadcrumbs() { return totalBreadcrumbs - 1000; }
+	int getBreadcrumbs() const { return totalBreadcrumbs; }
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
-	void setCellInBoard(Position& pos, char ch);
+	void setCellInBoard(Position& pos, char ch) ;
 	char getCellInBoard(int x, int y) { return _board[y][x]; }
 	char getCellInBoard(Position& pos) const;
-};
+
+	};

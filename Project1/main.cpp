@@ -1,11 +1,8 @@
+#include "ThePacmanGame.h"
 
-#include <iostream>
 using std::cout;
 using std::endl;
 
-
-#include "ThePacmanGame.h"
-#include "GameBoard.h" //should be to ThePacmanGame.h
 
 int main()
 {
