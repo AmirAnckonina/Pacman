@@ -224,7 +224,6 @@ void ThePacmanGame::resetAfterCollision()
 	printCellRestore();
 	pacman.setPacmanPosition();
 	pacman.updateLivesLeft();
-
 	ghost[0].setGhostPosition(40, 9);//was (40,9)
 	ghost[1].setGhostPosition(40, 15);
 	printLives();

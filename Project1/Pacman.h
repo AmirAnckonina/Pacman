@@ -6,14 +6,13 @@
 
 using std::cout;
 using std::endl;
-class Pacman
-{
 
+class Pacman 
+{
 private:
 	const char pacmanFigure = PACMAN;
 	gameColors pacColor = gameColors::WHITE;
 	Position currPos, nextPos;
-
 	Direction pacmanDirection = Direction::STAY; 
 	int livesLeft = 3;
 	int score = 0;

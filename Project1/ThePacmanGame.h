@@ -19,10 +19,12 @@ private:
 	bool ghostsTurn = false;
 	bool playerWon = false;
 	bool gameColorized = false;
+  gameColors detailsColor = gameColors::WHITE
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
   gameColors detailsColor = gameColors::WHITE;
+
 public:
   char getUserKey() const { return userKey; }
 	void printFigures();
@@ -43,4 +45,5 @@ public:
 	void printResult();
 	void singleGhostsSession();
 	void singlePacmanSession();
+  
 };
