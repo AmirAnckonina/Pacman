@@ -3,12 +3,7 @@
 
 /// Notes
 
-1. Ask Wissam about creating new object in every loop itertion.
-Move constructor?
-2. Global consts
-
 //Assignments
-
 
 2.graphic and colors design, printing
 3.readme.txt - mention we implemented bonus

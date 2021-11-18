@@ -40,7 +40,7 @@ void GameBoard::initOuterBorders()
 
 }
 
-void GameBoard::initInnerWalls()//char board[][COLMAX])
+void GameBoard::initInnerWalls()
 {
 	int rowInd, colInd;
 
@@ -64,8 +64,6 @@ void GameBoard::initInnerWalls()//char board[][COLMAX])
 	for (rowInd = 10; rowInd <= 14; rowInd++)
 		for (colInd = 20; colInd <= 60; colInd++)
 			_board[rowInd][colInd] = BORDER;
-
-
 
 	// Long lines
 	for (rowInd = 17, colInd = 6; colInd <= 30; colInd++)
@@ -102,15 +100,12 @@ void GameBoard::initInnerWalls()//char board[][COLMAX])
 	for (rowInd = 2; rowInd <= 4; rowInd++)
 		for (colInd = 77; colInd >= 60; colInd--)
 			_board[rowInd][colInd] = BORDER;
-
 	for (rowInd = 20; rowInd <= 22; rowInd++)
 		for (colInd = 2; colInd <= 19; colInd++)
 			_board[rowInd][colInd] = BORDER;
 	for (rowInd = 20; rowInd <= 22; rowInd++)
 		for (colInd = 77; colInd >= 60; colInd--)
 			_board[rowInd][colInd] = BORDER;
-
-
 }
 
 void GameBoard::initBreadcrumbs()
@@ -151,10 +146,9 @@ void GameBoard::printBoard()
 		}
 		cout << endl;
 	}
-
 }
 
-void GameBoard::setCellInBoard(Position& pos, char ch)
+void GameBoard::setCellInBoard(Position& pos, char ch) 
 {
 	_board[pos.getYPos()][pos.getXPos()] = ch;
 }

@@ -1,37 +1,36 @@
 #include "Pacman.h"
 
-//Set pacman on board.
-void Pacman::initPacman() //Note if should gave by ref
+void Pacman::initPacman()
 {
 	score = 1111;
 	livesLeft = 3;
 	pacColor = gameColors::WHITE;
-	setPacmanLocation();
+	setPacmanPosition();
 }
 
-void Pacman::setPacmanLocation()
+void Pacman::setPacmanPosition()
 {
 	currPos.setXPos();
 	currPos.setYPos();
+	pacmanDirection = Direction::STAY;
 	nextPos = currPos;
 	pacmanDirection = Direction::STAY;
 }
 
-//Move pacman - important. also updating currPos according to inner condition.
 void Pacman::movePacman(GameBoard& board)
 {
-	//Setting new potential position to pacman
+	//Set potential new position to pacman, then check if it's valid.
 	nextPos.setNextPos(pacmanDirection, pacmanFigure);
-	//Stage 1 - validation check (to the cell)
 	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
 	{
 		if (board.getCellInBoard(currPos) != TUNNEL)
 			board.setCellInBoard(currPos, SPACE);
 
+		//print space in current position because soon pacman will be moved.
 		gotoxy(currPos.getXPos(), currPos.getYPos());
 		cout << SPACE;
 	}
-	else
+	else //In case not, please stay on the current position.
 	{
 		nextPos = currPos;
 		pacmanDirection = Direction::STAY;
@@ -51,15 +50,13 @@ void Pacman::updateScore(GameBoard& board)
 	}
 }
 
-void Pacman::printPacman()
+void Pacman::printPacman() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (pacColor != gameColors::WHITE) { setTextColor(pacColor); }
 	cout << pacmanFigure;
 }
 
-
-//Feels like a very stupid function, maybe we can arrange it better?
 Direction Pacman::getDirection(char key) const
 {
 	switch (key)

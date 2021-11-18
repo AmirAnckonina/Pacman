@@ -1,12 +1,12 @@
 #pragma once
 
-
-
-#include "Windows.h"
 #include <iostream>
 #include <conio.h>
 #include <cstring>
-#include <Windows.h>
+#include <stdlib.h>
+#include <cstdlib>
+#include "Windows.h"
+#include <time.h>
 
 using std::cout;
 using std::endl;
@@ -19,8 +19,10 @@ enum class gameColors {
 };
 
 enum class Direction { UP = 119, DOWN = 120, LEFT = 97, RIGHT = 100, STAY = 115, WRONG_KEY = -1 };
+
 const char START = 49, STARTCOLORIZED = 50, INSTRUCTIONS = 56, EXIT = 57, ESC = 27;
 const char SPACE = ' ', BORDER = 219, BREADCRUMB = '*', TUNNEL = '|';
+const char PACMAN = '@', GHOST = '$';
 
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(gameColors c);

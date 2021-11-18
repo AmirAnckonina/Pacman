@@ -1,6 +1,4 @@
 #pragma once
-//using namespace std;
-
 
 #include "Utilities.h"
 #include "GameBoard.h"
@@ -10,36 +8,37 @@
 
 using std::cout;
 using std::endl;
+
 const int numOfGhosts = 2;
 
 class ThePacmanGame
 {
 private:
+
 	char userKey;
-	bool ghostsTurn = false;//to insure that the ghosts will move slowly than the pacman
+	bool ghostsTurn = false;
 	bool playerWon = false;
 	bool gameColorized = false;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
-	gameColors detailsColor = gameColors::WHITE;
-	Position printPos /*printPos*/;
-
+  gameColors detailsColor = gameColors::WHITE;
 public:
-
+  char getUserKey() const { return userKey; }
 	void printFigures();
-	char getUserKey() { return userKey; }
 	void initGame();
 	void runGame();
 	void pauseGame();
 	void entryMenu();
+	bool userChoosedToStart();
 	void setGameColors();
 	void printMenu();
+	void printAllGhosts() const;
 	void printInstructions();
 	bool checkCollision();
 	void resetAfterCollision();
 	void printCellRestore();
-	void printLives(); //new func chen build
+	void printLives(); 
 	bool GameFinished();
 	void printResult();
 	void singleGhostsSession();
