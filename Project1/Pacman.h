@@ -6,9 +6,9 @@
 
 using std::cout;
 using std::endl;
-class Pacman
-{
 
+class Pacman 
+{
 private:
 	const char pacmanFigure = PACMAN;
 	gameColors pacColor = gameColors::WHITE;
