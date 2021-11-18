@@ -31,6 +31,7 @@ public:
 	void initOuterBorders();
 	void initInnerWalls();
 	void initBreadcrumbs();
+	void initDetailsArea();
 	void printBoard();
 
 	void setBorderColor(gameColors color = gameColors::WHITE) { borderColor = color; }

@@ -7,6 +7,15 @@ void GameBoard::initBoard()
 	initOuterBorders();
 	initInnerWalls();
 	initBreadcrumbs();
+	initDetailsArea();
+}
+
+void::GameBoard::initDetailsArea()
+{
+	int rowInd, colInd;
+	for (rowInd = 11; rowInd <= 13; rowInd++)
+		for (colInd = 21; colInd <= 59; colInd++)
+			_board[rowInd][colInd] = SPACE;
 }
 
 void GameBoard::initOuterBorders()
@@ -55,6 +64,8 @@ void GameBoard::initInnerWalls()//char board[][COLMAX])
 	for (rowInd = 10; rowInd <= 14; rowInd++)
 		for (colInd = 20; colInd <= 60; colInd++)
 			_board[rowInd][colInd] = BORDER;
+
+
 
 	// Long lines
 	for (rowInd = 17, colInd = 6; colInd <= 30; colInd++)
@@ -121,7 +132,7 @@ void GameBoard::initBreadcrumbs()
 
 void GameBoard::printBoard()
 {
-	gotoxy(0,0);
+	gotoxy(0, 0);
 	int rowInd, colInd;
 	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
 	{
