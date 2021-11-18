@@ -3,7 +3,7 @@
 //Set pacman on board.
 void Pacman::initPacman() //Note if should gave by ref
 {
-	score = 0;
+	score = 1111;
 	livesLeft = 3;
 	pacColor = gameColors::WHITE;
 	setPacmanLocation();
@@ -14,6 +14,7 @@ void Pacman::setPacmanLocation()
 	currPos.setXPos();
 	currPos.setYPos();
 	nextPos = currPos;
+	pacmanDirection = Direction::STAY;
 }
 
 //Move pacman - important. also updating currPos according to inner condition.
@@ -42,10 +43,11 @@ void Pacman::updateScore(GameBoard& board)
 	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 	{
 		score++;
-		gotoxy(32, 13);
-		cout << "                            ";
-		gotoxy(32, 13);
-		cout << "The score is = " << score;
+		//gotoxy(32, 13);
+		//cout << "                            ";
+
+		//gotoxy(32, 13);
+		//cout << "The score is = " << score;
 	}
 }
 
