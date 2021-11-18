@@ -1,7 +1,7 @@
 #include "ThePacmanGame.h"
 
 //Creating board which hold the information of every cell
-//Creating creatures, initialize lives, printing rules or instructions.
+//Creating creatures, initialize lives, printing rules and instructions.
 void ThePacmanGame::initGame()
 {
 
@@ -15,6 +15,8 @@ void ThePacmanGame::initGame()
 	game_board.printBoard();
 	pacman.printPacman();
 	printLives();
+	for (auto& gh : ghost)
+		gh.printGhost();
 }
 
 void ThePacmanGame::entryMenu()
@@ -23,8 +25,7 @@ void ThePacmanGame::entryMenu()
 	userKey = _getch();
 	userKey = 0;
 
-	while (userKey != START && userKey != STARTCOLORIZED && userKey != EXIT)
-
+	while (!userChoosedToStart())
 	{
 		if (userKey == 0)
 			printMenu();
@@ -37,7 +38,13 @@ void ThePacmanGame::entryMenu()
 	}
 
 	system("cls");
-	//Sleep(100);
+}
+
+bool ThePacmanGame::userChoosedToStart()
+{
+	if (userKey == START || userKey == STARTCOLORIZED || userKey == EXIT)
+		return true;
+	else return false;
 }
 
 void ThePacmanGame::setGameColors()
@@ -129,7 +136,8 @@ void ThePacmanGame::runGame()
 
 void ThePacmanGame::singleGhostsSession()
 {
-	if (ghostsTurn) //move the ghosts
+	//PAY attention, ghost should move every other turn. so the condition manage it.
+	if (ghostsTurn)
 	{
 		for (auto& gh : ghost)
 		{
@@ -140,13 +148,18 @@ void ThePacmanGame::singleGhostsSession()
 		if (checkCollision())
 			resetAfterCollision();
 
-		ghostsTurn = false;//they won't move in the next step/
+		ghostsTurn = false; //they won't move in the next step
 	}
-	else //do not move the ghosts
+	else 
 		ghostsTurn = true;
 
-	//for (auto& gh : ghost)
-	//	gh.printGhost();
+	printAllGhosts();
+}
+
+void ThePacmanGame::printAllGhosts() const
+{
+	for (auto& gh : ghost)
+		gh.printGhost();
 }
 
 void ThePacmanGame::singlePacmanSession()
@@ -191,12 +204,12 @@ void ThePacmanGame::pauseGame()
 
 bool ThePacmanGame::checkCollision()
 {
-	int pac_x, gh_x, pac_y, gh_y;
-	//Mini loop
+	int pac_x, gh_x, pac_y, gh_y; //More convient and readable.
+
 	pac_x = pacman.getCurrPos().getXPos();
 	pac_y = pacman.getCurrPos().getYPos();
 
-	for (auto gh : ghost)
+	for (auto& gh : ghost)
 	{
 		gh_x = gh.getCurrPos().getXPos();
 		gh_y = gh.getCurrPos().getYPos();
@@ -209,21 +222,17 @@ void ThePacmanGame::resetAfterCollision()
 {
 
 	printCellRestore();
-	pacman.setPacmanLocation();
+	pacman.setPacmanPosition();
 	pacman.updateLivesLeft();
+	ghost[0].setGhostPosition(40, 9);//was (40,9)
+	ghost[1].setGhostPosition(40, 15);
 	printLives();
-	ghost[0].setGhostLocation(40, 9);//was (40,9)
-	ghost[1].setGhostLocation(40, 15);
-	if (pacman.getLivesLeft() > 0)
-	{
-		pacman.printPacman();
-		for (auto& gh : ghost)
-			gh.printGhost();
-	}
+	pacman.printPacman();
+	printAllGhosts();
 	Sleep(1000);
 }
 
-void ThePacmanGame::printCellRestore()
+void ThePacmanGame::printCellRestore() 
 {
 	char cell;
 	int x, y;

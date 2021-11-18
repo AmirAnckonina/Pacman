@@ -1,14 +1,12 @@
-#include <iostream>
 #include "Position.h"
 
-//Recieved board by reference and return true or false whether the reqired position to move to is valid.
-bool Position::isPositionValid(GameBoard& board, char figure)
+bool Position::isPositionValid(GameBoard& board, char figure) const
 {
 	char cellCh = board.getCellInBoard(_x, _y);
 
 	if (cellCh == BORDER)
 		return false;
-	if (cellCh == TUNNEL && figure == '$')
+	if (cellCh == TUNNEL && figure == GHOST) //Prevent ghost to move through the tunnels.
 		return false;
 	//Otherwise
 	return true;
@@ -16,6 +14,7 @@ bool Position::isPositionValid(GameBoard& board, char figure)
 
 void Position::setNextPos(Direction dir, char figure)
 {
+	//Pay attention while pacman goes through a tunnel cell, he wiil be placed in the other side
 	switch (dir)
 	{
 	case Direction::UP:
@@ -29,10 +28,8 @@ void Position::setNextPos(Direction dir, char figure)
 	case Direction::LEFT:
 		if (_x == 1 && _y > 10 && _y < 14)
 		{
-			if (figure == '@')
-				_x = 78;
-			else
-				_x = 0;
+			if (figure == PACMAN) _x = 78;
+			else _x = 0;
 		}
 		else
 			_x -= 1;
@@ -41,19 +38,16 @@ void Position::setNextPos(Direction dir, char figure)
 	case Direction::RIGHT:
 		if (_x == 78 && _y > 10 && _y < 14)
 		{
-			if (figure == '@')
-				_x = 1;
-			else
-				_x = 79;
+			if (figure == PACMAN) _x = 1;
+			else _x = 79;
 		}
-		else
+		else 
 			_x += 1;
 		break;
 
 	default: //STAY
 		break;
 	}
-
 }
 
 
