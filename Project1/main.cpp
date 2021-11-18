@@ -20,7 +20,6 @@ int main()
 			game.runGame();
 		}
 	}
-
 	cout << endl << "Goodbye" << endl;
 	return 0;
 }
