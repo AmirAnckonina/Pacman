@@ -23,11 +23,11 @@ private:
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
+  gameColors detailsColor = gameColors::WHITE;
 
 public:
-
+  char getUserKey() const { return userKey; }
 	void printFigures();
-	char getUserKey() const { return userKey; }
 	void initGame();
 	void runGame();
 	void pauseGame();
