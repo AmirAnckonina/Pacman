@@ -41,7 +41,7 @@ public:
 	gameColors getBreadcrumbColor() { return breadcrumbColor; }
 	gameColors getTunnelColor() { return tunnelColor; }
 
-	int getBreadcrumbs() { return totalBreadcrumbs - 1000; }
+	int getBreadcrumbs() { return totalBreadcrumbs; }
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
 	void setCellInBoard(Position& pos, char ch);
 	char getCellInBoard(int x, int y) { return _board[y][x]; }

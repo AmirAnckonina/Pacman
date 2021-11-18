@@ -22,10 +22,12 @@ private:
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
+	gameColors detailsColor = gameColors::WHITE;
 	Position printPos /*printPos*/;
 
 public:
 
+	void printFigures();
 	char getUserKey() { return userKey; }
 	void initGame();
 	void runGame();
