@@ -94,7 +94,7 @@ void ThePacmanGame::setGameColors()
 	game_board.settunnelColor(gameColors::YELLOW);
 	pacman.setPacColor(gameColors::YELLOW);
 	for (auto& gh : ghost)
-		gh.setGhostColor(gameColors::BLUE);
+		gh.setGhostColor(gameColors::LIGHTBLUE);
 }
 
 
