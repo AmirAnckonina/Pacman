@@ -1,0 +1,51 @@
+
+//TESTING
+
+Sanity tests:
+
+1. Keys funcitionallity
+2. Borders isn't valid
+3. Pausing game
+4. Pacman move through tunnels
+5. Ghosts can't move through tunnels
+6. Eating breadcrumbs
+7. Score updating
+8. Collision situation
+9. Winning game
+* Score is equal to BC left
+* printing results is OK, starting after winning game is ok
+* Winning after loosing
+* Loosing after winning
+10. Loosing game
+11. Messages printing
+
+Move and Collision functionallity:
+
+1. Pacman running into ghost - all directions
+2. Pacman stays and ghost running into him - all directions
+3. Pacman goes back, forth, and near the tunnenls
+4. Collision near tunnels
+5. Collision near border
+6. Collision on when last breadcrumb left
+
+
+Menu Testing:
+
+1. Requsting any key to continue
+2. Menu presentation
+3. Instruction menu presentation and functionallity
+4. EXIT
+5. StaringColorized / Not
+6. Entry Menu functionallity after game
+
+Colors Testing:
+
+1. Set colors
+2. Breadcrumbz do not painted in other colors
+3. Changing colors
+4. Collision flashes colors are OK
+5. Starting game without colors is OK, even after colorized game
+
+Automated tests:
+
+1.

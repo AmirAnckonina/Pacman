@@ -61,5 +61,8 @@
     <Text Include="Notes.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="Testing.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

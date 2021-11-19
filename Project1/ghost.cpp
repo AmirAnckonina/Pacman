@@ -2,7 +2,7 @@
 
 void Ghost::initGhost(int xCoord, int yCoord)
 {
-	ghostColor = gameColors::WHITE;
+	ghostColor = Colors::WHITE;
 	setGhostPosition(xCoord, yCoord);
 }
 
@@ -30,7 +30,7 @@ void Ghost::moveGhost(GameBoard& board)
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (board.getCellInBoard(currPos) == BREADCRUMB)
 	{
-		if (board.getBreadcrumbColor() != gameColors::WHITE) { setTextColor(board.getBreadcrumbColor()); }
+		if (board.getBreadcrumbColor() != Colors::WHITE) { setTextColor(board.getBreadcrumbColor()); }
 		cout << BREADCRUMB;
 	}
 	else cout << SPACE;
@@ -39,7 +39,7 @@ void Ghost::moveGhost(GameBoard& board)
 void Ghost::printGhost() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (ghostColor != gameColors::WHITE) { setTextColor(ghostColor); }
+	if (ghostColor != Colors::WHITE) { setTextColor(ghostColor); }
 	cout << ghostFigure;
 }
 

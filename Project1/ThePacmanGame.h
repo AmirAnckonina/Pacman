@@ -19,7 +19,7 @@ private:
 	bool ghostsTurn = false;
 	bool playerWon = false;
 	bool gameColorized = false;
-	gameColors detailsColor = gameColors::WHITE;
+	Colors detailsColor = Colors::WHITE;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
