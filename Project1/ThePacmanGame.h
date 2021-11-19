@@ -53,6 +53,7 @@ public:
 	void printAllGhosts() const;
 	bool checkCollision() const;
 	void printCollision() const;
+	void singlePrintScore() const;
 	void printCellRestore() const;
 	void printResult() const;
 };

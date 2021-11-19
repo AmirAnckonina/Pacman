@@ -23,5 +23,4 @@ public:
 	void setYPos(int y = 1) { _y = y; }
 	void setNextPos(Direction dir, char figure);
 	bool isPositionValid(GameBoard& board, char figure);
-
 };

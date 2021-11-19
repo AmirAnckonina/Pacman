@@ -143,7 +143,6 @@ void ThePacmanGame::runGame()
 		singleGhostsSession();
 		singlePacmanSession();
 
-
 	} while (!GameFinished());
 
 	printResult();
@@ -160,15 +159,24 @@ void ThePacmanGame::singlePacmanSession()
 	if (!checkCollision())
 	{
 		pacman.updateScore(game_board);
-		gotoxy(21, 13);
-		cout << "                                       " << endl;
-		if (gameColorized)
-			setTextColor(detailsColor);
-		gotoxy(32, 13);
-		cout << "The score is = " << pacman.getScore();
+		singlePrintScore();
+		/*int tmpX = pacman.getCurrPos().getXPos();
+		int tmpY = pacman.getCurrPos().getYPos();*/
+		Position tmpPos = pacman.getCurrPos();
+		game_board.setCellInBoard(tmpPos, GameBoard::SPACE);
 	}
 	else
 		resetAfterCollision();
+}
+
+void ThePacmanGame::singlePrintScore() const
+{
+	gotoxy(21, 13);
+	cout << "                                       " << endl;
+	if (gameColorized)
+		setTextColor(detailsColor);
+	gotoxy(32, 13);
+	cout << "The score is = " << pacman.getScore();
 }
 
 void ThePacmanGame::singleGhostsSession()
@@ -226,10 +234,8 @@ void ThePacmanGame::pauseGame() const
 bool ThePacmanGame::checkCollision() const
 {
 	int pac_x, gh_x, pac_y, gh_y; //More convient and readable.
-
 	pac_x = pacman.getCurrPos().getXPos();
 	pac_y = pacman.getCurrPos().getYPos();
-
 	for (auto& gh : ghost)
 	{
 		gh_x = gh.getCurrPos().getXPos();
@@ -259,6 +265,9 @@ void ThePacmanGame::resetAfterCollision()
 		Sleep(500);
 		printRSG();
 		printGameName();
+		//Prevent the pacman to run immidiatley,
+		//So if any direction key pressed while the reset messages printed will be ignored.
+		clearInput();
 	}
 }
 
