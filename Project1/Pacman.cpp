@@ -20,15 +20,15 @@ void Pacman::setPacmanPosition()
 void Pacman::movePacman(GameBoard& board)
 {
 	//Set potential new position to pacman, then check if it's valid.
-	nextPos.setNextPos(pacmanDirection, pacmanFigure);
-	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, pacmanFigure)) //So we should move the pacman
+	nextPos.setNextPos(pacmanDirection, PACMAN);
+	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, PACMAN)) //So we should move the pacman
 	{
-		if (board.getCellInBoard(currPos) != TUNNEL)
-			board.setCellInBoard(currPos, SPACE);
+		if (board.getCellInBoard(currPos) != GameBoard::TUNNEL)
+			board.setCellInBoard(currPos, GameBoard::SPACE);
 
 		//print space in current position because soon pacman will be moved.
 		gotoxy(currPos.getXPos(), currPos.getYPos());
-		cout << SPACE;
+		cout << GameBoard::SPACE;
 	}
 	else //In case not, please stay on the current position.
 	{
@@ -41,12 +41,12 @@ void Pacman::printPacman() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (pacColor != Colors::WHITE) { setTextColor(pacColor); }
-	cout << pacmanFigure;
+	cout << PACMAN;
 }
 
 void Pacman::updateScore(GameBoard& board)
 {
-	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
+	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == GameBoard::BREADCRUMB)
 		score++;
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Utilities.h"
+#include "Directions.h"
 #include "GameBoard.h"
 
 using std::cout;

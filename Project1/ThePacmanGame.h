@@ -1,20 +1,22 @@
 #pragma once
 
 #include "Utilities.h"
+#include "Directions.h"
 #include "GameBoard.h"
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Position.h"
 
 using std::cout;
-using std::cin;
 using std::endl;
 
-const int numOfGhosts = 2;
 
 class ThePacmanGame
 {
+public:
+	static const int numOfGhosts = 2;
 private:
+	static constexpr char START = '1', STARTCOLORIZED = '2', INSTRUCTIONS = '8', EXIT = '9', ESC = 27;
 	char userKey;
 	bool ghostsTurn = false;
 	bool playerWon = false;
@@ -25,6 +27,7 @@ private:
 	Ghost ghost[numOfGhosts];
 
 public:
+	void startGameSessions();
 	void initGame();
 	void entryMenu();
 	void printInstructions();

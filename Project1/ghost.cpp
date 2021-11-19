@@ -20,27 +20,27 @@ void Ghost::moveGhost(GameBoard& board)
 	{
 		//Set potential new position to ghost, then check if it's valid.
 		setRandomDirection();
-		nextPos.setNextPos(ghostDirection, ghostFigure);
-		isValid = nextPos.isPositionValid(board, ghostFigure);
+		nextPos.setNextPos(ghostDirection, GHOST);
+		isValid = nextPos.isPositionValid(board, GHOST);
 		if (!isValid) //rollback, before starting the loop again.
 			nextPos = currPos;
 	}
 
 	//The ghost printed and we want the print the cell as it were before.
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (board.getCellInBoard(currPos) == BREADCRUMB)
+	if (board.getCellInBoard(currPos) == GameBoard::BREADCRUMB)
 	{
 		if (board.getBreadcrumbColor() != Colors::WHITE) { setTextColor(board.getBreadcrumbColor()); }
-		cout << BREADCRUMB;
+		cout << GameBoard::BREADCRUMB;
 	}
-	else cout << SPACE;
+	else cout << GameBoard::SPACE;
 }
 
 void Ghost::printGhost() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (ghostColor != Colors::WHITE) { setTextColor(ghostColor); }
-	cout << ghostFigure;
+	cout << GHOST;
 }
 
 void Ghost::setRandomDirection()

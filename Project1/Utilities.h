@@ -17,13 +17,7 @@ enum class Colors {
 	, LIGHTMAGENTA = 13, YELLOW = 14, WHITE = 15
 };
 
-enum class Direction { UP , DOWN, LEFT, RIGHT , STAY , WRONG_KEY };
-
-const char START = '1', STARTCOLORIZED = '2', INSTRUCTIONS = '8', EXIT = '9', ESC = 27;
-const char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176;
-const char PACMAN = '@', GHOST = '$';
-
-//bool gameColorized = false; //???
+//const char PACMAN = '@', GHOST = '$';
 
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(Colors c);
