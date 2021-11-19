@@ -46,7 +46,7 @@ void Pacman::printPacman() const
 
 void Pacman::updateScore(GameBoard& board)
 {
-	if (pacmanDirection != Direction::STAY && board.getCellInBoard(currPos) == BREADCRUMB)
+	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
 		score++;
 }
 
