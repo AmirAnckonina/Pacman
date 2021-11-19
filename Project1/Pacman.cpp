@@ -1,10 +1,11 @@
 #include "Pacman.h"
+#include "ThePacmanGame.h"
 
 void Pacman::initPacman()
 {
 	score = 1; //Pacman will be placed on (1,1) coordinate which has a breadcrumb, so the score will start from 1.
 	livesLeft = 3;
-	pacColor = Colors::WHITE;
+	pacmanColor = Colors::WHITE;
 	setPacmanPosition();
 }
 
@@ -40,7 +41,7 @@ void Pacman::movePacman(GameBoard& board)
 void Pacman::printPacman() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (pacColor != Colors::WHITE) { setTextColor(pacColor); }
+	if (ThePacmanGame::isGameColorized()) { setTextColor(pacmanColor); }
 	cout << PACMAN;
 }
 

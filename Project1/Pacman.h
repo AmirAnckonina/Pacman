@@ -14,7 +14,7 @@ public:
 	static constexpr char PACMAN = '@';
 
 private:
-	Colors pacColor = Colors::WHITE;
+	Colors pacmanColor = Colors::WHITE;
 	Position currPos, nextPos;
 	Direction pacmanDirection = Direction::STAY; 
 	int livesLeft = 3;
@@ -26,11 +26,11 @@ public:
 	Direction getDirection (char key) const;
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
-	Colors getPacColor() const { return pacColor; }
+	Colors getPacColor() const { return pacmanColor; }
 	void printPacman() const;
 
 	void setDirection(Direction dir);
-	void setPacColor(Colors color = Colors::WHITE) { pacColor = color; }
+	void setPacColor(Colors color = Colors::WHITE) { pacmanColor = color; }
 	void setPacmanPosition();
 	void updateLivesLeft() { livesLeft--; }
 	void updatePos() { currPos = nextPos; };

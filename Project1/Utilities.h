@@ -17,8 +17,6 @@ enum class Colors {
 	, LIGHTMAGENTA = 13, YELLOW = 14, WHITE = 15
 };
 
-//const char PACMAN = '@', GHOST = '$';
-
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(Colors c);
 void hideCursor();

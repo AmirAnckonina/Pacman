@@ -1,4 +1,5 @@
 #include "ghost.h"
+#include "ThePacmanGame.h"
 
 void Ghost::initGhost(int xCoord, int yCoord)
 {
@@ -30,7 +31,7 @@ void Ghost::moveGhost(GameBoard& board)
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (board.getCellInBoard(currPos) == GameBoard::BREADCRUMB)
 	{
-		if (board.getBreadcrumbColor() != Colors::WHITE) { setTextColor(board.getBreadcrumbColor()); }
+		if (ThePacmanGame::isGameColorized()) { setTextColor(board.getBreadcrumbColor()); }
 		cout << GameBoard::BREADCRUMB;
 	}
 	else cout << GameBoard::SPACE;
@@ -39,7 +40,7 @@ void Ghost::moveGhost(GameBoard& board)
 void Ghost::printGhost() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (ghostColor != Colors::WHITE) { setTextColor(ghostColor); }
+	if (ThePacmanGame::isGameColorized()) { setTextColor(ghostColor); }
 	cout << GHOST;
 }
 
