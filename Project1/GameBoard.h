@@ -8,13 +8,15 @@ using std::endl;
 
 class Position; //Forward declaration.
 
-const int ROWMAX = 25;
-const int COLMAX = 80;
 
 class GameBoard
 {
-private:
+public: 
+	static const int ROWMAX = 25;
+	static const int COLMAX = 80;
+	static constexpr char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176;
 
+private:
 	char _board[ROWMAX][COLMAX];
 	int totalBreadcrumbs = 0;
 	bool boardColorized = false;

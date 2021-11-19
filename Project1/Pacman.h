@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Utilities.h"
+#include "Directions.h"
 #include "Position.h"
 #include "GameBoard.h"
 
@@ -9,8 +10,10 @@ using std::endl;
 
 class Pacman 
 {
+public:
+	static constexpr char PACMAN = '@';
+
 private:
-	const char pacmanFigure = PACMAN;
 	Colors pacColor = Colors::WHITE;
 	Position currPos, nextPos;
 	Direction pacmanDirection = Direction::STAY; 

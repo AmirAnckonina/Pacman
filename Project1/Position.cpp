@@ -1,12 +1,14 @@
 #include "Position.h"
+#include "Pacman.h"
+#include "Ghost.h"
 
 bool Position::isPositionValid(GameBoard& board, char figure) 
 {
 	char cellCh = board.getCellInBoard(_x, _y);
 
-	if (cellCh == BORDER)
+	if (cellCh == GameBoard::BORDER)
 		return false;
-	if (cellCh == TUNNEL && figure == GHOST) //Prevent ghost to move through the tunnels.
+	if (cellCh == GameBoard::TUNNEL && figure == Ghost::GHOST) //Prevent ghost to move through the tunnels.
 		return false;
 	//Otherwise
 	return true;
@@ -28,7 +30,7 @@ void Position::setNextPos(Direction dir, char figure)
 	case Direction::LEFT:
 		if (_x == 1 && _y > 10 && _y < 14)
 		{
-			if (figure == PACMAN) _x = 78;
+			if (figure == Pacman::PACMAN) _x = 78;
 			else _x = 0;
 		}
 		else
@@ -38,7 +40,7 @@ void Position::setNextPos(Direction dir, char figure)
 	case Direction::RIGHT:
 		if (_x == 78 && _y > 10 && _y < 14)
 		{
-			if (figure == PACMAN) _x = 1;
+			if (figure == Pacman::PACMAN) _x = 1;
 			else _x = 79;
 		}
 		else 

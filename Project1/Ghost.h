@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Utilities.h"
+#include "Directions.h"
 #include "Position.h"
 #include "GameBoard.h"
 
@@ -9,9 +10,9 @@ using std::endl;
 
 class Ghost
 {
-
+public:
+	static constexpr char GHOST = '$';
 private:
-	const char ghostFigure = GHOST;
 	Colors ghostColor = Colors::WHITE;
 	Position currPos, nextPos;
 	Direction ghostDirection;

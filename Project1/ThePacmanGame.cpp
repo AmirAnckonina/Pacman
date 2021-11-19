@@ -1,5 +1,22 @@
 #include "ThePacmanGame.h"
 
+void ThePacmanGame::startGameSessions()
+{
+	bool activate = true;
+	while (activate)
+	{
+		entryMenu();
+		if (userKey == EXIT)
+			activate = false;
+		else
+		{
+			initGame();
+			runGame();
+		}
+	}
+	cout << "Goodbye" << endl;
+}
+
 //Creating board which hold the information of every cell
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
@@ -252,7 +269,7 @@ void ThePacmanGame::printCellRestore() const
 	x = pacman.getCurrPos().getXPos();
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
-	if (cell == BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
+	if (cell == GameBoard::BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
 	gotoxy(x, y);
 	cout << cell;
 
@@ -261,7 +278,7 @@ void ThePacmanGame::printCellRestore() const
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
-		if (cell == BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
+		if (cell == GameBoard::BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
 		gotoxy(x, y);
 		cout << cell;
 	}
@@ -389,7 +406,7 @@ void ThePacmanGame::printPacmanAllAround() const
 	while (x <= 59)
 	{
 		gotoxy(x++, y);
-		cout << PACMAN;
+		cout << Pacman::PACMAN;
 		Sleep(5);
 	}
 	x--;
@@ -397,7 +414,7 @@ void ThePacmanGame::printPacmanAllAround() const
 	while (x >= 21)
 	{
 		gotoxy(x--, y);
-		cout << PACMAN;
+		cout << Pacman::PACMAN;
 		Sleep(5);
 	}
 	x++;
@@ -405,7 +422,7 @@ void ThePacmanGame::printPacmanAllAround() const
 	while (x <= 59)
 	{
 		gotoxy(x++, y);
-		cout << PACMAN;
+		cout << Pacman::PACMAN;
 		Sleep(5);
 	}
 
@@ -419,9 +436,9 @@ void ThePacmanGame::printGhostsAllAround() const
 	while (x1 <= 59 && x2 >= 21)
 	{
 		gotoxy(x1++, y1);
-		cout << GHOST;
+		cout << Ghost::GHOST;
 		gotoxy(x2--, y2);
-		cout << GHOST;
+		cout << Ghost::GHOST;
 		Sleep(5);
 	}
 	x1--; 
@@ -431,9 +448,9 @@ void ThePacmanGame::printGhostsAllAround() const
 	while (x2 <= x1)
 	{
 		gotoxy(x1--, y1);
-		cout << GHOST;
+		cout << Ghost::GHOST;
 		gotoxy(x2++, y2);
-		cout << GHOST;
+		cout << Ghost::GHOST;
 		Sleep(5);
 	}
 	Sleep(1500);
