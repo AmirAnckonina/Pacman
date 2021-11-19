@@ -1,0 +1,10 @@
+
+
+
+/// Notes
+1. A little bug - while finishing game, sometimes it prints the menu to the next game without waiting for userKey. (hard to reproduce)
+2. gameColorized as a boolean global/private variable inside Utilities.h. - will gave access from all classes convinently
+3. Bulding tests scenarios
+4. Running tests.
+3.readme.txt - do not forget.
+4.code review and documentation

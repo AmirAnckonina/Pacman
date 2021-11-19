@@ -24,6 +24,8 @@ const char START = 49, STARTCOLORIZED = 50, INSTRUCTIONS = 56, EXIT = 57, ESC = 
 const char SPACE = ' ', BORDER = 219, BREADCRUMB = '*', TUNNEL = '|';
 const char PACMAN = '@', GHOST = '$';
 
+//bool gameColorized = false;???
+
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(gameColors c);
 void hideCursor();

@@ -34,6 +34,9 @@ public:
 	void printLives() const; 
 	void printGameName() const;
 	void printRSG() const;
+	void printPacmanAllAround() const;
+	void printGhostsAllAround() const;
+	void clearRectangle() const;
 
 	void runGame();
 	void singlePacmanSession();

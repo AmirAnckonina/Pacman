@@ -141,9 +141,9 @@ void ThePacmanGame::singlePacmanSession()
 	if (!checkCollision())
 	{
 		pacman.updateScore(game_board);
-		gotoxy(32, 13);
-		cout << "                            ";
-		if (detailsColor != gameColors::WHITE)
+		gotoxy(21, 13);
+		cout << "                                       " << endl;
+		if (gameColorized)
 			setTextColor(detailsColor);
 		gotoxy(32, 13);
 		cout << "The score is = " << pacman.getScore();
@@ -190,7 +190,7 @@ void ThePacmanGame::pauseGame() const
 	char key;
 
 	gotoxy(24, 11);
-	if (detailsColor != gameColors::WHITE)
+	if (gameColorized)
 		setTextColor(detailsColor);
 	cout << "Game paused, press ESC to continue";
 
@@ -199,8 +199,8 @@ void ThePacmanGame::pauseGame() const
 	while (key != ESC)// not ESC, to continue
 		key = _getch();
 
-	gotoxy(22, 11);
-	cout << "                                      ";//remove pause message
+	gotoxy(21, 11);
+	cout << "                                       " << endl;//remove pause message
 	printGameName();
 }
 
@@ -251,7 +251,7 @@ void ThePacmanGame::printCellRestore() const
 	x = pacman.getCurrPos().getXPos();
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
-	if (cell == BREADCRUMB && game_board.getBreadcrumbColor() != gameColors::WHITE) { setTextColor(game_board.getBreadcrumbColor()); }
+	if (cell == BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
 	gotoxy(x, y);
 	cout << cell;
 
@@ -260,7 +260,7 @@ void ThePacmanGame::printCellRestore() const
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
-		if (cell == BREADCRUMB && game_board.getBreadcrumbColor() != gameColors::WHITE) { setTextColor(game_board.getBreadcrumbColor()); }
+		if (cell == BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
 		gotoxy(x, y);
 		cout << cell;
 	}
@@ -269,15 +269,15 @@ void ThePacmanGame::printCellRestore() const
 
 void ThePacmanGame::printLives() const
 {
-	if (detailsColor != gameColors::WHITE)
+	if (gameColorized)
 		setTextColor(detailsColor);
-	gotoxy(32, 12);
+	gotoxy(34, 12);
 	cout << "Lives Left: " << pacman.getLivesLeft();
 }
 
 void ThePacmanGame::printGameName() const
 {
-	if (detailsColor != gameColors::WHITE)
+	if (gameColorized)
 		setTextColor(detailsColor);
 	gotoxy(28, 11);
 	cout << "  P  A  C  -  M  A  N  ";
@@ -288,22 +288,22 @@ void ThePacmanGame::printRSG() const
 	if (gameColorized) setTextColor(detailsColor);
 
 	gotoxy(21, 11);
-	cout << "                                     " << endl;
+	cout << "                                       " << endl;
 	gotoxy(37, 11);
 	cout << "Ready,";
 	Sleep(1200);
 	gotoxy(21, 11);
-	cout << "                                     " << endl;
+	cout << "                                       " << endl;
 	gotoxy(38, 11);
 	cout << "Set,";
 	Sleep(1200);
 	gotoxy(21, 11);
-	cout << "                                     " << endl;
+	cout << "                                       " << endl;
 	gotoxy(38, 11);
 	cout << "GO!";
 	Sleep(750);
 	gotoxy(21, 11);
-	cout << "                                     " << endl;
+	cout << "                                       " << endl;
 }
 
 void ThePacmanGame::printCollision() const
@@ -334,13 +334,7 @@ bool ThePacmanGame::GameFinished()
 
 void ThePacmanGame::printResult() const
 {
-	gotoxy(21, 11);
-	cout << "                                     " << endl;
-	gotoxy(21, 12);
-	cout << "                                     " << endl;
-	gotoxy(21, 13);
-	cout << "                                     " << endl;
-
+	clearRectangle();
 	if (playerWon == true)
 	{
 		for (int i = 0; i < 4; i++)
@@ -349,9 +343,10 @@ void ThePacmanGame::printResult() const
 			cout << "Congratulations, You WON!" << endl;
 			Sleep(750);
 			gotoxy(21, 12);
-			cout << "                                     " << endl;
+			clearRectangle();
 			Sleep(750);
 		}
+		printPacmanAllAround();
 	}
 	else
 	{
@@ -360,20 +355,85 @@ void ThePacmanGame::printResult() const
 			gotoxy(33, 12);
 			cout << "GAME OVER!!!!" << endl;
 			Sleep(500);
-			gotoxy(21, 12);
-			cout << "                                     " << endl;
+			clearRectangle();
 			Sleep(500);
 		}
-
+		printGhostsAllAround();
 	}
-	gotoxy(21, 12);
-	cout << "                                     " << endl;
+	if (gameColorized) setTextColor(detailsColor);
+	clearRectangle();
 	gotoxy(27, 12);
 	cout << "your final score is: " << pacman.getScore() << endl;
 	Sleep(2500);
-	gotoxy(21, 12);
-	cout << "                                     " << endl;
+	clearRectangle();
 	gotoxy(30, 12);
 	cout << "Thanks for playing!" << endl;
 	Sleep(2000);
+}
+
+void ThePacmanGame::clearRectangle() const
+{
+	gotoxy(21, 11);
+	cout << "                                       " << endl;
+	gotoxy(21, 12);
+	cout << "                                       " << endl;
+	gotoxy(21, 13);
+	cout << "                                       " << endl;
+}
+
+void ThePacmanGame::printPacmanAllAround() const
+{
+	int x = 21, y = 11;
+	if (gameColorized) setTextColor(pacman.getPacColor());
+	while (x <= 59)
+	{
+		gotoxy(x++, y);
+		cout << PACMAN;
+		Sleep(5);
+	}
+	x--;
+	y++;
+	while (x >= 21)
+	{
+		gotoxy(x--, y);
+		cout << PACMAN;
+		Sleep(5);
+	}
+	x++;
+	y++;
+	while (x <= 59)
+	{
+		gotoxy(x++, y);
+		cout << PACMAN;
+		Sleep(5);
+	}
+
+	Sleep(1500);			
+}
+
+void ThePacmanGame::printGhostsAllAround() const
+{
+	int x1 = 21, y1 = 11, x2 = 59, y2 = 13;
+	if (gameColorized) setTextColor(ghost[0].getGhostColor());
+	while (x1 <= 59 && x2 >= 21)
+	{
+		gotoxy(x1++, y1);
+		cout << GHOST;
+		gotoxy(x2--, y2);
+		cout << GHOST;
+		Sleep(5);
+	}
+	x1--; 
+	y1++; 
+	x2++;
+	y2--;
+	while (x2 <= x1)
+	{
+		gotoxy(x1--, y1);
+		cout << GHOST;
+		gotoxy(x2++, y2);
+		cout << GHOST;
+		Sleep(5);
+	}
+	Sleep(1500);
 }
