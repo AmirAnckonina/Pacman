@@ -126,6 +126,9 @@ void GameBoard::initBreadcrumbs()
 			}
 		}
 	}
+	gotoxy(1, 1);
+	cout << totalBreadcrumbs;
+	Sleep(2000);
 }
 
 void GameBoard::printBoard() const
@@ -154,7 +157,7 @@ void GameBoard::boardColorizedProcedure(int rowInd, int colInd) const
 		setTextColor(tunnelColor);
 }
 
-void GameBoard::setCellInBoard(Position& pos, char ch) 
+void GameBoard::setCellInBoard(Position& pos, char ch)
 {
 	_board[pos.getYPos()][pos.getXPos()] = ch;
 }

@@ -13,7 +13,6 @@ void Pacman::setPacmanPosition()
 {
 	currPos.setXPos();
 	currPos.setYPos();
-	pacmanDirection = Direction::STAY;
 	nextPos = currPos;
 	pacmanDirection = Direction::STAY;
 }
@@ -24,8 +23,8 @@ void Pacman::movePacman(GameBoard& board)
 	nextPos.setNextPos(pacmanDirection, PACMAN);
 	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, PACMAN)) //So we should move the pacman
 	{
-		if (board.getCellInBoard(currPos) != GameBoard::TUNNEL)
-			board.setCellInBoard(currPos, GameBoard::SPACE);
+		/*if (board.getCellInBoard(currPos) != GameBoard::TUNNEL)
+			board.setCellInBoard(currPos, GameBoard::SPACE);*/
 
 		//print space in current position because soon pacman will be moved.
 		gotoxy(currPos.getXPos(), currPos.getYPos());

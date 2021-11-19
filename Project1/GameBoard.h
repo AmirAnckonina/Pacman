@@ -37,7 +37,7 @@ public:
 	void setBreadcrumbColor(Colors color) { breadcrumbColor = color; }
 	void settunnelColor(Colors color) { tunnelColor = color; }
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
-	void setCellInBoard(Position& pos, char ch) ;
+	void setCellInBoard(Position& pos, char ch);
 
 	Colors getBorderColor() const { return borderColor; }
 	Colors getBreadcrumbColor() const { return breadcrumbColor; }
