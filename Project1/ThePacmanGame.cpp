@@ -1,5 +1,7 @@
 #include "ThePacmanGame.h"
 
+bool ThePacmanGame::gameColorized = false;
+
 void ThePacmanGame::startGameSessions()
 {
 	bool activate = true;
@@ -15,6 +17,30 @@ void ThePacmanGame::startGameSessions()
 		}
 	}
 	cout << "Goodbye" << endl;
+}
+
+void ThePacmanGame::entryMenu()
+{
+	clearInput();
+	cout << "Press any key to enter the game menu..." << endl;
+	userKey = _getch();
+	userKey = 0;
+
+	while (!userChoosedToStart())
+	{
+		if (userKey == 0) 
+			printMenu();
+		userKey = _getch();
+		if (userKey == INSTRUCTIONS)
+			printInstructions();
+		else if (userKey == STARTCOLORIZED)
+			gameColorized = true;
+		else
+			gameColorized = false;
+
+	}
+
+	system("cls");
 }
 
 //Creating board which hold the information of every cell
@@ -36,29 +62,6 @@ void ThePacmanGame::initGame()
 	printAllGhosts();
 }
 
-void ThePacmanGame::entryMenu()
-{
-	clearInput();
-	cout << "Press any key to enter the game menu..." << endl;
-	userKey = _getch();
-	userKey = 0;
-
-	while (!userChoosedToStart())
-	{
-		if (userKey == 0) 
-			printMenu();
-		userKey = _getch();
-		if (userKey == INSTRUCTIONS)
-			printInstructions();
-		else if (userKey == STARTCOLORIZED) 
-			gameColorized = true;
-		else
-			gameColorized = false;
-
-	}
-
-	system("cls");
-}
 
 void ThePacmanGame::printMenu() const
 {
@@ -107,7 +110,6 @@ bool ThePacmanGame::userChoosedToStart() const
 void ThePacmanGame::setGameColors()
 {
 	detailsColor = Colors::YELLOW;
-	game_board.setBoardColorized();
 	game_board.setBorderColor(Colors::GRAY);
 	game_board.setBreadcrumbColor(Colors::BROWN);
 	game_board.settunnelColor(Colors::YELLOW);
@@ -115,7 +117,6 @@ void ThePacmanGame::setGameColors()
 	for (auto& gh : ghost)
 		gh.setGhostColor(Colors::LIGHTBLUE);
 }
-
 
 //Running a game session, according to do-while loop condition
 void ThePacmanGame::runGame()

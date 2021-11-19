@@ -1,4 +1,5 @@
 #include "GameBoard.h"
+#include "ThePacmanGame.h"
 
 void GameBoard::initBoard()
 {
@@ -125,9 +126,6 @@ void GameBoard::initBreadcrumbs()
 			}
 		}
 	}
-	gotoxy(1,1);
-	cout << totalBreadcrumbs;
-	Sleep(1000);
 }
 
 void GameBoard::printBoard() const
@@ -138,7 +136,7 @@ void GameBoard::printBoard() const
 	{
 		for (colInd = 0; colInd < COLMAX; colInd++)
 		{
-			if (boardColorized) boardColorizedProcedure(rowInd, colInd);
+			if (ThePacmanGame::isGameColorized()) boardColorizedProcedure(rowInd, colInd);
 			cout << _board[rowInd][colInd];
 		}
 		if (colInd < COLMAX - 1) 
