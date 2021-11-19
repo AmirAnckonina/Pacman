@@ -7,6 +7,7 @@
 #include "Position.h"
 
 using std::cout;
+using std::cin;
 using std::endl;
 
 const int numOfGhosts = 2;
