@@ -1,6 +1,4 @@
 
-
-
 /// Notes
 1. A little bug - while finishing game, sometimes it prints the menu to the next game without waiting for userKey. (hard to reproduce)
 2. gameColorized as a boolean global/private variable inside Utilities.h. - will gave access from all classes convinently

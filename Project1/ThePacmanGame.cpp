@@ -127,10 +127,9 @@ void ThePacmanGame::runGame()
 	} while (!GameFinished());
 
 	printResult();
-	Sleep(1200);
 	if (gameColorized) { resetColors(); }
 	system("cls");
-
+	Sleep(1200);
 }
 
 void ThePacmanGame::singlePacmanSession()
@@ -279,7 +278,7 @@ void ThePacmanGame::printGameName() const
 {
 	if (gameColorized)
 		setTextColor(detailsColor);
-	gotoxy(28, 11);
+	gotoxy(29, 11);
 	cout << "  P  A  C  -  M  A  N  ";
 }
 
@@ -368,7 +367,7 @@ void ThePacmanGame::printResult() const
 	clearRectangle();
 	gotoxy(30, 12);
 	cout << "Thanks for playing!" << endl;
-	Sleep(2000);
+	Sleep(3000);
 }
 
 void ThePacmanGame::clearRectangle() const
