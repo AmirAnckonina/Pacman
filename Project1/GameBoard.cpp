@@ -3,6 +3,7 @@
 void GameBoard::initBoard()
 {
 	borderColor = breadcrumbColor = tunnelColor = gameColors::WHITE;
+	boardColorized = false;
 	totalBreadcrumbs = 0;
 	initOuterBorders();
 	initInnerWalls();
@@ -125,7 +126,7 @@ void GameBoard::initBreadcrumbs()
 	}
 }
 
-void GameBoard::printBoard()
+void GameBoard::printBoard() const
 {
 	gotoxy(0, 0);
 	int rowInd, colInd;
@@ -133,19 +134,21 @@ void GameBoard::printBoard()
 	{
 		for (colInd = 0; colInd < COLMAX; colInd++)
 		{
-			if (borderColor != gameColors::WHITE || breadcrumbColor != gameColors::WHITE || tunnelColor != gameColors::WHITE)
-			{
-				if (_board[rowInd][colInd] == BORDER)
-					setTextColor(borderColor);
-				else if (_board[rowInd][colInd] == BREADCRUMB)
-					setTextColor(breadcrumbColor);
-				else //TUNNEL
-					setTextColor(tunnelColor);
-			}
+			if (boardColorized) boardColorizedProcedure(rowInd, colInd);
 			cout << _board[rowInd][colInd];
 		}
 		cout << endl;
 	}
+}
+
+void GameBoard::boardColorizedProcedure(int rowInd, int colInd) const
+{
+	if (_board[rowInd][colInd] == BORDER)
+		setTextColor(borderColor);
+	else if (_board[rowInd][colInd] == BREADCRUMB)
+		setTextColor(breadcrumbColor);
+	else //TUNNEL
+		setTextColor(tunnelColor);
 }
 
 void GameBoard::setCellInBoard(Position& pos, char ch) 

@@ -1,5 +1,18 @@
 #include "ghost.h"
 
+void Ghost::initGhost(int xCoord, int yCoord)
+{
+	ghostColor = gameColors::WHITE;
+	setGhostPosition(xCoord, yCoord);
+}
+
+void Ghost::setGhostPosition(int xCoord, int yCoord)
+{
+	currPos.setXPos(xCoord);
+	currPos.setYPos(yCoord);
+	nextPos = currPos;
+}
+
 void Ghost::moveGhost(GameBoard& board)
 {
 	bool isValid = false;
@@ -21,19 +34,6 @@ void Ghost::moveGhost(GameBoard& board)
 		cout << BREADCRUMB;
 	}
 	else cout << SPACE;
-}
-
-void Ghost::initGhost(int xCoord, int yCoord)
-{
-	ghostColor = gameColors::WHITE;
-	setGhostPosition(xCoord, yCoord);
-}
-
-void Ghost::setGhostPosition(int xCoord, int yCoord)
-{
-	currPos.setXPos(xCoord);
-	currPos.setYPos(yCoord);
-	nextPos = currPos;
 }
 
 void Ghost::printGhost() const

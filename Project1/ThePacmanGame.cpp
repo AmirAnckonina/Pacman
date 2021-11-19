@@ -1,22 +1,21 @@
 #include "ThePacmanGame.h"
 
 //Creating board which hold the information of every cell
-//Creating creatures, initialize lives, printing rules and instructions.
+//Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
 {
-
 	hideCursor();
 	game_board.initBoard();
 	pacman.initPacman();
-	ghost[0].initGhost(40, 9);//was 40,9
-	ghost[1].initGhost(40, 15);//was 40,15
+	ghost[0].initGhost(40, 9);
+	ghost[1].initGhost(40, 15);
 	if (gameColorized) { setGameColors(); }
 	else detailsColor = gameColors::WHITE;
 	game_board.printBoard();
 	pacman.printPacman();
+	printGameName();
 	printLives();
-	for (auto& gh : ghost)
-		gh.printGhost();
+	printAllGhosts();
 }
 
 void ThePacmanGame::entryMenu()
@@ -27,38 +26,22 @@ void ThePacmanGame::entryMenu()
 
 	while (!userChoosedToStart())
 	{
-		if (userKey == 0)
+		if (userKey == 0) 
 			printMenu();
-
 		userKey = _getch();
 		if (userKey == INSTRUCTIONS)
 			printInstructions();
-		if (userKey == STARTCOLORIZED) gameColorized = true;
-		else gameColorized = false;
+		else if (userKey == STARTCOLORIZED) 
+			gameColorized = true;
+		else
+			gameColorized = false;
+
 	}
 
 	system("cls");
 }
 
-bool ThePacmanGame::userChoosedToStart()
-{
-	if (userKey == START || userKey == STARTCOLORIZED || userKey == EXIT)
-		return true;
-	else return false;
-}
-
-void ThePacmanGame::setGameColors()
-{
-	detailsColor = gameColors::YELLOW;
-	game_board.setBorderColor(gameColors::GRAY);
-	game_board.setBreadcrumbColor(gameColors::BROWN);
-	game_board.settunnelColor(gameColors::YELLOW);
-	pacman.setPacColor(gameColors::YELLOW);
-	for (auto& gh : ghost)
-		gh.setGhostColor(gameColors::BLUE);
-}
-
-void ThePacmanGame::printMenu()
+void ThePacmanGame::printMenu() const
 {
 	cout << "Welcome to Pacman game!" << endl;
 	cout << "Press (1) to Start without colors" << endl;
@@ -67,7 +50,7 @@ void ThePacmanGame::printMenu()
 	cout << "press (9) to exit" << endl;
 }
 
-void ThePacmanGame::printInstructions()
+void ThePacmanGame::printInstructions() 
 {
 	system("cls");
 
@@ -95,6 +78,26 @@ void ThePacmanGame::printInstructions()
 	userKey = 0;
 }
 
+bool ThePacmanGame::userChoosedToStart() const
+{
+	if (userKey == START || userKey == STARTCOLORIZED || userKey == EXIT)
+		return true;
+	else return false;
+}
+
+void ThePacmanGame::setGameColors()
+{
+	detailsColor = gameColors::YELLOW;
+	game_board.setBoardColorized();
+	game_board.setBorderColor(gameColors::GRAY);
+	game_board.setBreadcrumbColor(gameColors::BROWN);
+	game_board.settunnelColor(gameColors::YELLOW);
+	pacman.setPacColor(gameColors::YELLOW);
+	for (auto& gh : ghost)
+		gh.setGhostColor(gameColors::BLUE);
+}
+
+
 //Running a game session, according to do-while loop condition
 void ThePacmanGame::runGame()
 {
@@ -104,14 +107,12 @@ void ThePacmanGame::runGame()
 	do
 	{
 		printFigures();
-
-
 		if (key == ESC)
 		{
 			pauseGame();
 			key = 0; //So pacman will continue as he was before pausing.
 		}
-		Sleep(75);
+		Sleep(70);
 		if (_kbhit())
 		{
 			key = _getch();
@@ -125,13 +126,30 @@ void ThePacmanGame::runGame()
 
 	} while (!GameFinished());
 
-	gotoxy(0, 30);
-	//system("cls");
 	printResult();
 	Sleep(1200);
 	if (gameColorized) { resetColors(); }
 	system("cls");
 
+}
+
+void ThePacmanGame::singlePacmanSession()
+{
+	pacman.movePacman(game_board);
+	pacman.updatePos();
+
+	if (!checkCollision())
+	{
+		pacman.updateScore(game_board);
+		gotoxy(32, 13);
+		cout << "                            ";
+		if (detailsColor != gameColors::WHITE)
+			setTextColor(detailsColor);
+		gotoxy(32, 13);
+		cout << "The score is = " << pacman.getScore();
+	}
+	else
+		resetAfterCollision();
 }
 
 void ThePacmanGame::singleGhostsSession()
@@ -153,7 +171,6 @@ void ThePacmanGame::singleGhostsSession()
 	else 
 		ghostsTurn = true;
 
-	printAllGhosts();
 }
 
 void ThePacmanGame::printAllGhosts() const
@@ -162,28 +179,13 @@ void ThePacmanGame::printAllGhosts() const
 		gh.printGhost();
 }
 
-void ThePacmanGame::singlePacmanSession()
+void ThePacmanGame::printFigures() const
 {
-	pacman.movePacman(game_board);
-	pacman.updatePos();
-
-	if (!checkCollision())
-	{
-		pacman.updateScore(game_board);
-		gotoxy(32, 13);
-		cout << "                            ";
-		if (detailsColor != gameColors::WHITE)
-			setTextColor(detailsColor);
-		gotoxy(32, 13);
-		cout << "The score is = " << pacman.getScore();
-	}
-	else
-		resetAfterCollision();
-	//pacman.printPacman();
+	pacman.printPacman();
+	printAllGhosts();
 }
 
-
-void ThePacmanGame::pauseGame()
+void ThePacmanGame::pauseGame() const
 {
 	char key;
 
@@ -197,12 +199,12 @@ void ThePacmanGame::pauseGame()
 	while (key != ESC)// not ESC, to continue
 		key = _getch();
 
-	gotoxy(24, 11);
-	cout << "                                   ";//remove everything that was written
+	gotoxy(22, 11);
+	cout << "                                      ";//remove pause message
+	printGameName();
 }
 
-
-bool ThePacmanGame::checkCollision()
+bool ThePacmanGame::checkCollision() const
 {
 	int pac_x, gh_x, pac_y, gh_y; //More convient and readable.
 
@@ -214,25 +216,34 @@ bool ThePacmanGame::checkCollision()
 		gh_x = gh.getCurrPos().getXPos();
 		gh_y = gh.getCurrPos().getYPos();
 		if (pac_x == gh_x && pac_y == gh_y)
+		{
+			printCollision();
 			return true;
+		}
 	}
 	return false;
 }
+
 void ThePacmanGame::resetAfterCollision()
 {
 
 	printCellRestore();
-	pacman.setPacmanPosition();
 	pacman.updateLivesLeft();
-	ghost[0].setGhostPosition(40, 9);//was (40,9)
-	ghost[1].setGhostPosition(40, 15);
 	printLives();
-	pacman.printPacman();
-	printAllGhosts();
-	Sleep(1000);
+	if (pacman.getLivesLeft() > 0)
+	{
+		pacman.setPacmanPosition();
+		ghost[0].setGhostPosition(40, 9);
+		ghost[1].setGhostPosition(40, 15);
+		pacman.printPacman();
+		printAllGhosts();
+		Sleep(500);
+		printRSG();
+		printGameName();
+	}
 }
 
-void ThePacmanGame::printCellRestore() 
+void ThePacmanGame::printCellRestore() const
 {
 	char cell;
 	int x, y;
@@ -255,12 +266,55 @@ void ThePacmanGame::printCellRestore()
 	}
 
 }
-void ThePacmanGame::printLives()
+
+void ThePacmanGame::printLives() const
 {
 	if (detailsColor != gameColors::WHITE)
 		setTextColor(detailsColor);
 	gotoxy(32, 12);
 	cout << "Lives Left: " << pacman.getLivesLeft();
+}
+
+void ThePacmanGame::printGameName() const
+{
+	if (detailsColor != gameColors::WHITE)
+		setTextColor(detailsColor);
+	gotoxy(28, 11);
+	cout << "  P  A  C  -  M  A  N  ";
+}
+
+void ThePacmanGame::printRSG() const
+{
+	if (gameColorized) setTextColor(detailsColor);
+
+	gotoxy(21, 11);
+	cout << "                                     " << endl;
+	gotoxy(37, 11);
+	cout << "Ready,";
+	Sleep(1200);
+	gotoxy(21, 11);
+	cout << "                                     " << endl;
+	gotoxy(38, 11);
+	cout << "Set,";
+	Sleep(1200);
+	gotoxy(21, 11);
+	cout << "                                     " << endl;
+	gotoxy(38, 11);
+	cout << "GO!";
+	Sleep(750);
+	gotoxy(21, 11);
+	cout << "                                     " << endl;
+}
+
+void ThePacmanGame::printCollision() const
+{
+	for (int i = 0; i < 5; i++)
+	{
+		printAllGhosts();
+		Sleep(300);
+		pacman.printPacman();
+		Sleep(300);
+	}
 }
 
 bool ThePacmanGame::GameFinished()
@@ -270,53 +324,56 @@ bool ThePacmanGame::GameFinished()
 	if (pacman.getLivesLeft() == 0)
 		playerWon = false;
 	else if (game_board.getBreadcrumbs() == pacman.getScore())
+	{
 		playerWon = true;
+		pacman.printPacman(); //print pacman in the his last position, the winning one!
+	}
 
 	return true;
 }
 
-void ThePacmanGame::printResult()
+void ThePacmanGame::printResult() const
 {
-	gotoxy(25, 11);
-	cout << "                              ";
-	gotoxy(25, 12);
-	cout << "                              ";
-	gotoxy(25, 13);
-	cout << "                              ";
+	gotoxy(21, 11);
+	cout << "                                     " << endl;
+	gotoxy(21, 12);
+	cout << "                                     " << endl;
+	gotoxy(21, 13);
+	cout << "                                     " << endl;
 
 	if (playerWon == true)
 	{
-		Sleep(500);
-		gotoxy(23, 11);
-		cout << "Congratulations, You WON!" << endl;
-		Sleep(750);
-		gotoxy(23, 12);
-		cout << "your score is: " << pacman.getScore() << endl;
+		for (int i = 0; i < 4; i++)
+		{
+			gotoxy(27, 12);
+			cout << "Congratulations, You WON!" << endl;
+			Sleep(750);
+			gotoxy(21, 12);
+			cout << "                                     " << endl;
+			Sleep(750);
+		}
 	}
 	else
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			gotoxy(23, 11);
+			gotoxy(33, 12);
 			cout << "GAME OVER!!!!" << endl;
 			Sleep(500);
-			gotoxy(23, 11);
-			cout << "             " << endl;
+			gotoxy(21, 12);
+			cout << "                                     " << endl;
 			Sleep(500);
 		}
-		gotoxy(23, 11);
-		cout << "your final score is : " << pacman.getScore() << endl;
 
 	}
-	Sleep(750);
-	gotoxy(23, 13);
-	cout << "Thanks for playing" << endl;
+	gotoxy(21, 12);
+	cout << "                                     " << endl;
+	gotoxy(27, 12);
+	cout << "your final score is: " << pacman.getScore() << endl;
+	Sleep(2500);
+	gotoxy(21, 12);
+	cout << "                                     " << endl;
+	gotoxy(30, 12);
+	cout << "Thanks for playing!" << endl;
 	Sleep(2000);
-
-}
-void ThePacmanGame::printFigures()
-{
-	pacman.printPacman();
-	for (auto& gh : ghost)
-		gh.printGhost();
 }
