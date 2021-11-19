@@ -11,7 +11,7 @@ class Pacman
 {
 private:
 	const char pacmanFigure = PACMAN;
-	gameColors pacColor = gameColors::WHITE;
+	Colors pacColor = Colors::WHITE;
 	Position currPos, nextPos;
 	Direction pacmanDirection = Direction::STAY; 
 	int livesLeft = 3;
@@ -23,11 +23,11 @@ public:
 	Direction getDirection (char key) const;
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
-	gameColors getPacColor() const { return pacColor; }
+	Colors getPacColor() const { return pacColor; }
 	void printPacman() const;
 
 	void setDirection(Direction dir);
-	void setPacColor(gameColors color = gameColors::WHITE) { pacColor = color; }
+	void setPacColor(Colors color = Colors::WHITE) { pacColor = color; }
 	void setPacmanPosition();
 	void updateLivesLeft() { livesLeft--; }
 	void updatePos() { currPos = nextPos; };

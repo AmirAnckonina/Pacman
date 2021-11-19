@@ -11,7 +11,7 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
 }
 
-void setTextColor(gameColors c)
+void setTextColor(Colors c)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)c);
 }
@@ -25,7 +25,12 @@ void hideCursor()
 	SetConsoleCursorInfo(myconsole, &CURSOR);//second argument need pointer
 }
 
+void clearInput()
+{
+	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+}
+
 void resetColors()
 {
-	setTextColor(gameColors::WHITE);
+	setTextColor(Colors::WHITE);
 }

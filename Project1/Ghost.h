@@ -12,20 +12,20 @@ class Ghost
 
 private:
 	const char ghostFigure = GHOST;
-	gameColors ghostColor = gameColors::WHITE;
+	Colors ghostColor = Colors::WHITE;
 	Position currPos, nextPos;
 	Direction ghostDirection;
 
 public:
 
-	void setGhostColor(gameColors color) { ghostColor = color; }
+	void setGhostColor(Colors color) { ghostColor = color; }
 	void moveGhost(GameBoard& board);
 	void initGhost(int xCoord, int yCoord);
 	void setGhostPosition(int xCoord, int yCoord);
 	void updatePos() { currPos = nextPos; };
 	void setRandomDirection();
 
-	gameColors getGhostColor() const { return ghostColor; }
+	Colors getGhostColor() const { return ghostColor; }
 	Position getCurrPos() const { return currPos; }
 	void printGhost() const;
 };

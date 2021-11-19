@@ -2,7 +2,7 @@
 
 void GameBoard::initBoard()
 {
-	borderColor = breadcrumbColor = tunnelColor = gameColors::WHITE;
+	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
 	boardColorized = false;
 	totalBreadcrumbs = 0;
 	initOuterBorders();
@@ -46,13 +46,13 @@ void GameBoard::initInnerWalls()
 	int rowInd, colInd;
 
 	//Tunnels
-	for (rowInd = 10, colInd = 0; colInd <= 5; colInd++)
+	for (rowInd = 10, colInd = 0; colInd <= 8; colInd++)
 		_board[rowInd][colInd] = BORDER;
-	for (rowInd = 14, colInd = 0; colInd <= 5; colInd++)
+	for (rowInd = 14, colInd = 0; colInd <= 8; colInd++)
 		_board[rowInd][colInd] = BORDER;
-	for (rowInd = 10, colInd = 74; colInd <= 79; colInd++)
+	for (rowInd = 10, colInd = 72; colInd <= 79; colInd++)
 		_board[rowInd][colInd] = BORDER;
-	for (rowInd = 14, colInd = 74; colInd <= 79; colInd++)
+	for (rowInd = 14, colInd = 72; colInd <= 79; colInd++)
 		_board[rowInd][colInd] = BORDER;
 	for (rowInd = 11; rowInd <= 13; rowInd++)
 	{
@@ -80,32 +80,33 @@ void GameBoard::initInnerWalls()
 		_board[rowInd][colInd] = BORDER;
 
 	//Short Lines
-	for (rowInd = 12, colInd = 19; colInd >= 13; colInd--)
-		_board[rowInd][colInd] = BORDER;
-
-	for (rowInd = 12, colInd = 61; colInd <= 67; colInd++)
-		_board[rowInd][colInd] = BORDER;
+	for (rowInd = 10 ; rowInd <= 14 ; rowInd++)
+		for (colInd = 19; colInd >= 11; colInd--)
+			_board[rowInd][colInd] = BORDER;
+	for (rowInd = 10; rowInd <= 14; rowInd++)
+		for (colInd = 61; colInd <= 69; colInd++)
+			_board[rowInd][colInd] = BORDER;
 
 	//Small recatngles
-	for (rowInd = 0; rowInd <= 5; rowInd++)
-		for (colInd = 36; colInd <= 44; colInd++)
+	for (rowInd = 2; rowInd <= 7; rowInd++)
+		for (colInd = 34; colInd <= 46; colInd++)
 			_board[rowInd][colInd] = BORDER;
-	for (rowInd = 24; rowInd >= 19; rowInd--)
-		for (colInd = 36; colInd <= 44; colInd++)
+	for (rowInd = 22; rowInd >= 17; rowInd--)
+		for (colInd = 34; colInd <= 46; colInd++)
 			_board[rowInd][colInd] = BORDER;
 
-	//Small squares
-	for (rowInd = 2; rowInd <= 4; rowInd++)
-		for (colInd = 2; colInd <= 19; colInd++)
+	//4 Rectangles
+	for (rowInd = 2; rowInd <= 7; rowInd++)
+		for (colInd = 2; colInd <= 30; colInd++)
 			_board[rowInd][colInd] = BORDER;
-	for (rowInd = 2; rowInd <= 4; rowInd++)
-		for (colInd = 77; colInd >= 60; colInd--)
+	for (rowInd = 2; rowInd <= 7; rowInd++)
+		for (colInd = 77; colInd >= 50; colInd--)
 			_board[rowInd][colInd] = BORDER;
-	for (rowInd = 20; rowInd <= 22; rowInd++)
-		for (colInd = 2; colInd <= 19; colInd++)
+	for (rowInd = 17; rowInd <= 22; rowInd++)
+		for (colInd = 2; colInd <= 30; colInd++)
 			_board[rowInd][colInd] = BORDER;
-	for (rowInd = 20; rowInd <= 22; rowInd++)
-		for (colInd = 77; colInd >= 60; colInd--)
+	for (rowInd = 17; rowInd <= 22; rowInd++)
+		for (colInd = 77; colInd >= 50; colInd--)
 			_board[rowInd][colInd] = BORDER;
 }
 
@@ -137,7 +138,8 @@ void GameBoard::printBoard() const
 			if (boardColorized) boardColorizedProcedure(rowInd, colInd);
 			cout << _board[rowInd][colInd];
 		}
-		cout << endl;
+		if (colInd < COLMAX - 1) 
+			cout << endl;
 	}
 }
 

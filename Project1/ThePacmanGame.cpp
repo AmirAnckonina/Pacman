@@ -10,7 +10,8 @@ void ThePacmanGame::initGame()
 	ghost[0].initGhost(40, 9);
 	ghost[1].initGhost(40, 15);
 	if (gameColorized) { setGameColors(); }
-	else detailsColor = gameColors::WHITE;
+	else detailsColor = Colors::WHITE;
+	ghostsTurn = false;
 	game_board.printBoard();
 	pacman.printPacman();
 	printGameName();
@@ -20,6 +21,7 @@ void ThePacmanGame::initGame()
 
 void ThePacmanGame::entryMenu()
 {
+	clearInput();
 	cout << "Press any key to enter the game menu..." << endl;
 	userKey = _getch();
 	userKey = 0;
@@ -87,14 +89,14 @@ bool ThePacmanGame::userChoosedToStart() const
 
 void ThePacmanGame::setGameColors()
 {
-	detailsColor = gameColors::YELLOW;
+	detailsColor = Colors::YELLOW;
 	game_board.setBoardColorized();
-	game_board.setBorderColor(gameColors::GRAY);
-	game_board.setBreadcrumbColor(gameColors::BROWN);
-	game_board.settunnelColor(gameColors::YELLOW);
-	pacman.setPacColor(gameColors::YELLOW);
+	game_board.setBorderColor(Colors::GRAY);
+	game_board.setBreadcrumbColor(Colors::BROWN);
+	game_board.settunnelColor(Colors::YELLOW);
+	pacman.setPacColor(Colors::YELLOW);
 	for (auto& gh : ghost)
-		gh.setGhostColor(gameColors::LIGHTBLUE);
+		gh.setGhostColor(Colors::LIGHTBLUE);
 }
 
 
