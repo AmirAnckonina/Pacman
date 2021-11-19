@@ -21,6 +21,6 @@ public:
 	void setXPos(int x = 1) { _x = x; }
 	void setYPos(int y = 1) { _y = y; }
 	void setNextPos(Direction dir, char figure);
-	bool isPositionValid(GameBoard& board, char figure) const;
+	bool isPositionValid(GameBoard& board, char figure);
 
 };

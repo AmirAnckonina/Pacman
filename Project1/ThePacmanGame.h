@@ -14,36 +14,37 @@ const int numOfGhosts = 2;
 class ThePacmanGame
 {
 private:
-
 	char userKey;
 	bool ghostsTurn = false;
 	bool playerWon = false;
 	bool gameColorized = false;
-  gameColors detailsColor = gameColors::WHITE
+	gameColors detailsColor = gameColors::WHITE;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
-  gameColors detailsColor = gameColors::WHITE;
 
 public:
-  char getUserKey() const { return userKey; }
-	void printFigures();
 	void initGame();
-	void runGame();
-	void pauseGame();
 	void entryMenu();
-	bool userChoosedToStart();
-	void setGameColors();
-	void printMenu();
-	void printAllGhosts() const;
 	void printInstructions();
-	bool checkCollision();
-	void resetAfterCollision();
-	void printCellRestore();
-	void printLives(); 
-	bool GameFinished();
-	void printResult();
-	void singleGhostsSession();
+	void setGameColors();
+	char getUserKey() const { return userKey; }
+	bool userChoosedToStart() const;
+	void printMenu() const;
+	void printLives() const; 
+	void printGameName() const;
+	void printRSG() const;
+
+	void runGame();
 	void singlePacmanSession();
-  
+	void singleGhostsSession();
+	void resetAfterCollision();
+	bool GameFinished();
+	void pauseGame() const;
+	void printFigures() const;
+	void printAllGhosts() const;
+	bool checkCollision() const;
+	void printCollision() const;
+	void printCellRestore() const;
+	void printResult() const;
 };

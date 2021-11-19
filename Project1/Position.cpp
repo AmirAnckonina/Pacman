@@ -1,6 +1,6 @@
 #include "Position.h"
 
-bool Position::isPositionValid(GameBoard& board, char figure) const
+bool Position::isPositionValid(GameBoard& board, char figure) 
 {
 	char cellCh = board.getCellInBoard(_x, _y);
 

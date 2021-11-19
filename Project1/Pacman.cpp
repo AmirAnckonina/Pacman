@@ -2,7 +2,7 @@
 
 void Pacman::initPacman()
 {
-	score = 1111;
+	score = 1; //Pacman will be placed on (1,1) coordinate which has a breadcrumb, so the score will start from 1.
 	livesLeft = 3;
 	pacColor = gameColors::WHITE;
 	setPacmanPosition();
@@ -37,24 +37,17 @@ void Pacman::movePacman(GameBoard& board)
 	}
 }
 
-void Pacman::updateScore(GameBoard& board)
-{
-	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == BREADCRUMB)
-	{
-		score++;
-		//gotoxy(32, 13);
-		//cout << "                            ";
-
-		//gotoxy(32, 13);
-		//cout << "The score is = " << score;
-	}
-}
-
 void Pacman::printPacman() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (pacColor != gameColors::WHITE) { setTextColor(pacColor); }
 	cout << pacmanFigure;
+}
+
+void Pacman::updateScore(GameBoard& board)
+{
+	if (pacmanDirection != Direction::STAY && board.getCellInBoard(currPos) == BREADCRUMB)
+		score++;
 }
 
 Direction Pacman::getDirection(char key) const
