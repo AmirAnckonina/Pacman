@@ -25,7 +25,7 @@ void ThePacmanGame::entryMenu()
 	cout << "Press any key to enter the game menu..." << endl;
 	userKey = _getch();
 	userKey = 0;
-	system("cls");
+	clearScreen();
 
 	while (!userChoosedToStart())
 	{
@@ -37,11 +37,9 @@ void ThePacmanGame::entryMenu()
 			gameColorized = true;
 		else
 			gameColorized = false;
-
 	}
-	system("cls");
+	clearScreen();
 }
-
 //Creating board which hold the information of every cell
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
@@ -51,8 +49,10 @@ void ThePacmanGame::initGame()
 	pacman.initPacman();
 	ghost[0].initGhost(40, 9);
 	ghost[1].initGhost(40, 15);
-	if (gameColorized) { setGameColors(); }
-	else detailsColor = Colors::WHITE;
+	if (gameColorized) 
+		setGameColors();
+	else 
+		detailsColor = Colors::WHITE;
 	ghostsTurn = playerWon = false;
 	game_board.printBoard();
 	pacman.printPacman();
@@ -60,7 +60,6 @@ void ThePacmanGame::initGame()
 	printLives();
 	printAllGhosts();
 }
-
 
 void ThePacmanGame::printMenu() const
 {
@@ -74,7 +73,7 @@ void ThePacmanGame::printMenu() const
 
 void ThePacmanGame::printInstructions() 
 {
-	system("cls");
+	clearScreen();
 
 	cout << "Welcome to Pacman game!" << endl;
 	cout << "Pac - MAN has 3 life in this game." << endl;
@@ -96,7 +95,7 @@ void ThePacmanGame::printInstructions()
 	while (userKey != ESC)
 		userKey = _getch();
 
-	system("cls");
+	clearScreen();
 	userKey = 0;
 }
 
@@ -104,7 +103,8 @@ bool ThePacmanGame::userChoosedToStart() const
 {
 	if (userKey == START || userKey == STARTCOLORIZED || userKey == EXIT)
 		return true;
-	else return false;
+	else 
+		return false;
 }
 
 void ThePacmanGame::setGameColors()
@@ -123,7 +123,6 @@ void ThePacmanGame::runGame()
 {
 	char key = 0;
 	Direction currDir;
-
 	do
 	{
 		if (key == ESC)
@@ -131,15 +130,16 @@ void ThePacmanGame::runGame()
 			pauseGame();
 			key = 0; //So pacman will continue as he was before pausing.
 		}
+
 		singleGhostsSession();
 		singlePacmanSession();
 		printFigures();
-		Sleep(70);
+		Sleep(90);
 
 		if (_kbhit())
 		{
 			key = _getch();
-			currDir = pacman.getDirection(key); //A kind of key validation.
+			currDir = pacman.getDirection(key); //A kind of key translation to move.
 			if (currDir != Direction::WRONG_KEY)
 				pacman.setDirection(currDir);
 		}
@@ -148,7 +148,7 @@ void ThePacmanGame::runGame()
 
 	printResult();
 	if (gameColorized) { resetColors(); }
-	system("cls");
+	clearScreen();
 	Sleep(1200);
 }
 
@@ -220,10 +220,9 @@ void ThePacmanGame::pauseGame() const
 	if (gameColorized)
 		setTextColor(detailsColor);
 	cout << "Game paused, press ESC to continue";
-
 	key = _getch();
 
-	while (key != ESC)// not ESC, to continue
+	while (key != ESC)
 		key = _getch();
 
 	gotoxy(21, 11);
@@ -279,16 +278,19 @@ void ThePacmanGame::printCellRestore() const
 	x = pacman.getCurrPos().getXPos();
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
-	if (cell == GameBoard::BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
+	if (cell == GameBoard::BREADCRUMB && gameColorized) 
+		setTextColor(game_board.getBreadcrumbColor());
 	gotoxy(x, y);
 	cout << cell;
 
+	//Handle it and restore to all ghosts
 	for (auto& gh : ghost)
 	{
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
-		if (cell == GameBoard::BREADCRUMB && gameColorized) { setTextColor(game_board.getBreadcrumbColor()); }
+		if (cell == GameBoard::BREADCRUMB && gameColorized) 
+			setTextColor(game_board.getBreadcrumbColor()); 
 		gotoxy(x, y);
 		cout << cell;
 	}
@@ -368,7 +370,8 @@ void ThePacmanGame::printResult() const
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			if (gameColorized) setTextColor(pacman.getPacColor());
+			if (gameColorized)
+				setTextColor(pacman.getPacColor());
 			gotoxy(27, 12);
 			cout << "Congratulations, You WON!" << endl;
 			Sleep(750);
@@ -382,7 +385,8 @@ void ThePacmanGame::printResult() const
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			if (gameColorized) setTextColor(ghost[0].getGhostColor());
+			if (gameColorized) 
+				setTextColor(ghost[0].getGhostColor());
 			gotoxy(33, 12);
 			cout << "GAME OVER!!!!" << endl;
 			Sleep(500);
@@ -391,7 +395,8 @@ void ThePacmanGame::printResult() const
 		}
 		printGhostsAllAround();
 	}
-	if (gameColorized) setTextColor(detailsColor);
+	if (gameColorized) 
+		setTextColor(detailsColor);
 	clearRectangle();
 	gotoxy(27, 12);
 	cout << "your final score is: " << pacman.getScore() << endl;
@@ -412,6 +417,7 @@ void ThePacmanGame::clearRectangle() const
 	cout << "                                       " << endl;
 }
 
+//Pacman animation at the end
 void ThePacmanGame::printPacmanAllAround() const
 {
 	int x = 21, y = 11;
@@ -442,6 +448,7 @@ void ThePacmanGame::printPacmanAllAround() const
 	Sleep(1500);			
 }
 
+//Ghost Animation at the end
 void ThePacmanGame::printGhostsAllAround() const
 {
 	int x1 = 21, y1 = 11, x2 = 59, y2 = 13;

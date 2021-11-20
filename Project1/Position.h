@@ -17,10 +17,13 @@ private:
 public:
 	//C'tor
 	Position(int x = 1, int y = 1) { _x = x; _y = y; }
+
+	bool isPositionValid(GameBoard& board, char figure);
+	void setNextPos(Direction dir, char figure);
+
+	//Get-Set functions
 	int getXPos() const { return _x; }
 	int getYPos() const { return _y; }
 	void setXPos(int x = 1) { _x = x; }
 	void setYPos(int y = 1) { _y = y; }
-	void setNextPos(Direction dir, char figure);
-	bool isPositionValid(GameBoard& board, char figure);
 };

@@ -17,8 +17,10 @@ enum class Colors {
 	, LIGHTMAGENTA = 13, YELLOW = 14, WHITE = 15
 };
 
+//Global functions
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(Colors c);
 void hideCursor();
 void resetColors();
 void clearInput();
+void clearScreen();

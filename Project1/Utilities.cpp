@@ -34,3 +34,8 @@ void resetColors()
 {
 	setTextColor(Colors::WHITE);
 }
+
+void clearScreen()
+{
+	system("cls");
+}
