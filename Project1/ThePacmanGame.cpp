@@ -25,11 +25,11 @@ void ThePacmanGame::entryMenu()
 	cout << "Press any key to enter the game menu..." << endl;
 	userKey = _getch();
 	userKey = 0;
+	system("cls");
 
 	while (!userChoosedToStart())
 	{
-		if (userKey == 0) 
-			printMenu();
+		printMenu();
 		userKey = _getch();
 		if (userKey == INSTRUCTIONS)
 			printInstructions();
@@ -39,7 +39,6 @@ void ThePacmanGame::entryMenu()
 			gameColorized = false;
 
 	}
-
 	system("cls");
 }
 
@@ -65,6 +64,7 @@ void ThePacmanGame::initGame()
 
 void ThePacmanGame::printMenu() const
 {
+	gotoxy(0, 0);
 	cout << "Welcome to Pacman game!" << endl;
 	cout << "Press (1) to Start without colors" << endl;
 	cout << "Press (2) to Start with colors" << endl;
@@ -126,13 +126,17 @@ void ThePacmanGame::runGame()
 
 	do
 	{
-		printFigures();
 		if (key == ESC)
 		{
 			pauseGame();
 			key = 0; //So pacman will continue as he was before pausing.
 		}
+
+		singleGhostsSession();
+		singlePacmanSession();
+		printFigures();
 		Sleep(70);
+
 		if (_kbhit())
 		{
 			key = _getch();
@@ -140,8 +144,6 @@ void ThePacmanGame::runGame()
 			if (currDir != Direction::WRONG_KEY)
 				pacman.setDirection(currDir);
 		}
-		singleGhostsSession();
-		singlePacmanSession();
 
 	} while (!GameFinished());
 
@@ -160,8 +162,6 @@ void ThePacmanGame::singlePacmanSession()
 	{
 		pacman.updateScore(game_board);
 		singlePrintScore();
-		/*int tmpX = pacman.getCurrPos().getXPos();
-		int tmpY = pacman.getCurrPos().getYPos();*/
 		Position tmpPos = pacman.getCurrPos();
 		game_board.setCellInBoard(tmpPos, GameBoard::SPACE);
 	}
@@ -189,15 +189,13 @@ void ThePacmanGame::singleGhostsSession()
 			gh.moveGhost(game_board);
 			gh.updatePos();
 		}
-
-		if (checkCollision())
-			resetAfterCollision();
-
 		ghostsTurn = false; //they won't move in the next step
 	}
 	else 
 		ghostsTurn = true;
 
+	if (checkCollision())
+		resetAfterCollision();
 }
 
 void ThePacmanGame::printAllGhosts() const
