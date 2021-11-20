@@ -7,8 +7,6 @@ using std::cout;
 using std::endl;
 
 class Position; //Forward declaration.
-
-
 class GameBoard
 {
 public: 
@@ -26,23 +24,27 @@ private:
 
 public:
 
+	//Init functions
 	void initBoard();
 	void initOuterBorders();
 	void initInnerWalls();
 	void initBreadcrumbs();
 	void initDetailsArea();
+	
+	//Printing and colors design
 	void printBoard() const;
 	void setBoardColorized() { boardColorized = true; }
 	void setBorderColor(Colors color = Colors::WHITE) { borderColor = color; }
 	void setBreadcrumbColor(Colors color) { breadcrumbColor = color; }
 	void settunnelColor(Colors color) { tunnelColor = color; }
+	void boardColorizedProcedure(int rowInd, int colInd) const;
+
+	//Others Get-Set functions.
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
 	void setCellInBoard(Position& pos, char ch);
-
 	Colors getBorderColor() const { return borderColor; }
 	Colors getBreadcrumbColor() const { return breadcrumbColor; }
 	Colors getTunnelColor() const { return tunnelColor; }
-	void boardColorizedProcedure(int rowInd, int colInd) const;
 	int getBreadcrumbs() const { return totalBreadcrumbs; }
 	char getCellInBoard(int x, int y) const { return _board[y][x]; }
 	char getCellInBoard(Position& pos) const;

@@ -3,7 +3,7 @@
 
 void Pacman::initPacman()
 {
-	score = 0; //Pacman will be placed on (1,1) coordinate which has a breadcrumb, so the score will start from 1.
+	score = 0;
 	livesLeft = 3;
 	pacmanColor = Colors::WHITE;
 	setPacmanPosition();
@@ -23,14 +23,11 @@ void Pacman::movePacman(GameBoard& board)
 	nextPos.setNextPos(pacmanDirection, PACMAN);
 	if (pacmanDirection != Direction::STAY && nextPos.isPositionValid(board, PACMAN)) //So we should move the pacman
 	{
-		/*if (board.getCellInBoard(currPos) != GameBoard::TUNNEL)
-			board.setCellInBoard(currPos, GameBoard::SPACE);*/
-
-		//print space in current position because soon pacman will be moved.
+		//print space in current position because soon the pacman will be moved.
 		gotoxy(currPos.getXPos(), currPos.getYPos());
 		cout << GameBoard::SPACE;
 	}
-	else //In case not, please stay on the current position.
+	else //In case not, please stay on the current position. + Rollback to nextPos
 	{
 		nextPos = currPos;
 		pacmanDirection = Direction::STAY;
@@ -46,12 +43,14 @@ void Pacman::printPacman() const
 
 void Pacman::updateScore(GameBoard& board)
 {
+	//Collect score if breadCrumb placed in currPos
 	if (board.getCellInBoard(nextPos) == GameBoard::BREADCRUMB)
 		score++;
 }
 
 Direction Pacman::getDirection(char key) const
 {
+	//Key translation to Direction
 	switch (key)
 	{
 	case 'w':

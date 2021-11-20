@@ -19,14 +19,15 @@ private:
 
 public:
 
-	void setGhostColor(Colors color) { ghostColor = color; }
-	void moveGhost(GameBoard& board);
 	void initGhost(int xCoord, int yCoord);
-	void setGhostPosition(int xCoord, int yCoord);
+	void moveGhost(GameBoard& board);
 	void updatePos() { currPos = nextPos; };
-	void setRandomDirection();
+	void printGhost() const;
 
+	//Get-Set functions
+	void setGhostPosition(int xCoord, int yCoord);
+	void setRandomDirection();
+	void setGhostColor(Colors color) { ghostColor = color; }
 	Colors getGhostColor() const { return ghostColor; }
 	Position getCurrPos() const { return currPos; }
-	void printGhost() const;
 };
