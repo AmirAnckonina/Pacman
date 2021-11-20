@@ -17,6 +17,7 @@ bool Position::isPositionValid(GameBoard& board, char figure)
 void Position::setNextPos(Direction dir, char figure)
 {
 	//Pay attention while pacman goes through a tunnel cell, he wiil be placed in the other side
+	//This function does NOT check if next position is Valid, just set a new potenital position, for every creature that need.
 	switch (dir)
 	{
 	case Direction::UP:
