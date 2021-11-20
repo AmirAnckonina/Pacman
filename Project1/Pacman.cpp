@@ -3,7 +3,7 @@
 
 void Pacman::initPacman()
 {
-	score = 1; //Pacman will be placed on (1,1) coordinate which has a breadcrumb, so the score will start from 1.
+	score = 0; //Pacman will be placed on (1,1) coordinate which has a breadcrumb, so the score will start from 1.
 	livesLeft = 3;
 	pacmanColor = Colors::WHITE;
 	setPacmanPosition();
@@ -46,7 +46,7 @@ void Pacman::printPacman() const
 
 void Pacman::updateScore(GameBoard& board)
 {
-	if (pacmanDirection != Direction::STAY && board.getCellInBoard(nextPos) == GameBoard::BREADCRUMB)
+	if (board.getCellInBoard(nextPos) == GameBoard::BREADCRUMB)
 		score++;
 }
 
