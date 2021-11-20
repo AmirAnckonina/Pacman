@@ -28,12 +28,12 @@ void ThePacmanGame::entryMenu()
 
 	while (!userChoosedToStart())
 	{
-		if (userKey == 0) 
+		if (userKey == 0)
 			printMenu();
 		userKey = _getch();
 		if (userKey == INSTRUCTIONS)
 			printInstructions();
-		else if (userKey == STARTCOLORIZED) 
+		else if (userKey == STARTCOLORIZED)
 			gameColorized = true;
 		else
 			gameColorized = false;
@@ -52,7 +52,7 @@ void ThePacmanGame::printMenu() const
 	cout << "press (9) to exit" << endl;
 }
 
-void ThePacmanGame::printInstructions() 
+void ThePacmanGame::printInstructions()
 {
 	system("cls");
 
@@ -114,7 +114,7 @@ void ThePacmanGame::runGame()
 			pauseGame();
 			key = 0; //So pacman will continue as he was before pausing.
 		}
-		Sleep(70);
+		Sleep(40);
 		if (_kbhit())
 		{
 			key = _getch();
@@ -169,7 +169,7 @@ void ThePacmanGame::singleGhostsSession()
 
 		ghostsTurn = false; //they won't move in the next step
 	}
-	else 
+	else
 		ghostsTurn = true;
 
 }
@@ -409,7 +409,7 @@ void ThePacmanGame::printPacmanAllAround() const
 		Sleep(5);
 	}
 
-	Sleep(1500);			
+	Sleep(1500);
 }
 
 void ThePacmanGame::printGhostsAllAround() const
@@ -424,8 +424,8 @@ void ThePacmanGame::printGhostsAllAround() const
 		cout << GHOST;
 		Sleep(5);
 	}
-	x1--; 
-	y1++; 
+	x1--;
+	y1++;
 	x2++;
 	y2--;
 	while (x2 <= x1)
