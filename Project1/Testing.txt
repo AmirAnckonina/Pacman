@@ -3,21 +3,20 @@
 
 Sanity tests:
 
-1. Keys funcitionallity
-2. Borders isn't valid
-3. Pausing game
-4. Pacman move through tunnels
+1. Keys funcitionallity - VVV
+2. Borders isn't valid 
+3. Pausing game - VVV
+4. Pacman move through tunnels - VVV
 5. Ghosts can't move through tunnels
-6. Eating breadcrumbs
+6. Eating breadcrumbs - VVV
 7. Score updating
-8. Collision situation
-9. Winning game
-* Score is equal to BC left
-* printing results is OK, starting after winning game is ok
+8. Collision situation - VVV
+9. Winning game -
+* printing results is OK, starting after winning game is ok - VVV
 * Winning after loosing
 * Loosing after winning
-10. Loosing game
-11. Messages printing
+10. Loosing game - VVV
+11. Messages printing - VVV
 
 Move and Collision functionallity:
 
@@ -40,11 +39,11 @@ Menu Testing:
 
 Colors Testing:
 
-1. Set colors
-2. Breadcrumbz do not painted in other colors
-3. Changing colors
-4. Collision flashes colors are OK
-5. Starting game without colors is OK, even after colorized game
+1. Set colors - VVV
+2. Breadcrumbz do not painted in other colors - VVV
+3. Changing colors - VVV
+4. Collision flashes colors are OK - VVV
+5. Starting game without colors is OK, even after colorized game - VVV
 
 Automated tests:
 

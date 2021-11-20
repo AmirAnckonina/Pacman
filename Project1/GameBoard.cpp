@@ -126,9 +126,6 @@ void GameBoard::initBreadcrumbs()
 			}
 		}
 	}
-	gotoxy(1, 1);
-	cout << totalBreadcrumbs;
-	Sleep(2000);
 }
 
 void GameBoard::printBoard() const
