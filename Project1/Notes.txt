@@ -1,8 +1,27 @@
 
 /// Notes
-1. A little bug - while finishing game, sometimes it prints the menu to the next game without waiting for userKey. (hard to reproduce)
-2. gameColorized as a boolean global/private variable inside Utilities.h. - will gave access from all classes convinently
-3. Bulding tests scenarios
-4. Running tests.
-3.readme.txt - do not forget.
-4.code review and documentation
+//Reading boards.
+1. Create 3 boarders with different patterns. (We assume the maxsize will be 25*80)
+2. Read Those 3 files by order, storing the read board in 2D array.
+3. Vary the boards with different sizes/different location of the "Legend" area.
+4. we should move to the next board when all breadcrumbs are eaten by the pacman. after finish all the 3 , game finished.
+5. Lives do not reset after single stage.
+
+//Fruit
+1. Create a class:
+* Figure
+* Value
+* Color
+* Direction
+* CurrPos, NextPos
+*** Clarify about time-on-screen and howmany time before each showing of the Fruit?
+
+//Functions
+1. Similar to Ghost with some changes.
+
+
+//Ghosts
+1. Smarter Ghosts 
+* Best
+* Good
+* Novice
