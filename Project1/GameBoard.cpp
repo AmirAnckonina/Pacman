@@ -1,15 +1,67 @@
 #include "GameBoard.h"
 #include "ThePacmanGame.h" 
 
+
+void GameBoard::readTemplateFromFile()
+{
+	ifstream templateFile(boardTemplates[currTemplate], ios::in);
+	readRawTemplate(templateFile);
+}
+
+void GameBoard::readRawTemplate(ifstream& templateFile)
+{
+	int rowInd = 0;
+	while (!templateFile.eof()) //&& rowInd < ROWMAX)
+		templateFile.getline(_board[rowInd], COLMAX);
+}
+
+void GameBoard::convertTemplateToBoard()
+{
+	int rowInd = 0, colInd = 0;
+	char tmpChar;
+	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
+		for (colInd = 0; colInd < COLMAX; colInd++)
+			convertChar(_board[rowInd][colInd]);
+}
+
+void GameBoard::convertChar(char& ch)
+{
+	switch (ch)
+	{
+	case '#':
+		ch = BORDER;
+		break;
+	case '%':
+	case '&':
+		ch = SPACE;
+		break;
+	case ' ':
+		ch = BREADCRUMB;
+		break;
+	}
+}
+
+void GameBoard::initInvisibleTunnels()
+{
+
+}
+
 void GameBoard::initBoard()
 {
-	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
+	/*borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
 	boardColorized = false;
-	totalBreadcrumbs = 0;
-	initOuterBorders();
-	initInnerWalls();
-	initBreadcrumbs();
-	initDetailsArea();
+	totalBreadcrumbs = 0;*/
+
+	readTemplateFromFile();
+	convertTemplateToBoard();
+	int firstRow, lastRow, firstCol, lastCol; //The first row and col that border appear, in order to recognize tunnels.
+
+
+
+	//initOuterBorders();
+	////initInnerWalls();
+	//initBreadcrumbs();
+	//initDetailsArea();
 }
 
 void::GameBoard::initDetailsArea()
