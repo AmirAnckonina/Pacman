@@ -1,10 +1,13 @@
 #pragma once
+using namespace std;
 
 #include "Utilities.h"
 #include "Position.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
-using std::cout;
-using std::endl;
 
 class Position; //Forward declaration.
 class GameBoard
@@ -16,6 +19,10 @@ public:
 
 private:
 	char _board[ROWMAX][COLMAX];
+	vector<int> verticalTunnels = {};
+	vector<int> horizontalTunnels = {};
+	string boardTemplates[3] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt" };
+	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
 	bool boardColorized = false;
 	Colors borderColor = Colors::WHITE;
@@ -25,6 +32,12 @@ private:
 public:
 
 	//Init functions
+	void readTemplateFromFile();
+	void readRawTemplate(ifstream& templateFile);
+	void convertTemplateToBoard();
+	void convertChar(char& ch);
+	void initInvisibleTunnels();
+
 	void initBoard();
 	void initOuterBorders();
 	void initInnerWalls();

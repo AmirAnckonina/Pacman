@@ -21,7 +21,12 @@
 
 
 //Ghosts
-1. Smarter Ghosts 
+1. Smarter Ghosts
+Algorithem:
+Calculate the shortest route in each move of the ghost (by recursion)
+get the first direction from the fastest root, and make a move. 
 * Best
 * Good
 * Novice
+
+//
