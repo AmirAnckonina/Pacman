@@ -13,7 +13,8 @@ void ThePacmanGame::startGameSessions()
 		else
 		{
 			initGame();
-			runGame();
+			Sleep(10000);
+			//runGame();
 		}
 	}
 	cout << "Goodbye" << endl;
@@ -46,8 +47,8 @@ void ThePacmanGame::initGame()
 {
 	hideCursor();
 	game_board.initBoard();
-	pacman.initPacman();
-	ghost[0].initGhost(40, 9);
+	//pacman.initPacman();
+	/*ghost[0].initGhost(40, 9);
 	ghost[1].initGhost(40, 15);
 	if (gameColorized) 
 		setGameColors();
@@ -58,7 +59,7 @@ void ThePacmanGame::initGame()
 	pacman.printPacman();
 	printGameName();
 	printLives();
-	printAllGhosts();
+	printAllGhosts();*/
 }
 
 void ThePacmanGame::printMenu() const
