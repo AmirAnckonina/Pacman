@@ -4,11 +4,12 @@
 #include "Directions.h"
 #include "Position.h"
 #include "GameBoard.h"
+#include "Creature.h"
 
 using std::cout;
 using std::endl;
 
-class Pacman 
+class Pacman :public Creature
 {
 public:
 	static constexpr char PACMAN = '@';
@@ -16,16 +17,16 @@ public:
 private:
 	Colors pacmanColor = Colors::WHITE;
 	Position currPos, nextPos;
-	Direction pacmanDirection = Direction::STAY; 
+	Direction pacmanDirection = Direction::STAY;
 	int livesLeft = 3;
 	int score = 0;
 
 public:
-	
-	void initPacman(); 
+
+	void initPacman();
 	void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
-	void updatePos() { currPos = nextPos; };
+	//void updatePos() { currPos = nextPos; };
 	void updateScore(GameBoard& board);
 	void printPacman() const;
 
@@ -34,7 +35,7 @@ public:
 	void setDirection(Direction dir);
 	void setPacColor(Colors color = Colors::WHITE) { pacmanColor = color; }
 	Position getCurrPos() const { return currPos; }
-	Direction getDirection (char key) const;
+	Direction getDirection(char key) const;
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
 	Colors getPacColor() const { return pacmanColor; }
