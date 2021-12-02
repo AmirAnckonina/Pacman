@@ -4,64 +4,144 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	ifstream templateFile(boardTemplates[currTemplate], ios::in);
+	ifstream templateFile(boardTemplates[currTemplate+2], ios::in);
 	readRawTemplate(templateFile);
 }
 
 void GameBoard::readRawTemplate(ifstream& templateFile)
 {
-	int rowInd = 0;
-	while (!templateFile.eof()) //&& rowInd < ROWMAX)
-		templateFile.getline(_board[rowInd], COLMAX);
-}
-
-void GameBoard::convertTemplateToBoard()
-{
 	int rowInd = 0, colInd = 0;
 	char tmpChar;
-	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
-		for (colInd = 0; colInd < COLMAX; colInd++)
-			convertChar(_board[rowInd][colInd]);
+	long int fsize = fileSize(templateFile);
+	
+	templateFile.get(tmpChar);
+	while (tmpChar != EOF) //&& rowInd < ROWMAX)
+	{
+		if (tmpChar == '\n') //END_OF_LINE
+		{
+			rowInd++;
+			colInd = 0;
+		}
+		else
+		{
+			tmpChar = convertChar(tmpChar);
+			_board[rowInd][colInd++] = tmpChar;
+		}
+		tmpChar = templateFile.get();
+	}
 }
 
-void GameBoard::convertChar(char& ch)
+long int GameBoard::fileSize(ifstream& fp)
+{
+	long int res, saver;
+	saver = fp.tellg();
+	fp.seekg(ios::end);
+	res = fp.tellg();
+	fp.seekg(saver);
+	cout << res << endl;
+	return res;
+}
+
+char GameBoard::convertChar(const char& ch)
 {
 	switch (ch)
 	{
 	case '#':
-		ch = BORDER;
+		return BORDER;
 		break;
 	case '%':
 	case '&':
-		ch = SPACE;
+		return SPACE;
 		break;
 	case ' ':
-		ch = BREADCRUMB;
+		return BREADCRUMB;
+		break;
+	default: //ch == 0
+		return SPACE;
 		break;
 	}
 }
 
-void GameBoard::initInvisibleTunnels()
+void GameBoard::initInvisibleTunnels(int& firstRow, int& lastRow, int& firstCol, int& lastCol)
 {
+	int rowInd = 0, colInd = 0;
+
+	for (rowInd = 0, colInd = 0; colInd < lastCol; colInd++)
+	{
+		if (_board[firstRow][colInd] == BREADCRUMB)
+		{
+			_board[firstRow][colInd] = TUNNEL;
+		}
+	}
+
+	for (rowInd = 0, colInd = 0; rowInd < lastRow; rowInd++)
+	{
+		if (_board[rowInd][firstCol] == BREADCRUMB)
+		{
+			_board[rowInd][firstCol] = TUNNEL;
+		}
+	}
+	
+	for (rowInd = 0, colInd = 0; colInd < lastCol; colInd++)
+	{
+		if (_board[lastRow][colInd] == BREADCRUMB)
+		{
+			_board[lastRow][colInd] = TUNNEL;
+		}
+	}
+
+	for (rowInd = 0, colInd = 0; rowInd < lastRow; rowInd++)
+	{
+		if (_board[rowInd][lastCol] == BREADCRUMB)
+		{
+			_board[rowInd][lastCol] = TUNNEL;
+		}
+	}
 
 }
 
 void GameBoard::initBoard()
 {
-	/*borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
+	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
 	boardColorized = false;
-	totalBreadcrumbs = 0;*/
+	totalBreadcrumbs = 0;
 
 	readTemplateFromFile();
-	convertTemplateToBoard();
 	int firstRow, lastRow, firstCol, lastCol; //The first row and col that border appear, in order to recognize tunnels.
+	getBoardFrame(firstRow, lastRow, firstCol, lastCol);
+	initInvisibleTunnels(firstRow, lastRow, firstCol, lastCol);
+	printBoard();
+}
 
+void GameBoard::getBoardFrame(int& firstRow, int& lastRow, int& firstCol, int& lastCol)
+{
+	int rowInd, colInd;
+	bool breakFlag = false;
 
+	firstCol = COLMAX;
+	firstRow = ROWMAX;
+	lastRow = lastCol = -1;
 
-	//initOuterBorders();
-	////initInnerWalls();
-	//initBreadcrumbs();
-	//initDetailsArea();
+	for (rowInd = 0; rowInd < ROWMAX ; rowInd++)
+		for (colInd = 0; colInd < COLMAX && colInd < firstCol ; colInd++)
+			if (_board[rowInd][colInd] == BORDER && colInd < firstCol)
+				firstCol = colInd;
+	
+	for (colInd = 0; colInd < COLMAX ; colInd++)
+		for (rowInd = 0; rowInd < ROWMAX && rowInd < firstRow; rowInd++)
+			if (_board[rowInd][colInd] == BORDER && rowInd < firstRow)
+				firstRow = rowInd;
+
+	for (rowInd = ROWMAX - 1 ; rowInd >= 0; rowInd--)
+		for (colInd = COLMAX - 1 ; colInd >= 0 && colInd > lastCol ; colInd--)
+			if (_board[rowInd][colInd] == BORDER && colInd > lastCol)
+				lastCol = colInd;
+
+	for (colInd = COLMAX - 1; colInd >= 0; colInd--)
+		for (rowInd = ROWMAX - 1; rowInd >= 0 && rowInd > lastRow; rowInd--)
+			if (_board[rowInd][colInd] == BORDER && rowInd > lastRow)
+				lastRow = rowInd;
+
 }
 
 void::GameBoard::initDetailsArea()
@@ -192,7 +272,7 @@ void GameBoard::printBoard() const
 				boardColorizedProcedure(rowInd, colInd);
 			cout << _board[rowInd][colInd];
 		}
-		if (colInd < COLMAX - 1) 
+		if (rowInd < ROWMAX - 1)
 			cout << endl;
 	}
 }

@@ -6,7 +6,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <filesystem>
 
 
 class Position; //Forward declaration.
@@ -19,8 +19,7 @@ public:
 
 private:
 	char _board[ROWMAX][COLMAX];
-	vector<int> verticalTunnels = {};
-	vector<int> horizontalTunnels = {};
+	int rowDim, colDim;
 	string boardTemplates[3] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt" };
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
@@ -34,9 +33,10 @@ public:
 	//Init functions
 	void readTemplateFromFile();
 	void readRawTemplate(ifstream& templateFile);
-	void convertTemplateToBoard();
-	void convertChar(char& ch);
-	void initInvisibleTunnels();
+	char convertChar(const char& ch);
+	void initInvisibleTunnels(int& firstRow, int& lastRow, int& firstCol, int& lastCol);
+	void getBoardFrame(int& firstRow,int& lastRow, int& firstCol, int& lastCol);
+	long int fileSize(ifstream& fp);
 
 	void initBoard();
 	void initOuterBorders();
