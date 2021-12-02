@@ -5,6 +5,7 @@
 #include "Position.h"
 #include "GameBoard.h"
 
+
 using std::cout;
 using std::endl;
 
@@ -26,7 +27,7 @@ public:
 
 	//Get-Set functions
 	void setGhostPosition(int xCoord, int yCoord);
-	void setRandomDirection();
+	void generateRandomDirection();
 	void setGhostColor(Colors color) { ghostColor = color; }
 	Colors getGhostColor() const { return ghostColor; }
 	Position getCurrPos() const { return currPos; }

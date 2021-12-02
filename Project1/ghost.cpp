@@ -20,7 +20,7 @@ void Ghost::moveGhost(GameBoard& board)
 	while (!isValid)
 	{
 		//Set potential new position to ghost, then check if it's valid.
-		setRandomDirection();
+		generateRandomDirection();
 		nextPos.setNextPos(ghostDirection, GHOST);
 		isValid = nextPos.isPositionValid(board, GHOST);
 		if (!isValid) //Rollback, before starting the loop again.
@@ -31,23 +31,23 @@ void Ghost::moveGhost(GameBoard& board)
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	if (board.getCellInBoard(currPos) == GameBoard::BREADCRUMB)
 	{
-		if (ThePacmanGame::isGameColorized()) 
+		if (ThePacmanGame::isGameColorized())
 			setTextColor(board.getBreadcrumbColor());
 		cout << GameBoard::BREADCRUMB;
 	}
-	else 
+	else
 		cout << GameBoard::SPACE;
 }
 
 void Ghost::printGhost() const
 {
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (ThePacmanGame::isGameColorized()) 
+	if (ThePacmanGame::isGameColorized())
 		setTextColor(ghostColor);
 	cout << GHOST;
 }
 
-void Ghost::setRandomDirection()
+void Ghost::generateRandomDirection()
 {
 	int dirInd = rand() % 4 + 1;
 
