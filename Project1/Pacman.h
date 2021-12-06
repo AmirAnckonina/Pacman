@@ -22,21 +22,21 @@ private:
 	int score = 0;
 
 public:
-	Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE);
+	Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@');
 	void initPacman();
 	void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
-	void updatePos() { currPos = nextPos; };
+	//void updatePos() { currPos = nextPos; };
 	void updateScore(GameBoard& board);
-	void printPacman() const;
+	//void printPacman() const;
 
 	//Get-Set Functions
 	void setPacmanPosition();
-	void setDirection(Direction dir);
-	void setPacColor(Colors color = Colors::WHITE) { pacmanColor = color; }
-	Position getCurrPos() const { return currPos; }
-	Direction getDirection(char key) const;
+	//void setDirection(Direction dir);
+	//void setPacColor(Colors color = Colors::WHITE) { pacmanColor = color; }
+	/*Position getCurrPos() const { return currPos; }
+	Direction getDirection(char key) const;*/
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
-	Colors getPacColor() const { return pacmanColor; }
+	//Colors getPacColor() const { return pacmanColor; }
 };

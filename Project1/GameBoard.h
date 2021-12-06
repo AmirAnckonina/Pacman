@@ -64,9 +64,9 @@ public:
 	char getCellInBoard(int x, int y) const { return _board[y][x]; }
 	char getCellInBoard(Position& pos) const;
 
-	int isFirstRow() { return firstRow; }
-	int isFirstCol() { return firstCol; }
-	int isLastRow() { return lastRow; }
-	int isLastCol() { return lastCol; }
+	int getFirstRow() { return firstRow; }
+	int getFirstCol() { return firstCol; }
+	int getLastRow() { return lastRow; }
+	int getLastCol() { return lastCol; }
 
 };
