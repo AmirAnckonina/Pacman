@@ -12,7 +12,7 @@ using namespace std;
 class Position; //Forward declaration.
 class GameBoard
 {
-public: 
+public:
 	static const int ROWMAX = 25;
 	static const int COLMAX = 80;
 	static constexpr char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176;
@@ -45,7 +45,7 @@ public:
 	void initInnerWalls();
 	void countTotalBreadcrumbs();
 	void initDetailsArea();
-	
+
 	//Printing and colors design
 	void printBoard() const;
 	void setBoardColorized() { boardColorized = true; }
@@ -64,4 +64,9 @@ public:
 	char getCellInBoard(int x, int y) const { return _board[y][x]; }
 	char getCellInBoard(Position& pos) const;
 
-	};
+	int isFirstRow() { return firstRow; }
+	int isFirstCol() { return firstCol; }
+	int isLastRow() { return lastRow; }
+	int isLastCol() { return lastCol; }
+
+};
