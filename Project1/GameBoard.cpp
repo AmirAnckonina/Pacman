@@ -4,7 +4,7 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	ifstream templateFile(boardTemplates[currTemplate+2], ios::in);
+	ifstream templateFile(boardTemplates[currTemplate], ios::in);
 	readRawTemplate(templateFile);
 }
 
@@ -12,8 +12,7 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 {
 	int rowInd = 0, colInd = 0;
 	char tmpChar;
-	long int fsize = fileSize(templateFile);
-	
+
 	templateFile.get(tmpChar);
 	while (tmpChar != EOF) //&& rowInd < ROWMAX)
 	{
@@ -31,16 +30,16 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 	}
 }
 
-long int GameBoard::fileSize(ifstream& fp)
-{
-	long int res, saver;
-	saver = fp.tellg();
-	fp.seekg(ios::end);
-	res = fp.tellg();
-	fp.seekg(saver);
-	cout << res << endl;
-	return res;
-}
+//long int GameBoard::fileSize(ifstream& fp)
+//{
+//	long int res, saver;
+//	saver = fp.tellg();
+//	fp.seekg(ios::end);
+//	res = fp.tellg();
+//	fp.seekg(saver);
+//	cout << res << endl;
+//	return res;
+//}
 
 char GameBoard::convertChar(const char& ch)
 {
@@ -62,7 +61,7 @@ char GameBoard::convertChar(const char& ch)
 	}
 }
 
-void GameBoard::initInvisibleTunnels(int& firstRow, int& lastRow, int& firstCol, int& lastCol)
+void GameBoard::initInvisibleTunnels()
 {
 	int rowInd = 0, colInd = 0;
 
@@ -100,20 +99,7 @@ void GameBoard::initInvisibleTunnels(int& firstRow, int& lastRow, int& firstCol,
 
 }
 
-void GameBoard::initBoard()
-{
-	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
-	boardColorized = false;
-	totalBreadcrumbs = 0;
-
-	readTemplateFromFile();
-	int firstRow, lastRow, firstCol, lastCol; //The first row and col that border appear, in order to recognize tunnels.
-	getBoardFrame(firstRow, lastRow, firstCol, lastCol);
-	initInvisibleTunnels(firstRow, lastRow, firstCol, lastCol);
-	printBoard();
-}
-
-void GameBoard::getBoardFrame(int& firstRow, int& lastRow, int& firstCol, int& lastCol)
+void GameBoard::getBoardFrame()
 {
 	int rowInd, colInd;
 	bool breakFlag = false;
@@ -122,18 +108,18 @@ void GameBoard::getBoardFrame(int& firstRow, int& lastRow, int& firstCol, int& l
 	firstRow = ROWMAX;
 	lastRow = lastCol = -1;
 
-	for (rowInd = 0; rowInd < ROWMAX ; rowInd++)
-		for (colInd = 0; colInd < COLMAX && colInd < firstCol ; colInd++)
+	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
+		for (colInd = 0; colInd < COLMAX && colInd < firstCol; colInd++)
 			if (_board[rowInd][colInd] == BORDER && colInd < firstCol)
 				firstCol = colInd;
-	
-	for (colInd = 0; colInd < COLMAX ; colInd++)
+
+	for (colInd = 0; colInd < COLMAX; colInd++)
 		for (rowInd = 0; rowInd < ROWMAX && rowInd < firstRow; rowInd++)
 			if (_board[rowInd][colInd] == BORDER && rowInd < firstRow)
 				firstRow = rowInd;
 
-	for (rowInd = ROWMAX - 1 ; rowInd >= 0; rowInd--)
-		for (colInd = COLMAX - 1 ; colInd >= 0 && colInd > lastCol ; colInd--)
+	for (rowInd = ROWMAX - 1; rowInd >= 0; rowInd--)
+		for (colInd = COLMAX - 1; colInd >= 0 && colInd > lastCol; colInd--)
 			if (_board[rowInd][colInd] == BORDER && colInd > lastCol)
 				lastCol = colInd;
 
@@ -142,6 +128,35 @@ void GameBoard::getBoardFrame(int& firstRow, int& lastRow, int& firstCol, int& l
 			if (_board[rowInd][colInd] == BORDER && rowInd > lastRow)
 				lastRow = rowInd;
 
+}
+
+void GameBoard::countTotalBreadcrumbs()
+{
+	int rowInd, colInd;
+
+	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
+	{
+		for (colInd = 0; colInd < COLMAX; colInd++)
+		{
+			if (_board[rowInd][colInd] == BREADCRUMB)
+			{
+				totalBreadcrumbs++;
+			}
+		}
+	}
+}
+
+void GameBoard::initBoard()
+{
+	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
+	boardColorized = false;
+	totalBreadcrumbs = 0;
+
+	readTemplateFromFile();
+	getBoardFrame();
+	initInvisibleTunnels();
+	countTotalBreadcrumbs();
+	printBoard();
 }
 
 void::GameBoard::initDetailsArea()
@@ -241,23 +256,6 @@ void GameBoard::initInnerWalls()
 	for (rowInd = 17; rowInd <= 22; rowInd++)
 		for (colInd = 77; colInd >= 50; colInd--)
 			_board[rowInd][colInd] = BORDER;
-}
-
-void GameBoard::initBreadcrumbs()
-{
-	int rowInd, colInd;
-
-	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
-	{
-		for (colInd = 0; colInd < COLMAX; colInd++)
-		{
-			if (_board[rowInd][colInd] == SPACE)
-			{
-				_board[rowInd][colInd] = BREADCRUMB;
-				totalBreadcrumbs++;
-			}
-		}
-	}
 }
 
 void GameBoard::printBoard() const

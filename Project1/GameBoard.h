@@ -18,9 +18,11 @@ public:
 	static constexpr char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176;
 
 private:
-	char _board[ROWMAX][COLMAX];
-	int rowDim, colDim;
-	string boardTemplates[3] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt" };
+	char _board[ROWMAX][COLMAX] = {};
+	//The first row and col that border appear, in order to recognize tunnels.
+	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1;
+	string boardTemplates[5] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt",
+		"Pacman_board_4.txt", "Pacman_board_5.txt" };
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
 	bool boardColorized = false;
@@ -34,14 +36,14 @@ public:
 	void readTemplateFromFile();
 	void readRawTemplate(ifstream& templateFile);
 	char convertChar(const char& ch);
-	void initInvisibleTunnels(int& firstRow, int& lastRow, int& firstCol, int& lastCol);
-	void getBoardFrame(int& firstRow,int& lastRow, int& firstCol, int& lastCol);
-	long int fileSize(ifstream& fp);
+	void initInvisibleTunnels();
+	void getBoardFrame();
+	//long int fileSize(ifstream& fp);
 
 	void initBoard();
 	void initOuterBorders();
 	void initInnerWalls();
-	void initBreadcrumbs();
+	void countTotalBreadcrumbs();
 	void initDetailsArea();
 	
 	//Printing and colors design
