@@ -19,6 +19,7 @@ enum class Colors {
 
 //Global functions
 void gotoxy(int x = 1, int y = 1);
+//void gotoxy(Position& pos);
 void setTextColor(Colors c);
 void hideCursor();
 void resetColors();

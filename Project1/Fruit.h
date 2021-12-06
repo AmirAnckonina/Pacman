@@ -5,7 +5,8 @@
 #include "Directions.h"
 #include "Position.h"
 #include "GameBoard.h"
-#include "Creature.h"
+#include "
+.h"
 
 
 class Fruit
