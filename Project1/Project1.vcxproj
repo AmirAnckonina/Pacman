@@ -153,6 +153,7 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="Fruit.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Pacman.h" />
