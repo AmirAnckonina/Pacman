@@ -50,6 +50,7 @@ void Ghost::printGhost() const
 void Ghost::generateRandomDirection()
 {
 	int dirInd = rand() % 4 + 1;
+	Direction ghostDirection;
 
 	switch (dirInd)
 	{
@@ -68,4 +69,6 @@ void Ghost::generateRandomDirection()
 	default:
 		break;
 	}
+
+	setDirection(ghostDirection);
 }

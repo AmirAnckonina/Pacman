@@ -16,16 +16,8 @@ void Pacman::initPacman()
 {
 	score = 0;
 	livesLeft = 3;
-	pacmanColor = Colors::WHITE;
-	setPacmanPosition();
-}
-
-void Pacman::setPacmanPosition()
-{
-	currPos.setXPos();
-	currPos.setYPos();
-	nextPos = currPos;
-	pacmanDirection = Direction::STAY;
+	setColor(Colors::WHITE);
+	resetCreaturePosition();
 }
 
 void Pacman::movePacman(GameBoard& board)
@@ -46,46 +38,35 @@ void Pacman::movePacman(GameBoard& board)
 	}
 }
 
-void Pacman::printPacman() const
-{
-	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (ThePacmanGame::isGameColorized()) { setTextColor(pacmanColor); }
-	cout << PACMAN;
-}
-
 void Pacman::updateScore(GameBoard& board)
 {
 	//Collect score if breadCrumb placed in currPos
-	if (board.getCellInBoard(nextPos) == GameBoard::BREADCRUMB)
+	/*if (board.getCellInBoard( getNextPos().getXPos(), getNextPos().getYPos() ) == GameBoard::BREADCRUMB)*/
+	if (board.getCellInBoard(getNextPos()) == GameBoard::BREADCRUMB)
 		score++;
 }
 
-//Direction Pacman::getDirection(char key) const
-//{
-//	//Key translation to Direction
-//	switch (key)
-//	{
-//	case 'w':
-//	case 'W':
-//		return Direction::UP;
-//	case 'x':
-//	case 'X':
-//		return Direction::DOWN;
-//	case 's':
-//	case 'S':
-//		return Direction::STAY;
-//	case 'd':
-//	case 'D':
-//		return Direction::RIGHT;
-//	case 'a':
-//	case 'A':
-//		return Direction::LEFT;
-//	default:
-//		return Direction::WRONG_KEY;
-//	}
-//}
-
-void Pacman::setDirection(Direction dir)
+Direction Pacman::convertKeyToDirection(char key) const
 {
-	pacmanDirection = dir;
+	//Key translation to Direction
+	switch (key)
+	{
+	case 'w':
+	case 'W':
+		return Direction::UP;
+	case 'x':
+	case 'X':
+		return Direction::DOWN;
+	case 's':
+	case 'S':
+		return Direction::STAY;
+	case 'd':
+	case 'D':
+		return Direction::RIGHT;
+	case 'a':
+	case 'A':
+		return Direction::LEFT;
+	default:
+		return Direction::WRONG_KEY;
+	}
 }
