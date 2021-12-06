@@ -30,3 +30,9 @@ get the first direction from the fastest root, and make a move.
 * Novice
 
 //
+
+
+-------------------
+//Notes EX2
+
+1. Test Boards with problematic structure.

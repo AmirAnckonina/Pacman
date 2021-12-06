@@ -9,24 +9,24 @@
 using std::cout;
 using std::endl;
 
-class Pacman :public Creature
+class Pacman : public Creature
 {
 public:
 	static constexpr char PACMAN = '@';
 
 private:
-	Colors pacmanColor = Colors::WHITE;
+	/*Colors pacmanColor = Colors::WHITE;
 	Position currPos, nextPos;
-	Direction pacmanDirection = Direction::STAY;
+	Direction pacmanDirection = Direction::STAY;*/
 	int livesLeft = 3;
 	int score = 0;
 
 public:
-
+	Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE);
 	void initPacman();
 	void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
-	//void updatePos() { currPos = nextPos; };
+	void updatePos() { currPos = nextPos; };
 	void updateScore(GameBoard& board);
 	void printPacman() const;
 

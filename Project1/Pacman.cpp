@@ -1,6 +1,13 @@
 #include "Pacman.h"
 #include "ThePacmanGame.h"
 
+Pacman::Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY ,Colors _pacmanColor = Colors::WHITE)
+	: Creature(_pacmanColor, _pacmanCurrPos, _pacmanNextPos, _pacmanDirection)
+{
+	/*livesLeft = 3;
+	score = 0;*/
+}
+
 void Pacman::initPacman()
 {
 	score = 0;

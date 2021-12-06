@@ -4,6 +4,7 @@
 
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
+
 	char cellCh = board.getCellInBoard(_x, _y);
 
 	if (cellCh == GameBoard::BORDER)
