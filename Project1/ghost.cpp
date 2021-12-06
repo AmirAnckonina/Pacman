@@ -74,4 +74,6 @@ void Ghost::generateRandomDirection()
 	default:
 		break;
 	}
+
+	setDirection(ghostDirection);
 }

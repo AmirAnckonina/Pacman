@@ -14,7 +14,9 @@ public:
 	Creature() {};
 	Creature(Colors _creatureColor, Position _currPos, Position _nextPos, Direction _creatureDirection, char _creatureIcon);
 
-	void moveCreature(GameBoard& board);
+	//void moveCreature(GameBoard& board);
+
+
 	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
 
@@ -24,10 +26,10 @@ public:
 	void setStartingPos(Position _startingPos) { startingPos = _startingPos; }
 	Position getStartingPos() const { return startingPos; }
 	void setCurrPos(Position _currPos) { currPos = _currPos; }
-	Position getCurrPos() const { return currPos; }
+	const Position& getCurrPos() const { return currPos; }
 	void setNextPos(Position _nextPos) { nextPos = _nextPos; }
 	void setCreatureNextPos();
-	Position getNextPos() const { return nextPos; }
+	const Position& getNextPos() const { return nextPos; }
 
 	void setDirection(Direction _creatureDirection) { creatureDirection = _creatureDirection; }
 	Direction getDirection() const { return creatureDirection; }
@@ -39,4 +41,5 @@ public:
 	char getIcon() const { return creatureIcon; }
 
 	bool isCreaturePositionValid(GameBoard& board);
+	void printCreature() const ;
 };

@@ -29,10 +29,17 @@ get the first direction from the fastest root, and make a move.
 * Good
 * Novice
 
-//
-
-
 -------------------
 //Notes EX2
 
 1. Test Boards with problematic structure.
+2. Update about forum question
+3. ThePacmanGame - redesign according to base class changes
+4. Build menu class
+5. Creature - Consts for the icons?
+6. BFS algorithem implementation
+7. unite common function from ghost, pacman, etc. to Creature base class
+8. Get init position from the board and update relevant creatures before initilaize them.
+9. Details area 
+10. Handle differnet name types to boards.txt
+11. Strategy for ghosts - polymorphizem ?
