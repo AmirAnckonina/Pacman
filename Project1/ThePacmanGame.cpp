@@ -113,9 +113,9 @@ void ThePacmanGame::setGameColors()
 	game_board.setBorderColor(Colors::GRAY);
 	game_board.setBreadcrumbColor(Colors::BROWN);
 	game_board.settunnelColor(Colors::YELLOW);
-	pacman.setPacColor(Colors::YELLOW);
+	pacman.setColor(Colors::YELLOW);
 	for (auto& gh : ghost)
-		gh.setGhostColor(Colors::LIGHTBLUE);
+		gh.setColor(Colors::LIGHTBLUE);
 }
 
 //Running a game session, according to do-while loop condition
@@ -139,7 +139,7 @@ void ThePacmanGame::runGame()
 		if (_kbhit())
 		{
 			key = _getch();
-			currDir = pacman.getDirection(key); //A kind of key translation to move.
+			currDir = pacman.convertKeyToDirection(key); //A kind of key translation to move.
 			if (currDir != Direction::WRONG_KEY)
 				pacman.setDirection(currDir);
 		}
@@ -174,7 +174,7 @@ void ThePacmanGame::singlePacmanSession()
 void ThePacmanGame::singlePrintScore() const
 {
 	gotoxy(21, 13);
-	cout << "                                       " << endl;
+	cout << "                    " << endl;
 	if (gameColorized)
 		setTextColor(detailsColor);
 	gotoxy(32, 13);
@@ -200,16 +200,12 @@ void ThePacmanGame::singleGhostsSession()
 		resetAfterCollision();
 }
 
-void ThePacmanGame::printAllGhosts() const
-{
-	for (auto& gh : ghost)
-		gh.printGhost();
-}
 
 void ThePacmanGame::printFigures() const
 {
-	pacman.printPacman();
-	printAllGhosts();
+	pacman.printCreature();
+	for (auto& gh : ghost)
+		gh.printCreature();
 }
 
 void ThePacmanGame::pauseGame() const
@@ -226,7 +222,7 @@ void ThePacmanGame::pauseGame() const
 		key = _getch();
 
 	gotoxy(21, 11);
-	cout << "                                       " << endl;//remove pause message
+	cout << "                    " << endl;//remove pause message
 	printGameName();
 }
 

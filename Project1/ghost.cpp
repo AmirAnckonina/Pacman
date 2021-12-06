@@ -21,7 +21,7 @@ void Ghost::moveGhost(GameBoard& board)
 	{
 		//Set potential new position to ghost, then check if it's valid.
 		generateRandomDirection();
-		nextPos.setNextPos(ghostDirection, GHOST);
+		setNextPos(ghostDirection, GHOST);
 		isValid = nextPos.isPositionValid(board, GHOST);
 		if (!isValid) //Rollback, before starting the loop again.
 			nextPos = currPos;
