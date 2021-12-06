@@ -12,13 +12,14 @@ using namespace std;
 class Position; //Forward declaration.
 class GameBoard
 {
-public: 
+public:
 	static const int ROWMAX = 25;
 	static const int COLMAX = 80;
 	static constexpr char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176;
 
 private:
 	char _board[ROWMAX][COLMAX];
+	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1; //The first row and col that border appear, in order to recognize tunnels.
 	int rowDim, colDim;
 	string boardTemplates[3] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt" };
 	int currTemplate = 0;
@@ -34,8 +35,8 @@ public:
 	void readTemplateFromFile();
 	void readRawTemplate(ifstream& templateFile);
 	char convertChar(const char& ch);
-	void initInvisibleTunnels(int& firstRow, int& lastRow, int& firstCol, int& lastCol);
-	void getBoardFrame(int& firstRow,int& lastRow, int& firstCol, int& lastCol);
+	void initInvisibleTunnels();
+	void getBoardFrame();
 	long int fileSize(ifstream& fp);
 
 	void initBoard();
@@ -43,7 +44,7 @@ public:
 	void initInnerWalls();
 	void initBreadcrumbs();
 	void initDetailsArea();
-	
+
 	//Printing and colors design
 	void printBoard() const;
 	void setBoardColorized() { boardColorized = true; }
@@ -62,4 +63,9 @@ public:
 	char getCellInBoard(int x, int y) const { return _board[y][x]; }
 	char getCellInBoard(Position& pos) const;
 
-	};
+	int isFirstRow() { return firstRow; }
+	int isFirstCol() { return firstCol; }
+	int isLastRow() { return lastRow; }
+	int isLastCol() { return lastCol; }
+
+};
