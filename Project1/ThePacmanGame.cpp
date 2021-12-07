@@ -117,8 +117,6 @@ void ThePacmanGame::singlePrintScore() const
 	cout << "The score is = " << pacman.getScore();
 }
 
-
-
 void ThePacmanGame::singleGhostsSession()
 {
 	//PAY attention, ghost should move every other turn. so the condition manage it.
@@ -142,10 +140,14 @@ void ThePacmanGame::singleGhostsSession()
 void ThePacmanGame::printFigures() const
 {
 	pacman.printCreature();
+	printAllGhosts();
+}
+
+void ThePacmanGame::printAllGhosts() const
+{
 	for (auto& gh : ghost)
 		gh.printCreature();
 }
-
 
 bool ThePacmanGame::checkCollision() const
 {
@@ -286,7 +288,6 @@ void ThePacmanGame::printResult() const
 	cout << "Thanks for playing!" << endl;
 	Sleep(3000);
 }
-
 
 void ThePacmanGame::pauseGame() const
 {
