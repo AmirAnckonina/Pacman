@@ -62,7 +62,7 @@ public:
 	Colors getTunnelColor() const { return tunnelColor; }
 	int getBreadcrumbs() const { return totalBreadcrumbs; }
 	char getCellInBoard(int x, int y) const { return _board[y][x]; }
-	char getCellInBoard(Position& pos) const;
+	char getCellInBoard(const Position& pos) const;
 
 	int getFirstRow() { return firstRow; }
 	int getFirstCol() { return firstCol; }

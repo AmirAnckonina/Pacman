@@ -74,9 +74,10 @@ void Ghost::generateRandomDirection()
 	default:
 		break;
 	}
+
 }
 
-void Ghost::smartGhostMove(GameBoard& board)
+/*void Ghost::smartGhostMove(GameBoard& board)
 {
 
 	{
@@ -118,4 +119,6 @@ void Ghost::smartGhostMove(GameBoard& board)
 
 
 
-}
+
+}*/
+
