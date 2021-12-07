@@ -75,7 +75,6 @@ void Ghost::generateRandomDirection()
 		break;
 	}
 
-	setDirection(ghostDirection);
 }
 
 /*void Ghost::smartGhostMove(GameBoard& board)
@@ -120,4 +119,6 @@ void Ghost::generateRandomDirection()
 
 
 
+
 }*/
+
