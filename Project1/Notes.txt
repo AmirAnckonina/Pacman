@@ -33,13 +33,14 @@ get the first direction from the fastest root, and make a move.
 //Notes EX2
 
 2. Update about forum question. VVV
-3. ThePacmanGame - redesign according to base class changes - 
-5. Creature - Consts for the icons?
+4. Build menu class  - VVV
+3. ThePacmanGame - redesign according to base class changes - VVV
+5. Creature - Consts for the icons
 7. unite common function from ghost, pacman, etc. to Creature base class
-4. Build menu class  
 9. Details area 
 8. Get init position from the board and update relevant creatures before initilaize them.
 6. BFS algorithem implementation
 10. Handle differnet name types to boards.txt
 11. Strategy for ghosts - polymorphizem ?
 1. Test Boards with problematic structure.
+12. build functions to collect pacman and ghost , similar to legendPos

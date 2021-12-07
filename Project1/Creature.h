@@ -5,9 +5,9 @@
 
 class Creature
 {
-	char creatureIcon;
+	char creatureIcon = 0;
 	Position startingPos ,currPos, nextPos;
-	Direction creatureDirection;
+	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
 
 public:

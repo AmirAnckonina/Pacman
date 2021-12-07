@@ -44,7 +44,7 @@ public:
 	void printRSG() const;
 	void printPacmanAllAround() const;
 	void printGhostsAllAround() const;
-	void clearRectangle() const;
+	void clearLegendArea() const;
 	void singlePrintScore() const;
 	void printFigures() const;
 	void printAllGhosts() const;

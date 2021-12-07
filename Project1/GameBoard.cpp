@@ -295,23 +295,22 @@ char GameBoard::getCellInBoard(const Position& pos) const
 	return _board[pos.getYPos()][pos.getXPos()];
 }
 
-void GameBoard::collectLegendfromBoard()
+Position GameBoard::collectLegendFromBoard()
 {
+	Position res;
 	for (int i = firstRow; i < lastRow; i++)
 	{
 		for (int j = firstCol; j < lastCol; j++)
 		{
 			if (getCellInBoard(j, i) == '&')
 			{
-				legendPos.setXPos(j);
-				legendPos.setYPos(i);
+				res.setXPos(j);
+				res.setYPos(i);
 			}
 
 		}
 	}
-
-
-
+	return res;
 }
 
 
