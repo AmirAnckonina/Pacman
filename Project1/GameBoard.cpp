@@ -290,7 +290,7 @@ void GameBoard::setCellInBoard(Position& pos, char ch)
 	_board[pos.getYPos()][pos.getXPos()] = ch;
 }
 
-char GameBoard::getCellInBoard(Position& pos) const
+char GameBoard::getCellInBoard(const Position& pos) const
 {
 	return _board[pos.getYPos()][pos.getXPos()];
 }
