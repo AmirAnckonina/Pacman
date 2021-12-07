@@ -49,13 +49,13 @@ char GameBoard::convertChar(const char& ch)
 		return BORDER;
 		break;
 	case '%':
-	case '&':
+		//case '&':
 		return SPACE;
 		break;
 	case ' ':
 		return BREADCRUMB;
 		break;
-	default: //ch == 0
+	default: //ch == 0, check waht happens with pacman and ghost icons
 		return SPACE;
 		break;
 	}
@@ -80,7 +80,7 @@ void GameBoard::initInvisibleTunnels()
 			_board[rowInd][firstCol] = TUNNEL;
 		}
 	}
-	
+
 	for (rowInd = 0, colInd = 0; colInd < lastCol; colInd++)
 	{
 		if (_board[lastRow][colInd] == BREADCRUMB)
@@ -228,7 +228,7 @@ void GameBoard::initInnerWalls()
 		_board[rowInd][colInd] = BORDER;
 
 	//Short Lines
-	for (rowInd = 10 ; rowInd <= 14 ; rowInd++)
+	for (rowInd = 10; rowInd <= 14; rowInd++)
 		for (colInd = 19; colInd >= 11; colInd--)
 			_board[rowInd][colInd] = BORDER;
 	for (rowInd = 10; rowInd <= 14; rowInd++)
@@ -266,7 +266,7 @@ void GameBoard::printBoard() const
 	{
 		for (colInd = 0; colInd < COLMAX; colInd++)
 		{
-			if (ThePacmanGame::isGameColorized()) 
+			if (ThePacmanGame::isGameColorized())
 				boardColorizedProcedure(rowInd, colInd);
 			cout << _board[rowInd][colInd];
 		}
@@ -294,3 +294,24 @@ char GameBoard::getCellInBoard(const Position& pos) const
 {
 	return _board[pos.getYPos()][pos.getXPos()];
 }
+
+void GameBoard::collectLegendfromBoard()
+{
+	for (int i = firstRow; i < lastRow; i++)
+	{
+		for (int j = firstCol; j < lastCol; j++)
+		{
+			if (getCellInBoard(j, i) == '&')
+			{
+				legendPos.setXPos(j);
+				legendPos.setYPos(i);
+			}
+
+		}
+	}
+
+
+
+}
+
+

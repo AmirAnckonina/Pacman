@@ -39,7 +39,7 @@ public:
 	static bool isGameColorized() { return gameColorized; }
 
 	//Printing functions
-	void printLives() const; 
+	void printLives() const;
 	void printGameName() const;
 	void printRSG() const;
 	void printPacmanAllAround() const;
@@ -60,4 +60,6 @@ public:
 	bool checkCollision() const;
 	void resetAfterCollision();
 	bool GameFinished();
+
+
 };

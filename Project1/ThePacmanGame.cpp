@@ -29,19 +29,17 @@ void ThePacmanGame::initGame()
 	pacman.initPacman();
 	ghost[0].initGhost(40, 9);
 	ghost[1].initGhost(40, 15);
-	if (gameColorized) 
+	if (gameColorized)
 		setGameColors();
-	else 
+	else
 		detailsColor = Colors::WHITE;
 	ghostsTurn = playerWon = false;
 	game_board.printBoard();
-	pacman.printPacman();
+	pacman.printCreature();
 	printGameName();
 	printLives();
 	printAllGhosts();
 }
-
-
 
 
 void ThePacmanGame::setGameColors()
@@ -118,6 +116,8 @@ void ThePacmanGame::singlePrintScore() const
 	cout << "The score is = " << pacman.getScore();
 }
 
+
+
 void ThePacmanGame::singleGhostsSession()
 {
 	//PAY attention, ghost should move every other turn. so the condition manage it.
@@ -130,7 +130,7 @@ void ThePacmanGame::singleGhostsSession()
 		}
 		ghostsTurn = false; //they won't move in the next step
 	}
-	else 
+	else
 		ghostsTurn = true;
 
 	if (checkCollision())
@@ -172,10 +172,12 @@ void ThePacmanGame::resetAfterCollision()
 	printLives();
 	if (pacman.getLivesLeft() > 0)
 	{
-		pacman.setPacmanPosition();
-		ghost[0].setGhostPosition(40, 9);
-		ghost[1].setGhostPosition(40, 15);
-		pacman.printPacman();
+		pacman.resetCreaturePosition();
+		//ghost[0].setGhostPosition(40, 9);
+		ghost[0].resetCreaturePosition();
+		//ghost[1].setGhostPosition(40, 15);
+		ghost[1].resetCreaturePosition();
+		pacman.printCreature();
 		printAllGhosts();
 		Sleep(500);
 		printRSG();
@@ -194,7 +196,7 @@ void ThePacmanGame::printCellRestore() const
 	x = pacman.getCurrPos().getXPos();
 	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(x, y);
-	if (cell == GameBoard::BREADCRUMB && gameColorized) 
+	if (cell == GameBoard::BREADCRUMB && gameColorized)
 		setTextColor(game_board.getBreadcrumbColor());
 	gotoxy(x, y);
 	cout << cell;
@@ -205,8 +207,8 @@ void ThePacmanGame::printCellRestore() const
 		x = gh.getCurrPos().getXPos();
 		y = gh.getCurrPos().getYPos();
 		cell = game_board.getCellInBoard(x, y);
-		if (cell == GameBoard::BREADCRUMB && gameColorized) 
-			setTextColor(game_board.getBreadcrumbColor()); 
+		if (cell == GameBoard::BREADCRUMB && gameColorized)
+			setTextColor(game_board.getBreadcrumbColor());
 		gotoxy(x, y);
 		cout << cell;
 	}
@@ -219,7 +221,7 @@ void ThePacmanGame::printCollision() const
 	{
 		printAllGhosts();
 		Sleep(300);
-		pacman.printPacman();
+		pacman.printCreature();
 		Sleep(300);
 	}
 }
@@ -233,7 +235,7 @@ bool ThePacmanGame::GameFinished()
 	else if (game_board.getBreadcrumbs() == pacman.getScore())
 	{
 		playerWon = true;
-		pacman.printPacman(); //print pacman in the his last position, the winning one!
+		pacman.printCreature(); //print pacman in the his last position, the winning one!
 	}
 
 	return true;
@@ -248,7 +250,7 @@ void ThePacmanGame::printResult() const
 		for (int i = 0; i < 4; i++)
 		{
 			if (gameColorized)
-				setTextColor(pacman.getPacColor());
+				setTextColor(pacman.getColor());
 			gotoxy(27, 12);
 			cout << "Congratulations, You WON!" << endl;
 			Sleep(750);
@@ -262,8 +264,8 @@ void ThePacmanGame::printResult() const
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			if (gameColorized) 
-				setTextColor(ghost[0].getGhostColor());
+			if (gameColorized)
+				setTextColor(ghost[0].getColor());
 			gotoxy(33, 12);
 			cout << "GAME OVER!!!!" << endl;
 			Sleep(500);
@@ -272,7 +274,7 @@ void ThePacmanGame::printResult() const
 		}
 		printGhostsAllAround();
 	}
-	if (gameColorized) 
+	if (gameColorized)
 		setTextColor(detailsColor);
 	clearLegendArea();
 	gotoxy(27, 12);
@@ -356,7 +358,7 @@ void ThePacmanGame::printRSG() const
 void ThePacmanGame::printPacmanAllAround() const
 {
 	int x = 21, y = 11;
-	if (gameColorized) setTextColor(pacman.getPacColor());
+	if (gameColorized) setTextColor(pacman.getColor());
 	while (x <= 59)
 	{
 		gotoxy(x++, y);
@@ -380,14 +382,14 @@ void ThePacmanGame::printPacmanAllAround() const
 		Sleep(5);
 	}
 
-	Sleep(1500);			
+	Sleep(1500);
 }
 
 //Ghost Animation at the end
 void ThePacmanGame::printGhostsAllAround() const
 {
 	int x1 = 21, y1 = 11, x2 = 59, y2 = 13;
-	if (gameColorized) setTextColor(ghost[0].getGhostColor());
+	if (gameColorized) setTextColor(ghost[0].getColor());
 	while (x1 <= 59 && x2 >= 21)
 	{
 		gotoxy(x1++, y1);
@@ -396,8 +398,8 @@ void ThePacmanGame::printGhostsAllAround() const
 		cout << Ghost::GHOST;
 		Sleep(5);
 	}
-	x1--; 
-	y1++; 
+	x1--;
+	y1++;
 	x2++;
 	y2--;
 	while (x2 <= x1)
