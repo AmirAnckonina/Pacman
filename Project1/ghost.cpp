@@ -77,3 +77,47 @@ void Ghost::generateRandomDirection()
 
 	setDirection(ghostDirection);
 }
+
+/*void Ghost::smartGhostMove(GameBoard& board)
+{
+
+	{
+		// Visited vector to so that
+		// a vertex is not visited more than once
+		// Initializing the vector to false as no
+		// vertex is visited at the beginning
+		vector<bool> visited(adj.size(), false);
+		vector<int> q;
+		q.push_back(start);
+
+		// Set source as visited
+		visited[start] = true;
+
+		int vis;
+		while (!q.empty()) {
+			vis = q[0];
+
+			// Print the current node
+			cout << vis << " ";
+			q.erase(q.begin());
+
+			// For every adjacent vertex to the current vertex
+			for (int i = 0; i < adj[vis].size(); i++) {
+				if (adj[vis][i] == 1 && (!visited[i])) {
+
+					// Push the adjacent node to the queue
+					q.push_back(i);
+
+					// Set
+					visited[i] = true;
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+}*/
