@@ -26,7 +26,8 @@ void ThePacmanGame::initGame()
 {
 	hideCursor();
 	game_board.initBoard();
-	pacman.initPacman();
+	legendAreaPos = game_board.collectStartingPos('&');
+	pacman.initPacman(game_board);
 	ghost[0].initGhost(40, 9);
 	ghost[1].initGhost(40, 15);
 	if (gameColorized)
@@ -62,7 +63,7 @@ void ThePacmanGame::runGame()
 	{
 		if (key == Menu::ESC)
 		{
-			game_menu.pauseGame();
+			pauseGame();
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 

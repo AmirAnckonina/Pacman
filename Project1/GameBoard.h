@@ -68,5 +68,6 @@ public:
 	int getFirstCol() { return firstCol; }
 	int getLastRow() { return lastRow; }
 	int getLastCol() { return lastCol; }
-	const Position& getLegendIconIndex(const GameBoard& game_board)const;
+
+	Position collectStartingPos(char ch);
 };
