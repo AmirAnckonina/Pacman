@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Utilities.h"
+#include "Menu.h"
 #include "Directions.h"
 #include "GameBoard.h"
 #include "Pacman.h"
@@ -20,6 +21,7 @@ private:
 	bool ghostsTurn = false;
 	bool playerWon = false;
 	char userKey;
+	Menu game_menu;
 	Colors detailsColor = Colors::WHITE;
 	GameBoard game_board;
 	Pacman pacman;
