@@ -13,11 +13,25 @@ public:
 
 private:
 	char userKey;
+	Position legendAreaPos;
+	Colors detailsColor = Colors::WHITE;
 	
 public:
 	char getUserKey() const { return userKey; }
+	void setDetailsColor(Colors _detailsColor) { detailsColor = _detailsColor; }
 	void entryMenu();
 	void printMenu() const;
 	void printInstructions();
-	bool userChoosedToStart() const ; 
+	bool userChoosedToStart() const; 
+	void initDetailsArea(GameBoard& board);
+	void pauseGame() const;
+
+	void printLives(int lives) const;
+	void printGameName() const;
+	void printRSG() const;
+	void printPacmanAllAround(Colors pacmanColor) const;
+	void printGhostsAllAround(Colors ghostColor) const;
+	void clearLegendArea() const;
+	void singlePrintScore(int score) const;
+	void printResult(bool playerWon, int score, Colors pacmanColor, Colors ghostColor) const;
 };

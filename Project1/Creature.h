@@ -2,17 +2,28 @@
 #include"Utilities.h"
 #include "Position.h"
 #include"GameBoard.h"
+#include "Icons.h"
+
+enum Icon
+{
+	PACMAN,
+	GHOST,
+	FRUIT
+};
+
 
 class Creature
 {
-	char creatureIcon = 0;
+	Icon figure;
+	static const char icon;
 	Position startingPos ,currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
 
 public:
 	Creature() {};
-	Creature(Colors _creatureColor, Position _currPos, Position _nextPos, Direction _creatureDirection, char _creatureIcon);
+	Creature(Colors _creatureColor, Position _startingPos, Position _currPos, Position _nextPos,
+		Direction _creatureDirection, char _creatureIcon);
 
 	//void moveCreature(GameBoard& board);
 
@@ -42,4 +53,8 @@ public:
 
 	bool isCreaturePositionValid(GameBoard& board);
 	void printCreature() const ;
+
+	void collectCreatureStartingPos(GameBoard& board);
+
+	void convertCharToIcon(char ch);
 };

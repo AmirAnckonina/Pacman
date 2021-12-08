@@ -3,15 +3,13 @@
 //
 
 Ghost::Ghost(Position _ghostCurrPos, Position _ghostNextPos, Direction _ghostDirection, Colors _ghostColor, char _ghostIcon)
-	: Creature(_ghostColor, _ghostCurrPos, _ghostNextPos, _ghostDirection, _ghostIcon)
-{
-}
+	: Creature(_ghostColor, _ghostCurrPos, _ghostNextPos, _ghostDirection, _ghostIcon) {}
 
-void Ghost::initGhost()
+void Ghost::initGhost(GameBoard& board)
 {
+
 	setColor(Colors::WHITE);
 	resetCreaturePosition();
-
 }
 
 /*void Ghost::setGhostPosition(int xCoord, int yCoord)

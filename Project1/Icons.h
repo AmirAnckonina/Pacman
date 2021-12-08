@@ -1,10 +1,8 @@
 #pragma once
 
-//enum class Icon
-//{
-//	PACMAN 
-//	GHOST,
-//	FRUIT
-//};
-
-static constexpr char PACMAN = '@', GHOST = '$', FRUIT = '5';
+enum class Icon
+{
+	PACMAN,
+	GHOST,
+	FRUIT
+};

@@ -16,7 +16,6 @@ class ThePacmanGame
 public:
 	static const int numOfGhosts = 2;
 private:
-	static constexpr char START = '1', STARTCOLORIZED = '2', INSTRUCTIONS = '8', EXIT = '9', ESC = 27;
 	static bool gameColorized;
 	bool ghostsTurn = false;
 	bool playerWon = false;
@@ -26,17 +25,15 @@ private:
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
+	Position legendAreaPos;
 
 public:
 	//Preparartions functions
 	void startGameSessions();
 	void initGame();
-	void entryMenu();
-	void printMenu() const;
-	void printInstructions();
 	void setGameColors();
-	bool userChoosedToStart() const;
 	static bool isGameColorized() { return gameColorized; }
+	
 
 	//Printing functions
 	void printLives() const;
