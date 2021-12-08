@@ -56,7 +56,7 @@ public:
 
 	//Others Get-Set functions.
 	void setCellInBoard(int& x, int& y, char ch) { _board[y][x] = ch; }
-	void setCellInBoard(Position& pos, char ch);
+	void setCellInBoard(const Position& pos, char ch);
 	Colors getBorderColor() const { return borderColor; }
 	Colors getBreadcrumbColor() const { return breadcrumbColor; }
 	Colors getTunnelColor() const { return tunnelColor; }

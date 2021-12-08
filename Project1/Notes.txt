@@ -44,3 +44,4 @@ get the first direction from the fastest root, and make a move.
 11. Strategy for ghosts - polymorphizem ?
 1. Test Boards with problematic structure.
 12. build functions to collect pacman and ghost , similar to legendPos
+13. operator function == which compares two Positions

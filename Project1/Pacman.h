@@ -20,7 +20,7 @@ private:
 
 public:
 	Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@');
-	void initPacman();
+	void initPacman(GameBoard& board);
 	void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
 	void updateScore(GameBoard& board);
