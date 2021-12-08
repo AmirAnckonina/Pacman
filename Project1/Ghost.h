@@ -13,17 +13,12 @@ using std::endl;
 
 class Ghost :public Creature
 {
-public:
-	static constexpr char GHOST = '$';
-	//private:
-		//Colors ghostColor = Colors::WHITE;
-		//Position currPos, nextPos;
-		//Direction ghostDirection;
 
 public:
 	Ghost() {};
-	Ghost(Position _ghostCurrPos, Position _ghostNextPos, Direction _ghostDirection = Direction::STAY, Colors _ghostColor = Colors::WHITE, char _ghostIcon = '$');
-	void initGhost();
+	Ghost(Position _ghostStartingPos, Position _ghostCurrPos, Position _ghostNextPos,
+		Direction _ghostDirection = Direction::STAY, Colors _ghostColor = Colors::WHITE, char _ghostIcon = '$');
+	void initGhost(GameBoard& board);
 	void moveGhost(GameBoard& board);
 	//void updatePos() { currPos = nextPos; };
 	//void printGhost() const;

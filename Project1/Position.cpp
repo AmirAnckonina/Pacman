@@ -1,14 +1,15 @@
 #include "Position.h"
-#include "Pacman.h"
-#include "Ghost.h"
+#include "Creature.h"
+//#include "Pacman.h"
+//#include "Ghost.h"
 
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
-	char cellCh = board.getCellInBoard(_x, _y);
+	char cellCh = board.getCellInBoard(x, y);
 
 	if (cellCh == GameBoard::BORDER)
 		return false;
-	if (cellCh == GameBoard::TUNNEL && figure == Ghost::GHOST) //Prevent ghost to move through the tunnels.
+	if (cellCh == GameBoard::TUNNEL && figure == GHOST) //Prevent ghost to move through the tunnels.
 		return false;
 	//Otherwise
 	return true;
@@ -21,45 +22,45 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	switch (dir)
 	{
 	case Direction::UP:
-		if (board.getCellInBoard(_x, _y - 1) == GameBoard::TUNNEL)
+		if (board.getCellInBoard(x, y - 1) == GameBoard::TUNNEL)
 		{
-			if (figure == Pacman::PACMAN) _y = board.getLastRow() - 1;
-			else _y = board.getFirstRow();
+			if (figure == PACMAN) y = board.getLastRow() - 1;
+			else y = board.getFirstRow();
 		}
 		else
-			_y -= 1;
+			y -= 1;
 		break;
 
 	case Direction::DOWN:
-		if (board.getCellInBoard(_x, _y + 1) == GameBoard::TUNNEL)
+		if (board.getCellInBoard(x, y + 1) == GameBoard::TUNNEL)
 		{
-			if (figure == Pacman::PACMAN) _y = board.getFirstRow() + 1;
-			else _y = board.getLastRow();
+			if (figure == PACMAN) y = board.getFirstRow() + 1;
+			else y = board.getLastRow();
 		}
 		else
-			_y -= 1;
+			y -= 1;
 		break;
 
 	case Direction::LEFT:
 		//if (_x-1 == board.isFirstCol() && _y > 10 && _y < 14)
-		if (board.getCellInBoard(_x - 1, _y) == GameBoard::TUNNEL)
+		if (board.getCellInBoard(x - 1, y) == GameBoard::TUNNEL)
 		{
-			if (figure == Pacman::PACMAN) _x = board.getLastCol() - 1;
-			else _x = board.getFirstCol();
+			if (figure == PACMAN) x = board.getLastCol() - 1;
+			else x = board.getFirstCol();
 		}
 		else
-			_x -= 1;
+			x -= 1;
 		break;
 
 	case Direction::RIGHT:
 		//if (_x == 78 && _y > 10 && _y < 14)
-		if (board.getCellInBoard(_x + 1, _y) == GameBoard::TUNNEL)
+		if (board.getCellInBoard(x + 1, y) == GameBoard::TUNNEL)
 		{
-			if (figure == Pacman::PACMAN) _x = board.getFirstCol() + 1;
-			else _x = board.getLastCol();
+			if (figure == PACMAN) x = board.getFirstCol() + 1;
+			else x = board.getLastCol();
 		}
 		else
-			_x += 1;
+			x += 1;
 		break;
 
 	default: //STAY

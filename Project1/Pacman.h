@@ -11,15 +11,13 @@ using std::endl;
 
 class Pacman : public Creature
 {
-public:
-	static constexpr char PACMAN = '@';
-
 private:
 	int livesLeft = 3;
 	int score = 0;
 
 public:
-	Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@');
+	Pacman() {}
+	Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@');
 	void initPacman(GameBoard& board);
 	void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }

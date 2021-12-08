@@ -1,18 +1,24 @@
 #include "Creature.h"
 #include "ThePacmanGame.h"
 
-Creature::Creature(Colors _creatureColor, Position _currPos, Position _nextPos, Direction _creatureDirection, char _creatureIcon)
-	: creatureColor(_creatureColor), 
+char Creature::creatureIcon = 0;
+
+Creature::Creature(Position _startingPos, Position _currPos, Position _nextPos, Direction _creatureDirection, Colors _creatureColor, char _creatureIcon)
+	: creatureColor(_creatureColor),
+	startingPos(_startingPos),
 	currPos(_currPos),
 	nextPos(_nextPos),
-	creatureDirection(_creatureDirection),
-	creatureIcon(_creatureIcon) {}
-
-void Creature::initCreature()
+	creatureDirection(_creatureDirection)
 {
-	creatureColor = Colors::WHITE;
-	setCreaturePosition();
+	//creatureIcon = convertCharToIcon(_creatureIcon);
+	creatureIcon = _creatureIcon;
 }
+
+//void Creature::initCreature()
+//{
+//	creatureColor = Colors::WHITE;
+//	setCreaturePosition();
+//}
 
 void Creature::collectCreatureStartingPos(GameBoard& board)
 {
@@ -28,9 +34,9 @@ void Creature::resetCreaturePosition()
 	creatureDirection = Direction::STAY;
 }
 
-void Creature::setCreatureNextPos()
+void Creature::setCreatureNextPos(GameBoard& board)
 {
-	nextPos.setNextPos(creatureDirection, creatureIcon);
+	nextPos.setNextPos(creatureDirection, creatureIcon, board);
 }
 
 bool Creature::isCreaturePositionValid(GameBoard& board)
@@ -45,25 +51,30 @@ void Creature::printCreature() const
 	cout << creatureIcon;
 }
 
-void Creature::convertCharToIcon(char ch)
-{
-	switch (ch)
-	{
-	case '@':
-		creatureIcon = Icon::PACMAN;
-		break;
-	case '$':
-		creatureIcon = Icon::GHOST;
-		break;
-	case '5':
-	case '6':
-	case '7':
-	case '8':
-	case '9':
-		creatureIcon = Icon::FRUIT;
-		break;
-	default:
-		break;
+//ostream& operator << (ostream& os, Icon _icon)
+//{
+//	os << (char)_icon;
+//}
 
-	}
-}
+//Icon Creature::convertCharToIcon(char ch)
+//{
+//	switch (ch)
+//	{
+//	case '@':
+//		return PACMAN;
+//		break;
+//	case '$':
+//		return GHOST;
+//		break;
+//	case '5':
+//	case '6':
+//	case '7':
+//	case '8':
+//	case '9':
+//		return; //FRUIT;
+//		break;
+//	default:
+//		break;
+//
+//	}
+//}

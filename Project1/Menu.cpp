@@ -1,5 +1,4 @@
 #include "Menu.h"
-#include "Menu.h"
 #include "ThePacmanGame.h"
 
 
@@ -70,24 +69,28 @@ bool Menu::userChoosedToStart() const
 void Menu::initDetailsArea(GameBoard& board)
 {
 	detailsColor = Colors::WHITE;
-	legendAreaPos = game_board.collectStartingPos('&');
+	legendAreaPos = board.collectStartingPos(GameBoard::LEGEND);
+	//gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	cout << GameBoard::SPACE;
 }
 
 void Menu::pauseGame() const
 {
 	char key;
 
-	gotoxy(24, 11);
-	if (gameColorized)
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
-	cout << "Game paused, press ESC to continue";
+	cout << "     Game paused.   " << endl;
+	cout << "  Please press ESC  " << endl;
+	cout << "    to continue     ";
 	key = _getch();
 
 	while (key != Menu::ESC)
 		key = _getch();
 
-	gotoxy(21, 11);
-	cout << "                    " << endl;//remove pause message
+	clearLegendArea();
 	printGameName();
 }
 
@@ -95,7 +98,7 @@ void Menu::singlePrintScore(int score) const
 {
 	gotoxy(21, 13);
 	cout << "                    " << endl;
-	if (gameColorized)
+	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
 	gotoxy(32, 13);
 	cout << "The score is = " << score;
@@ -187,39 +190,41 @@ void Menu::printRSG() const
 
 void Menu::clearLegendArea() const
 {
-	gotoxy(21, 11);
-	cout << "                                       " << endl;
-	gotoxy(21, 12);
-	cout << "                                       " << endl;
-	gotoxy(21, 13);
-	cout << "                                       " << endl;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	for (int rowInd = 0; rowInd < 3; rowInd++)
+		cout << "                    ";
 }
 
 //Pacman animation at the end
 void Menu::printPacmanAllAround(Colors pacmanColor) const
 {
-	int x = 21, y = 11;
-	if (gameColorized) setTextColor(pacmanColor);
-	while (x <= 59)
+	int x = legendAreaPos.getXPos();
+	int y = legendAreaPos.getYPos();
+	int endX = x + 19;
+	int endY = y + 2;
+	if (ThePacmanGame::isGameColorized()) setTextColor(pacmanColor);
+	while (x <= endX)
 	{
 		gotoxy(x++, y);
-		cout << Pacman::PACMAN;
+		cout << PACMAN;
 		Sleep(5);
 	}
 	x--;
 	y++;
-	while (x >= 21)
+	endX = x - 19;
+	while (x >= endX)
 	{
 		gotoxy(x--, y);
-		cout << Pacman::PACMAN;
+		cout << PACMAN;
 		Sleep(5);
 	}
 	x++;
 	y++;
-	while (x <= 59)
+	endX = x + 19;
+	while (x <= endX)
 	{
 		gotoxy(x++, y);
-		cout << Pacman::PACMAN;
+		cout << PACMAN;
 		Sleep(5);
 	}
 
@@ -229,14 +234,20 @@ void Menu::printPacmanAllAround(Colors pacmanColor) const
 //Ghost Animation at the end
 void Menu::printGhostsAllAround(Colors ghostColor) const
 {
-	int x1 = 21, y1 = 11, x2 = 59, y2 = 13;
+	//int x1 = 21, y1 = 11, x2 = 59, y2 = 13;
+	int x1 = legendAreaPos.getXPos();
+	int endX1 = x1 + 19;
+	int x2 = x1 + 19;
+	int endX2 = x1;
+	int y1 = legendAreaPos.getYPos();
+	int y2 = y1 + 2;
 	if (ThePacmanGame::isGameColorized()) setTextColor(ghostColor);
-	while (x1 <= 59 && x2 >= 21)
+	while (x1 <= endX1 && x2 >= endX2)
 	{
 		gotoxy(x1++, y1);
-		cout << Icon::GHOST;
+		cout << GHOST;
 		gotoxy(x2--, y2);
-		cout << Icon::GHOST;
+		cout << GHOST;
 		Sleep(5);
 	}
 	x1--;
@@ -246,9 +257,9 @@ void Menu::printGhostsAllAround(Colors ghostColor) const
 	while (x2 <= x1)
 	{
 		gotoxy(x1--, y1);
-		cout << Icon::GHOST;
+		cout << GHOST;
 		gotoxy(x2++, y2);
-		cout << Icon::GHOST;
+		cout << GHOST;
 		Sleep(5);
 	}
 	Sleep(1500);

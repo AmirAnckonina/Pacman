@@ -7,23 +7,24 @@
 using std::cout;
 using std::endl;
 
+//enum class Colors;
 class GameBoard; //Forward declaraion.
 class Position
 {
 
 private:
-	int _x = 1, _y = 1;
+	int x = 1, y = 1;
 
 public:
 	//C'tor
-	Position(int x = 1, int y = 1) { _x = x; _y = y; }
+	Position(int _x = 1, int _y = 1) { x = _x; y = _y; }
 
 	bool isPositionValid(GameBoard& board, char figure);
-	void setNextPos(Direction dir, char figure);
+	void setNextPos(Direction dir, char figure, GameBoard& board);
 
 	//Get-Set functions
-	int getXPos() const { return _x; }
-	int getYPos() const { return _y; }
-	void setXPos(int x = 1) { _x = x; }
-	void setYPos(int y = 1) { _y = y; }
+	int getXPos() const { return x; }
+	int getYPos() const { return y; }
+	void setXPos(int _x = 1) { x = _x; }
+	void setYPos(int _y = 1) { y = _y; }
 };

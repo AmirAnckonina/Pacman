@@ -2,28 +2,23 @@
 #include"Utilities.h"
 #include "Position.h"
 #include"GameBoard.h"
-#include "Icons.h"
 
-enum Icon
-{
-	PACMAN,
-	GHOST,
-	FRUIT
-};
-
+//const pair<Icon, const char> FigureIcon[] = { {Icon::PACMAN, '@'}, {Icon::GHOST, '$'} };
+//enum Icon {PACMAN = '@', GHOST = '$'};
+static constexpr char PACMAN = '@', GHOST = '$';
 
 class Creature
 {
-	Icon figure;
-	static const char icon;
+	//Icon creatureIcon;
+	static char creatureIcon;
 	Position startingPos ,currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
 
 public:
 	Creature() {};
-	Creature(Colors _creatureColor, Position _startingPos, Position _currPos, Position _nextPos,
-		Direction _creatureDirection, char _creatureIcon);
+	Creature(Position _startingPos, Position _currPos, Position _nextPos,
+		Direction _creatureDirection, Colors _creatureColor, char _creatureIcon);
 
 	//void moveCreature(GameBoard& board);
 
@@ -31,15 +26,18 @@ public:
 	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
 
+	
 	//Get-Set Functions
+	static char getCreatureIcon() { return creatureIcon; }
 	void resetCreaturePosition();
+
 
 	void setStartingPos(Position _startingPos) { startingPos = _startingPos; }
 	Position getStartingPos() const { return startingPos; }
 	void setCurrPos(Position _currPos) { currPos = _currPos; }
 	const Position& getCurrPos() const { return currPos; }
 	void setNextPos(Position _nextPos) { nextPos = _nextPos; }
-	void setCreatureNextPos();
+	void setCreatureNextPos(GameBoard& board);
 	const Position& getNextPos() const { return nextPos; }
 
 	void setDirection(Direction _creatureDirection) { creatureDirection = _creatureDirection; }
@@ -56,5 +54,5 @@ public:
 
 	void collectCreatureStartingPos(GameBoard& board);
 
-	void convertCharToIcon(char ch);
+	//Icon convertCharToIcon(char ch);
 };

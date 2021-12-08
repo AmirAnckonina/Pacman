@@ -1,12 +1,12 @@
 #include "Pacman.h"
 #include "ThePacmanGame.h"
 
-Pacman::Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection 
-	,Colors _pacmanColor, char _pacmanIcon)
-	: Creature(_pacmanColor, _pacmanCurrPos, _pacmanNextPos, _pacmanDirection, _pacmanIcon)
+Pacman::Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos,
+	Position _pacmanNextPos, Direction _pacmanDirection ,Colors _pacmanColor, char _pacmanIcon)
+	: Creature(_pacmanStartingPos, _pacmanCurrPos, _pacmanNextPos, _pacmanDirection, _pacmanColor, _pacmanIcon) 
 {
-	/*livesLeft = 3;
-	score = 0;*/
+	livesLeft = 3;
+	score = 0;
 }
 
 //Pacman::Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY
@@ -17,14 +17,15 @@ void Pacman::initPacman(GameBoard& board)
 	score = 0;
 	livesLeft = 3;
 	setColor(Colors::WHITE);
-	collectCreatureStartingPos(board);
-	resetCreaturePosition();
+	//initCreature();
+	//collectCreatureStartingPos(board);
+	//resetCreaturePosition();
 }
 
 void Pacman::movePacman(GameBoard& board)
 {
 	//Set potential new position to pacman, then check if it's valid.
-	setCreatureNextPos();
+	setCreatureNextPos(board);
 	//nextPos.setNextPos(pacmanDirection, PACMAN);
 	if ( getDirection() != Direction::STAY && isCreaturePositionValid(board) ) //So we should move the pacman
 	{

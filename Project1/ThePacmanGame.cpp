@@ -124,16 +124,16 @@ void ThePacmanGame::singleGhostsSession()
 		resetAfterCollision();
 }
 
-void ThePacmanGame::printFigures() const
-{
-	pacman.printCreature();
-	printAllGhosts();
-}
-
 void ThePacmanGame::printAllGhosts() const
 {
 	for (auto& gh : ghost)
 		gh.printCreature();
+}
+
+void ThePacmanGame::printFigures() const
+{
+	pacman.printCreature();
+	printAllGhosts();
 }
 
 bool ThePacmanGame::checkCollision() const
