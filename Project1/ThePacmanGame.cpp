@@ -127,6 +127,11 @@ void ThePacmanGame::singleGhostsSession()
 void ThePacmanGame::printFigures() const
 {
 	pacman.printCreature();
+	printAllGhosts();
+}
+
+void ThePacmanGame::printAllGhosts() const
+{
 	for (auto& gh : ghost)
 		gh.printCreature();
 }
