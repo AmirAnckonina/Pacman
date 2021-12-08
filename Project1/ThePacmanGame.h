@@ -13,6 +13,7 @@ using std::endl;
 
 class ThePacmanGame
 {
+
 public:
 	static const int numOfGhosts = 2;
 private:
@@ -25,7 +26,6 @@ private:
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
-	Position legendAreaPos;
 
 public:
 	//Preparartions functions
@@ -36,27 +36,17 @@ public:
 	
 
 	//Printing functions
-	void printLives() const;
-	void printGameName() const;
-	void printRSG() const;
-	void printPacmanAllAround() const;
-	void printGhostsAllAround() const;
-	void clearLegendArea() const;
-	void singlePrintScore() const;
 	void printFigures() const;
 	void printAllGhosts() const;
 	void printCollision() const;
 	void printCellRestore() const;
-	void printResult() const;
-
+	
 	//Game functionalliy 
 	void runGame();
-	void pauseGame() const;
 	void singlePacmanSession();
 	void singleGhostsSession();
 	bool checkCollision() const;
 	void resetAfterCollision();
 	bool GameFinished();
-
 
 };

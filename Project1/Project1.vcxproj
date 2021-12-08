@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Pacman.cpp" />
@@ -153,7 +154,6 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="Fruit.h" />
-    <ClInclude Include="Icons.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Ghost.h" />

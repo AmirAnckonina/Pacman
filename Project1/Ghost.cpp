@@ -2,8 +2,8 @@
 #include "ThePacmanGame.h"
 //
 
-Ghost::Ghost(Position _ghostCurrPos, Position _ghostNextPos, Direction _ghostDirection, Colors _ghostColor, char _ghostIcon)
-	: Creature(_ghostColor, _ghostCurrPos, _ghostNextPos, _ghostDirection, _ghostIcon) {}
+Ghost::Ghost(Position _ghostStartingPos, Position _ghostCurrPos, Position _ghostNextPos, Direction _ghostDirection, Colors _ghostColor, char _ghostIcon)
+	: Creature(_ghostStartingPos ,_ghostCurrPos, _ghostNextPos, _ghostDirection, _ghostColor, _ghostIcon) {}
 
 void Ghost::initGhost(GameBoard& board)
 {
@@ -26,7 +26,7 @@ void Ghost::moveGhost(GameBoard& board)
 	{
 		//Set potential new position to ghost, then check if it's valid.
 		generateRandomDirection();
-		setCreatureNextPos();
+		setCreatureNextPos(board);
 		isValid = isCreaturePositionValid(board);
 		if (!isValid) //Rollback, before starting the loop again.
 			resetNextPos();
