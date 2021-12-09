@@ -20,15 +20,6 @@ public:
 		Direction _ghostDirection = Direction::STAY, Colors _ghostColor = Colors::WHITE, char _ghostIcon = '$');
 	void initGhost(GameBoard& board);
 	void moveGhost(GameBoard& board);
-	//void updatePos() { currPos = nextPos; };
-	//void printGhost() const;
-
-	//Get-Set functions
-	//void setGhostPosition(int xCoord, int yCoord);
 	void generateRandomDirection();
-	//void setGhostColor(Colors color) { ghostColor = color; }
-	//Colors getGhostColor() const { return ghostColor; }
-	//Position getCurrPos() const { return currPos; }
-
-	void smartGhostMove();
+	//void smartGhostMove();
 };

@@ -10,7 +10,7 @@ static constexpr char PACMAN = '@', GHOST = '$';
 class Creature
 {
 	//Icon creatureIcon;
-	static char creatureIcon;
+	char creatureIcon;
 	Position startingPos ,currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
@@ -21,14 +21,14 @@ public:
 		Direction _creatureDirection, Colors _creatureColor, char _creatureIcon);
 
 	//void moveCreature(GameBoard& board);
-
+	void initCreature(GameBoard& board, char _creatureIcon);
 
 	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
 
 	
 	//Get-Set Functions
-	static char getCreatureIcon() { return creatureIcon; }
+	char getCreatureIcon() { return creatureIcon; }
 	void resetCreaturePosition();
 
 

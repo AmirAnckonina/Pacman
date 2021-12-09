@@ -56,7 +56,6 @@ char GameBoard::convertChar(const char& ch)
 		return BREADCRUMB;
 		break;
 	default: //ch == 0, check waht happens with pacman and ghost icons
-		return SPACE;
 		break;
 	}
 }
@@ -315,9 +314,10 @@ Position GameBoard::collectStartingPos(char ch)
 			{
 				res.setXPos(i);
 				res.setYPos(j);
+				return res;
 			}
 		}
 	}
-	return res;
+	return NULL;
 }
 

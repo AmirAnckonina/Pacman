@@ -12,14 +12,12 @@ Pacman::Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos,
 //Pacman::Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY
 //	, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@')
 
-void Pacman::initPacman(GameBoard& board)
+
+void Pacman::initPacman(GameBoard & board)
 {
 	score = 0;
 	livesLeft = 3;
-	setColor(Colors::WHITE);
-	//initCreature();
-	//collectCreatureStartingPos(board);
-	//resetCreaturePosition();
+	initCreature(board, '@');
 }
 
 void Pacman::movePacman(GameBoard& board)
