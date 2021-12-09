@@ -28,6 +28,7 @@ private:
 	Ghost ghost[numOfGhosts];
 
 public:
+	ThePacmanGame() {};
 	//Preparartions functions
 	void startGameSessions();
 	void initGame();

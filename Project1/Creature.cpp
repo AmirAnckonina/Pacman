@@ -1,7 +1,7 @@
 #include "Creature.h"
 #include "ThePacmanGame.h"
 
-char Creature::creatureIcon = 0;
+//char Creature::creatureIcon = 0;
 
 Creature::Creature(Position _startingPos, Position _currPos, Position _nextPos, Direction _creatureDirection, Colors _creatureColor, char _creatureIcon)
 	: creatureColor(_creatureColor),
@@ -14,11 +14,13 @@ Creature::Creature(Position _startingPos, Position _currPos, Position _nextPos, 
 	creatureIcon = _creatureIcon;
 }
 
-//void Creature::initCreature()
-//{
-//	creatureColor = Colors::WHITE;
-//	setCreaturePosition();
-//}
+void Creature::initCreature(GameBoard& board, char _creatureIcon)
+{
+	creatureColor = Colors::WHITE;
+	creatureIcon = _creatureIcon;
+	collectCreatureStartingPos(board);
+	resetCreaturePosition();
+}
 
 void Creature::collectCreatureStartingPos(GameBoard& board)
 {

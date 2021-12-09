@@ -7,9 +7,8 @@ Ghost::Ghost(Position _ghostStartingPos, Position _ghostCurrPos, Position _ghost
 
 void Ghost::initGhost(GameBoard& board)
 {
-
-	setColor(Colors::WHITE);
-	resetCreaturePosition();
+	//Startegy
+	initCreature(board, '$');
 }
 
 /*void Ghost::setGhostPosition(int xCoord, int yCoord)
