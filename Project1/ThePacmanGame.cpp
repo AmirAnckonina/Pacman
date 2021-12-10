@@ -105,7 +105,8 @@ void ThePacmanGame::singlePacmanSession()
 		{
 			pacman.updateScore(game_board);
 			game_menu.singlePrintScore(pacman.getScore());
-			game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+			if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+				game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
 		}
 		else
 			resetAfterCollision();

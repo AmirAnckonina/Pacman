@@ -6,7 +6,6 @@
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
 	char cellCh = board.getCellInBoard(x, y);
-
 	if (cellCh == GameBoard::BORDER)
 		return false;
 	if (cellCh == GameBoard::TUNNEL && figure == Creature::GHOST) //Prevent ghost to move through the tunnels.
@@ -14,6 +13,7 @@ bool Position::isPositionValid(GameBoard& board, char figure)
 	//Otherwise
 	return true;
 }
+
 
 void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 {
@@ -24,7 +24,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	case Direction::UP:
 		if (board.getCellInBoard(x, y - 1) == GameBoard::TUNNEL)
 		{
-			if (figure == Creature::PACMAN) y = board.getLastRow() - 1;
+			if (figure == Creature::PACMAN && board.getCellInBoard(x, board.getLastRow()) != GameBoard::BORDER) y = board.getLastRow() - 1;
 			else y = board.getFirstRow();
 		}
 		else
@@ -34,7 +34,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	case Direction::DOWN:
 		if (board.getCellInBoard(x, y + 1) == GameBoard::TUNNEL)
 		{
-			if (figure == Creature::PACMAN) y = board.getFirstRow() + 1;
+			if (figure == Creature::PACMAN && board.getCellInBoard(x, board.getFirstRow()) != GameBoard::BORDER) y = board.getFirstRow() + 1;
 			else y = board.getLastRow();
 		}
 		else
@@ -45,8 +45,10 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 		//if (_x-1 == board.isFirstCol() && _y > 10 && _y < 14)
 		if (board.getCellInBoard(x - 1, y) == GameBoard::TUNNEL)
 		{
-			if (figure == Creature::PACMAN) x = board.getLastCol() - 1;
-			else x = board.getFirstCol();
+			if (figure == Creature::PACMAN && board.getCellInBoard(board.getLastCol(), y) != GameBoard::BORDER)
+				x = board.getLastCol() - 1;
+			else
+				x = board.getFirstCol();
 		}
 		else
 			x -= 1;
@@ -56,7 +58,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 		//if (_x == 78 && _y > 10 && _y < 14)
 		if (board.getCellInBoard(x + 1, y) == GameBoard::TUNNEL)
 		{
-			if (figure == Creature::PACMAN) x = board.getFirstCol() + 1;
+			if (figure == Creature::PACMAN && board.getCellInBoard(board.getFirstCol(), y) != GameBoard::BORDER) x = board.getFirstCol() + 1;
 			else x = board.getLastCol();
 		}
 		else
