@@ -4,7 +4,7 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	ifstream templateFile(boardTemplates[currTemplate], ios::in);
+	ifstream templateFile(boardTemplates[currTemplate+4], ios::in);
 	readRawTemplate(templateFile);
 }
 
@@ -30,16 +30,6 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 	}
 }
 
-//long int GameBoard::fileSize(ifstream& fp)
-//{
-//	long int res, saver;
-//	saver = fp.tellg();
-//	fp.seekg(ios::end);
-//	res = fp.tellg();
-//	fp.seekg(saver);
-//	cout << res << endl;
-//	return res;
-//}
 
 char GameBoard::convertChar(const char& ch)
 {
@@ -164,7 +154,7 @@ void GameBoard::initBoard()
 	getBoardFrame();
 	initInvisibleTunnels();
 	countTotalBreadcrumbs();
-	printBoard();
+	//printBoard();
 }
 
 void::GameBoard::initDetailsArea()
@@ -312,8 +302,8 @@ Position GameBoard::collectStartingPos(char ch)
 		{
 			if (getCellInBoard(j, i) == ch)
 			{
-				res.setXPos(i);
-				res.setYPos(j);
+				res.setXPos(j);
+				res.setYPos(i);
 				return res;
 			}
 		}

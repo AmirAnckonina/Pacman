@@ -45,3 +45,4 @@ get the first direction from the fastest root, and make a move.
 1. Test Boards with problematic structure.
 12. build functions to collect pacman and ghost , similar to legendPos
 13. operator function == which compare
+14. Add condition - when pacman go through invisible tunnels, ceck if tunnel exists in the other side

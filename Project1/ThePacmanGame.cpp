@@ -62,7 +62,7 @@ void ThePacmanGame::runGame()
 	{
 		if (key == Menu::ESC)
 		{
-			game_menu.pauseGame();
+			game_menu.pauseGame(pacman.getLivesLeft());
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 
@@ -182,24 +182,25 @@ void ThePacmanGame::resetAfterCollision()
 void ThePacmanGame::printCellRestore() const
 {
 	char cell;
-	int x, y;
 
-	x = pacman.getCurrPos().getXPos();
-	y = pacman.getCurrPos().getYPos();
 	cell = game_board.getCellInBoard(pacman.getCurrPos());
 	//if (cell == GameBoard::BREADCRUMB && gameColorized) -- CHANGED!
 	if (cell == GameBoard::BREADCRUMB && gameColorized)
 		setTextColor(game_board.getBreadcrumbColor());
-	gotoxy(x, y);
+
+	gotoxy(pacman.getCurrPos().getXPos(), pacman.getCurrPos().getYPos());
 	cout << cell;
 
 	//Handle it and restore to all ghosts
 	for (auto& gh : ghost)
 	{
+
 		cell = game_board.getCellInBoard(gh.getCurrPos()); //CHANGED!
+
 		if (cell == GameBoard::BREADCRUMB && gameColorized)
 			setTextColor(game_board.getBreadcrumbColor());
-		gotoxy(x, y);
+
+		gotoxy(gh.getCurrPos().getXPos(), gh.getCurrPos().getYPos());
 		cout << cell;
 	}
 

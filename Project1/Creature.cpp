@@ -19,6 +19,7 @@ void Creature::initCreature(GameBoard& board, char _creatureIcon)
 	creatureColor = Colors::WHITE;
 	creatureIcon = _creatureIcon;
 	collectCreatureStartingPos(board);
+	board.setCellInBoard(startingPos, GameBoard::BREADCRUMB);
 	resetCreaturePosition();
 }
 

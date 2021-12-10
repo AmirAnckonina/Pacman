@@ -38,7 +38,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 			else y = board.getLastRow();
 		}
 		else
-			y -= 1;
+			y += 1;
 		break;
 
 	case Direction::LEFT:

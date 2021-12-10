@@ -20,7 +20,6 @@ private:
 	static bool gameColorized;
 	bool ghostsTurn = false;
 	bool playerWon = false;
-	char userKey;
 	Menu game_menu;
 	Colors detailsColor = Colors::WHITE;
 	GameBoard game_board;

@@ -24,7 +24,7 @@ public:
 	void printInstructions();
 	bool userChoosedToStart() const; 
 	void initDetailsArea(GameBoard& board);
-	void pauseGame() const;
+	void pauseGame(int lives) const;
 
 	void printLives(int lives) const;
 	void printGameName() const;
