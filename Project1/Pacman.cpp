@@ -31,7 +31,10 @@ void Pacman::movePacman(GameBoard& board)
 	{
 		//print space in current position because soon the pacman will be moved.
 		gotoxy( getCurrPos().getXPos(), getCurrPos().getYPos() );
-		cout << GameBoard::SPACE;
+		if (board.getCellInBoard(getCurrPos()) != GameBoard::TUNNEL)
+			cout << GameBoard::SPACE;
+		else
+			cout << GameBoard::TUNNEL;
 	}
 	else //In case not, please stay on the current position. + Rollback to nextPos
 	{

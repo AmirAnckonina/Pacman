@@ -3,10 +3,12 @@
 //#include "Pacman.h"
 //#include "Ghost.h"
 
-bool Position::isPositionValid(GameBoard& board, char figure)
+bool Position::isPositionValid(GameBoard& board, char figure))
 {
-	char cellCh = board.getCellInBoard(x, y);
+	if( !(board.inBoardDimensions(x, y)) )
+		return false;
 
+	char cellCh = board.getCellInBoard(x, y);
 	if (cellCh == GameBoard::BORDER)
 		return false;
 	if (cellCh == GameBoard::TUNNEL && figure == Creature::GHOST) //Prevent ghost to move through the tunnels.
