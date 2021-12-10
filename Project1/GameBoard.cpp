@@ -4,7 +4,7 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	ifstream templateFile(boardTemplates[currTemplate+4], ios::in);
+	ifstream templateFile(boardTemplates[currTemplate + 3], ios::in);
 	//Condiotion
 	readRawTemplate(templateFile);
 }
@@ -40,7 +40,7 @@ char GameBoard::convertChar(const char& ch)
 		return BORDER;
 		break;
 	case '%':
-	//case '&':
+		//case '&':
 		return SPACE;
 		break;
 	case ' ':
@@ -310,9 +310,9 @@ char GameBoard::getCellInBoard(const Position& pos) const
 Position GameBoard::collectStartingPos(char ch)
 {
 	Position res;
-	for (int rowInd = 0 ; rowInd < ROWMAX ; rowInd++)
+	for (int rowInd = 0; rowInd < ROWMAX; rowInd++)
 	{
-		for (int colInd = 0 ; colInd < COLMAX ; colInd++)
+		for (int colInd = 0; colInd < COLMAX; colInd++)
 		{
 			if (getCellInBoard(colInd, rowInd) == ch)
 			{
