@@ -68,12 +68,20 @@ bool Menu::userChoosedToStart() const
 }
 
 void Menu::initDetailsArea(GameBoard& board)
-{
+{  
 	detailsColor = Colors::WHITE;
 	legendAreaPos = board.collectStartingPos(GameBoard::LEGEND);
-	//gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
-	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
-	cout << GameBoard::SPACE;
+	int legendStartingRow = legendAreaPos.getYPos();
+	int legendStartingCol =legendAreaPos.getXPos();
+
+	for (int rowInd = legendStartingRow; rowInd < legendStartingRow + 3; rowInd++)
+	{
+		for (int colInd = legendStartingCol; colInd < legendStartingCol + 20; colInd++)
+		{
+			board.setCellInBoard(colInd, rowInd, GameBoard::LEGEND);
+		}
+	}
+	clearLegendArea();
 }
 
 void Menu::pauseGame(int lives) const
