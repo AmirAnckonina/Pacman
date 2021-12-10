@@ -16,63 +16,36 @@
 * CurrPos, NextPos
 *** Clarify about time-on-screen and howmany time before each showing of the Fruit?
 
-//Functions
-1. Similar to Ghost with some changes.
-
-
 //Ghosts
 1. Smarter Ghosts
 Algorithem:
-Calculate the shortest route in each move of the ghost (by recursion)
-get the first direction from the fastest root, and make a move. 
+Calculate the shortest route in each move of the ghost
+
+* Extreme
 * Best
-* Good
+* Good ---> ??? 
 * Novice
 
 -------------------
 //Notes EX2
 
-2. Update about forum question. VVV
-4. Build menu class  - VVV
-3. ThePacmanGame - redesign according to base class changes - VVV
-5. Creature - Consts for the icons
-7. unite common function from ghost, pacman, etc. to Creature base class
-9. Details area 
-8. Get init position from the board and update relevant creatures before initilaize them.
-6. BFS algorithem implementation
-10. Handle differnet name types to boards.txt
-11. Strategy for ghosts - polymorphizem ?
-1. Test Boards with problematic structure.
-12. build functions to collect pacman and ghost , similar to legendPos
-13. operator function == which compare
-14. Add condition - when pacman go through invisible tunnels, check if tunnel exists in the other side
- + legend area tunnel check
- 15. Add default values to constructor and not intialize it in declaraion.
+6. BFS algorithem implementation -VVVV Should be tested.
+7. Generalize move pacman and ghost to creature.
+9. Details area - test problematic board that chen build.
+10. handle board readding files <filesystem> lib.
+11. Strategy for ghosts - polymorphizem 
+1. Test Boards with problematic structure - Build more and test
+13. operator function == which compare - consider if relevant.
 
- ---------------------------------------------------------------------------
- 
- //Questions to Kirsh
- 1. Design for consts (Especially creatureIcon), + maybe Direction
- ******* put enum inside creature class. enum is static, only one time created.
- ******* consider create pacman constans header file 
- ******* enum class outside or regular enum inside class
- ******* We not must to use empty constructor, only if there is copy constructor
- ******* const char -> should be intialized immiediatly -> consider to send it via constructor and then it will be intialized once.
-But what about the Fruit??
+consider put Directions.h  enum class inside Creature class 
 
-VVVV
-
- 2. Boards demands - check about first line decides the size of the board?
-
-
- ----------------------------------------------------
- 1. Smart ghost can unite and move together. -> We should break that!
- 2. Implement String sort to file names. 
- 3. dirent.h ? dirlist ? filesystem. C++ version
- 4. A star , BFS , DFS
- 5. We can decide how to implement th levels of the ghosts. We not must to go by the instructions.
- 6. bonus for implemetation of very good ghosts.
- 7. one sided tunnel - should blocked. -VVV
+ 10. & should clear all the chars in range. even if border appears. VVVVVVVVVV  should be tested.
+ 1. Smart ghost can unite and move together. -> We should break that 
+ 2. Implement String sort to file names. -> system sorting string lib
+ 3. dirent.h ? dirlist ? filesystem. C++ version ??????????????????????
+ 5. Define what is GOOD Ghost.
+ 6. bonus for implemetation of very good ghosts - EXTREME level
+ 7. consider vector array of ghosts (could be 4 or more ghosts)
+ 8. while one of the board isn't correct , give an option to move to the next board.
  9. Build function to check if board is valid.
- 8. while one of the board isn't correct , give an option to move to the next board
- 10. & should clear all the chars in range. even if border appears.
+ 
