@@ -72,7 +72,7 @@ VVVV
  4. A star , BFS , DFS
  5. We can decide how to implement th levels of the ghosts. We not must to go by the instructions.
  6. bonus for implemetation of very good ghosts.
- 7. one sided tunnel - should blocked.
- 8. while one of the board isn't correct , give an option to move to the next board
+ 7. one sided tunnel - should blocked. -VVV
  9. Build function to check if board is valid.
+ 8. while one of the board isn't correct , give an option to move to the next board
  10. & should clear all the chars in range. even if border appears.

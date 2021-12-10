@@ -56,6 +56,7 @@ public:
 	void boardColorizedProcedure(int rowInd, int colInd) const;
 
 	//Others Get-Set functions.
+	bool inBoardDimensions(int& x, int& y) const;
 	void setCellInBoard(int& x, int& y, char ch) { board[y][x] = ch; }
 	void setCellInBoard(const Position& pos, char ch);
 	Colors getBorderColor() const { return borderColor; }
