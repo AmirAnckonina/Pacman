@@ -22,8 +22,11 @@ void Ghost::moveGhost(GameBoard& board)
 		generateRandomDirection();
 		setCreatureNextPos(board);
 		isValid = isCreaturePositionValid(board);
-		if (!isValid) //Rollback, before starting the loop again.
+		if (!isValid) //Rollback, before starting the loop again
+		{
 			resetNextPos();
+			setDirection(Direction::STAY);
+		}
 	}
 
 	gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
