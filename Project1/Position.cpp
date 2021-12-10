@@ -2,7 +2,7 @@
 #include "Creature.h"
 //#include "Pacman.h"
 //#include "Ghost.h"
-
+//test
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
 	char cellCh = board.getCellInBoard(x, y);
