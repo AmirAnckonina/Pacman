@@ -17,17 +17,16 @@ class ThePacmanGame
 public:
 	static const int numOfGhosts = 2;
 private:
-	static bool gameColorized;
-	bool ghostsTurn = false;
-	bool playerWon = false;
 	Menu game_menu;
-	Colors detailsColor = Colors::WHITE;
+	//Colors detailsColor = Colors::WHITE;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[numOfGhosts];
+	static bool gameColorized;
+	bool ghostsTurn = false;
+	bool playerWon = false;
 
 public:
-	ThePacmanGame() {};
 	//Preparartions functions
 	void startGameSessions();
 	void initGame();

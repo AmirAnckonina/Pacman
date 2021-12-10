@@ -15,11 +15,11 @@ class Ghost :public Creature
 {
 
 public:
-	Ghost() {};
-	Ghost(Position _ghostStartingPos, Position _ghostCurrPos, Position _ghostNextPos,
-		Direction _ghostDirection = Direction::STAY, Colors _ghostColor = Colors::WHITE, char _ghostIcon = '$');
+	Ghost(char __ghostIcon = Creature::GHOST);
+	/*Ghost(Position _ghostStartingPos, Position _ghostCurrPos, Position _ghostNextPos,
+		Direction _ghostDirection = Direction::STAY, Colors _ghostColor = Colors::WHITE, char _ghostIcon = Creature::GHOST);*/
 	void initGhost(GameBoard& board);
 	void moveGhost(GameBoard& board);
 	void generateRandomDirection();
-	//void smartGhostMove();
+	void smartGhostMove(GameBoard& board, Position start, Position ghostPos);
 };

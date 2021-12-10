@@ -5,6 +5,7 @@
 void GameBoard::readTemplateFromFile()
 {
 	ifstream templateFile(boardTemplates[currTemplate+4], ios::in);
+	//Condiotion
 	readRawTemplate(templateFile);
 }
 
@@ -54,7 +55,7 @@ void GameBoard::initInvisibleTunnels()
 {
 	int rowInd = 0, colInd = 0;
 
-	for (rowInd = 0, colInd = 0; colInd < lastCol; colInd++)
+	for (colInd = firstCol; colInd < lastCol; colInd++)
 	{
 		if (board[firstRow][colInd] == BREADCRUMB)
 		{
@@ -62,7 +63,7 @@ void GameBoard::initInvisibleTunnels()
 		}
 	}
 
-	for (rowInd = 0, colInd = 0; rowInd < lastRow; rowInd++)
+	for (rowInd = firstRow; rowInd < lastRow; rowInd++)
 	{
 		if (board[rowInd][firstCol] == BREADCRUMB)
 		{
@@ -70,7 +71,7 @@ void GameBoard::initInvisibleTunnels()
 		}
 	}
 
-	for (rowInd = 0, colInd = 0; colInd < lastCol; colInd++)
+	for (colInd = firstCol; colInd < lastCol; colInd++)
 	{
 		if (board[lastRow][colInd] == BREADCRUMB)
 		{
@@ -78,7 +79,7 @@ void GameBoard::initInvisibleTunnels()
 		}
 	}
 
-	for (rowInd = 0, colInd = 0; rowInd < lastRow; rowInd++)
+	for (rowInd = firstRow; rowInd < lastRow; rowInd++)
 	{
 		if (board[rowInd][lastCol] == BREADCRUMB)
 		{
@@ -296,14 +297,14 @@ char GameBoard::getCellInBoard(const Position& pos) const
 Position GameBoard::collectStartingPos(char ch)
 {
 	Position res;
-	for (int i = firstRow; i < lastRow; i++)
+	for (int rowInd = 0 ; rowInd < ROWMAX ; rowInd++)
 	{
-		for (int j = firstCol; j < lastCol; j++)
+		for (int colInd = 0 ; colInd < COLMAX ; colInd++)
 		{
-			if (getCellInBoard(j, i) == ch)
+			if (getCellInBoard(colInd, rowInd) == ch)
 			{
-				res.setXPos(j);
-				res.setYPos(i);
+				res.setXPos(colInd);
+				res.setYPos(rowInd);
 				return res;
 			}
 		}

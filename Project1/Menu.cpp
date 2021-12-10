@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "ThePacmanGame.h"
+#include "Creature.h"
 
 
 void Menu::entryMenu()
@@ -226,7 +227,7 @@ void Menu::printPacmanAllAround(Colors pacmanColor) const
 	while (x <= endX)
 	{
 		gotoxy(x++, y);
-		cout << PACMAN;
+		cout << Creature::PACMAN;
 		Sleep(5);
 	}
 	x--;
@@ -235,7 +236,7 @@ void Menu::printPacmanAllAround(Colors pacmanColor) const
 	while (x >= endX)
 	{
 		gotoxy(x--, y);
-		cout << PACMAN;
+		cout << Creature::PACMAN;
 		Sleep(5);
 	}
 	x++;
@@ -244,7 +245,7 @@ void Menu::printPacmanAllAround(Colors pacmanColor) const
 	while (x <= endX)
 	{
 		gotoxy(x++, y);
-		cout << PACMAN;
+		cout << Creature::PACMAN;
 		Sleep(5);
 	}
 
@@ -265,9 +266,9 @@ void Menu::printGhostsAllAround(Colors ghostColor) const
 	while (x1 <= endX1 && x2 >= endX2)
 	{
 		gotoxy(x1++, y1);
-		cout << GHOST;
+		cout << Creature::GHOST;
 		gotoxy(x2--, y2);
-		cout << GHOST;
+		cout << Creature::GHOST;
 		Sleep(5);
 	}
 	x1--;
@@ -277,9 +278,9 @@ void Menu::printGhostsAllAround(Colors ghostColor) const
 	while (x2 <= x1)
 	{
 		gotoxy(x1--, y1);
-		cout << GHOST;
+		cout << Creature::GHOST;
 		gotoxy(x2++, y2);
-		cout << GHOST;
+		cout << Creature::GHOST;
 		Sleep(5);
 	}
 	Sleep(1500);
