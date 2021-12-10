@@ -284,6 +284,19 @@ void GameBoard::boardColorizedProcedure(int rowInd, int colInd) const
 		setTextColor(tunnelColor);
 }
 
+bool GameBoard::inBoardDimensions(int& x, int& y) const
+{
+	bool isXOk = false;
+	bool isYOk = false;
+
+	if (y >= firstRow && y <= lastRow)
+		isYOk = true;
+	if (x >= firstCol && x <= lastCol)
+		isXOk = true;
+
+	return isXOk && isYOk;
+}
+
 void GameBoard::setCellInBoard(const Position& pos, char ch)
 {
 	board[pos.getYPos()][pos.getXPos()] = ch;

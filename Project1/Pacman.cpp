@@ -30,6 +30,7 @@ void Pacman::movePacman(GameBoard& board)
 	if (getDirection() != Direction::STAY && isCreaturePositionValid(board)) //So we should move the pacman
 	{
 		//print space in current position because soon the pacman will be moved.
+
 		gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
 		if (board.getCellInBoard(getCurrPos()) != GameBoard::TUNNEL)
 		{
