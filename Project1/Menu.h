@@ -24,6 +24,7 @@ public:
 	void printInstructions();
 	bool userChoosedToStart() const; 
 	void initDetailsArea(GameBoard& board);
+	void setLegendAreaChars(GameBoard& board);
 	void pauseGame(int lives) const;
 
 	void printLives(int lives) const;

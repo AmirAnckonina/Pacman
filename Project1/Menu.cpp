@@ -71,9 +71,14 @@ void Menu::initDetailsArea(GameBoard& board)
 {  
 	detailsColor = Colors::WHITE;
 	legendAreaPos = board.collectStartingPos(GameBoard::LEGEND);
-	int legendStartingRow = legendAreaPos.getYPos();
-	int legendStartingCol =legendAreaPos.getXPos();
+	setLegendAreaChars(board);
+	clearLegendArea();
+}
 
+void Menu::setLegendAreaChars(GameBoard& board)
+{
+	int legendStartingRow = legendAreaPos.getYPos();
+	int legendStartingCol = legendAreaPos.getXPos();
 	for (int rowInd = legendStartingRow; rowInd < legendStartingRow + 3; rowInd++)
 	{
 		for (int colInd = legendStartingCol; colInd < legendStartingCol + 20; colInd++)
@@ -81,7 +86,6 @@ void Menu::initDetailsArea(GameBoard& board)
 			board.setCellInBoard(colInd, rowInd, GameBoard::LEGEND);
 		}
 	}
-	clearLegendArea();
 }
 
 void Menu::pauseGame(int lives) const
