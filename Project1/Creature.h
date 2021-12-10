@@ -10,7 +10,7 @@ static constexpr char PACMAN = '@', GHOST = '$';
 class Creature
 {
 	//Icon creatureIcon;
-	char creatureIcon;
+	char creatureIcon = 0;
 	Position startingPos ,currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;

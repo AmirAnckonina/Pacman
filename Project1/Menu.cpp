@@ -75,15 +75,16 @@ void Menu::initDetailsArea(GameBoard& board)
 	cout << GameBoard::SPACE;
 }
 
-void Menu::pauseGame() const
+void Menu::pauseGame(int lives) const
 {
 	char key;
-
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
-	cout << "     Game paused.   " << endl;
-	cout << "  Please press ESC  " << endl;
+	cout << "    Game paused.    ";
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
+	cout << "  Please press ESC  ";
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 2);
 	cout << "    to continue     ";
 	key = _getch();
 
@@ -91,25 +92,27 @@ void Menu::pauseGame() const
 		key = _getch();
 
 	clearLegendArea();
+	printLives(lives);
 	printGameName();
 }
 
 void Menu::singlePrintScore(int score) const
 {
-	gotoxy(21, 13);
-	cout << "                    " << endl;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 2);
+	for (int i = 0; i < 20; i++)
+		cout << GameBoard::SPACE;
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
-	gotoxy(32, 13);
-	cout << "The score is = " << score;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 2);
+	cout << " The score is : " << score;
 }
 
 void Menu::printLives(int lives) const
 {
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
-	gotoxy(34, 12);
-	cout << "Lives Left: " << lives;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
+	cout << "   Lives Left: " << lives << "    ";
 }
 
 void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors ghostColor) const
@@ -122,10 +125,10 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 		{
 			if (ThePacmanGame::isGameColorized())
 				setTextColor(pacmanColor);
-			gotoxy(27, 12);
-			cout << "Congratulations, You WON!" << endl;
+			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+			cout << "  Congratulations  " << endl;
+			cout << "      You Won!      ";
 			Sleep(750);
-			gotoxy(21, 12);
 			clearLegendArea();
 			Sleep(750);
 		}
@@ -137,23 +140,31 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 		{
 			if (ThePacmanGame::isGameColorized())
 				setTextColor(ghostColor);
-			gotoxy(33, 12);
-			cout << "GAME OVER!!!!" << endl;
+
+			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+			cout << "    GAME OVER!!!    " << endl;
 			Sleep(500);
 			clearLegendArea();
 			Sleep(500);
 		}
 		printGhostsAllAround(ghostColor);
 	}
+
+	clearLegendArea();
+
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
-	clearLegendArea();
-	gotoxy(27, 12);
-	cout << "your final score is: " << score << endl;
+
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
+	cout << "Your final score is:" << endl;  
+	gotoxy(legendAreaPos.getXPos() + 8, legendAreaPos.getYPos() + 2);
+	cout << score;
 	Sleep(2500);
+
 	clearLegendArea();
-	gotoxy(30, 12);
-	cout << "Thanks for playing!" << endl;
+
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
+	cout << " Thanks for playing " << endl;
 	Sleep(3000);
 }
 
@@ -161,38 +172,47 @@ void Menu::printGameName() const
 {
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
-	gotoxy(29, 11);
-	cout << "  P  A  C  -  M  A  N  ";
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	cout << "   P A C - M A N    ";
 }
 
 void Menu::printRSG() const
 {
 	if (ThePacmanGame::isGameColorized()) setTextColor(detailsColor);
 
-	gotoxy(21, 11);
-	cout << "                                       " << endl;
-	gotoxy(37, 11);
-	cout << "Ready,";
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	for (int i = 0; i < 20; i++)
+		cout << GameBoard::SPACE;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	cout << "       Ready,       ";
 	Sleep(1200);
-	gotoxy(21, 11);
-	cout << "                                       " << endl;
-	gotoxy(38, 11);
-	cout << "Set,";
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	for (int i = 0; i < 20; i++)
+		cout << GameBoard::SPACE;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	cout << "        Set,        ";
 	Sleep(1200);
-	gotoxy(21, 11);
-	cout << "                                       " << endl;
-	gotoxy(38, 11);
-	cout << "GO!";
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	for (int i = 0; i < 20; i++)
+		cout << GameBoard::SPACE;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	cout << "        GO !        ";
 	Sleep(750);
-	gotoxy(21, 11);
-	cout << "                                       " << endl;
+	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
+	for (int i = 0; i < 20; i++)
+		cout << GameBoard::SPACE;
 }
 
 void Menu::clearLegendArea() const
 {
-	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
 	for (int rowInd = 0; rowInd < 3; rowInd++)
-		cout << "                    ";
+	{
+		gotoxy(legendAreaPos.getXPos() , legendAreaPos.getYPos() + rowInd);
+		for (int colInd = 0; colInd < 20; colInd++)
+		{
+			cout << GameBoard::SPACE;
+		}
+	}
 }
 
 //Pacman animation at the end

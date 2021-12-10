@@ -11,12 +11,6 @@ void Ghost::initGhost(GameBoard& board)
 	initCreature(board, '$');
 }
 
-/*void Ghost::setGhostPosition(int xCoord, int yCoord)
-{
-	currPos.setXPos(xCoord);
-	currPos.setYPos(yCoord);
-	nextPos = currPos;
-}*/
 
 void Ghost::moveGhost(GameBoard& board)
 {
@@ -31,8 +25,8 @@ void Ghost::moveGhost(GameBoard& board)
 			resetNextPos();
 	}
 
-	//The ghost printed and we want the print the cell as it were before.
 	gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
+	//The ghost printed and we want the print of the cell as it were before.
 	if (board.getCellInBoard(getCurrPos()) == GameBoard::BREADCRUMB)
 	{
 		if (ThePacmanGame::isGameColorized())
@@ -42,14 +36,6 @@ void Ghost::moveGhost(GameBoard& board)
 	else
 		cout << GameBoard::SPACE;
 }
-
-/*void Ghost::printGhost() const
-{
-	gotoxy(currPos.getXPos(), currPos.getYPos());
-	if (ThePacmanGame::isGameColorized())
-		setTextColor(ghostColor);
-	cout << GHOST;
-}*/
 
 void Ghost::generateRandomDirection()
 {
@@ -74,48 +60,59 @@ void Ghost::generateRandomDirection()
 
 }
 
-/*void Ghost::smartGhostMove(GameBoard& board)
+//implementation using BFS	Algorithem.
+void Ghost::smartGhostMove(GameBoard& board, Position start, Position ghostPos)
 {
-
+	int AddOrReduceRow[4] = { -1,0,1,0 };
+	int AddOrReduceCol[4] = { 0,-1,0,1 };
 	{
 		// Visited vector to so that
 		// a vertex is not visited more than once
 		// Initializing the vector to false as no
 		// vertex is visited at the beginning
-		vector<bool> visited(adj.size(), false);
-		vector<int> q;
+		bool visited[80][25] = { };
+		vector<Position> q;
 		q.push_back(start);
 
 		// Set source as visited
-		visited[start] = true;
+		visited[start.getXPos()][start.getYPos()] = true;
 
-		int vis;
-		while (!q.empty()) {
-			vis = q[0];
+		Position temp;
+		while (!q.empty())
+		{
+			temp = q[0];
 
 			// Print the current node
-			cout << vis << " ";
+			//cout << vis << " ";
 			q.erase(q.begin());
 
 			// For every adjacent vertex to the current vertex
-			for (int i = 0; i < adj[vis].size(); i++) {
-				if (adj[vis][i] == 1 && (!visited[i])) {
+			for (int i = 0; i < 4; i++) 
+			{
+				int neighborX = temp.getXPos() + AddOrReduceRow[i];
+				int neighborY = temp.getYPos() + AddOrReduceCol[i];
 
-					// Push the adjacent node to the queue
-					q.push_back(i);
+				if (!(visited[temp.getXPos()][neighborY]) && neighborX == ghostPos.getXPos() && neighborY == ghostPos.getYPos())
+				{
+					ghostPos = temp;
+					return;
 
-					// Set
-					visited[i] = true;
+				}
+				else if ((neighborX != ghostPos.getXPos() || neighborY != ghostPos.getYPos()) && !(visited[temp.getXPos()][neighborY]))
+				{
+					if (board.getCellInBoard(neighborX, neighborY) != GameBoard::BORDER && board.getCellInBoard(neighborX, neighborY) != GameBoard::TUNNEL)
+					{
+						temp.setXPos(neighborX);
+						temp.setYPos(neighborY);
+						// Push the adjacent node to the queue
+						q.push_back(temp);
+						// Set
+						visited[neighborX][neighborY] = true;
+					}
 				}
 			}
 		}
 	}
+}
 
-
-
-
-
-
-
-}*/
 
