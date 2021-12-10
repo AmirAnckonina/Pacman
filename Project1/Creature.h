@@ -1,24 +1,27 @@
 #pragma once
-#include"Utilities.h"
-#include "Position.h"
-#include"GameBoard.h"
 
-//const pair<Icon, const char> FigureIcon[] = { {Icon::PACMAN, '@'}, {Icon::GHOST, '$'} };
+#include "Utilities.h"
+#include "Position.h"
+#include "GameBoard.h"
+
 //enum Icon {PACMAN = '@', GHOST = '$'};
-static constexpr char PACMAN = '@', GHOST = '$';
 
 class Creature
 {
+public:
+	static constexpr char PACMAN = '@', GHOST = '$';
+
+private:
 	//Icon creatureIcon;
-	char creatureIcon = 0;
+	char creatureIcon;
 	Position startingPos ,currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
 
 public:
-	Creature() {};
-	Creature(Position _startingPos, Position _currPos, Position _nextPos,
-		Direction _creatureDirection, Colors _creatureColor, char _creatureIcon);
+	Creature(char _creatureIcon = 0);
+	/*Creature(Position _startingPos, Position _currPos, Position _nextPos,
+		Direction _creatureDirection, Colors _creatureColor, char _creatureIcon);*/
 
 	//void moveCreature(GameBoard& board);
 	void initCreature(GameBoard& board, char _creatureIcon);

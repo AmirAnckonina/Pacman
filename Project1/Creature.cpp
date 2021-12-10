@@ -3,16 +3,18 @@
 
 //char Creature::creatureIcon = 0;
 
-Creature::Creature(Position _startingPos, Position _currPos, Position _nextPos, Direction _creatureDirection, Colors _creatureColor, char _creatureIcon)
-	: creatureColor(_creatureColor),
-	startingPos(_startingPos),
-	currPos(_currPos),
-	nextPos(_nextPos),
-	creatureDirection(_creatureDirection)
-{
-	//creatureIcon = convertCharToIcon(_creatureIcon);
-	creatureIcon = _creatureIcon;
-}
+Creature::Creature(char _creatureIcon) : creatureIcon(_creatureIcon) {}
+
+//Creature::Creature(Position _startingPos, Position _currPos, Position _nextPos, Direction _creatureDirection, Colors _creatureColor, char _creatureIcon)
+//	: creatureColor(_creatureColor),
+//	startingPos(_startingPos),
+//	currPos(_currPos),
+//	nextPos(_nextPos),
+//	creatureDirection(_creatureDirection)
+//{
+//	//creatureIcon = convertCharToIcon(_creatureIcon);
+//	creatureIcon = _creatureIcon;
+//}
 
 void Creature::initCreature(GameBoard& board, char _creatureIcon)
 {

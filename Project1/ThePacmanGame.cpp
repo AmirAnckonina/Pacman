@@ -2,6 +2,13 @@
 
 bool ThePacmanGame::gameColorized = false;
 
+//ThePacmanGame::ThePacmanGame(Menu _game_menu, GameBoard _game_board, Pacman _pacman, Ghost _ghost[],
+//	static bool _gameColorized, bool ghostsTurn = false, bool playerWon = false) 
+//	: game_menu(_game_menu), game_board(_game_board), pacman(_pacman), gameColorized(_gameColorized)
+//{
+//
+//}
+
 void ThePacmanGame::startGameSessions()
 {
 	bool activate = true;

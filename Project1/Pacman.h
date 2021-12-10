@@ -16,9 +16,9 @@ private:
 	int score = 0;
 
 public:
-	Pacman() {};
-	Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos, Position _pacmanNextPos,
-		Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@');
+	Pacman(char _pacmanIcon = Creature::PACMAN);
+	/*Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos, Position _pacmanNextPos,
+		Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = Creature::PACMAN);*/
 	void initPacman(GameBoard& board);
 	void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
