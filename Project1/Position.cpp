@@ -3,8 +3,14 @@
 //#include "Pacman.h"
 //#include "Ghost.h"
 //test
-bool Position::isPositionValid(GameBoard& board, char figure)
+
+
+bool Position::isPositionValid(GameBoard& board, char figure))
+
 {
+
+	if( !(board.inBoardDimensions(x, y)) )
+		return false;
 	char cellCh = board.getCellInBoard(x, y);
 	if (cellCh == GameBoard::BORDER)
 		return false;
