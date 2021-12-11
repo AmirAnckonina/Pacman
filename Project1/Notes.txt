@@ -48,4 +48,11 @@ consider put Directions.h  enum class inside Creature class
  7. consider vector array of ghosts (could be 4 or more ghosts)
  8. while one of the board isn't correct , give an option to move to the next board.
  9. Build function to check if board is valid.
- 
+  ----------------
+  11.12
+  Generaize Move function
+  Testing
+  Build Fruit
+  Build Strategy
+  handle reading board
+  -----------------
