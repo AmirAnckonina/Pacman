@@ -9,11 +9,11 @@
 class Creature
 {
 public:
-	static constexpr char PACMAN = '@', GHOST = '$';
+	static constexpr char PACMAN = '@', GHOST = '$', FRUIT = 'F';
 
 private:
 	//Icon creatureIcon;
-	char creatureIcon;
+	const char creatureIcon;
 	Position startingPos ,currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
@@ -49,7 +49,7 @@ public:
 	void setColor(Colors _creatureColor) { creatureColor = _creatureColor; }
 	Colors getColor() const { return creatureColor; }
 
-	void setIcon(char _creatureIcon) { creatureIcon = _creatureIcon; }
+	//void setIcon(char _creatureIcon) { creatureIcon = _creatureIcon; }
 	char getIcon() const { return creatureIcon; }
 
 	bool isCreaturePositionValid(GameBoard& board);
