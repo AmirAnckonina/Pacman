@@ -154,7 +154,10 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="Fruit.h" />
+    <ClInclude Include="GhSmartStrategy.h" />
+    <ClInclude Include="GhRegularStrategy.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="GhStrategy.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Pacman.h" />

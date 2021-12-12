@@ -14,7 +14,7 @@ public:
 private:
 	//Icon creatureIcon;
 	const char creatureIcon;
-	Position startingPos ,currPos, nextPos;
+	Position startingPos, currPos, nextPos;
 	Direction creatureDirection = Direction::STAY;
 	Colors creatureColor = Colors::WHITE;
 
@@ -23,13 +23,13 @@ public:
 	/*Creature(Position _startingPos, Position _currPos, Position _nextPos,
 		Direction _creatureDirection, Colors _creatureColor, char _creatureIcon);*/
 
-	//void moveCreature(GameBoard& board);
+		//void moveCreature(GameBoard& board);
 	void initCreature(GameBoard& board, char _creatureIcon);
 
 	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
 
-	
+
 	//Get-Set Functions
 	char getCreatureIcon() { return creatureIcon; }
 	void resetCreaturePosition();
@@ -37,11 +37,14 @@ public:
 
 	void setStartingPos(Position _startingPos) { startingPos = _startingPos; }
 	Position getStartingPos() const { return startingPos; }
+
 	void setCurrPos(Position _currPos) { currPos = _currPos; }
 	const Position& getCurrPos() const { return currPos; }
+
 	void setNextPos(Position _nextPos) { nextPos = _nextPos; }
-	void setCreatureNextPos(GameBoard& board);
 	const Position& getNextPos() const { return nextPos; }
+
+	void setCreatureNextPos(GameBoard& board);
 
 	void setDirection(Direction _creatureDirection) { creatureDirection = _creatureDirection; }
 	Direction getDirection() const { return creatureDirection; }
@@ -53,9 +56,11 @@ public:
 	char getIcon() const { return creatureIcon; }
 
 	bool isCreaturePositionValid(GameBoard& board);
-	void printCreature() const ;
+	void printCreature() const;
 
 	void collectCreatureStartingPos(GameBoard& board);
 
-	//Icon convertCharToIcon(char ch);
+	void moveCreature(GameBoard& board);
+	void resetAfterInvalidNextPos();
+
 };

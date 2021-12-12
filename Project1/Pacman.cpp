@@ -26,11 +26,9 @@ void Pacman::movePacman(GameBoard& board)
 {
 	//Set potential new position to pacman, then check if it's valid.
 	setCreatureNextPos(board);
-	//nextPos.setNextPos(pacmanDirection, PACMAN);
-	if (getDirection() != Direction::STAY && isCreaturePositionValid(board)) //So we should move the pacman
+	if (isCreaturePositionValid(board)) //So we should move the pacman //getDirection() != Direction::STAY && 
 	{
 		//print space in current position because soon the pacman will be moved.
-
 		gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
 		if (board.getCellInBoard(getCurrPos()) != GameBoard::TUNNEL)
 		{
@@ -40,14 +38,12 @@ void Pacman::movePacman(GameBoard& board)
 		{
 			if (ThePacmanGame::isGameColorized())
 				setTextColor(board.getTunnelColor());
+
 			cout << GameBoard::TUNNEL;
 		}
 	}
 	else //In case not, please stay on the current position. + Rollback to nextPos
-	{
-		resetNextPos();
-		setDirection(Direction::STAY);
-	}
+		resetAfterInvalidNextPos();
 }
 
 void Pacman::updateScore(GameBoard& board)
