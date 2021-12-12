@@ -30,6 +30,12 @@ void Creature::collectCreatureStartingPos(GameBoard& board)
 	startingPos = board.collectStartingPos(creatureIcon);
 }
 
+void Creature::resetAfterInvalidNextPos()
+{
+	nextPos = currPos;
+	creatureDirection = Direction::STAY;
+}
+
 void Creature::resetCreaturePosition()
 {
 	//currPos should changed to startingPos
@@ -55,6 +61,7 @@ void Creature::printCreature() const
 	if (ThePacmanGame::isGameColorized()) { setTextColor(creatureColor); }
 	cout << creatureIcon;
 }
+
 
 //ostream& operator << (ostream& os, Icon _icon)
 //{

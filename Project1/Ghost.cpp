@@ -12,21 +12,20 @@ void Ghost::initGhost(GameBoard& board)
 	initCreature(board, '$');
 }
 
-
 void Ghost::moveGhost(GameBoard& board)
 {
-	bool isValid = false;
-	while (!isValid)
+	//Using strategy.
+	//Position newNextPos;
+	//newNextPos = createNextPos()
+	generateRandomDirection();
+	setCreatureNextPos(board);
+
+	while ( !(isCreaturePositionValid(board)) )
 	{
-		//Set potential new position to ghost, then check if it's valid.
+		//RollBack
+		resetAfterInvalidNextPos();
 		generateRandomDirection();
 		setCreatureNextPos(board);
-		isValid = isCreaturePositionValid(board);
-		if (!isValid) //Rollback, before starting the loop again
-		{
-			resetNextPos();
-			setDirection(Direction::STAY);
-		}
 	}
 
 	gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
@@ -35,6 +34,7 @@ void Ghost::moveGhost(GameBoard& board)
 	{
 		if (ThePacmanGame::isGameColorized())
 			setTextColor(board.getBreadcrumbColor());
+
 		cout << GameBoard::BREADCRUMB;
 	}
 	else
@@ -63,7 +63,17 @@ void Ghost::generateRandomDirection()
 	}
 
 }
-/*
+
+void Ghost::setStrategy(StrategyType type)
+{
+	delete gh_strategy;
+	
+	if (type == GOOD || type == BEST || type == EXTREME)
+		gh_strategy = new GhSmartStrategy;
+	else if (type == NOVICE)
+		gh_strategy = new GhRegularStrategy;
+}
+
 //implementation using BFS	Algorithem.
 void Ghost::smartGhostMove(GameBoard& board, const Position& pacmanPos)
 {
@@ -117,6 +127,6 @@ void Ghost::smartGhostMove(GameBoard& board, const Position& pacmanPos)
 		}
 	}
 }
-*/
+
 
 
