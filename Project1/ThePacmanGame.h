@@ -7,6 +7,7 @@
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Position.h"
+//#include "Fruit.h"
 
 using std::cout;
 using std::endl;
@@ -15,13 +16,16 @@ class ThePacmanGame
 {
 
 public:
-	static const int numOfGhosts = 2;
+	static const int MaxnumOfGhosts = 4;
 private:
 	Menu game_menu;
 	//Colors detailsColor = Colors::WHITE;
 	GameBoard game_board;
 	Pacman pacman;
-	Ghost ghost[numOfGhosts];
+	//Fruit fruit;
+
+	Ghost ghost[MaxnumOfGhosts];
+	int numOfGhosts;
 	static bool gameColorized;
 	bool ghostsTurn = false;
 	bool playerWon = false;
@@ -32,19 +36,21 @@ public:
 	void initGame();
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
-	
+
 
 	//Printing functions
 	void printFigures() const;
 	void printAllGhosts() const;
 	void printCollision() const;
 	void printCellRestore() const;
-	
+
 	//Game functionalliy 
 	void runGame();
 	void singlePacmanSession();
 	void singleGhostsSession();
 	bool checkCollision() const;
+	bool checkFruitCollision();
+
 	void resetAfterCollision();
 	bool GameFinished();
 
