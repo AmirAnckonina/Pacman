@@ -34,9 +34,10 @@ void ThePacmanGame::initGame()
 	hideCursor();
 	game_board.initBoard();
 	game_menu.initDetailsArea(game_board);
+	numOfGhosts = game_board.collectnumOfGhosts();
 	pacman.initPacman(game_board);
-	ghost[0].initGhost(game_board);
-	ghost[1].initGhost(game_board);
+	for (int i = 0; i < numOfGhosts; i++)
+		ghost[i].initGhost(game_board);
 	if (gameColorized)
 		setGameColors();
 	else
@@ -56,8 +57,8 @@ void ThePacmanGame::setGameColors()
 	game_board.setBreadcrumbColor(Colors::BROWN);
 	game_board.settunnelColor(Colors::YELLOW);
 	pacman.setColor(Colors::YELLOW);
-	for (auto& gh : ghost)
-		gh.setColor(Colors::LIGHTBLUE);
+	for (int i = 0; i < numOfGhosts; i++)
+		ghost[i].setColor(Colors::LIGHTBLUE);
 }
 
 //Running a game session, according to do-while loop condition
@@ -117,10 +118,10 @@ void ThePacmanGame::singleGhostsSession()
 	//PAY attention, ghost should move every other turn. so the condition manage it.
 	if (ghostsTurn)
 	{
-		for (auto& gh : ghost)
+		for (int i = 0; i < numOfGhosts; i++)
 		{
-			gh.moveGhost(game_board);
-			gh.updatePos();
+			ghost[i].moveGhost(game_board);
+			ghost[i].updatePos();
 		}
 		ghostsTurn = false; //they won't move in the next step
 	}
@@ -133,8 +134,8 @@ void ThePacmanGame::singleGhostsSession()
 
 void ThePacmanGame::printAllGhosts() const
 {
-	for (auto& gh : ghost)
-		gh.printCreature();
+	for (int i = 0; i < numOfGhosts; i++)
+		ghost[i].printCreature();
 }
 
 void ThePacmanGame::printFigures() const
@@ -145,15 +146,16 @@ void ThePacmanGame::printFigures() const
 
 bool ThePacmanGame::checkCollision() const
 {
-	int pac_x, gh_x, pac_y, gh_y; //More convient and readable.
-	pac_x = pacman.getCurrPos().getXPos();
-	pac_y = pacman.getCurrPos().getYPos();
-	for (auto& gh : ghost)
+	//int pac_x, gh_x, pac_y, gh_y; //More convient and readable.
+	//pac_x = pacman.getCurrPos().getXPos();
+	//pac_y = pacman.getCurrPos().getYPos();
+	for (int i = 0; i < numOfGhosts; i++)
 	{
-		gh_x = gh.getCurrPos().getXPos();
-		gh_y = gh.getCurrPos().getYPos();
+		//gh_x = ghost[i].getCurrPos().getXPos();
+		//gh_y = ghost[i].getCurrPos().getYPos();
 		//if(pacman.getCurrPos() == gh.getCurrPos()) create opertor function!!!
-		if (pac_x == gh_x && pac_y == gh_y)
+
+		if (pacman.getCurrPos() == ghost[i].getCurrPos())
 		{
 			printCollision();
 			return true;
@@ -172,9 +174,9 @@ void ThePacmanGame::resetAfterCollision()
 	{
 		pacman.resetCreaturePosition();
 		//ghost[0].setGhostPosition(40, 9);
-		ghost[0].resetCreaturePosition();
+		for (int i = 0; i < numOfGhosts; i++)
+			ghost[i].resetCreaturePosition();
 		//ghost[1].setGhostPosition(40, 15);
-		ghost[1].resetCreaturePosition();
 		pacman.printCreature();
 		printAllGhosts();
 		Sleep(500);
@@ -199,15 +201,15 @@ void ThePacmanGame::printCellRestore() const
 	cout << cell;
 
 	//Handle it and restore to all ghosts
-	for (auto& gh : ghost)
+	for (int i = 0; i < numOfGhosts; i++)
 	{
 
-		cell = game_board.getCellInBoard(gh.getCurrPos()); //CHANGED!
+		cell = game_board.getCellInBoard(ghost[i].getCurrPos()); //CHANGED!
 
 		if (cell == GameBoard::BREADCRUMB && gameColorized)
 			setTextColor(game_board.getBreadcrumbColor());
 
-		gotoxy(gh.getCurrPos().getXPos(), gh.getCurrPos().getYPos());
+		gotoxy(ghost[i].getCurrPos().getXPos(), ghost[i].getCurrPos().getYPos());
 		cout << cell;
 	}
 

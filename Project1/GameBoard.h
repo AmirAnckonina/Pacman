@@ -72,4 +72,5 @@ public:
 	int getLastCol() { return lastCol; }
 
 	Position collectStartingPos(char ch);
+	int collectnumOfGhosts();
 };

@@ -5,7 +5,7 @@
 
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
-	if( !(board.inBoardDimensions(x, y)) )
+	if (!(board.inBoardDimensions(x, y)))
 		return false;
 
 	char cellCh = board.getCellInBoard(x, y);
@@ -69,4 +69,11 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	default: //STAY
 		break;
 	}
+}
+
+bool Position::operator==(const Position& pos) const
+{
+	if (x == pos.getXPos() && y == pos.getYPos())
+		return true;
+	return false;
 }

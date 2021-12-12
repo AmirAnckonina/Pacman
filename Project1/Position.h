@@ -27,4 +27,5 @@ public:
 	int getYPos() const { return y; }
 	void setXPos(int _x = 1) { x = _x; }
 	void setYPos(int _y = 1) { y = _y; }
+	bool operator==(const Position& pos) const;
 };
