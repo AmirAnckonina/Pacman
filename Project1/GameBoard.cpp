@@ -4,7 +4,8 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	ifstream templateFile(boardTemplates[currTemplate + 1], ios::in);
+	//getfilesFromDir();
+	ifstream templateFile(boardTemplates[currTemplate + 2], ios::in);
 	//Condiotion
 	readRawTemplate(templateFile);
 }
@@ -49,6 +50,22 @@ char GameBoard::convertChar(const char& ch)
 	default: //ch == 0, check waht happens with pacman and ghost icons
 		break;
 	}
+}
+
+void GameBoard::getfilesFromDir()
+{
+	string path;
+
+	for (const auto& file : filesystem::directory_iterator("."))
+	{
+		if (file.path().extension() == ".screen")
+		{
+			path = file.path().string();
+			path.erase(0, 2);
+			boardTemplates.push_back(file.path().string());
+		}
+	}
+	std::sort(boardTemplates.begin(), boardTemplates.end());
 }
 
 void GameBoard::initInvisibleTunnels()

@@ -9,16 +9,14 @@
 
 
 
-class Fruit
+class Fruit : public Creature
 {
 public:
 	static constexpr char FRUIT = '5';
 private:
 	int fruitVal;
-	Colors fruitColor = Colors::WHITE;
-
-	Position currPos, nextPos;
-	Direction pacmanDirection = Direction::STAY;
+	//Colors fruitColor = Colors::WHITE;
+	//Direction pacmanDirection = Direction::STAY;
 	int appearTime;
 	int notAppearTime;
 
@@ -30,10 +28,12 @@ public:
 	void generateFruitValue();
 	void genrateAppearTime();
 	void genrateNotAppearTime();
+	void genrateLocation(GameBoard& board);
 
 	//Get-Set Functions
 	int getAppearTime() { return appearTime; };
 	int getNotAppearTime() { return notAppearTime; };
+	int getFruitVal() { return fruitVal; }
 	bool isActive();
 
 
