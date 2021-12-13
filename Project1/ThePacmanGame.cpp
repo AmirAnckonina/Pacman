@@ -19,7 +19,9 @@ void ThePacmanGame::startGameSessions()
 			activate = false;
 		else
 		{
-			if (game_menu.getUserKey() == Menu::STARTCOLORIZED) { gameColorized = true; }
+			if (game_menu.getUserKey() == Menu::STARTCOLORIZED) 
+				gameColorized = true; 
+			level = game_menu.getGameDifficulty();
 			initGame();
 			runGame();
 		}
@@ -31,17 +33,21 @@ void ThePacmanGame::startGameSessions()
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
 {
+
 	hideCursor();
 	game_board.initBoard();
 	game_menu.initDetailsArea(game_board);
+
 	numOfGhosts = game_board.collectnumOfGhosts();
 	pacman.initPacman(game_board);
+
 	for (int i = 0; i < numOfGhosts; i++)
-		ghost[i].initGhost(game_board);
-	if (gameColorized)
-		setGameColors();
-	else
-		game_menu.setDetailsColor(Colors::WHITE);
+		ghost[i].initGhost(game_board, level);
+
+
+	if (gameColorized) setGameColors();
+	else game_menu.setDetailsColor(Colors::WHITE);
+
 	ghostsTurn = playerWon = false;
 	game_board.printBoard();
 	pacman.printCreature();
@@ -74,8 +80,8 @@ void ThePacmanGame::runGame()
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 
-		singleGhostsSession();
 		singlePacmanSession();
+		singleGhostsSession();
 		printFigures();
 		Sleep(90);
 
@@ -99,7 +105,7 @@ void ThePacmanGame::singlePacmanSession()
 {
 	if (pacman.getLivesLeft() > 0)
 	{
-		pacman.movePacman(game_board);
+		pacman.move(game_board);
 		pacman.updatePos();
 
 		if (!checkCollision())
@@ -120,7 +126,7 @@ void ThePacmanGame::singleGhostsSession()
 	{
 		for (int i = 0; i < numOfGhosts; i++)
 		{
-			ghost[i].moveGhost(game_board);
+			ghost[i].move(game_board, pacman.getCurrPos());
 			ghost[i].updatePos();
 		}
 		ghostsTurn = false; //they won't move in the next step

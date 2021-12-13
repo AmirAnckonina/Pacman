@@ -17,10 +17,12 @@ private:
 
 public:
 	Pacman(char _pacmanIcon = Creature::PACMAN);
-	/*Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos, Position _pacmanNextPos,
-		Direction _pacmanDirection = Direction::STAY, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = Creature::PACMAN);*/
+
+	virtual void move(GameBoard& board, const Position& pacmanPos = NULL) override;
+
+	void addFruitToScore(int fruitVal) { score += fruitVal; }
 	void initPacman(GameBoard& board);
-	void movePacman(GameBoard& board);
+	//void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
 	void updateScore(GameBoard& board);
 
