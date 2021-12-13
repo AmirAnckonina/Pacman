@@ -3,27 +3,35 @@
 #include "Utilities.h"
 #include "Position.h"
 #include "GameBoard.h"
+#include "SmartStrategy.h"
+#include "NormalStrategy.h"
 
 //enum Icon {PACMAN = '@', GHOST = '$'};
 
 class Creature
 {
 public:
+	enum StrategyType { NONE, NORMAL, SMART };
 	static constexpr char PACMAN = '@', GHOST = '$', FRUIT = 'F';
 
 private:
-	//Icon creatureIcon;
 	const char creatureIcon;
+	int creatureStrategyType;
+	MoveStrategy* mvStrategy;
+
 	Position startingPos, currPos, nextPos;
-	Direction creatureDirection = Direction::STAY;
-	Colors creatureColor = Colors::WHITE;
+	Direction creatureDirection;
+	Colors creatureColor;// = Colors::WHITE;
 
 public:
-	Creature(char _creatureIcon = 0);
-	/*Creature(Position _startingPos, Position _currPos, Position _nextPos,
-		Direction _creatureDirection, Colors _creatureColor, char _creatureIcon);*/
+	Creature(char _creatureIcon = 0, int _creatureStrategyType = NONE, MoveStrategy* _mvStrategy = nullptr, 
+		Colors _creatureColor = Colors::WHITE, Direction _creatureDirection = Direction::STAY);
 
-		//void moveCreature(GameBoard& board);
+	virtual void move(GameBoard& board, const Position& pacmanPos = NULL);
+	void setMoveStrategy();
+	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }
+
+//-------------------------------------------------------------------------------------
 	void initCreature(GameBoard& board, char _creatureIcon);
 
 	void updatePos() { currPos = nextPos; }
@@ -59,8 +67,6 @@ public:
 	void printCreature() const;
 
 	void collectCreatureStartingPos(GameBoard& board);
-
-	void moveCreature(GameBoard& board);
 	void resetAfterInvalidNextPos();
 
 };

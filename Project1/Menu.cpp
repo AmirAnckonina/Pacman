@@ -67,6 +67,7 @@ bool Menu::userChoosedToStart() const
 		return false;
 }
 
+
 void Menu::initDetailsArea(GameBoard& board)
 {  
 	detailsColor = Colors::WHITE;
@@ -107,6 +108,45 @@ void Menu::pauseGame(int lives) const
 	clearLegendArea();
 	printLives(lives);
 	printGameName();
+}
+
+int Menu::getGameDifficulty()
+{
+	bool levelChoosed = false;
+
+	while (!levelChoosed)
+	{
+		printLevelsMenu();
+		userKey = _getch();
+		levelChoosed = userChoosedDifficulty();
+	}
+	clearScreen();
+	return userKey - '0';
+}
+
+bool Menu::userChoosedDifficulty() const
+{
+	switch (userKey)
+	{
+	case BEGINNER:
+	case AMATEUR:
+	case PROFESSIONAL:
+	case EXTREME:
+		return true;
+	default:
+		return false;
+	}
+}
+
+void Menu::printLevelsMenu()
+{
+	gotoxy(0, 0);
+	cout << "Please choose game difficuly level" << endl;
+	cout << "Press (1) for Begginer" << endl;
+	cout << "Press (2) to for Amateur" << endl;
+	cout << "Press (3) for Professional" << endl;
+	cout << "press (4) for Extreme" << endl;
+	
 }
 
 void Menu::singlePrintScore(int score) const

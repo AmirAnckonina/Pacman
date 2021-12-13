@@ -16,15 +16,15 @@ class ThePacmanGame
 {
 
 public:
-	static const int MaxnumOfGhosts = 4;
+	static const int MAXNUMOFGHOSTS = 4;
+
 private:
 	Menu game_menu;
-	//Colors detailsColor = Colors::WHITE;
 	GameBoard game_board;
 	Pacman pacman;
 	//Fruit fruit;
-
-	Ghost ghost[MaxnumOfGhosts];
+	int level;
+	Ghost ghost[MAXNUMOFGHOSTS];
 	int numOfGhosts;
 	static bool gameColorized;
 	bool ghostsTurn = false;
