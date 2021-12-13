@@ -7,6 +7,11 @@ using namespace std;
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <vector>
+
+
+using std::string;
+namespace filesystem = std::filesystem;
 
 
 class Position; //Forward declaration.
@@ -22,7 +27,8 @@ private:
 	//The first row and col that border appear, in order to recognize tunnels.
 	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1;
 	string boardTemplates[5] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt",
-		"Pacman_board_4.txt", "Pacman_board_5.txt" };
+	"Pacman_board_4.txt", "Pacman_board_5.txt" };
+	//vector <string> boardTemplates;
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
 	bool boardColorized = false;
@@ -35,6 +41,7 @@ public:
 	//Init functions
 	void readTemplateFromFile();
 	void readRawTemplate(ifstream& templateFile);
+	void getfilesFromDir();
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
 	void getBoardFrame();

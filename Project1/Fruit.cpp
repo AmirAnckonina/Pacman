@@ -22,3 +22,18 @@ void Fruit::genrateNotAppearTime()
 {
 	appearTime = rand() % 20 + 10;
 }
+void Fruit::genrateLocation(GameBoard& board)
+{
+	Position newPos;
+	bool isValid = false;
+
+	while (!isCreaturePositionValid(board))
+	{
+		newPos.setXPos(rand() % board.getLastCol() + board.getFirstCol());
+		newPos.setYPos(rand() % board.getLastRow() + board.getFirstRow());
+		isValid = isCreaturePositionValid(board);
+		setCurrPos(newPos);
+	}
+
+
+}

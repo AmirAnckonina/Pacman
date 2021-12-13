@@ -7,14 +7,22 @@ bool Position::isPositionValid(GameBoard& board, char figure)
 {
 	if (!(board.inBoardDimensions(x, y)))
 		return false;
-
 	char cellCh = board.getCellInBoard(x, y);
 	if (cellCh == GameBoard::BORDER)
 		return false;
-	if (cellCh == GameBoard::TUNNEL && figure == Creature::GHOST) //Prevent ghost to move through the tunnels.
-		return false;
+
+	switch (figure)
+	{
+	case Creature::GHOST:
+	case Creature::FRUIT:
+		if (cellCh == GameBoard::TUNNEL) //Prevent ghost to move through the tunnels.
+			return false;
+	default:
+		return true;
+	}
+
 	//Otherwise
-	return true;
+
 }
 void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 {
