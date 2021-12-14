@@ -21,7 +21,7 @@ Direction SmartStrategy::getNextDir(Position& creatureCurrPos, GameBoard& board,
 	// Set source as visited
 	visited[pacmanPos.getYPos()][pacmanPos.getXPos()] = true;
 
-	Position temp;
+	Position temp, adjCell;
 	while (!q.empty())
 	{
 		temp = q.front();
@@ -36,16 +36,18 @@ Direction SmartStrategy::getNextDir(Position& creatureCurrPos, GameBoard& board,
 		{
 			int neighborX = temp.getXPos() + AddOrReduceCol[i];
 			int neighborY = temp.getYPos() + AddOrReduceRow[i];
+			adjCell.setXPos(neighborX);
+			adjCell.setYPos(neighborY);
 
-			if ( !(visited[neighborY][neighborX]) && isNeighborCellIsGhost(creatureCurrPos, neighborY, neighborX) )
+			if (adjCell == creatureCurrPos)
 			{
 				convertNeighborsToDirection(resDir, AddOrReduceRow[i], AddOrReduceCol[i]);
 				//setCurrPos(temp);
 				return resDir;
 			}
-			else if ( !(isNeighborCellIsGhost(creatureCurrPos, neighborY, neighborX)) && !(visited[neighborY][neighborX]) )
+			else if (!(adjCell == creatureCurrPos) && !(visited[neighborY][neighborX]))
 			{
-				if ( (board.getCellInBoard(neighborX, neighborY) != GameBoard::BORDER) && (board.getCellInBoard(neighborX, neighborY) != GameBoard::TUNNEL) )
+				if ((board.getCellInBoard(neighborX, neighborY) != GameBoard::BORDER) && (board.getCellInBoard(neighborX, neighborY) != GameBoard::TUNNEL))
 				{
 					temp.setXPos(neighborX);
 					temp.setYPos(neighborY);

@@ -29,6 +29,8 @@ private:
 	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1;
 	//string boardTemplates[5] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt",
 	//"Pacman_board_4.txt", "Pacman_board_5.txt" };
+	int countCols = 0;
+	bool ValidBoard = true;
 
 	vector <string> boardTemplates;
 	int currTemplate = 0;
@@ -47,6 +49,7 @@ public:
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
 	void getBoardFrame();
+	bool isValidBoard() { return ValidBoard; }
 	//long int fileSize(ifstream& fp);
 
 	void initBoard();

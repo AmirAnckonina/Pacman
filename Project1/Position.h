@@ -21,6 +21,8 @@ public:
 
 	bool isPositionValid(GameBoard& board, char figure);
 	void setNextPos(Direction dir, char figure, GameBoard& board);
+	bool tunnelAllowd(char figure, GameBoard& board, int x, int y)const;
+	bool nextStepIsTunnel(GameBoard& board, int x, int y)const;
 
 	//Get-Set functions
 	int getXPos() const { return x; }
