@@ -4,7 +4,8 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	ifstream templateFile(boardTemplates[currTemplate+4], ios::in);
+	getfilesFromDir();
+	ifstream templateFile(boardTemplates[currTemplate], std::ios::in);
 	//Condiotion
 	readRawTemplate(templateFile);
 }
@@ -14,7 +15,7 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 	int rowInd = 0, colInd = 0;
 	char tmpChar;
 
-	templateFile.get(tmpChar);
+	tmpChar = templateFile.get();
 	while (tmpChar != EOF) //&& rowInd < ROWMAX)
 	{
 		if (tmpChar == '\n') //END_OF_LINE
@@ -40,7 +41,7 @@ char GameBoard::convertChar(const char& ch)
 		return BORDER;
 		break;
 	case '%':
-	//case '&':
+		//case '&':
 		return SPACE;
 		break;
 	case ' ':
@@ -49,6 +50,22 @@ char GameBoard::convertChar(const char& ch)
 	default: //ch == 0, check waht happens with pacman and ghost icons
 		break;
 	}
+}
+
+void GameBoard::getfilesFromDir()
+{
+	string path;
+
+	for (const auto& file : filesystem::directory_iterator("."))
+	{
+		if (file.path().string().ends_with(".screen"))
+		{
+			path = file.path().string();
+			path.erase(0, 2);
+			boardTemplates.push_back(path); //.path().string());
+		}
+	}
+	std::sort(boardTemplates.begin(), boardTemplates.end());
 }
 
 void GameBoard::initInvisibleTunnels()
@@ -310,9 +327,9 @@ char GameBoard::getCellInBoard(const Position& pos) const
 Position GameBoard::collectStartingPos(char ch)
 {
 	Position res;
-	for (int rowInd = 0 ; rowInd < ROWMAX ; rowInd++)
+	for (int rowInd = 0; rowInd < ROWMAX; rowInd++)
 	{
-		for (int colInd = 0 ; colInd < COLMAX ; colInd++)
+		for (int colInd = 0; colInd < COLMAX; colInd++)
 		{
 			if (getCellInBoard(colInd, rowInd) == ch)
 			{
@@ -323,5 +340,19 @@ Position GameBoard::collectStartingPos(char ch)
 		}
 	}
 	return NULL;
+}
+
+int GameBoard::collectnumOfGhosts()
+{
+	int counter = 0;
+	for (int i = firstRow; i < lastRow; i++)
+	{
+		for (int j = firstCol; j < lastCol; j++)
+		{
+			if (board[i][j] == Creature::GHOST)
+				counter++;
+		}
+	}
+	return counter;
 }
 

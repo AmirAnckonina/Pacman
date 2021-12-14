@@ -5,16 +5,22 @@
 
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
-	if( !(board.inBoardDimensions(x, y)) )
+	if (!(board.inBoardDimensions(x, y)))
 		return false;
 
 	char cellCh = board.getCellInBoard(x, y);
+
 	if (cellCh == GameBoard::BORDER)
 		return false;
-	if (cellCh == GameBoard::TUNNEL && figure == Creature::GHOST) //Prevent ghost to move through the tunnels.
-		return false;
-	//Otherwise
+
+	if (figure == Creature::GHOST || figure == Creature::FRUIT)
+	{
+		if (cellCh == GameBoard::TUNNEL) //Prevent ghost to move through the tunnels.
+			return false;	
+	}
+
 	return true;
+
 }
 void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 {
@@ -69,4 +75,11 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	default: //STAY
 		break;
 	}
+}
+
+bool Position::operator==(const Position& pos) const
+{
+	if (this->x == pos.getXPos() && this->y == pos.getYPos())
+		return true;
+	return false;
 }

@@ -5,21 +5,26 @@
 #include "Position.h"
 #include "GameBoard.h"
 #include "Creature.h"
-
-using std::queue;
+#include "SmartStrategy.h"
+#include "NormalStrategy.h"
 
 using std::cout;
 using std::endl;
 
-class Ghost :public Creature
+class Ghost : public Creature
 {
+public:
+	//enum StrategyType {NONE, NORMAL , SMART};
+	enum GhLevel { NOVICE = 1, GOOD, BEST, EXTREME };
+
+private:
+	int ghostLevel; //= NOVICE;
 
 public:
-	Ghost(char __ghostIcon = Creature::GHOST);
-	/*Ghost(Position _ghostStartingPos, Position _ghostCurrPos, Position _ghostNextPos,
-		Direction _ghostDirection = Direction::STAY, Colors _ghostColor = Colors::WHITE, char _ghostIcon = Creature::GHOST);*/
-	void initGhost(GameBoard& board);
-	void moveGhost(GameBoard& board);
-	void generateRandomDirection();
-	void smartGhostMove(GameBoard& board, Position start, Position ghostPos);
+	Ghost(char _ghostIcon = Creature::GHOST, int _ghostLevel = NOVICE);
+	void initGhost(GameBoard& board, int level);
+	void convertGhostLevelToStrategy();
+
+	//void moveGhost(GameBoard& board, const Position& pacmanPos);
+	//void smartGhostMove(GameBoard& board, Position start, Position ghostPos);
 };

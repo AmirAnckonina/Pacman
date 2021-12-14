@@ -4,3 +4,36 @@ void Fruit::generateFruitValue()
 {
 	fruitVal = rand() % 9 + 5;
 }
+
+void Fruit::genrateAppearTime()
+{
+	appearTime = rand() % 20 + 10;
+}
+/*Fruit::Fruit(char _fruitIcon):Creature(_fruitIcon)
+{
+}*/
+bool Fruit::isActive()
+{
+	if (appearTime > 0)
+		return true;
+	return false;
+}
+void Fruit::genrateNotAppearTime()
+{
+	appearTime = rand() % 20 + 10;
+}
+void Fruit::genrateLocation(GameBoard& board)
+{
+	Position newPos;
+	bool isValid = false;
+
+	while (!isCreaturePositionValid(board))
+	{
+		newPos.setXPos(rand() % board.getLastCol() + board.getFirstCol());
+		newPos.setYPos(rand() % board.getLastRow() + board.getFirstRow());
+		isValid = isCreaturePositionValid(board);
+		setCurrPos(newPos);
+	}
+
+
+}

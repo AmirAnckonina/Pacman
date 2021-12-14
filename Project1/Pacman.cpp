@@ -3,6 +3,31 @@
 
 Pacman::Pacman(char _pacmanIcon) : Creature(_pacmanIcon) {}
 
+void Pacman::move(GameBoard& board, const Position& pacmanPos)
+{
+	//Set potential new position to pacman, then check if it's valid.
+	setCreatureNextPos(board);
+	if (isCreaturePositionValid(board)) //So we should move the pacman //getDirection() != Direction::STAY && 
+	{
+		//print space in current position because soon the pacman will be moved.
+		gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
+		if (board.getCellInBoard(getCurrPos()) != GameBoard::TUNNEL)
+		{
+			cout << GameBoard::SPACE;
+		}
+		else
+		{
+			if (ThePacmanGame::isGameColorized())
+				setTextColor(board.getTunnelColor());
+
+			cout << GameBoard::TUNNEL;
+		}
+	}
+	else //In case not, please stay on the current position. + Rollback to nextPos
+		resetAfterInvalidNextPos();
+}
+
+
 //Pacman::Pacman(Position _pacmanStartingPos, Position _pacmanCurrPos,
 //	Position _pacmanNextPos, Direction _pacmanDirection ,Colors _pacmanColor, char _pacmanIcon)
 //	: Creature(_pacmanStartingPos, _pacmanCurrPos, _pacmanNextPos, _pacmanDirection, _pacmanColor, _pacmanIcon) 
@@ -22,33 +47,29 @@ void Pacman::initPacman(GameBoard & board)
 	initCreature(board, '@');
 }
 
-void Pacman::movePacman(GameBoard& board)
-{
-	//Set potential new position to pacman, then check if it's valid.
-	setCreatureNextPos(board);
-	//nextPos.setNextPos(pacmanDirection, PACMAN);
-	if (getDirection() != Direction::STAY && isCreaturePositionValid(board)) //So we should move the pacman
-	{
-		//print space in current position because soon the pacman will be moved.
-
-		gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
-		if (board.getCellInBoard(getCurrPos()) != GameBoard::TUNNEL)
-		{
-			cout << GameBoard::SPACE;
-		}
-		else
-		{
-			if (ThePacmanGame::isGameColorized())
-				setTextColor(board.getTunnelColor());
-			cout << GameBoard::TUNNEL;
-		}
-	}
-	else //In case not, please stay on the current position. + Rollback to nextPos
-	{
-		resetNextPos();
-		setDirection(Direction::STAY);
-	}
-}
+//void Pacman::movePacman(GameBoard& board)
+//{
+//	//Set potential new position to pacman, then check if it's valid.
+//	setCreatureNextPos(board);
+//	if (isCreaturePositionValid(board)) //So we should move the pacman //getDirection() != Direction::STAY && 
+//	{
+//		//print space in current position because soon the pacman will be moved.
+//		gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
+//		if (board.getCellInBoard(getCurrPos()) != GameBoard::TUNNEL)
+//		{
+//			cout << GameBoard::SPACE;
+//		}
+//		else
+//		{
+//			if (ThePacmanGame::isGameColorized())
+//				setTextColor(board.getTunnelColor());
+//
+//			cout << GameBoard::TUNNEL;
+//		}
+//	}
+//	else //In case not, please stay on the current position. + Rollback to nextPos
+//		resetAfterInvalidNextPos();
+//}
 
 void Pacman::updateScore(GameBoard& board)
 {

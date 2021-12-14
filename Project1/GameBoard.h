@@ -1,5 +1,5 @@
 #pragma once
-using namespace std;
+//using namespace std;
 
 #include "Utilities.h"
 #include "Position.h"
@@ -7,6 +7,12 @@ using namespace std;
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <vector>
+
+using std::ifstream;
+using std::string;
+using std::vector;
+namespace filesystem = std::filesystem;
 
 
 class Position; //Forward declaration.
@@ -21,8 +27,10 @@ private:
 	char board[ROWMAX][COLMAX];
 	//The first row and col that border appear, in order to recognize tunnels.
 	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1;
-	string boardTemplates[5] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt",
-		"Pacman_board_4.txt", "Pacman_board_5.txt" };
+	//string boardTemplates[5] = { "Pacman_board_1.txt", "Pacman_board_2.txt", "Pacman_board_3.txt",
+	//"Pacman_board_4.txt", "Pacman_board_5.txt" };
+
+	vector <string> boardTemplates;
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
 	bool boardColorized = false;
@@ -35,6 +43,7 @@ public:
 	//Init functions
 	void readTemplateFromFile();
 	void readRawTemplate(ifstream& templateFile);
+	void getfilesFromDir();
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
 	void getBoardFrame();
@@ -72,4 +81,5 @@ public:
 	int getLastCol() { return lastCol; }
 
 	Position collectStartingPos(char ch);
+	int collectnumOfGhosts();
 };
