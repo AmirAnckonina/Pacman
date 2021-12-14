@@ -6,8 +6,6 @@
 #include "SmartStrategy.h"
 #include "NormalStrategy.h"
 
-//enum Icon {PACMAN = '@', GHOST = '$'};
-
 class Creature
 {
 public:

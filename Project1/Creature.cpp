@@ -42,15 +42,17 @@ void Creature::collectCreatureStartingPos(GameBoard& board)
 
 void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
-	creatureDirection = mvStrategy->getNextDir(currPos, board, pacmanPos);
-	setCreatureNextPos(board);
+	//mvStrategy->executeMove(*this, board, pacmanPos);
+	nextPos = mvStrategy->getNewPosByStrategy(currPos, board, pacmanPos, creatureDirection, creatureIcon);
+	/*generateRandomDirection(creature);
+	creature.setCreatureNextPos(board);
 
-	while ( !(isCreaturePositionValid(board)) )
+	while (!(creature.isCreaturePositionValid(board)))
 	{
-		resetAfterInvalidNextPos();
-		creatureDirection = mvStrategy->getNextDir(currPos, board, pacmanPos);
-		setCreatureNextPos(board);
-	}
+		creature.resetAfterInvalidNextPos();
+		generateRandomDirection(creature);
+		creature.setCreatureNextPos(board);
+	}*/
 
 	//Final Part
 	gotoxy(currPos.getXPos(), currPos.getYPos());
