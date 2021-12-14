@@ -4,8 +4,8 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	//getfilesFromDir();
-	ifstream templateFile(boardTemplates[currTemplate + 2], ios::in);
+	getfilesFromDir();
+	ifstream templateFile(boardTemplates[currTemplate], std::ios::in);
 	//Condiotion
 	readRawTemplate(templateFile);
 }
@@ -15,7 +15,7 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 	int rowInd = 0, colInd = 0;
 	char tmpChar;
 
-	templateFile.get(tmpChar);
+	tmpChar = templateFile.get();
 	while (tmpChar != EOF) //&& rowInd < ROWMAX)
 	{
 		if (tmpChar == '\n') //END_OF_LINE
@@ -58,11 +58,11 @@ void GameBoard::getfilesFromDir()
 
 	for (const auto& file : filesystem::directory_iterator("."))
 	{
-		if (file.path().extension() == ".screen")
+		if (file.path().string().ends_with(".screen"))
 		{
 			path = file.path().string();
 			path.erase(0, 2);
-			boardTemplates.push_back(file.path().string());
+			boardTemplates.push_back(path); //.path().string());
 		}
 	}
 	std::sort(boardTemplates.begin(), boardTemplates.end());
