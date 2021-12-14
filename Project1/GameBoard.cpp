@@ -14,10 +14,19 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 {
 	int rowInd = 0, colInd = 0;
 	char tmpChar;
-
+	bool flag = false;
 	tmpChar = templateFile.get();
 	while (tmpChar != EOF) //&& rowInd < ROWMAX)
 	{
+		if (tmpChar == '\n')
+		{
+			if (colInd == 0 && rowInd == 0)
+				ValidBoard = false;
+			flag = true;
+		}
+		if (flag == false)
+			countCols++;
+
 		if (tmpChar == '\n') //END_OF_LINE
 		{
 			rowInd++;
@@ -30,6 +39,7 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 		}
 		tmpChar = templateFile.get();
 	}
+	lastRow = rowInd - 1;
 }
 
 
@@ -111,29 +121,31 @@ void GameBoard::getBoardFrame()
 	int rowInd, colInd;
 	bool breakFlag = false;
 
-	firstCol = COLMAX;
-	firstRow = ROWMAX;
-	lastRow = lastCol = -1;
+	firstCol = 0;
+	firstRow = 0;
+	//lastRow = -1;
+	lastCol = countCols;
+	countCols = 0;
 
-	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
-		for (colInd = 0; colInd < COLMAX && colInd < firstCol; colInd++)
-			if (board[rowInd][colInd] == BORDER && colInd < firstCol)
-				firstCol = colInd;
+	//for (rowInd = 0; rowInd < ROWMAX; rowInd++)
+	//	for (colInd = 0; colInd < COLMAX && colInd < firstCol; colInd++)
+	//		if (board[rowInd][colInd] == BORDER && colInd < firstCol)
+	//			firstCol = colInd;
 
-	for (colInd = 0; colInd < COLMAX; colInd++)
-		for (rowInd = 0; rowInd < ROWMAX && rowInd < firstRow; rowInd++)
-			if (board[rowInd][colInd] == BORDER && rowInd < firstRow)
-				firstRow = rowInd;
+	//for (colInd = 0; colInd < COLMAX; colInd++)
+	//	for (rowInd = 0; rowInd < ROWMAX && rowInd < firstRow; rowInd++)
+	//		if (board[rowInd][colInd] == BORDER && rowInd < firstRow)
+	//			firstRow = rowInd;
 
-	for (rowInd = ROWMAX - 1; rowInd >= 0; rowInd--)
-		for (colInd = COLMAX - 1; colInd >= 0 && colInd > lastCol; colInd--)
-			if (board[rowInd][colInd] == BORDER && colInd > lastCol)
-				lastCol = colInd;
+	//for (rowInd = ROWMAX - 1; rowInd >= 0; rowInd--)
+	//	for (colInd = COLMAX - 1; colInd >= 0 && colInd > lastCol; colInd--)
+	//		if (board[rowInd][colInd] == BORDER && colInd > lastCol)
+	//			lastCol = colInd;
 
-	for (colInd = COLMAX - 1; colInd >= 0; colInd--)
-		for (rowInd = ROWMAX - 1; rowInd >= 0 && rowInd > lastRow; rowInd--)
-			if (board[rowInd][colInd] == BORDER && rowInd > lastRow)
-				lastRow = rowInd;
+	//for (colInd = COLMAX - 1; colInd >= 0; colInd--)
+	//	for (rowInd = ROWMAX - 1; rowInd >= 0 && rowInd > lastRow; rowInd--)
+	//		if (board[rowInd][colInd] == BORDER && rowInd > lastRow)
+	//			lastRow = rowInd;
 
 }
 
