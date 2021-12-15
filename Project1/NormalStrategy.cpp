@@ -1,35 +1,88 @@
 #include "NormalStrategy.h"
 
-Direction NormalStrategy::getNextDir(Position& creatureCurrPos, GameBoard& board, const Position& pacmanPos)
+
+
+Position NormalStrategy::getNewPosByStrategy(const Position& creatureCurrPos, GameBoard& board, const Position& pacmanPos, Direction& creatureDirection, const char creatureIcon)
 {
-	Direction resDir;
-	generateRandomDirection(resDir);
-	return resDir;
+	Position newNextPos;
+	bool isValid = false;
+	
+	while (!isValid)
+	{
+		newNextPos = creatureCurrPos;
+		generateRandomDirection(creatureDirection);
+		newNextPos.setNextPos(creatureDirection, creatureIcon, board);
+		isValid = newNextPos.isPositionValid(board, creatureIcon);
+	}
+	return newNextPos;
 }
 
-void NormalStrategy::generateRandomDirection(Direction& resDir)
+void NormalStrategy::generateRandomDirection(Direction& creatureDirection)
 {
 	int dirInd = rand() % 4 + 1;
 	switch (dirInd)
 	{
 	case 1:
 		//setDirection(Direction::UP);
-		resDir = Direction::UP;
+		creatureDirection = (Direction::UP);
 		break;
 	case 2:
 		//setDirection(Direction::DOWN);
-		resDir = Direction::DOWN;
+		creatureDirection = (Direction::DOWN);
 		break;
 	case 3:
 		/*setDirection(Direction::LEFT);*/
-		resDir = Direction::LEFT;
+		creatureDirection = (Direction::LEFT);
 		break;
 	case 4:
 		//setDirection(Direction::RIGHT);
-		resDir = Direction::RIGHT;
+		creatureDirection = (Direction::RIGHT);
 		break;
 	default:
 		break;
 	}
 }
 
+
+
+/*
+void NormalStrategy::executeMove(Creature& creature, GameBoard& board, const Position& pacmanPos)
+{
+	generateRandomDirection(creature);
+	creature.setCreatureNextPos(board);
+
+	while (!(creature.isCreaturePositionValid(board)))
+	{
+		creature.resetAfterInvalidNextPos();
+		generateRandomDirection(creature);
+		creature.setCreatureNextPos(board);
+	}
+}
+
+void NormalStrategy::generateRandomDirection(Creature& creature)
+{
+	int dirInd = rand() % 4 + 1;
+	switch (dirInd)
+	{
+	case 1:
+		//setDirection(Direction::UP);
+		creature.setDirection(Direction::UP);
+		break;
+	case 2:
+		//setDirection(Direction::DOWN);
+		creature.setDirection(Direction::DOWN);
+		break;
+	case 3:
+		//setDirection(Direction::LEFT);
+		creature.setDirection(Direction::LEFT);
+		break;
+	case 4:
+		//setDirection(Direction::RIGHT);
+		creature.setDirection(Direction::RIGHT);
+		break;
+	default:
+		break;
+	}
+}
+
+*/
