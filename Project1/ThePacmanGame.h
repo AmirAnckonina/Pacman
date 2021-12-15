@@ -7,7 +7,7 @@
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Position.h"
-//#include "Fruit.h"
+#include "Fruit.h"
 
 using std::cout;
 using std::endl;
@@ -25,9 +25,11 @@ private:
 	//Fruit fruit;
 	int level;
 	Ghost ghost[MAXNUMOFGHOSTS];
+	Fruit fruit;
 	int numOfGhosts;
 	static bool gameColorized;
 	bool ghostsTurn = false;
+	bool fruitTurn = false;
 	bool playerWon = false;
 
 public:
@@ -47,9 +49,12 @@ public:
 	//Game functionalliy 
 	void runGame();
 	void singlePacmanSession();
+	void singleFruitSession();
 	void singleGhostsSession();
 	bool checkCollision() const;
-	bool checkFruitCollision();
+	bool isFruitEatenByPacman();
+	bool isFruitEatenByGhost();
+	bool isFruitEaten();
 
 	void resetAfterCollision();
 	bool GameFinished();

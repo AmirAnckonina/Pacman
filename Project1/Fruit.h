@@ -11,14 +11,15 @@
 
 class Fruit : public Creature
 {
-public:
-	static constexpr char FRUIT = '5';
+
 private:
 	int fruitVal;
+	//bool isFruitActive = true;
+	bool currentlyActive = true;
 	//Colors fruitColor = Colors::WHITE;
 	//Direction pacmanDirection = Direction::STAY;
-	int appearTime;
-	int notAppearTime;
+	int timeOnBoard = 20;
+	int timeNotOnBoard = 20;
 
 
 
@@ -26,14 +27,19 @@ public:
 	Fruit(char _fruitIcon = Creature::FRUIT);
 
 	void generateFruitValue();
-	void genrateAppearTime();
-	void genrateNotAppearTime();
+	//void genrateAppearTime();
+	//void genrateNotAppearTime();
 	void genrateLocation(GameBoard& board);
 
 	//Get-Set Functions
-	int getAppearTime() { return appearTime; };
-	int getNotAppearTime() { return notAppearTime; };
+	int getTimeOnBoard() { return timeOnBoard; };
+	int getTimeNotOnBoard() { return timeNotOnBoard; };
 	int getFruitVal() { return fruitVal; }
+	//bool isActivity() { return currentlyActive; }
+	int disableActivity() { currentlyActive = false; timeNotOnBoard = 20; }
+	int setActivity() { currentlyActive = true; timeOnBoard = 20; }
+	void ReduceTimeOnBoard() { timeOnBoard--; }
+	void ReduceTimeNotOnBoard() { timeNotOnBoard--; }
 	bool isActive();
 
 

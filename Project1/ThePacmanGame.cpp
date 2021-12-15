@@ -19,8 +19,8 @@ void ThePacmanGame::startGameSessions()
 			activate = false;
 		else
 		{
-			if (game_menu.getUserKey() == Menu::STARTCOLORIZED) 
-				gameColorized = true; 
+			if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
+				gameColorized = true;
 			level = game_menu.getGameDifficulty();
 			initGame();
 			runGame();
@@ -118,7 +118,37 @@ void ThePacmanGame::singlePacmanSession()
 			resetAfterCollision();
 	}
 }
+void ThePacmanGame::singleFruitSession()
+{
+	if (fruit.isActive())
+	{
 
+		if (fruitTurn)
+		{
+			fruit.move(game_board);
+			fruit.updatePos();
+			fruitTurn = false; //it won't move in the next step
+			fruit.ReduceTimeOnBoard();
+		}
+		else
+			fruitTurn = true;
+
+		if (isFruitEatenByPacman())
+		{
+			pacman.addFruitToScore(fruit.getFruitVal());
+			fruit.disableActivity();
+			fruitTurn = true;
+		}
+		if (isFruitEatenByGhost())
+		{
+			fruit.disableActivity();
+			fruitTurn = true;
+		}
+	}
+	else//fruit not active
+		fruit.ReduceTimeNotOnBoard();
+
+}
 void ThePacmanGame::singleGhostsSession()
 {
 	//PAY attention, ghost should move every other turn. so the condition manage it.
@@ -152,15 +182,8 @@ void ThePacmanGame::printFigures() const
 
 bool ThePacmanGame::checkCollision() const
 {
-	//int pac_x, gh_x, pac_y, gh_y; //More convient and readable.
-	//pac_x = pacman.getCurrPos().getXPos();
-	//pac_y = pacman.getCurrPos().getYPos();
 	for (int i = 0; i < numOfGhosts; i++)
 	{
-		//gh_x = ghost[i].getCurrPos().getXPos();
-		//gh_y = ghost[i].getCurrPos().getYPos();
-		//if(pacman.getCurrPos() == gh.getCurrPos()) create opertor function!!!
-
 		if (pacman.getCurrPos() == ghost[i].getCurrPos())
 		{
 			printCollision();
@@ -170,6 +193,43 @@ bool ThePacmanGame::checkCollision() const
 	return false;
 }
 
+
+bool ThePacmanGame::isFruitEatenByPacman()
+{
+	if (isFruitEatenByPacman())
+	{
+		pacman.addFruitToScore(fruit.getFruitVal());
+		fruit.disableActivity();
+		fruitTurn = true;
+	}
+	if (isFruitEatenByGhost())
+	{
+		fruit.disableActivity();
+		fruitTurn = true;
+	}
+}
+bool ThePacmanGame::isFruitEatenByPacman()
+{
+
+	if (pacman.getCurrPos() == fruit.getCurrPos() && fruit.isActive())
+	{
+		return true;
+	}
+
+	return false;
+}
+bool ThePacmanGame::isFruitEatenByGhost()
+{
+	for (int i = 0; i < numOfGhosts; i++)
+	{
+		if (ghost[i].getCurrPos() == fruit.getCurrPos() && fruit.isActive())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 void ThePacmanGame::resetAfterCollision()
 {
 
