@@ -5,10 +5,11 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	getfilesFromDir();
 	ifstream templateFile(boardTemplates[currTemplate], std::ios::in);
-	//Condiotion
-	readRawTemplate(templateFile);
+	if (templateFile)
+		readRawTemplate(templateFile);
+	else
+		return;
 }
 
 void GameBoard::readRawTemplate(ifstream& templateFile)
@@ -77,7 +78,7 @@ char GameBoard::convertChar(const char& ch)
 	}
 }
 
-void GameBoard::getfilesFromDir()
+void GameBoard::loadAllScreenTemplates()
 {
 	string path;
 
@@ -362,6 +363,11 @@ void GameBoard::setCellInBoard(const Position& pos, char ch)
 char GameBoard::getCellInBoard(const Position& pos) const
 {
 	return board[pos.getYPos()][pos.getXPos()];
+}
+
+size_t GameBoard::getNumOfTemplates() const
+{
+	return boardTemplates.size();
 }
 
 Position GameBoard::collectStartingPos(char ch)

@@ -21,7 +21,6 @@ public:
 	static const int ROWMAX = 25;
 	static const int COLMAX = 80;
 	static constexpr char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176, LEGEND = '&';
-
 private:
 	char board[ROWMAX][COLMAX];
 	//The first row and col that border appear, in order to recognize tunnels.
@@ -44,7 +43,7 @@ public:
 	//Init functions
 	void readTemplateFromFile();
 	void readRawTemplate(ifstream& templateFile);
-	void getfilesFromDir();
+	void loadAllScreenTemplates();
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
 	void getBoardFrame();
@@ -84,6 +83,8 @@ public:
 	int getFirstCol() { return firstCol; }
 	int getLastRow() { return lastRow; }
 	int getLastCol() { return lastCol; }
+
+	size_t getNumOfTemplates() const; 
 
 	Position collectStartingPos(char ch);
 	int collectnumOfGhosts();
