@@ -25,6 +25,8 @@ public:
 	//void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
 	void updateScore(GameBoard& board);
+	void setScore(int _score) { score = _score; }
+
 
 	//Get-Set Functions
 	Direction convertKeyToDirection(char key) const;

@@ -44,7 +44,8 @@ public:
 	void printFigures() const;
 	void printAllGhosts() const;
 	void printCollision() const;
-	void printCellRestore() const;
+	void cellsRestoreAfterCollision() const;
+	void generalCellRestore(const Creature& creature) const;
 
 	//Game functionalliy 
 	void runGame();
@@ -54,9 +55,11 @@ public:
 	bool checkCollision() const;
 	bool isFruitEatenByPacman();
 	bool isFruitEatenByGhost();
-	bool isFruitEaten();
+	void fruitEatenProcedure();
 
 	void resetAfterCollision();
 	bool GameFinished();
+	void runAllGameBoards(bool& activate);
+
 
 };

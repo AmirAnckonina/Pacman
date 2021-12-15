@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 #include "Utilities.h"
 #include "Directions.h"
@@ -13,36 +12,36 @@ class Fruit : public Creature
 {
 
 private:
-	int fruitVal;
+	int fruitVal = 5;
 	//bool isFruitActive = true;
 	bool currentlyActive = true;
 	//Colors fruitColor = Colors::WHITE;
 	//Direction pacmanDirection = Direction::STAY;
 	int timeOnBoard = 20;
-	int timeNotOnBoard = 20;
+	int timeOffBoard = 20;
 
 
 
 public:
-	Fruit(char _fruitIcon = Creature::FRUIT);
+	Fruit(char _fruitIcon = Creature::FRUIT, int _fruitStrategyType = NORMAL);
 
 	void generateFruitValue();
 	//void genrateAppearTime();
 	//void genrateNotAppearTime();
-	void genrateLocation(GameBoard& board);
+	void generateLocation(GameBoard& board);
 
 	//Get-Set Functions
-	int getTimeOnBoard() { return timeOnBoard; };
-	int getTimeNotOnBoard() { return timeNotOnBoard; };
-	int getFruitVal() { return fruitVal; }
+	int getTimeOnBoard()const { return timeOnBoard; };
+	int getTimeOffBoard()const { return timeOffBoard; };
+	int getFruitVal()const { return fruitVal; }
 	//bool isActivity() { return currentlyActive; }
-	int disableActivity() { currentlyActive = false; timeNotOnBoard = 20; }
-	int setActivity() { currentlyActive = true; timeOnBoard = 20; }
+	void disableActivity() { currentlyActive = false; timeOffBoard = 20; }
+	void enableActivity() { currentlyActive = true; timeOnBoard = 40; }
 	void ReduceTimeOnBoard() { timeOnBoard--; }
-	void ReduceTimeNotOnBoard() { timeNotOnBoard--; }
-	bool isActive();
-
-
+	void ReduceTimeNotOnBoard() { timeOffBoard--; }
+	bool isActive()const { return currentlyActive; }
+	virtual void printCreature()const override;
+	void initFruit();
 	//void getFruitDir();
 	//void setFruitPos();
 	//void setFruitColor(Colors color) { fruitColor = color; }
