@@ -1,8 +1,7 @@
 #pragma once
-//using namespace std;
 
 #include "Utilities.h"
-#include "Position.h"
+//#include "Position.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,8 +13,8 @@ using std::string;
 using std::vector;
 namespace filesystem = std::filesystem;
 
-
 class Position; //Forward declaration.
+
 class GameBoard
 {
 public:
@@ -58,6 +57,8 @@ public:
 	void countTotalBreadcrumbs();
 	void initDetailsArea();
 	void resetBoard();
+	bool isBoardValid() { return ValidBoard; }
+	bool isEmptyFile(char ch);
 
 	//Printing and colors design
 	void printBoard() const;

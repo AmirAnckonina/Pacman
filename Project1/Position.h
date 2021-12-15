@@ -2,13 +2,13 @@
 
 #include "Utilities.h"
 #include "Directions.h"
-#include "GameBoard.h"
+//#include "GameBoard.h"
 
 using std::cout;
 using std::endl;
 
-//enum class Colors;
 class GameBoard; //Forward declaraion.
+
 class Position
 {
 

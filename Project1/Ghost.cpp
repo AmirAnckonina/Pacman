@@ -17,10 +17,12 @@ void Ghost::convertGhostLevelToStrategy()
 {
 	switch (ghostLevel)
 	{
-	case GOOD:
 	case BEST:
 	case EXTREME:
 		setCreatureStrategyType(SMART);
+		break;
+	case GOOD:
+		setCreatureStrategyType(DYNAMIC);
 		break;
 	case NOVICE:
 		setCreatureStrategyType(NORMAL);

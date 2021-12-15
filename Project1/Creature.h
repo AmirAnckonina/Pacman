@@ -3,23 +3,28 @@
 #include "Utilities.h"
 #include "Position.h"
 #include "GameBoard.h"
-#include "SmartStrategy.h"
-#include "NormalStrategy.h"
+//#include "SmartStrategy.h"
+//#include "NormalStrategy.h"
+
+class MoveStrategy;
+class SmartStrategy;
+class NormalStrategy;
 
 class Creature
 {
 public:
-	enum StrategyType { NONE, NORMAL, SMART };
+	enum StrategyType { NONE, NORMAL, DYNAMIC, SMART }; //NOVICE = 1, GOOD, BEST, EXTREME
 	static constexpr char PACMAN = '@', GHOST = '$', FRUIT = 'F';
 
 private:
+	bool hasIntervalTime = false;
 	const char creatureIcon;
 	int creatureStrategyType;
 	MoveStrategy* mvStrategy;
 
 	Position startingPos, currPos, nextPos;
 	Direction creatureDirection;
-	Colors creatureColor;// = Colors::WHITE;
+	Colors creatureColor;
 
 public:
 	Creature(char _creatureIcon = 0, int _creatureStrategyType = NONE, MoveStrategy* _mvStrategy = nullptr, 
@@ -28,10 +33,9 @@ public:
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL);
 	void setMoveStrategy();
 	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }
-
+	void replaceStrategyIfNeeded();
 //-------------------------------------------------------------------------------------
 	void initCreature(GameBoard& board, char _creatureIcon);
-
 	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
 

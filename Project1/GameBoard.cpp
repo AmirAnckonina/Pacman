@@ -1,4 +1,5 @@
 #include "GameBoard.h"
+#include "Position.h"
 #include "ThePacmanGame.h" 
 
 
@@ -15,13 +16,16 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 	int rowInd = 0, colInd = 0;
 	char tmpChar;
 	bool flag = false;
+
 	tmpChar = templateFile.get();
+
+	isEmptyFile(tmpChar);
+
 	while (tmpChar != EOF) //&& rowInd < ROWMAX)
 	{
 		if (tmpChar == '\n' && flag == false)
 		{
-			if (colInd == 0 && rowInd == 0)
-				ValidBoard = false;
+			
 			flag = true;
 		}
 		if (flag == false)
@@ -40,9 +44,17 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 		tmpChar = templateFile.get();
 	}
 	lastRow = rowInd - 1;
-	lastCol = countCols;
+	lastCol = countCols - 1;
 	firstCol = 0;
 	firstRow = 0;
+}
+
+
+bool GameBoard::isEmptyFile(char ch)
+{
+	if (ch == '\n')
+		return false;
+	return true;
 }
 
 
