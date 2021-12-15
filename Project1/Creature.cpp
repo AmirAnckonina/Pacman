@@ -1,5 +1,7 @@
 #include "Creature.h"
 #include "ThePacmanGame.h"
+#include "SmartStrategy.h"
+#include "NormalStrategy.h"
 
 //char Creature::creatureIcon = 0;
 
@@ -10,6 +12,13 @@ void Creature::initCreature(GameBoard& board, char _creatureIcon)
 {
 	//creatureIcon = _creatureIcon;
 	creatureColor = Colors::WHITE;
+
+	if (creatureStrategyType == DYNAMIC)
+	{
+		hasIntervalTime = true;
+		creatureStrategyType = SMART;
+	}
+
 	setMoveStrategy();
 	collectCreatureStartingPos(board);
 	board.setCellInBoard(startingPos, GameBoard::BREADCRUMB);
@@ -23,10 +32,15 @@ void Creature::setMoveStrategy() //set move strategy according to creatureStrate
 	if (creatureStrategyType == SMART)
 	{
 		mvStrategy = new SmartStrategy;
+		if (hasIntervalTime)
+			mvStrategy->setMoveInterval(20);
 	}
 	else if (creatureStrategyType == NORMAL)
 	{
 		mvStrategy = new NormalStrategy;
+		if (hasIntervalTime)
+			mvStrategy->setMoveInterval(15);
+
 	}
 	else //creatureStrategyType == NONE
 	{
@@ -34,16 +48,33 @@ void Creature::setMoveStrategy() //set move strategy according to creatureStrate
 	}
 }
 
-
 void Creature::collectCreatureStartingPos(GameBoard& board)
 {
 	startingPos = board.collectStartingPos(creatureIcon);
 }
 
+void Creature::replaceStrategyIfNeeded()
+{
+	if (hasIntervalTime && mvStrategy->getMoveInterval() <= 0)
+	{
+		//Cnsider using typeid
+		if (creatureStrategyType == SMART)
+			creatureStrategyType = NORMAL;
+		else if (creatureStrategyType == NORMAL)
+			creatureStrategyType = SMART;
+
+		setMoveStrategy();
+		return;
+	}
+	else
+		return;
+}
+
 void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
-	//mvStrategy->executeMove(*this, board, pacmanPos);
-	nextPos = mvStrategy->getNewPosByStrategy(currPos, board, pacmanPos, creatureDirection, creatureIcon);
+	replaceStrategyIfNeeded();
+	mvStrategy->executeMove(*this, board, pacmanPos);
+	//nextPos = mvStrategy->getNewPosByStrategy(currPos, board, pacmanPos, creatureDirection, creatureIcon);
 	/*generateRandomDirection(creature);
 	creature.setCreatureNextPos(board);
 
@@ -66,6 +97,9 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 	}
 	else
 		cout << GameBoard::SPACE;
+
+	if (hasIntervalTime)
+		mvStrategy->setMoveInterval((mvStrategy->getMoveInterval() - 1));
 }
 
 void Creature::resetAfterInvalidNextPos()

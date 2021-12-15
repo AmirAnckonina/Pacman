@@ -1,7 +1,7 @@
 #include "Position.h"
 #include "Creature.h"
-//#include "Pacman.h"
-//#include "Ghost.h"
+#include "GameBoard.h"
+
 
 bool Position::isPositionValid(GameBoard& board, char figure)
 {
