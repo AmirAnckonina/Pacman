@@ -16,7 +16,7 @@ bool Position::isPositionValid(GameBoard& board, char figure)
 	if (figure == Creature::GHOST || figure == Creature::FRUIT)
 	{
 		if (cellCh == GameBoard::TUNNEL) //Prevent ghost to move through the tunnels.
-			return false;	
+			return false;
 	}
 
 	return true;
@@ -29,7 +29,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	switch (dir)
 	{
 	case Direction::UP: //handleDirectionIsUP
-		if (nextStepIsTunnel(board, x, y - 1))
+		if (nextStepIsTunnel(board, x, y - 1) && y - 1 == board.getFirstRow())
 		{
 			if (tunnelAllowd(figure, board, x, board.getLastRow()))
 				y = board.getLastRow() - 1;
@@ -40,7 +40,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 		break;
 
 	case Direction::DOWN:
-		if (nextStepIsTunnel(board, x, y + 1))
+		if (nextStepIsTunnel(board, x, y + 1) && y + 1 == board.getLastRow())
 		{
 			if (tunnelAllowd(figure, board, x, board.getFirstRow()))
 				y = board.getFirstRow() + 1;
@@ -51,7 +51,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 		break;
 
 	case Direction::LEFT:
-		if (nextStepIsTunnel(board, x - 1, y))
+		if (nextStepIsTunnel(board, x - 1, y) && x - 1 == board.getFirstCol())
 		{
 			if (tunnelAllowd(figure, board, board.getLastCol(), y))
 				x = board.getLastCol() - 1;
@@ -64,11 +64,11 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 
 	case Direction::RIGHT:
 		//if (_x == 78 && _y > 10 && _y < 14)
-		if (nextStepIsTunnel(board, x + 1, y))
+		if (nextStepIsTunnel(board, x + 1, y) && x + 1 == board.getLastCol())
 		{
 			if (tunnelAllowd(figure, board, board.getFirstCol(), y))
 				x = board.getFirstCol() + 1;
-			else 
+			else
 				x = board.getLastCol();
 		}
 		else
@@ -84,9 +84,9 @@ bool Position::nextStepIsTunnel(GameBoard& board, int x, int y)const
 {
 	if (x == board.getFirstCol() || x == board.getLastCol() || y == board.getFirstRow() || y == board.getLastRow())
 	{
-		if ( ( board.getCellInBoard(x, y) == GameBoard::TUNNEL) || ( board.getCellInBoard(x, y) == GameBoard::SPACE ) )
+		if ((board.getCellInBoard(x, y) == GameBoard::TUNNEL) || (board.getCellInBoard(x, y) == GameBoard::SPACE))
 		{
-				return true;
+			return true;
 		}
 	}
 	return false;

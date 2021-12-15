@@ -27,14 +27,14 @@ private:
 	Colors creatureColor;
 
 public:
-	Creature(char _creatureIcon = 0, int _creatureStrategyType = NONE, MoveStrategy* _mvStrategy = nullptr, 
+	Creature(char _creatureIcon = 0, int _creatureStrategyType = NONE, MoveStrategy* _mvStrategy = nullptr,
 		Colors _creatureColor = Colors::WHITE, Direction _creatureDirection = Direction::STAY);
 
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL);
 	void setMoveStrategy();
 	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }
 	void replaceStrategyIfNeeded();
-//-------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------
 	void initCreature(GameBoard& board, char _creatureIcon);
 	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
@@ -66,7 +66,7 @@ public:
 	char getIcon() const { return creatureIcon; }
 
 	bool isCreaturePositionValid(GameBoard& board);
-	void printCreature() const;
+	virtual void printCreature() const;
 
 	void collectCreatureStartingPos(GameBoard& board);
 	void resetAfterInvalidNextPos();

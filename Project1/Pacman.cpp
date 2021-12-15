@@ -24,7 +24,7 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 		}
 	}
 	else //In case not, please stay on the current position. + Rollback to nextPos
-		resetAfterInvalidNextPos(board);
+		resetAfterInvalidNextPos();
 }
 
 
