@@ -69,6 +69,7 @@ public:
 
 	//Others Get-Set functions.
 	bool inBoardDimensions(int& x, int& y) const;
+	bool inBoardDimensions(Position& pos) const;
 	void setCellInBoard(int& x, int& y, char ch) { board[y][x] = ch; }
 	void setCellInBoard(const Position& pos, char ch);
 	Colors getBorderColor() const { return borderColor; }

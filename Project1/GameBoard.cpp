@@ -18,7 +18,7 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 	tmpChar = templateFile.get();
 	while (tmpChar != EOF) //&& rowInd < ROWMAX)
 	{
-		if (tmpChar == '\n')
+		if (tmpChar == '\n' && flag == false)
 		{
 			if (colInd == 0 && rowInd == 0)
 				ValidBoard = false;
@@ -40,6 +40,9 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 		tmpChar = templateFile.get();
 	}
 	lastRow = rowInd - 1;
+	lastCol = countCols;
+	firstCol = 0;
+	firstRow = 0;
 }
 
 
@@ -116,38 +119,38 @@ void GameBoard::initInvisibleTunnels()
 
 }
 
-void GameBoard::getBoardFrame()
+/*void GameBoard::getBoardFrame()
 {
 	int rowInd, colInd;
 	bool breakFlag = false;
 
 	firstCol = 0;
 	firstRow = 0;
-	//lastRow = -1;
-	lastCol = countCols;
+	//lastRow = lastCol = -1;
+	//lastCol = countCols;
 	countCols = 0;
 
 	//for (rowInd = 0; rowInd < ROWMAX; rowInd++)
 	//	for (colInd = 0; colInd < COLMAX && colInd < firstCol; colInd++)
 	//		if (board[rowInd][colInd] == BORDER && colInd < firstCol)
 	//			firstCol = colInd;
-
+	//
 	//for (colInd = 0; colInd < COLMAX; colInd++)
 	//	for (rowInd = 0; rowInd < ROWMAX && rowInd < firstRow; rowInd++)
 	//		if (board[rowInd][colInd] == BORDER && rowInd < firstRow)
 	//			firstRow = rowInd;
-
+	//
 	//for (rowInd = ROWMAX - 1; rowInd >= 0; rowInd--)
 	//	for (colInd = COLMAX - 1; colInd >= 0 && colInd > lastCol; colInd--)
 	//		if (board[rowInd][colInd] == BORDER && colInd > lastCol)
 	//			lastCol = colInd;
-
+	//
 	//for (colInd = COLMAX - 1; colInd >= 0; colInd--)
 	//	for (rowInd = ROWMAX - 1; rowInd >= 0 && rowInd > lastRow; rowInd--)
 	//		if (board[rowInd][colInd] == BORDER && rowInd > lastRow)
 	//			lastRow = rowInd;
 
-}
+}*/
 
 void GameBoard::countTotalBreadcrumbs()
 {
@@ -181,7 +184,7 @@ void GameBoard::initBoard()
 
 	resetBoard();
 	readTemplateFromFile();
-	getBoardFrame();
+	//getBoardFrame();
 	initInvisibleTunnels();
 	countTotalBreadcrumbs();
 	//printBoard();
@@ -321,6 +324,19 @@ bool GameBoard::inBoardDimensions(int& x, int& y) const
 	if (y >= firstRow && y <= lastRow)
 		isYOk = true;
 	if (x >= firstCol && x <= lastCol)
+		isXOk = true;
+
+	return isXOk && isYOk;
+}
+
+bool GameBoard::inBoardDimensions(Position& pos) const
+{
+	bool isXOk = false;
+	bool isYOk = false;
+
+	if (pos.getYPos() >= firstRow && pos.getYPos() <= lastRow)
+		isYOk = true;
+	if (pos.getXPos() >= firstCol && pos.getXPos() <= lastCol)
 		isXOk = true;
 
 	return isXOk && isYOk;

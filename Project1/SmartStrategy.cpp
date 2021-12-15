@@ -59,14 +59,17 @@ void SmartStrategy::setNextPosBFS(GameBoard& board, const Position& creatureCurr
 
 bool SmartStrategy::cellShouldEnterQueue(GameBoard& board, Position& adjCoord)
 {
-	if (board.getCellInBoard(adjCoord) != GameBoard::BORDER)
-	{
-		if (board.getCellInBoard(adjCoord) != GameBoard::TUNNEL)
-		{
-			return true;
-		}
-	}
-	return false;
+	if (!board.inBoardDimensions(adjCoord))
+		return false;
+
+	if (board.getCellInBoard(adjCoord) == GameBoard::BORDER)
+		return false;
+	
+	if (board.getCellInBoard(adjCoord) == GameBoard::TUNNEL)
+		return false;
+	
+
+	return true;
 }
 
 bool SmartStrategy::isNeighborCellIsGhost(const Position& creatureCurrPos, int neighborY, int neighborX)
