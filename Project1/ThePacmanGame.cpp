@@ -18,8 +18,10 @@ void ThePacmanGame::startGameSessions()
 				gameColorized = true;
 
 			level = game_menu.getGameDifficulty();
-			game_board.loadAllScreenTemplates();
-			runAllGameBoards(activate);
+			//game_board.loadAllScreenTemplates();
+			//runAllGameBoards(activate);
+			initGame();
+			runGame();
 		}
 	}
 	cout << "Goodbye" << endl;

@@ -5,6 +5,7 @@
 
 void GameBoard::readTemplateFromFile()
 {
+	loadAllScreenTemplates();
 	ifstream templateFile(boardTemplates[currTemplate], std::ios::in);
 	if (templateFile)
 		readRawTemplate(templateFile);
