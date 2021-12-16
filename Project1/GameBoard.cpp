@@ -44,7 +44,7 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 		}
 		tmpChar = templateFile.get();
 	}
-	lastRow = rowInd - 1;
+	lastRow = rowInd;
 	lastCol = countCols - 1;
 	firstCol = 0;
 	firstRow = 0;
@@ -65,16 +65,13 @@ char GameBoard::convertChar(const char& ch)
 	{
 	case '#':
 		return BORDER;
-		break;
 	case '%':
 		//case '&':
 		return SPACE;
-		break;
 	case ' ':
 		return BREADCRUMB;
-		break;
 	default: //ch == 0, check waht happens with pacman and ghost icons
-		break;
+		return ch;
 	}
 }
 
@@ -98,7 +95,7 @@ void GameBoard::initInvisibleTunnels()
 {
 	int rowInd = 0, colInd = 0;
 
-	for (colInd = firstCol; colInd < lastCol; colInd++)
+	for (colInd = firstCol; colInd <= lastCol; colInd++)
 	{
 		if (board[firstRow][colInd] == BREADCRUMB)
 		{
@@ -106,7 +103,7 @@ void GameBoard::initInvisibleTunnels()
 		}
 	}
 
-	for (rowInd = firstRow; rowInd < lastRow; rowInd++)
+	for (rowInd = firstRow; rowInd <= lastRow; rowInd++)
 	{
 		if (board[rowInd][firstCol] == BREADCRUMB)
 		{
@@ -114,7 +111,7 @@ void GameBoard::initInvisibleTunnels()
 		}
 	}
 
-	for (colInd = firstCol; colInd < lastCol; colInd++)
+	for (colInd = firstCol; colInd <= lastCol; colInd++)
 	{
 		if (board[lastRow][colInd] == BREADCRUMB)
 		{
@@ -122,7 +119,7 @@ void GameBoard::initInvisibleTunnels()
 		}
 	}
 
-	for (rowInd = firstRow; rowInd < lastRow; rowInd++)
+	for (rowInd = firstRow; rowInd <= lastRow; rowInd++)
 	{
 		if (board[rowInd][lastCol] == BREADCRUMB)
 		{
@@ -203,105 +200,6 @@ void GameBoard::initBoard()
 	//printBoard();
 }
 
-void::GameBoard::initDetailsArea()
-{
-	int rowInd, colInd;
-	for (rowInd = 11; rowInd <= 13; rowInd++)
-		for (colInd = 21; colInd <= 59; colInd++)
-			board[rowInd][colInd] = SPACE;
-}
-
-void GameBoard::initOuterBorders()
-{
-	int rowInd, colInd;
-
-	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
-		board[rowInd][0] = BORDER;
-
-	for (colInd = 0; colInd < COLMAX; colInd++)
-		board[0][colInd] = BORDER;
-
-	for (rowInd = 1; rowInd < ROWMAX; rowInd++)
-		board[rowInd][COLMAX - 1] = BORDER;
-
-	for (colInd = 0; colInd < COLMAX; colInd++)
-		board[ROWMAX - 1][colInd] = BORDER;
-
-	for (rowInd = 1; rowInd < ROWMAX - 1; rowInd++)
-		for (colInd = 1; colInd < COLMAX - 1; colInd++)
-			board[rowInd][colInd] = SPACE;
-
-}
-
-void GameBoard::initInnerWalls()
-{
-	int rowInd, colInd;
-
-	//Tunnels
-	for (rowInd = 10, colInd = 0; colInd <= 8; colInd++)
-		board[rowInd][colInd] = BORDER;
-	for (rowInd = 14, colInd = 0; colInd <= 8; colInd++)
-		board[rowInd][colInd] = BORDER;
-	for (rowInd = 10, colInd = 72; colInd <= 79; colInd++)
-		board[rowInd][colInd] = BORDER;
-	for (rowInd = 14, colInd = 72; colInd <= 79; colInd++)
-		board[rowInd][colInd] = BORDER;
-	for (rowInd = 11; rowInd <= 13; rowInd++)
-	{
-		board[rowInd][0] = TUNNEL;
-		board[rowInd][COLMAX - 1] = TUNNEL;
-	}
-
-
-	//Big rectangle in the middle
-	for (rowInd = 10; rowInd <= 14; rowInd++)
-		for (colInd = 20; colInd <= 60; colInd++)
-			board[rowInd][colInd] = BORDER;
-
-	// Long lines
-	for (rowInd = 17, colInd = 6; colInd <= 30; colInd++)
-		board[rowInd][colInd] = BORDER;
-
-	for (rowInd = 17, colInd = 50; colInd <= 74; colInd++)
-		board[rowInd][colInd] = BORDER;
-
-	for (rowInd = 7, colInd = 6; colInd <= 30; colInd++)
-		board[rowInd][colInd] = BORDER;
-
-	for (rowInd = 7, colInd = 50; colInd <= 74; colInd++)
-		board[rowInd][colInd] = BORDER;
-
-	//Short Lines
-	for (rowInd = 10; rowInd <= 14; rowInd++)
-		for (colInd = 19; colInd >= 11; colInd--)
-			board[rowInd][colInd] = BORDER;
-	for (rowInd = 10; rowInd <= 14; rowInd++)
-		for (colInd = 61; colInd <= 69; colInd++)
-			board[rowInd][colInd] = BORDER;
-
-	//Small recatngles
-	for (rowInd = 2; rowInd <= 7; rowInd++)
-		for (colInd = 34; colInd <= 46; colInd++)
-			board[rowInd][colInd] = BORDER;
-	for (rowInd = 22; rowInd >= 17; rowInd--)
-		for (colInd = 34; colInd <= 46; colInd++)
-			board[rowInd][colInd] = BORDER;
-
-	//4 Rectangles
-	for (rowInd = 2; rowInd <= 7; rowInd++)
-		for (colInd = 2; colInd <= 30; colInd++)
-			board[rowInd][colInd] = BORDER;
-	for (rowInd = 2; rowInd <= 7; rowInd++)
-		for (colInd = 77; colInd >= 50; colInd--)
-			board[rowInd][colInd] = BORDER;
-	for (rowInd = 17; rowInd <= 22; rowInd++)
-		for (colInd = 2; colInd <= 30; colInd++)
-			board[rowInd][colInd] = BORDER;
-	for (rowInd = 17; rowInd <= 22; rowInd++)
-		for (colInd = 77; colInd >= 50; colInd--)
-			board[rowInd][colInd] = BORDER;
-}
-
 void GameBoard::printBoard() const
 {
 	gotoxy(0, 0);
@@ -365,12 +263,12 @@ char GameBoard::getCellInBoard(const Position& pos) const
 	return board[pos.getYPos()][pos.getXPos()];
 }
 
-size_t GameBoard::getNumOfTemplates() const
+size_t GameBoard::getNumOfTemplates() const 
 {
 	return boardTemplates.size();
 }
 
-Position GameBoard::collectStartingPos(char ch)
+Position GameBoard::collectStartingPos(char ch) const
 {
 	Position res;
 	for (int rowInd = 0; rowInd < ROWMAX; rowInd++)
@@ -388,7 +286,7 @@ Position GameBoard::collectStartingPos(char ch)
 	return NULL;
 }
 
-int GameBoard::collectnumOfGhosts()
+int GameBoard::collectnumOfGhosts() const
 {
 	int counter = 0;
 	for (int i = firstRow; i < lastRow; i++)

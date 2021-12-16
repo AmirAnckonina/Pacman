@@ -13,10 +13,7 @@ class Fruit : public Creature
 
 private:
 	int fruitVal = 5;
-	//bool isFruitActive = true;
-	bool currentlyActive = true;
-	//Colors fruitColor = Colors::WHITE;
-	//Direction pacmanDirection = Direction::STAY;
+	bool currentlyActive = false;
 	int timeOnBoard = 20;
 	int timeOffBoard = 20;
 
@@ -31,15 +28,15 @@ public:
 	void generateLocation(GameBoard& board);
 
 	//Get-Set Functions
-	int getTimeOnBoard()const { return timeOnBoard; };
-	int getTimeOffBoard()const { return timeOffBoard; };
-	int getFruitVal()const { return fruitVal; }
+	int getTimeOnBoard() const { return timeOnBoard; };
+	int getTimeOffBoard() const { return timeOffBoard; };
+	int getFruitVal() const { return fruitVal; }
 	//bool isActivity() { return currentlyActive; }
-	void disableActivity() { currentlyActive = false; timeOffBoard = 20; }
+	void disableActivity() { currentlyActive = false; timeOffBoard = 40; }
 	void enableActivity() { currentlyActive = true; timeOnBoard = 40; }
 	void ReduceTimeOnBoard() { timeOnBoard--; }
 	void ReduceTimeNotOnBoard() { timeOffBoard--; }
-	bool isActive()const { return currentlyActive; }
+	bool isActive() const { return currentlyActive; }
 	virtual void printCreature()const override;
 	void initFruit();
 	//void getFruitDir();

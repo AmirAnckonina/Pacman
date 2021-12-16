@@ -17,15 +17,15 @@ void Fruit::initFruit()
 	setColor(Colors::WHITE);
 	currentlyActive = false;
 	fruitVal = 5;
-	timeOnBoard = 20;
-	timeOffBoard = 20;
+	timeOnBoard = 40;
+	timeOffBoard = 40;
 	setCreatureStrategyType(NORMAL);
 	setMoveStrategy();
 }
 
 void Fruit::generateFruitValue()
 {
-	fruitVal = (rand() % 9) + 4;
+	fruitVal = (rand() % 4) + 5;
 }
 
 //void Fruit::genrateAppearTime()
@@ -50,7 +50,6 @@ void Fruit::generateLocation(GameBoard& board)
 		setNextPos(newPos);
 
 		isValid = isCreaturePositionValid(board);
-
 	}
 	updatePos();
 }
