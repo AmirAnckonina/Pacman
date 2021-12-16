@@ -18,8 +18,10 @@ void ThePacmanGame::startGameSessions()
 				gameColorized = true;
 
 			level = game_menu.getGameDifficulty();
-			game_board.loadAllScreenTemplates();
-			runAllGameBoards(activate);
+			//game_board.loadAllScreenTemplates();
+			//runAllGameBoards(activate);
+			initGame();
+			runGame();
 		}
 	}
 	cout << "Goodbye" << endl;
@@ -52,6 +54,7 @@ void ThePacmanGame::initGame()
 
 	for (int i = 0; i < numOfGhosts; i++)
 		ghost[i].initGhost(game_board, level);
+
 	fruit.initFruit();
 
 	if (gameColorized) setGameColors();
@@ -151,8 +154,8 @@ void ThePacmanGame::singleFruitSession()
 		{
 			fruit.move(game_board);
 			fruit.updatePos();
-			fruitTurn = false; //it won't move in the next step
 			fruit.ReduceTimeOnBoard();
+			fruitTurn = false; //it won't move in the next step
 		}
 		else
 			fruitTurn = true;
@@ -165,9 +168,7 @@ void ThePacmanGame::singleFruitSession()
 		{
 			fruit.disableActivity();
 			generalCellRestore(fruit);
-
 		}
-
 	}
 	else//fruit not active
 	{

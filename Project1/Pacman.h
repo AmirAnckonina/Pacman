@@ -32,4 +32,5 @@ public:
 	Direction convertKeyToDirection(char key) const;
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
+
 };
