@@ -1,15 +1,17 @@
 #include "Fruit.h"
 #include "ThePacmanGame.h"
 
+Fruit::Fruit(char _fruitIcon, int _fruitStrategyType) : Creature(_fruitIcon, _fruitStrategyType) {}
 
 void Fruit::printCreature()const
 {
-
-	gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
-	if (ThePacmanGame::isGameColorized())
-		setTextColor(getColor());
-	cout << fruitVal;
-
+	if (currentlyActive)
+	{
+		gotoxy(getCurrPos().getXPos(), getCurrPos().getYPos());
+		if (ThePacmanGame::isGameColorized())
+			setTextColor(getColor());
+		cout << fruitVal;
+	}
 }
 
 void Fruit::initFruit()
@@ -21,6 +23,7 @@ void Fruit::initFruit()
 	timeOffBoard = 40;
 	setCreatureStrategyType(NORMAL);
 	setMoveStrategy();
+	resetNextPos();
 }
 
 void Fruit::generateFruitValue()
@@ -28,16 +31,6 @@ void Fruit::generateFruitValue()
 	fruitVal = (rand() % 4) + 5;
 }
 
-//void Fruit::genrateAppearTime()
-//{
-//	timeOnBoard = rand() % 20 + 10;
-//}
-Fruit::Fruit(char _fruitIcon, int _fruitStrategyType) : Creature(_fruitIcon, _fruitStrategyType) {}
-
-//void Fruit::genrateNotAppearTime()
-//{
-//	timeOnBoard = rand() % 20 + 10;
-//}
 void Fruit::generateLocation(GameBoard& board)
 {
 	Position newPos;
@@ -45,12 +38,17 @@ void Fruit::generateLocation(GameBoard& board)
 
 	while (!isValid)
 	{
-		newPos.setXPos(rand() % board.getLastCol() + board.getFirstCol());
-		newPos.setYPos(rand() % board.getLastRow() + board.getFirstRow());
+		newPos.setXPos((rand() % board.getLastCol()) + board.getFirstCol());
+		newPos.setYPos((rand() % board.getLastRow()) + board.getFirstRow());
 		setNextPos(newPos);
-
 		isValid = isCreaturePositionValid(board);
 	}
 	updatePos();
+}
+
+void Fruit::disableActivity()
+{
+	currentlyActive = false; 
+	timeOffBoard = 40;
 }
 

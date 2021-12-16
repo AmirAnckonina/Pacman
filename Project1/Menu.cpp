@@ -149,6 +149,13 @@ void Menu::printLevelsMenu()
 	
 }
 
+void Menu::printAllLegend(int score, int lives)
+{
+	printGameName();
+	printLives(lives);
+	singlePrintScore(score);
+}
+
 void Menu::singlePrintScore(int score) const
 {
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 2);

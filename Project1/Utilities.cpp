@@ -1,5 +1,10 @@
 #include "Utilities.h"
 
+void init_srand()
+{
+	srand(time(NULL));
+}
+
 void gotoxy(int x, int y)
 {
 	HANDLE hConsoleOutput;

@@ -117,6 +117,11 @@ void Creature::resetCreaturePosition()
 	nextPos = currPos;
 	creatureDirection = Direction::STAY;
 }
+void Creature::setCurrPos(int x, int y)
+{
+	currPos.setXPos(x);
+	currPos.setYPos(y);
+}
 //???????
 void Creature::setCreatureNextPos(GameBoard& board)
 {

@@ -36,9 +36,8 @@ public:
 	void replaceStrategyIfNeeded();
 	//-------------------------------------------------------------------------------------
 	void initCreature(GameBoard& board, char _creatureIcon);
-	void updatePos() { currPos = nextPos; }
 	void resetNextPos() { nextPos = currPos; }
-
+	void updatePos() { currPos = nextPos; }
 
 	//Get-Set Functions
 	char getCreatureIcon() { return creatureIcon; }
@@ -49,6 +48,7 @@ public:
 	Position getStartingPos() const { return startingPos; }
 
 	void setCurrPos(Position _currPos) { currPos = _currPos; }
+	void setCurrPos(int x, int y);
 	const Position& getCurrPos() const { return currPos; }
 
 	void setNextPos(Position _nextPos) { nextPos = _nextPos; }

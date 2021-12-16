@@ -5,12 +5,17 @@
 
 void GameBoard::readTemplateFromFile()
 {
-	loadAllScreenTemplates();
-	ifstream templateFile(boardTemplates[currTemplate], std::ios::in);
+	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
 	if (templateFile)
+	{
 		readRawTemplate(templateFile);
+		templateFile.close();
+	}
 	else
+	{
+		validBoard = false;
 		return;
+	}
 }
 
 void GameBoard::readRawTemplate(ifstream& templateFile)
@@ -21,31 +26,46 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 
 	tmpChar = templateFile.get();
 
-	isEmptyFile(tmpChar);
-
-	while (tmpChar != EOF) //&& rowInd < ROWMAX)
+	if(isEmptyFile(tmpChar));
 	{
-		if (tmpChar == '\n' && flag == false)
-		{
-			
-			flag = true;
-		}
-		if (flag == false)
-			countCols++;
-
-		if (tmpChar == '\n') //END_OF_LINE
-		{
-			rowInd++;
-			colInd = 0;
-		}
-		else
-		{
-			tmpChar = convertChar(tmpChar);
-			board[rowInd][colInd++] = tmpChar;
-		}
-		tmpChar = templateFile.get();
+		cout << "Empty File";
+		validBoard = false;
 	}
-	lastRow = rowInd;
+
+	if (validBoard)
+	{
+		while (tmpChar != EOF) //&& rowInd < ROWMAX)
+		{
+			if (tmpChar == '\n' && flag == false)
+			{
+				flag = true;
+			}
+
+			if (flag == false)
+				countCols++;
+
+			if (tmpChar == '\n') //END_OF_LINE
+			{
+				rowInd++;
+				colInd = 0;
+			}
+			else
+			{
+				tmpChar = convertChar(tmpChar);
+				board[rowInd][colInd++] = tmpChar;
+			}
+			tmpChar = templateFile.get();
+		}
+	}
+	
+
+	if (rowInd > 25 || colInd > 80 || rowInd <= 0 || colInd <= 0)
+	{
+		cout << "invalid board." << endl;
+		validBoard = false;
+	}
+
+	lastRow = rowInd - 1;
 	lastCol = countCols - 1;
 	firstCol = 0;
 	firstRow = 0;
@@ -55,8 +75,8 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 bool GameBoard::isEmptyFile(char ch)
 {
 	if (ch == '\n')
-		return false;
-	return true;
+		return true;
+	return false;
 }
 
 
@@ -195,10 +215,13 @@ void GameBoard::initBoard()
 
 	resetBoard();
 	readTemplateFromFile();
-	//getBoardFrame();
-	initInvisibleTunnels();
-	countTotalBreadcrumbs();
-	//printBoard();
+	if (validBoard)
+	{
+		//getBoardFrame();
+		initInvisibleTunnels();
+		countTotalBreadcrumbs();
+		//printBoard();
+	}
 }
 
 void GameBoard::printBoard() const
