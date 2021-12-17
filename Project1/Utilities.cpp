@@ -2,7 +2,7 @@
 
 void init_srand()
 {
-	srand(time(NULL));
+	srand(time((time_t*)0));
 }
 
 void gotoxy(int x, int y)

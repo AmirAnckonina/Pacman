@@ -3,30 +3,31 @@
 #include "ThePacmanGame.h" 
 
 
-void GameBoard::readTemplateFromFile()
-{
-	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
-	if (templateFile)
-	{
-		readRawTemplate(templateFile);
-		templateFile.close();
-	}
-	else
-	{
-		validBoard = false;
-		return;
-	}
-}
+//void GameBoard::readTemplateFromFile()
+//{
+	//ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
+	//if (templateFile)
+	//{
+	//	readRawTemplate(templateFile);
+	//	//templateFile.close();
+	//}
+	//else
+	//{
+	//	validBoard = false;
+	//	return;
+	//}
+//}
 
+/*
 void GameBoard::readRawTemplate(ifstream& templateFile)
 {
-	int rowInd = 0, colInd = 0;
+	int rowInd = 0, colInd = 0, countFirstLineCols = 0;
 	char tmpChar;
-	bool flag = false;
+	bool flag = false, inFirstRow = true;
 
 	tmpChar = templateFile.get();
 
-	if(isEmptyFile(tmpChar));
+	if (isEmptyFile(tmpChar))
 	{
 		cout << "Empty File";
 		validBoard = false;
@@ -34,15 +35,18 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 
 	if (validBoard)
 	{
-		while (tmpChar != EOF) //&& rowInd < ROWMAX)
-		{
-			if (tmpChar == '\n' && flag == false)
-			{
-				flag = true;
-			}
 
-			if (flag == false)
-				countCols++;
+		while (tmpChar != EOF && validBoard) //&& rowInd < ROWMAX)
+		{
+			if (tmpChar == '\n' && inFirstRow)
+				inFirstRow = false;
+
+			if (inFirstRow)
+				countFirstLineCols++;
+
+			if (tmpChar != '\n')
+				if (rowInd > ROWMAX || colInd > COLMAX)
+					validBoard = false;
 
 			if (tmpChar == '\n') //END_OF_LINE
 			{
@@ -54,25 +58,106 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 				tmpChar = convertChar(tmpChar);
 				board[rowInd][colInd++] = tmpChar;
 			}
+
+
 			tmpChar = templateFile.get();
 		}
 	}
-	
 
-	if (rowInd > 25 || colInd > 80 || rowInd <= 0 || colInd <= 0)
+
+	if (rowInd <= 1 && countFirstLineCols == 0)
 	{
 		cout << "invalid board." << endl;
 		validBoard = false;
 	}
 
 	lastRow = rowInd - 1;
-	lastCol = countCols - 1;
+	lastCol = countFirstLineCols - 1;
 	firstCol = 0;
 	firstRow = 0;
 }
+*/
 
+void GameBoard::readRawTemplate() //(ifstream& templateFile)
+{
+	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
 
-bool GameBoard::isEmptyFile(char ch)
+	if (!templateFile)
+	{
+		validBoard = false;
+		return;
+	}
+	
+	int rowInd = 0, colInd = 0;
+	int colsInFirstRow = 0;
+	char tmpChar;
+	//bool flag = false, inFirstRow = true;
+
+	tmpChar = templateFile.get();
+
+	if(isEmptyTemplate(tmpChar))
+	{
+		cout << "Empty File";
+		validBoard = false;
+		return;
+	}
+
+	handleFirstRow(templateFile, tmpChar, colsInFirstRow);
+	rowInd = 1;
+
+	tmpChar = templateFile.get();
+	while (tmpChar != EOF && validBoard)
+	{
+		if (tmpChar == '\n')
+		{
+			rowInd++;
+			colInd = 0;
+		}
+		else // if != '\n'
+		{
+			if (colInd >= COLMAX)
+				validBoard = false;
+			else if (validBoard)
+			{
+				tmpChar = convertChar(tmpChar);
+				board[rowInd][colInd++] = tmpChar;
+			}
+		}
+
+		if (rowInd > ROWMAX)
+			validBoard = false;
+
+		tmpChar = templateFile.get();
+	}
+	
+
+	if (validBoard)
+		setBoardFrame(rowInd - 1, colsInFirstRow - 1);	
+
+	templateFile.close();
+}
+
+void GameBoard::handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsCounter)
+{
+	int rowInd = 0;
+	//firstChar got in previous function already.
+	while (tmpChar != EOF && tmpChar != '\n') 
+	{
+		if (colsCounter >= COLMAX)
+			validBoard = false;
+		else
+		{
+			tmpChar = convertChar(tmpChar);
+			board[rowInd][colsCounter++] = tmpChar;
+		}
+		tmpChar = templateFile.get();
+	}
+
+	if (colsCounter == 0)
+		validBoard = false;
+}
+
+bool GameBoard::isEmptyTemplate(char ch)
 {
 	if (ch == '\n')
 		return true;
@@ -150,38 +235,13 @@ void GameBoard::initInvisibleTunnels()
 
 }
 
-/*void GameBoard::getBoardFrame()
+void GameBoard::setBoardFrame(int _lastRow, int _lastCol)
 {
-	int rowInd, colInd;
-	bool breakFlag = false;
-
+	lastRow = _lastRow;
+	lastCol = _lastCol;
 	firstCol = 0;
 	firstRow = 0;
-	//lastRow = lastCol = -1;
-	//lastCol = countCols;
-	countCols = 0;
-
-	//for (rowInd = 0; rowInd < ROWMAX; rowInd++)
-	//	for (colInd = 0; colInd < COLMAX && colInd < firstCol; colInd++)
-	//		if (board[rowInd][colInd] == BORDER && colInd < firstCol)
-	//			firstCol = colInd;
-	//
-	//for (colInd = 0; colInd < COLMAX; colInd++)
-	//	for (rowInd = 0; rowInd < ROWMAX && rowInd < firstRow; rowInd++)
-	//		if (board[rowInd][colInd] == BORDER && rowInd < firstRow)
-	//			firstRow = rowInd;
-	//
-	//for (rowInd = ROWMAX - 1; rowInd >= 0; rowInd--)
-	//	for (colInd = COLMAX - 1; colInd >= 0 && colInd > lastCol; colInd--)
-	//		if (board[rowInd][colInd] == BORDER && colInd > lastCol)
-	//			lastCol = colInd;
-	//
-	//for (colInd = COLMAX - 1; colInd >= 0; colInd--)
-	//	for (rowInd = ROWMAX - 1; rowInd >= 0 && rowInd > lastRow; rowInd--)
-	//		if (board[rowInd][colInd] == BORDER && rowInd > lastRow)
-	//			lastRow = rowInd;
-
-}*/
+}
 
 void GameBoard::countTotalBreadcrumbs()
 {
@@ -203,8 +263,13 @@ void GameBoard::resetBoard()
 {
 	int rowInd, colInd;
 	for (rowInd = 0; rowInd < ROWMAX; rowInd++)
+	{
 		for (colInd = 0; colInd < COLMAX; colInd++)
+		{
 			board[rowInd][colInd] = SPACE;
+		}
+	}
+	validBoard = true;
 }
 
 void GameBoard::initBoard()
@@ -214,7 +279,9 @@ void GameBoard::initBoard()
 	totalBreadcrumbs = 0;
 
 	resetBoard();
-	readTemplateFromFile();
+	//readTemplateFromFile();
+	readRawTemplate();
+
 	if (validBoard)
 	{
 		//getBoardFrame();

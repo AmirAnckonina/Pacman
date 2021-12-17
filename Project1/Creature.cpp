@@ -74,17 +74,7 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
 	replaceStrategyIfNeeded();
 	mvStrategy->executeMove(*this, board, pacmanPos);
-	//nextPos = mvStrategy->getNewPosByStrategy(currPos, board, pacmanPos, creatureDirection, creatureIcon);
-	/*generateRandomDirection(creature);
-	creature.setCreatureNextPos(board);
-
-	while (!(creature.isCreaturePositionValid(board)))
-	{
-		creature.resetAfterInvalidNextPos();
-		generateRandomDirection(creature);
-		creature.setCreatureNextPos(board);
-	}*/
-
+	
 	//Final Part
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	//The ghost printed and we want the print of the cell as it were before.
