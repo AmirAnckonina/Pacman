@@ -24,6 +24,7 @@ public:
 	void initPacman(GameBoard& board);
 	//void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
+	void increaseLivesLeft() { livesLeft++; }
 	void updateScore(GameBoard& board);
 	void setScore(int _score) { score = _score; }
 

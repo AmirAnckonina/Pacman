@@ -47,7 +47,7 @@ void ThePacmanGame::runAllGameBoards(bool& activate)
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
 {
-	
+
 	game_board.initBoard();
 
 	if (game_board.isValidBoard())
@@ -132,9 +132,15 @@ void ThePacmanGame::singlePacmanSession()
 		if (!checkCollision())
 		{
 			pacman.updateScore(game_board);
+			if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
+				game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
+
 			//game_menu.singlePrintScore(pacman.getScore());
 			game_menu.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
-			game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+
+			if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+				game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+
 		}
 		else
 			resetAfterCollision();
@@ -153,7 +159,7 @@ void ThePacmanGame::singleFruitSession()
 			fruit.ReduceTimeOnBoard();
 		}
 
-		
+
 		if (fruitTurn)
 		{
 			fruit.move(game_board);
@@ -189,24 +195,34 @@ void ThePacmanGame::singleFruitSession()
 
 void ThePacmanGame::singleGhostsSession()
 {
+	static int checkGhostUnionInterval = 10;
+
+	int j = 0;
 	//PAY attention, ghost should move every other turn. so the condition manage it.
-	if (ghostsTurn)
+
+	for (int i = j; i < numOfGhosts; i += 2)
 	{
-		for (int i = 0; i < numOfGhosts; i++)
-		{
-			ghost[i].move(game_board, pacman.getCurrPos());
-			ghost[i].updatePos();
-		}
-		ghostsTurn = false; //they won't move in the next step
+		ghost[i].move(game_board, pacman.getCurrPos());
+		ghost[i].updatePos();
 	}
+	if (j == 0)
+		j = 1;
 	else
-		ghostsTurn = true;
+		j = 0; //they won't move in the next step
+
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
 
 	if (checkCollision())
 		resetAfterCollision();
+	checkGhostUnionInterval--;
+	if (checkGhostUnionInterval == 0)
+	{
+		checkGhostsUnion();
+		checkGhostUnionInterval = 10;
+	}
+
 }
 
 void ThePacmanGame::printAllGhosts() const
@@ -248,6 +264,9 @@ bool ThePacmanGame::isFruitEatenByPacman()
 	if (pacman.getCurrPos() == fruit.getCurrPos() && fruit.isActive())
 	{
 		pacman.addFruitToScore(fruit.getFruitVal());
+
+		if (fruit.getFruitVal() == 9)
+			pacman.increaseLivesLeft();
 		return true;
 	}
 	return false;
@@ -354,7 +373,7 @@ bool ThePacmanGame::GameFinished()
 		return false;
 	if (pacman.getLivesLeft() == 0)
 		playerWon = false;
-	else if (game_board.getBreadcrumbs() == pacman.getScore())
+	else if (game_board.getBreadcrumbs() == 0)
 	{
 		playerWon = true;
 		pacman.printCreature(); //print pacman in the his last position, the winning one!
