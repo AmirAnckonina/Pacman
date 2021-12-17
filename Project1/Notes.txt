@@ -1,58 +1,16 @@
 
-/// Notes
-//Reading boards.
-1. Create 3 boarders with different patterns. (We assume the maxsize will be 25*80)
-2. Read Those 3 files by order, storing the read board in 2D array.
-3. Vary the boards with different sizes/different location of the "Legend" area.
-4. we should move to the next board when all breadcrumbs are eaten by the pacman. after finish all the 3 , game finished.
-5. Lives do not reset after single stage.
-
-//Fruit
-1. Create a class:
-* Figure
-* Value
-* Color
-* Direction
-* CurrPos, NextPos
-*** Clarify about time-on-screen and howmany time before each showing of the Fruit?
-
-//Ghosts
-1. Smarter Ghosts
-Algorithem:
-Calculate the shortest route in each move of the ghost
-
-* Extreme
-* Best
-* Good ---> ??? 
-* Novice
-
--------------------
-//Notes EX2
-
-6. BFS algorithem implementation -VVVV Should be tested.
-7. Generalize move pacman and ghost to creature.
-9. Details area - test problematic board that chen build.
-10. handle board readding files <filesystem> lib.
-11. Strategy for ghosts - polymorphizem 
-1. Test Boards with problematic structure - Build more and test
-13. operator function == which compare - consider if relevant.
-
-consider put Directions.h  enum class inside Creature class 
-
- 10. & should clear all the chars in range. even if border appears. VVVVVVVVVV  should be tested.
- 1. Smart ghost can unite and move together. -> We should break that 
- 2. Implement String sort to file names. -> system sorting string lib
- 3. dirent.h ? dirlist ? filesystem. C++ version ??????????????????????
- 5. Define what is GOOD Ghost.
- 6. bonus for implemetation of very good ghosts - EXTREME level
- 7. consider vector array of ghosts (could be 4 or more ghosts)
- 8. while one of the board isn't correct , give an option to move to the next board.
- 9. Build function to check if board is valid.
-  ----------------
-  11.12
-  Generaize Move function
-  Testing
-  Build Fruit
-  Build Strategy
-  handle reading board
-  -----------------
+  17.12
+  1. Build flow function which run all board one by one.
+  2. base game endong on number of total breadcrums and NOT on comparing score to breadcrumbs.
+  3. arrange readRawTemplate, singleFruitSession before testing.
+  4. base all "initCreature" creature function on constructors and distructors.
+  5. Bonus - eating fruit with the value 9 will add live pacman
+  6. BFS - running with 4 or more ghosts
+  7. exit option from pause menu or between gase sessions
+  8. BFS - Save 5 or 4 last position, insert them into vector and implement full BFS only every 5-4 turns
+  9. consider to use ghostTurn param to runv BFS not on the same session ---> ghost 1 yes ghost 2 no ...
+  10 .Ghosts collision check every X times. consider genertate random or put on STAY to few moves.
+  11. Try to prevent pacman and ghosts to eat Tunnels.
+  12. validate number of pacmans, ghosts, legend --> EXTRA.
+  13. Test fruit generate random position on board with a lot of borders --> consider using vector array with all the valid positions.
+  

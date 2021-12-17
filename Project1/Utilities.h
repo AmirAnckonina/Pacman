@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include "Windows.h"
-#include <time.h>
+#include <ctime>
 
 using std::cout;
 using std::endl;
@@ -19,6 +19,7 @@ enum class Colors {
 
 //Global functions
 
+void init_srand();  
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(Colors c);
 void hideCursor();

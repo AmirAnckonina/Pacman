@@ -27,16 +27,16 @@ public:
 	void initDetailsArea(GameBoard& board);
 	void setLegendAreaChars(GameBoard& board);
 	void pauseGame(int lives) const;
-
 	int getGameDifficulty();
 	void printLevelsMenu();
 
+	void printAllLegend(int score, int lives);
+	void singlePrintScore(int score) const;
 	void printLives(int lives) const;
 	void printGameName() const;
 	void printRSG() const;
 	void printPacmanAllAround(Colors pacmanColor) const;
 	void printGhostsAllAround(Colors ghostColor) const;
 	void clearLegendArea() const;
-	void singlePrintScore(int score) const;
 	void printResult(bool playerWon, int score, Colors pacmanColor, Colors ghostColor) const;
 };

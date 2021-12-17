@@ -32,10 +32,10 @@ public:
 	int getTimeOffBoard() const { return timeOffBoard; };
 	int getFruitVal() const { return fruitVal; }
 	//bool isActivity() { return currentlyActive; }
-	void disableActivity() { currentlyActive = false; timeOffBoard = 40; }
+	void disableActivity(); 
 	void enableActivity() { currentlyActive = true; timeOnBoard = 40; }
 	void ReduceTimeOnBoard() { timeOnBoard--; }
-	void ReduceTimeNotOnBoard() { timeOffBoard--; }
+	void ReduceTimeOffBoard() { timeOffBoard--; }
 	bool isActive() const { return currentlyActive; }
 	virtual void printCreature()const override;
 	void initFruit();
