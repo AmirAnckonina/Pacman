@@ -186,7 +186,8 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 			if (ThePacmanGame::isGameColorized())
 				setTextColor(pacmanColor);
 			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
-			cout << "  Congratulations  " << endl;
+			cout << "  Congratulations   ";
+			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
 			cout << "      You Won!      ";
 			Sleep(750);
 			clearLegendArea();

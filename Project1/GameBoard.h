@@ -20,13 +20,12 @@ class GameBoard
 public:
 	static const int ROWMAX = 25;
 	static const int COLMAX = 80;
-	static constexpr char SPACE = ' ', BORDER = 219, BREADCRUMB = 249, TUNNEL = 176, LEGEND = '&';
+	static constexpr char SPACE = ' ', BORDER = (char)219, BREADCRUMB = (char)249, TUNNEL = (char)176, LEGEND = '&';
 
 private:
 	char board[ROWMAX][COLMAX];
 	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1; //The first row and col that border appear, in order to recognize tunnels.
-	int countCols = 0;
-	bool ValidBoard = true;
+	bool validBoard = true;
 	vector <string> boardTemplates;
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
@@ -39,22 +38,21 @@ public:
 
 	//Init functions
 	void readTemplateFromFile();
-	void readRawTemplate(ifstream& templateFile);
+	void readRawTemplate();
 	void loadAllScreenTemplates();
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
-	void getBoardFrame();
-	bool isValidBoard() { return ValidBoard; }
-	//long int fileSize(ifstream& fp);
+	void setBoardFrame(int _lastRow, int _lastCol);
+	bool isValidBoard() { return validBoard; }
+	void handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsCounter);
+	
 
 	void initBoard();
-	/*void initOuterBorders();
-	void initInnerWalls();*/
 	void countTotalBreadcrumbs();
 	void initDetailsArea();
 	void resetBoard();
-	bool isBoardValid() { return ValidBoard; }
-	bool isEmptyFile(char ch);
+	bool isBoardValid() { return validBoard; }
+	bool isEmptyTemplate(char ch);
 
 	//Printing and colors design
 	void printBoard() const;
