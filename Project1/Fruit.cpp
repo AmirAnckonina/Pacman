@@ -35,12 +35,15 @@ void Fruit::generateLocation(GameBoard& board)
 {
 	Position newPos;
 	bool isValid = false;
-	
+
 
 	while (!isValid)
 	{
-		newPos.setXPos((rand() % board.getLastCol()) + board.getFirstCol());
-		newPos.setYPos((rand() % board.getLastRow()) + board.getFirstRow());
+		size_t validPosArrSize = board.getValidPosStorage();
+		int generatedIndex = rand() % validPosArrSize;
+		newPos = board.getBreadCrumbPos(generatedIndex);
+		//newPos.setXPos((rand() % board.getLastCol()) + board.getFirstCol());
+		//newPos.setYPos((rand() % board.getLastRow()) + board.getFirstRow());
 		setNextPos(newPos);
 		isValid = isCreaturePositionValid(board);
 	}
@@ -49,7 +52,7 @@ void Fruit::generateLocation(GameBoard& board)
 
 void Fruit::disableActivity()
 {
-	currentlyActive = false; 
+	currentlyActive = false;
 	timeOffBoard = 40;
 }
 

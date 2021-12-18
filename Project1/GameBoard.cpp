@@ -78,6 +78,21 @@ void GameBoard::readRawTemplate(ifstream& templateFile)
 }
 */
 
+void GameBoard::setBreadCrumbsPosArr()
+{
+	int k = 0;
+	for (int i = 0; i <= lastRow; i++)
+	{
+		for (int j = 0; j <= lastCol; j++)
+			if (board[i][j] == BREADCRUMB)
+			{
+				Position newPos(j, i);
+				breadCrumbsPos.push_back(newPos);
+			}
+	}
+}
+
+
 void GameBoard::readRawTemplate() //(ifstream& templateFile)
 {
 	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
@@ -88,7 +103,7 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 		validBoard = false;
 		return;
 	}
-	
+
 	int rowInd = 0, colInd = 0;
 	int colsInFirstRow = 0;
 	char tmpChar;
@@ -129,7 +144,7 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 			}
 		}
 
-		if (rowInd > ROWMAX)
+		if (validBoard && rowInd > ROWMAX)
 		{
 			printInvalidBoardError(TOOLONG);
 			validBoard = false;
@@ -137,10 +152,10 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 
 		tmpChar = templateFile.get();
 	}
-	
+
 
 	if (validBoard)
-		setBoardFrame(rowInd - 1, colsInFirstRow - 1);	
+		setBoardFrame(rowInd - 1, colsInFirstRow - 1);
 
 	templateFile.close();
 }
@@ -149,7 +164,7 @@ void GameBoard::handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsC
 {
 	int rowInd = 0;
 	//firstChar got in previous function already.
-	while (tmpChar != EOF && tmpChar != '\n') 
+	while (tmpChar != EOF && tmpChar != '\n' && validBoard)
 	{
 		if (colsCounter >= COLMAX)
 		{
@@ -170,6 +185,7 @@ void GameBoard::handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsC
 		validBoard = false;
 	}
 }
+
 
 bool GameBoard::isEmptyTemplate(char ch)
 {
@@ -313,7 +329,11 @@ void GameBoard::printBoard() const
 		{
 			if (ThePacmanGame::isGameColorized())
 				boardColorizedProcedure(rowInd, colInd);
-			cout << board[rowInd][colInd];
+
+			if (board[rowInd][colInd] == LEGEND)
+				cout << GameBoard::SPACE;
+			else
+				cout << board[rowInd][colInd];
 		}
 		if (rowInd < ROWMAX - 1)
 			cout << endl;
@@ -361,12 +381,17 @@ void GameBoard::setCellInBoard(const Position& pos, char ch)
 	board[pos.getYPos()][pos.getXPos()] = ch;
 }
 
+size_t GameBoard::getValidPosStorage() const
+{
+	return breadCrumbsPos.size();
+}
+
 char GameBoard::getCellInBoard(const Position& pos) const
 {
 	return board[pos.getYPos()][pos.getXPos()];
 }
 
-size_t GameBoard::getNumOfTemplates() const 
+size_t GameBoard::getNumOfTemplates() const
 {
 	return boardTemplates.size();
 }

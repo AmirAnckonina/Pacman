@@ -17,7 +17,7 @@ void Menu::entryMenu()
 	pressAnyKey();
 	//userKey = _getch();
 	//userKey = 0;
-	
+
 	while (!userChoosedToStart())
 	{
 		printMenu();
@@ -99,7 +99,7 @@ bool Menu::userChoosedToStart() const
 
 
 void Menu::initDetailsArea(GameBoard& board)
-{  
+{
 	detailsColor = Colors::WHITE;
 	legendAreaPos = board.collectStartingPos(GameBoard::LEGEND);
 	setLegendAreaChars(board);
@@ -176,7 +176,7 @@ void Menu::printLevelsMenu()
 	cout << "Press (2) to for Amateur" << endl;
 	cout << "Press (3) for Professional" << endl;
 	cout << "press (4) for Extreme" << endl;
-	
+
 }
 
 void Menu::printAllLegend(int score, int lives)
@@ -247,7 +247,7 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 		setTextColor(detailsColor);
 
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-	cout << "Your final score is:" << endl;  
+	cout << "Your final score is:" << endl;
 	gotoxy(legendAreaPos.getXPos() + 8, legendAreaPos.getYPos() + 2);
 	cout << score;
 	Sleep(2500);
@@ -298,7 +298,7 @@ void Menu::clearLegendArea() const
 {
 	for (int rowInd = 0; rowInd < 3; rowInd++)
 	{
-		gotoxy(legendAreaPos.getXPos() , legendAreaPos.getYPos() + rowInd);
+		gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + rowInd);
 		for (int colInd = 0; colInd < 20; colInd++)
 		{
 			cout << GameBoard::SPACE;

@@ -21,13 +21,15 @@ public:
 	static const int ROWMAX = 25;
 	static const int COLMAX = 80;
 	static constexpr char SPACE = ' ', BORDER = (char)219, BREADCRUMB = (char)249, TUNNEL = (char)176, LEGEND = '&';
-	enum BoardLoadingErrorTypes {EMPTYFILE, TOOWIDE, TOOLONG, RETRIEVE};
+	enum BoardLoadingErrorTypes { EMPTYFILE, TOOWIDE, TOOLONG, RETRIEVE };
 
 private:
 	char board[ROWMAX][COLMAX];
 	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1; //The first row and col that border appear, in order to recognize tunnels.
 	bool validBoard = true;
 	vector <string> boardTemplates;
+	vector <Position> breadCrumbsPos = {};
+	//int currBreadCrumbPos = 0;
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
 	bool boardColorized = false;
@@ -38,6 +40,8 @@ private:
 public:
 
 	//Init functions
+	void setBreadCrumbsPosArr();
+	const Position& getBreadCrumbPos(int index)const { return breadCrumbsPos[index]; };
 	void readTemplateFromFile();
 	void readRawTemplate();
 	void loadAllScreenTemplates();
@@ -46,7 +50,7 @@ public:
 	void setBoardFrame(int _lastRow, int _lastCol);
 	bool isValidBoard() { return validBoard; }
 	void handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsCounter);
-	
+
 
 	void initBoard();
 	void countTotalBreadcrumbs();
@@ -73,6 +77,7 @@ public:
 	Colors getBreadcrumbColor() const { return breadcrumbColor; }
 	Colors getTunnelColor() const { return tunnelColor; }
 	int getBreadcrumbs() const { return totalBreadcrumbs; }
+	size_t getValidPosStorage() const;
 	char getCellInBoard(int x, int y) const { return board[y][x]; }
 	char getCellInBoard(const Position& pos) const;
 
@@ -82,7 +87,7 @@ public:
 	int getLastCol() const { return lastCol; }
 	int getCurrTemplate() const { return currTemplate; }
 
-	size_t getNumOfTemplates() const; 
-	Position collectStartingPos (char ch) const;
+	size_t getNumOfTemplates() const;
+	Position collectStartingPos(char ch) const;
 	int collectnumOfGhosts() const;
 };
