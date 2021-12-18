@@ -24,6 +24,7 @@ public:
 	Ghost(char _ghostIcon = Creature::GHOST, int _ghostLevel = NOVICE);
 	void initGhost(GameBoard& board, int level);
 	void convertGhostLevelToStrategy();
+	int getGhostLevel()const { return ghostLevel; }
 
 	//void moveGhost(GameBoard& board, const Position& pacmanPos);
 	//void smartGhostMove(GameBoard& board, Position start, Position ghostPos);

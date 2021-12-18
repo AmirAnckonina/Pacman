@@ -29,6 +29,7 @@ public:
 	void setScore(int _score) { score = _score; }
 
 
+
 	//Get-Set Functions
 	Direction convertKeyToDirection(char key) const;
 	int getScore() const { return score; }

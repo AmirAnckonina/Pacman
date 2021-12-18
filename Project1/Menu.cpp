@@ -2,15 +2,22 @@
 #include "ThePacmanGame.h"
 #include "Creature.h"
 
-
-void Menu::entryMenu()
+void Menu::pressAnyKey()
 {
-	clearInput();
 	cout << "Press any key to enter the game menu..." << endl;
 	userKey = _getch();
 	userKey = 0;
 	clearScreen();
+}
 
+void Menu::entryMenu()
+{
+	clearInput();
+	//cout << "Press any key to enter the game menu..." << endl;
+	pressAnyKey();
+	//userKey = _getch();
+	//userKey = 0;
+	
 	while (!userChoosedToStart())
 	{
 		printMenu();
@@ -57,6 +64,29 @@ void Menu::printInstructions()
 
 	clearScreen();
 	userKey = 0;
+}
+
+void Menu::betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int lastGamePacmanScore)
+{
+	updateTotalPlayerScore(lastGamePacmanScore);
+	printDataAfterSession(screenNumber, totalNumOfScreens);
+	//pressAnyKey();
+	if (screenNumber < totalNumOfScreens)
+		entryMenu();
+}
+
+void Menu::printDataAfterSession(int screenNumber, int totalNumOfScreens)
+{
+	cout << "You're doing well so far! You've just completed screen No. " << screenNumber << " of " << totalNumOfScreens << endl;
+	Sleep(2000);
+	cout << "The total score you've achieved: " << totalPlayerScore << endl;
+	Sleep(2000);
+	if (screenNumber < totalNumOfScreens)
+		cout << "Let's move to the next board, keep going playa!" << endl;
+	else
+		cout << "All boards completed successfully! CONGRATIOLATIONS!!!" << endl;
+	Sleep(5000);
+	clearScreen();
 }
 
 bool Menu::userChoosedToStart() const

@@ -84,6 +84,7 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 
 	if (!templateFile)
 	{
+		printInvalidBoardError(RETRIEVE);
 		validBoard = false;
 		return;
 	}
@@ -95,12 +96,13 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 
 	tmpChar = templateFile.get();
 
-	if(isEmptyTemplate(tmpChar))
+	/*if(isEmptyTemplate(tmpChar))
 	{
-		cout << "Empty File";
+		printInvalidBoardError(EMPTYFILE);
+		Sleep(2000);
 		validBoard = false;
 		return;
-	}
+	}*/
 
 	handleFirstRow(templateFile, tmpChar, colsInFirstRow);
 	rowInd = 1;
@@ -116,7 +118,10 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 		else // if != '\n'
 		{
 			if (colInd >= COLMAX)
+			{
+				printInvalidBoardError(TOOWIDE);
 				validBoard = false;
+			}
 			else if (validBoard)
 			{
 				tmpChar = convertChar(tmpChar);
@@ -125,7 +130,10 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 		}
 
 		if (rowInd > ROWMAX)
+		{
+			printInvalidBoardError(TOOLONG);
 			validBoard = false;
+		}
 
 		tmpChar = templateFile.get();
 	}
@@ -144,7 +152,10 @@ void GameBoard::handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsC
 	while (tmpChar != EOF && tmpChar != '\n') 
 	{
 		if (colsCounter >= COLMAX)
+		{
+			printInvalidBoardError(TOOWIDE);
 			validBoard = false;
+		}
 		else
 		{
 			tmpChar = convertChar(tmpChar);
@@ -154,7 +165,10 @@ void GameBoard::handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsC
 	}
 
 	if (colsCounter == 0)
+	{
+		printInvalidBoardError(EMPTYFILE);
 		validBoard = false;
+	}
 }
 
 bool GameBoard::isEmptyTemplate(char ch)
@@ -279,14 +293,12 @@ void GameBoard::initBoard()
 	totalBreadcrumbs = 0;
 
 	resetBoard();
-	//readTemplateFromFile();
 	readRawTemplate();
 
 	if (validBoard)
 	{
-		//getBoardFrame();
 		initInvisibleTunnels();
-		countTotalBreadcrumbs();
+		//countTotalBreadcrumbs();
 		//printBoard();
 	}
 }
@@ -391,3 +403,32 @@ int GameBoard::collectnumOfGhosts() const
 	return counter;
 }
 
+void GameBoard::printInvalidBoardError(int errorCode) const
+{
+	cout << "Screen No. " << currTemplate << " ERROR." << endl;
+	switch (errorCode)
+	{
+	case EMPTYFILE:
+		cout << "Sorry! The system recognized an EMPTY screen." << endl;
+		cout << "Please check your screen files.";
+		break;
+	case RETRIEVE:
+		cout << "Sorry! screen file DIDN'T FOUND." << endl;
+		cout << "Or we might have memory problem, try again later!";
+		break;
+	case TOOLONG:
+		cout << "Sorry! The recieved screen is TOO LONG." << endl;
+		cout << "We recommend you to shorten the length of board's rows.";
+		break;
+	case TOOWIDE:
+		cout << "Sorry! The recieved screen is TOO WIDE." << endl;
+		cout << "We recommend you to shorten the width of board's cols.";
+		break;
+	default:
+		cout << "Invalid board.";
+		break;
+	}
+
+	Sleep(5000);
+	clearScreen();
+}
