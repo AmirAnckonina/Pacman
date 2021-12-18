@@ -21,7 +21,7 @@ public:
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL) override;
 
 	void addFruitToScore(int fruitVal) { score += fruitVal; }
-	void initPacman(GameBoard& board);
+	//void initPacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
 	void increaseLivesLeft() { livesLeft++; }
 	void updateScore(GameBoard& board);

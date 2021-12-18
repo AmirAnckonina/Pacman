@@ -75,10 +75,12 @@ void Menu::printInstructions()
 void Menu::betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int lastGamePacmanScore)
 {
 	updateTotalPlayerScore(lastGamePacmanScore);
-	printDataAfterSession(screenNumber, totalNumOfScreens);
-	//pressAnyKey();
-	if (screenNumber < totalNumOfScreens)
-		entryMenu();
+	if (playerWon != false)
+	{
+		printDataAfterSession(screenNumber, totalNumOfScreens);
+		if (screenNumber < totalNumOfScreens)
+			entryMenu();
+	}
 }
 
 void Menu::printDataAfterSession(int screenNumber, int totalNumOfScreens)
@@ -90,7 +92,7 @@ void Menu::printDataAfterSession(int screenNumber, int totalNumOfScreens)
 	if (screenNumber < totalNumOfScreens)
 		cout << "Let's move to the next board, keep going playa!" << endl;
 	else
-		cout << "All boards completed successfully! CONGRATIOLATIONS!!!" << endl;
+		cout << "All boards completed successfully! You Won!!!" << endl;
 	Sleep(5000);
 	clearScreen();
 }
