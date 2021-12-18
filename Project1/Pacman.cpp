@@ -38,15 +38,14 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 
 //Pacman::Pacman(Position _pacmanCurrPos, Position _pacmanNextPos, Direction _pacmanDirection = Direction::STAY
 //	, Colors _pacmanColor = Colors::WHITE, char _pacmanIcon = '@')
-
-
+/*
 void Pacman::initPacman(GameBoard& board)
 {
 	score = 0;
 	livesLeft = 3;
 	initCreature(board, '@');
 }
-
+*/
 //void Pacman::movePacman(GameBoard& board)
 //{
 //	//Set potential new position to pacman, then check if it's valid.

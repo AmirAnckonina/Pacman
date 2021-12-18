@@ -308,6 +308,7 @@ void GameBoard::initBoard()
 	totalBreadcrumbs = 0;
 
 	resetBoard();
+	validPosStorage.clear();
 	readRawTemplate();
 
 	if (validBoard)
