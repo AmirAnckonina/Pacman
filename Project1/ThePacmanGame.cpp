@@ -2,12 +2,14 @@
 
 bool ThePacmanGame::gameColorized = false;
 
-
-
 void ThePacmanGame::startGameSessions()
 {
 	bool activate = true;
-	while (activate)
+
+	game_board.loadAllScreenTemplates();
+	int totalNumOfScreens = game_board.getNumOfTemplates();
+
+	for (int templateInd = 0; templateInd < totalNumOfScreens && activate; templateInd++)
 	{
 		game_menu.entryMenu();
 		if (game_menu.getUserKey() == Menu::EXIT)
@@ -18,36 +20,43 @@ void ThePacmanGame::startGameSessions()
 				gameColorized = true;
 
 			level = game_menu.getGameDifficulty();
-			game_board.loadAllScreenTemplates();
-			runAllGameBoards(activate);
-			//initGame();
-			//runGame();
+			initGame();
+			if (game_board.isValidBoard())
+			{
+				runGame();
+				game_menu.betweenSessionsProcedure(game_board.getCurrTemplate(), totalNumOfScreens, pacman.getScore());
+			}
+			//game_board.loadAllScreenTemplates();
+			//runAllGameBoards(activate);
 		}
 	}
+	//while (activate && (game_board.getCurrTemplate() < game_board.getNumOfTemplates()))
+	//{
+	//	game_menu.entryMenu();
+	//	if (game_menu.getUserKey() == Menu::EXIT)
+	//		activate = false;
+	//	else
+	//	{
+	//		if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
+	//			gameColorized = true;
+
+	//		level = game_menu.getGameDifficulty();
+	//		//game_board.loadAllScreenTemplates();
+	//		runAllGameBoards(activate);
+	//		//initGame();
+	//		//runGame();
+	//	}
+	//}
 	cout << "Goodbye" << endl;
 }
 
-void ThePacmanGame::runAllGameBoards(bool& activate)
-{
-	hideCursor();
-	init_srand();
-
-	size_t numOfTemplates = game_board.getNumOfTemplates();
-
-	for (int i = 0; i < numOfTemplates; i++)
-	{
-		initGame();
-		if (game_board.isValidBoard())
-			runGame();
-		//game_menu.menuBetweenGameSessions()
-	}
-}
 
 //Creating board which hold the information of every cell
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
 {
-
+	hideCursor();
+	init_srand();
 	game_board.initBoard();
 
 	if (game_board.isValidBoard())
@@ -60,6 +69,7 @@ void ThePacmanGame::initGame()
 			ghost[i].initGhost(game_board, level);
 
 		fruit.initFruit();
+		game_board.countTotalBreadcrumbs();
 
 		if (gameColorized) setGameColors();
 		else game_menu.setDetailsColor(Colors::WHITE);
@@ -67,8 +77,7 @@ void ThePacmanGame::initGame()
 		ghostsTurn = playerWon = false;
 		game_board.printBoard();
 		pacman.printCreature();
-		game_menu.printGameName();
-		game_menu.printLives(pacman.getLivesLeft());
+		game_menu.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
 		printAllGhosts();
 	}
 }
@@ -196,10 +205,10 @@ void ThePacmanGame::singleFruitSession()
 void ThePacmanGame::singleGhostsSession()
 {
 	static int checkGhostUnionInterval = 10;
+	static int j = 0;
 
-	int j = 0;
 	//PAY attention, ghost should move every other turn. so the condition manage it.
-
+	//Splitted to odd and even ghosts indexes, in order to ease the BFS algorithem.
 	for (int i = j; i < numOfGhosts; i += 2)
 	{
 		ghost[i].move(game_board, pacman.getCurrPos());
@@ -216,10 +225,11 @@ void ThePacmanGame::singleGhostsSession()
 
 	if (checkCollision())
 		resetAfterCollision();
+
 	checkGhostUnionInterval--;
 	if (checkGhostUnionInterval == 0)
 	{
-		checkGhostsUnion();
+		//checkGhostsUnion();
 		checkGhostUnionInterval = 10;
 	}
 
@@ -230,7 +240,6 @@ void ThePacmanGame::printAllGhosts() const
 	for (int i = 0; i < numOfGhosts; i++)
 		ghost[i].printCreature();
 }
-
 void ThePacmanGame::printFigures() const
 {
 	pacman.printCreature();
@@ -369,15 +378,14 @@ void ThePacmanGame::printCollision() const
 
 bool ThePacmanGame::GameFinished()
 {
-	if (pacman.getLivesLeft() > 0 && game_board.getBreadcrumbs() != pacman.getScore())
+	if (pacman.getLivesLeft() > 0 && game_board.getBreadcrumbs() > 0)
 		return false;
 	if (pacman.getLivesLeft() == 0)
 		playerWon = false;
-	else if (game_board.getBreadcrumbs() == 0)
+	if (game_board.getBreadcrumbs() == 0)
 	{
 		playerWon = true;
 		pacman.printCreature(); //print pacman in the his last position, the winning one!
 	}
-
 	return true;
 }

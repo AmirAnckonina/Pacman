@@ -28,13 +28,14 @@ void Fruit::initFruit()
 
 void Fruit::generateFruitValue()
 {
-	fruitVal = (rand() % 4) + 5;
+	fruitVal = (rand() % 5) + 5;
 }
 
 void Fruit::generateLocation(GameBoard& board)
 {
 	Position newPos;
 	bool isValid = false;
+	
 
 	while (!isValid)
 	{

@@ -15,13 +15,17 @@ private:
 	char userKey;
 	Position legendAreaPos;
 	Colors detailsColor = Colors::WHITE;
+	int totalPlayerScore = 0;
 	
 public:
 	char getUserKey() const { return userKey; }
 	void setDetailsColor(Colors _detailsColor) { detailsColor = _detailsColor; }
+	void pressAnyKey();
 	void entryMenu();
 	void printMenu() const;
 	void printInstructions();
+	void betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int lastGamePacmanScore);
+	void printDataAfterSession(int screenNumber, int totalNumOfScreens);
 	bool userChoosedToStart() const;
 	bool userChoosedDifficulty() const;
 	void initDetailsArea(GameBoard& board);
@@ -29,6 +33,7 @@ public:
 	void pauseGame(int lives) const;
 	int getGameDifficulty();
 	void printLevelsMenu();
+	void updateTotalPlayerScore(int _totalPlayerScore) { totalPlayerScore += _totalPlayerScore; }
 
 	void printAllLegend(int score, int lives);
 	void singlePrintScore(int score) const;

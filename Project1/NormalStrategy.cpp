@@ -3,14 +3,27 @@
 
 void NormalStrategy::executeMove(Creature& creature, GameBoard& board, const Position& pacmanPos)
 {
-	generateRandomDirection(creature);
-	creature.setCreatureNextPos(board);
+	/*generateRandomDirection(creature);
+	creature.setCreatureNextPos(board);*/
+	bool isValid = false;
+	int maxTriesOfGettingValidPos = 30;
 
-	while (!(creature.isCreaturePositionValid(board)))
+	while (!isValid) //(creature.isCreaturePositionValid(board)))
 	{
-		creature.resetAfterInvalidNextPos();
-		generateRandomDirection(creature);
-		creature.setCreatureNextPos(board);
+		if (--maxTriesOfGettingValidPos > 0)
+		{
+			creature.resetAfterInvalidNextPos();
+			generateRandomDirection(creature);
+			creature.setCreatureNextPos(board);
+			isValid = creature.isCreaturePositionValid(board);
+		}
+		else
+		{
+			creature.setDirection(Direction::STAY);
+			creature.resetAfterInvalidNextPos();
+			creature.setCreatureNextPos(board);
+			isValid = true;
+		}
 	}
 }
 
