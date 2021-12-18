@@ -4,7 +4,7 @@
 
 void Menu::pressAnyKey()
 {
-	cout << "Press any key to enter the game menu..." << endl;
+	cout << "Press any key to continue..." << endl;
 	userKey = _getch();
 	userKey = 0;
 	clearScreen();
@@ -12,11 +12,17 @@ void Menu::pressAnyKey()
 
 void Menu::entryMenu()
 {
+	static bool firstTimeMenu = true;
 	clearInput();
-	//cout << "Press any key to enter the game menu..." << endl;
 	pressAnyKey();
-	//userKey = _getch();
-	//userKey = 0;
+	if (firstTimeMenu)
+	{
+		gotoxy(0, 0);
+		cout << "Welcome to Pacman game!" << endl;
+		Sleep(2000);
+		firstTimeMenu = false;
+		clearScreen();
+	}
 
 	while (!userChoosedToStart())
 	{
@@ -31,7 +37,7 @@ void Menu::entryMenu()
 void Menu::printMenu() const
 {
 	gotoxy(0, 0);
-	cout << "Welcome to Pacman game!" << endl;
+	//cout << "Welcome to Pacman game!" << endl;
 	cout << "Press (1) to Start without colors" << endl;
 	cout << "Press (2) to Start with colors" << endl;
 	cout << "Press (8) for Instructions" << endl;
@@ -194,7 +200,7 @@ void Menu::singlePrintScore(int score) const
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 2);
-	cout << " The score is : " << score;
+	cout << "  The score is: " << score;
 }
 
 void Menu::printLives(int lives) const
@@ -216,9 +222,9 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 			if (ThePacmanGame::isGameColorized())
 				setTextColor(pacmanColor);
 			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
-			cout << "  Congratulations   ";
+			cout << "  Congratulations  ";
 			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-			cout << "      You Won!      ";
+			cout << "  Board Completed! ";
 			Sleep(750);
 			clearLegendArea();
 			Sleep(750);
@@ -247,7 +253,7 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 		setTextColor(detailsColor);
 
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-	cout << "Your final score is:" << endl;
+	cout << "    Final Score:    " << endl;
 	gotoxy(legendAreaPos.getXPos() + 8, legendAreaPos.getYPos() + 2);
 	cout << score;
 	Sleep(2500);
@@ -255,8 +261,8 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 	clearLegendArea();
 
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-	cout << " Thanks for playing " << endl;
-	Sleep(3000);
+	cout << "@$@$@$@$@$@$@$@$@$@$";
+	Sleep(2000);
 }
 
 void Menu::printGameName() const

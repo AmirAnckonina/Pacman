@@ -41,7 +41,7 @@ void Fruit::generateLocation(GameBoard& board)
 	{
 		size_t validPosArrSize = board.getValidPosStorage();
 		int generatedIndex = rand() % validPosArrSize;
-		newPos = board.getBreadCrumbPos(generatedIndex);
+		newPos = board.getSpecificValidPosOnBoard(generatedIndex);
 		//newPos.setXPos((rand() % board.getLastCol()) + board.getFirstCol());
 		//newPos.setYPos((rand() % board.getLastRow()) + board.getFirstRow());
 		setNextPos(newPos);
