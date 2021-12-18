@@ -2,6 +2,7 @@
 
 bool ThePacmanGame::gameColorized = false;
 
+
 void ThePacmanGame::startGameSessions()
 {
 	bool activate = true;
@@ -9,9 +10,9 @@ void ThePacmanGame::startGameSessions()
 	game_board.loadAllScreenTemplates();
 	int totalNumOfScreens = game_board.getNumOfTemplates();
 
+	game_menu.entryMenu();
 	for (int templateInd = 0; templateInd < totalNumOfScreens && activate; templateInd++)
 	{
-		game_menu.entryMenu();
 		if (game_menu.getUserKey() == Menu::EXIT)
 			activate = false;
 		else
@@ -26,6 +27,8 @@ void ThePacmanGame::startGameSessions()
 				runGame();
 				game_menu.betweenSessionsProcedure(game_board.getCurrTemplate(), totalNumOfScreens, pacman.getScore());
 			}
+			else
+				game_menu.entryMenu();
 			//game_board.loadAllScreenTemplates();
 			//runAllGameBoards(activate);
 		}
@@ -51,6 +54,8 @@ void ThePacmanGame::startGameSessions()
 }
 
 
+
+
 //Creating board which hold the information of every cell
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
@@ -70,6 +75,7 @@ void ThePacmanGame::initGame()
 
 		fruit.initFruit();
 		game_board.countTotalBreadcrumbs();
+		game_board.setBreadCrumbsPosArr();
 
 		if (gameColorized) setGameColors();
 		else game_menu.setDetailsColor(Colors::WHITE);
@@ -106,8 +112,8 @@ void ThePacmanGame::runGame()
 			game_menu.pauseGame(pacman.getLivesLeft());
 			key = 0; //So pacman will continue as he was before pausing.
 		}
-		singlePacmanSession();
 		singleGhostsSession();
+		singlePacmanSession();
 		singleFruitSession();
 		printFigures();
 		Sleep(120);
