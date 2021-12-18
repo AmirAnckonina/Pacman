@@ -87,7 +87,7 @@ void GameBoard::setBreadCrumbsPosArr()
 			if (board[i][j] == BREADCRUMB)
 			{
 				Position newPos(j, i);
-				breadCrumbsPos.push_back(newPos);
+				validPosStorage.push_back(newPos);
 			}
 	}
 }
@@ -305,7 +305,6 @@ void GameBoard::resetBoard()
 void GameBoard::initBoard()
 {
 	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
-	boardColorized = false;
 	totalBreadcrumbs = 0;
 
 	resetBoard();
@@ -383,7 +382,7 @@ void GameBoard::setCellInBoard(const Position& pos, char ch)
 
 size_t GameBoard::getValidPosStorage() const
 {
-	return breadCrumbsPos.size();
+	return validPosStorage.size();
 }
 
 char GameBoard::getCellInBoard(const Position& pos) const

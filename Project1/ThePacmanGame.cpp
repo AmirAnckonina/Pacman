@@ -8,9 +8,9 @@ void ThePacmanGame::startGameSessions()
 	bool activate = true;
 
 	game_board.loadAllScreenTemplates();
-	int totalNumOfScreens = game_board.getNumOfTemplates();
-
+	size_t totalNumOfScreens = game_board.getNumOfTemplates();
 	game_menu.entryMenu();
+
 	for (int templateInd = 0; templateInd < totalNumOfScreens && activate; templateInd++)
 	{
 		if (game_menu.getUserKey() == Menu::EXIT)
@@ -25,35 +25,16 @@ void ThePacmanGame::startGameSessions()
 			if (game_board.isValidBoard())
 			{
 				runGame();
+				if (pacman.getLivesLeft())
+					activate = false;
 				game_menu.betweenSessionsProcedure(game_board.getCurrTemplate(), totalNumOfScreens, pacman.getScore());
 			}
 			else
 				game_menu.entryMenu();
-			//game_board.loadAllScreenTemplates();
-			//runAllGameBoards(activate);
 		}
 	}
-	//while (activate && (game_board.getCurrTemplate() < game_board.getNumOfTemplates()))
-	//{
-	//	game_menu.entryMenu();
-	//	if (game_menu.getUserKey() == Menu::EXIT)
-	//		activate = false;
-	//	else
-	//	{
-	//		if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
-	//			gameColorized = true;
-
-	//		level = game_menu.getGameDifficulty();
-	//		//game_board.loadAllScreenTemplates();
-	//		runAllGameBoards(activate);
-	//		//initGame();
-	//		//runGame();
-	//	}
-	//}
 	cout << "Goodbye" << endl;
 }
-
-
 
 
 //Creating board which hold the information of every cell
@@ -68,7 +49,7 @@ void ThePacmanGame::initGame()
 	{
 		game_menu.initDetailsArea(game_board);
 		numOfGhosts = game_board.collectnumOfGhosts();
-		pacman.initPacman(game_board);
+		pacman.initCreature(game_board, Creature::PACMAN);
 
 		for (int i = 0; i < numOfGhosts; i++)
 			ghost[i].initGhost(game_board, level);
@@ -246,6 +227,7 @@ void ThePacmanGame::printAllGhosts() const
 	for (int i = 0; i < numOfGhosts; i++)
 		ghost[i].printCreature();
 }
+
 void ThePacmanGame::printFigures() const
 {
 	pacman.printCreature();

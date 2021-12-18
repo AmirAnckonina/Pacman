@@ -22,13 +22,11 @@ public:
 
 	void addFruitToScore(int fruitVal) { score += fruitVal; }
 	void initPacman(GameBoard& board);
-	//void movePacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
 	void increaseLivesLeft() { livesLeft++; }
 	void updateScore(GameBoard& board);
 	void setScore(int _score) { score = _score; }
-
-
+	void resetScoreAndLives() { score = 0; livesLeft = 3; }
 
 	//Get-Set Functions
 	Direction convertKeyToDirection(char key) const;

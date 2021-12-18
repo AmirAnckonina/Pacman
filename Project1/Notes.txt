@@ -1,17 +1,38 @@
+  14. Congrats + You won fix change finish message- Amir 
+  4. base all "initCreature" creature function on constructors and distructors. //Amir 
+  10. Ghosts collision check every X times. consider genertate random or put on STAY to few moves. //Chen // Amir Completet union function.
+  8. BFS - Save 5 or 4 last position, insert them into vector and implement full BFS only every 5-4 turns // Amir 
 
   17.12
-  1. Build flow function which run all board one by one. //Amir
-  2. base game endong on number of total breadcrums and NOT on comparing score to breadcrumbs. //Chen
-  3. arrange readRawTemplate, singleFruitSession before testing. //Amir
-  4. base all "initCreature" creature function on constructors and distructors. //Amir
-  5. Bonus - eating fruit with the value 9 will add live pacman //Chen
-  6. BFS - running with 4 or more ghosts // Chen Test --> No problem yet, but keep in checking.
-  7. exit option from pause menu or between gase sessions //Amir
-  8. BFS - Save 5 or 4 last position, insert them into vector and implement full BFS only every 5-4 turns
-  9. consider to use ghostTurn param to run BFS not on the same session ---> ghost 1 yes ghost 2 no ...EvenOdd // Chen 
-  10. Ghosts collision check every X times. consider genertate random or put on STAY to few moves. //Chen
-  11. Try to prevent pacman and ghosts to eat Tunnels. //
-  12. validate number of pacmans, ghosts, legend --> EXTRA.
-  13. Test fruit generate random position on board with a lot of borders --> consider using vector array with all the valid positions.
-  
+  1. Build flow function which run all board one by one. //Amir VVVVVVVV
+
+  2. base game endong on number of total breadcrums and NOT on comparing score to breadcrumbs. //Chen VVVVVV
+
+  3. arrange readRawTemplate, singleFruitSession before testing. //Amir // VVVVVVVVVVVVV
+
+
+  5. Bonus - eating fruit with the value 9 will add live pacman //Chen -// VVVVVVVVV
+
+  6. BFS - running with 4 or more ghosts // Chen Test --> No problem yet, but keep in checking. // VVVVVV
+
+  7. exit option from pause menu or between gase sessions //Amir // VVVVVVVVVV
+
+
+  9. consider to use ghostTurn param to run BFS not on the same session ---> ghost 1 yes ghost 2 no ...EvenOdd // Chen VVVVV
+
+
+  11. Try to prevent pacman and ghosts to eat Tunnels. // VVVVVVV
+
+  12. validate number of pacmans, ghosts, legend --> EXTRA. 
+
+  13. Test fruit generate random position on board with a lot of borders --> consider using vector array with all the valid positions. // VVVV
+
+
+  15. Keep score and lives between session - init pacman // Chen
+
+  16. README FILE 
+
+  17. Consider add exit from pause game.
+
+Testing:
 
