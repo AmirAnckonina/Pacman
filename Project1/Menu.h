@@ -3,8 +3,6 @@
 #include "Utilities.h"
 #include "Position.h"
 
-using std::cout;
-using std::endl;
 
 class Menu
 {
@@ -24,16 +22,20 @@ public:
 	void entryMenu();
 	void printMenu() const;
 	void printInstructions();
-	void betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int lastGamePacmanScore);
-	void printDataAfterSession(int screenNumber, int totalNumOfScreens);
+	void betweenSessionsProcedure(int screenNumber, size_t totalNumOfScreens, int lastGamePacmanScore, bool playerWon);
+	void printDataAfterSession(int& screenNumber, size_t& totalNumOfScreens) const;
+	void printDataAfterLosing(int& screenNumber, size_t& totalNumOfScreens);
+	int getFirstBoardChoice(GameBoard& board);
+	void printBoardsSelectionMenu(GameBoard& board, size_t& numOfTemplates) const;
 	bool userChoosedToStart() const;
+	bool userChoosedBoard(size_t& boardTemplatesSize) const;
 	bool userChoosedDifficulty() const;
 	void initDetailsArea(GameBoard& board);
 	void setLegendAreaChars(GameBoard& board);
 	void pauseGame(int lives) const;
 	int getGameDifficulty();
 	void printLevelsMenu();
-	void updateTotalPlayerScore(int _totalPlayerScore) { totalPlayerScore += _totalPlayerScore; }
+	void updateTotalPlayerScore(int _totalPlayerScore) { totalPlayerScore = _totalPlayerScore; }
 
 	void printAllLegend(int score, int lives);
 	void singlePrintScore(int score) const;

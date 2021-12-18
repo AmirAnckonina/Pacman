@@ -34,6 +34,8 @@ void Menu::entryMenu()
 	clearScreen();
 }
 
+
+
 void Menu::printMenu() const
 {
 	gotoxy(0, 0);
@@ -72,7 +74,7 @@ void Menu::printInstructions()
 	userKey = 0;
 }
 
-void Menu::betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int lastGamePacmanScore)
+void Menu::betweenSessionsProcedure(int screenNumber, size_t totalNumOfScreens, int lastGamePacmanScore, bool playerWon)
 {
 	updateTotalPlayerScore(lastGamePacmanScore);
 	if (playerWon != false)
@@ -81,9 +83,57 @@ void Menu::betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int
 		if (screenNumber < totalNumOfScreens)
 			entryMenu();
 	}
+	else
+	{
+		printDataAfterLosing(screenNumber, totalNumOfScreens);
+	}
 }
 
-void Menu::printDataAfterSession(int screenNumber, int totalNumOfScreens)
+void Menu::printDataAfterLosing(int& screenNumber, size_t& totalNumOfScreens)
+{
+	cout << "We're Sorry, GAME OVER." << endl;
+	cout << "You reached screen No. " << screenNumber << " of " << totalNumOfScreens;
+	cout << "Your total score is: " << totalPlayerScore << endl;
+	cout << "Maybe next time!" << endl;
+}
+
+int Menu::getFirstBoardChoice(GameBoard& board) 
+{
+	bool boardChoosed = false;
+
+	while (!boardChoosed)
+	{
+		size_t numOfTemplates = board.getNumOfTemplates();
+		printBoardsSelectionMenu(board, numOfTemplates);
+		userKey = _getch();
+		userKey -= '0';
+		boardChoosed = userChoosedBoard(numOfTemplates);
+	}
+	int userChosenTemplate = userKey;
+	userKey = 0;
+	clearScreen();
+	return userChosenTemplate;
+}
+
+bool Menu::userChoosedBoard(size_t& boardTemplatesSize) const
+{
+	if (userKey >= 0 && userKey < boardTemplatesSize)
+		return true;
+
+	return false;
+}
+
+void Menu::printBoardsSelectionMenu(GameBoard& board, size_t& numOfTemplates) const
+{
+	gotoxy(0, 0);
+	cout << "Please choose your starting board:" << endl;
+	for (int templateInd = 0; templateInd < numOfTemplates; templateInd++)
+	{
+		cout << "Press (" << templateInd << ") for " << board.getScreenTemplateName(templateInd) << endl;
+	}
+}
+
+void Menu::printDataAfterSession(int& screenNumber, size_t& totalNumOfScreens) const
 {
 	cout << "You're doing well so far! You've just completed screen No. " << screenNumber << " of " << totalNumOfScreens << endl;
 	Sleep(2000);

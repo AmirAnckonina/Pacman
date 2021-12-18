@@ -3,15 +3,33 @@
 bool ThePacmanGame::gameColorized = false;
 
 
-void ThePacmanGame::startGameSessions()
+void ThePacmanGame::runAllSessions()
 {
-	bool activate = true;
+	hideCursor();
+	init_srand();
 
-	game_board.loadAllScreenTemplates();
-	size_t totalNumOfScreens = game_board.getNumOfTemplates();
-	game_menu.entryMenu();
+	activate = true;
+	size_t totalNumOfScreens;
 
-	for (int templateInd = 0; templateInd < totalNumOfScreens && activate; templateInd++)
+	while (activate)
+	{
+		game_menu.entryMenu();
+		game_board.loadAllScreenTemplates();
+		totalNumOfScreens = game_board.getNumOfTemplates();
+		runSingleSession(totalNumOfScreens);
+		if (activate)
+			resetThePacmanGame();
+	}
+	cout << "Goodbye" << endl;
+}
+
+void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
+{
+	bool shouldEndSession = false;
+	//string* boardTemplates = getBoardTemplatesArray();
+	int userChosenTemplate = game_menu.getFirstBoardChoice(game_board);
+	game_board.sortByFirstBoardChosen(userChosenTemplate);
+	for (int templateInd = 0; templateInd < totalNumOfScreens && !shouldEndSession && activate; templateInd++)
 	{
 		if (game_menu.getUserKey() == Menu::EXIT)
 			activate = false;
@@ -25,17 +43,20 @@ void ThePacmanGame::startGameSessions()
 			if (game_board.isValidBoard())
 			{
 				runGame();
-				if (pacman.getLivesLeft())
-					activate = false;
-				game_menu.betweenSessionsProcedure(game_board.getCurrTemplate(), totalNumOfScreens, pacman.getScore());
+				if (pacman.getLivesLeft() == 0)
+					shouldEndSession = true;
+				game_menu.betweenSessionsProcedure(game_board.getCurrTemplate(), totalNumOfScreens, pacman.getScore(), playerWon);
 			}
 			else
 				game_menu.entryMenu();
 		}
 	}
-	cout << "Goodbye" << endl;
 }
 
+void ThePacmanGame::resetThePacmanGame()
+{
+
+}
 
 //Creating board which hold the information of every cell
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
@@ -61,7 +82,7 @@ void ThePacmanGame::initGame()
 		if (gameColorized) setGameColors();
 		else game_menu.setDetailsColor(Colors::WHITE);
 
-		ghostsTurn = playerWon = false;
+		playerWon = false;
 		game_board.printBoard();
 		pacman.printCreature();
 		game_menu.printAllLegend(pacman.getScore(), pacman.getLivesLeft());

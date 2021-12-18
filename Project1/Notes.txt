@@ -1,11 +1,14 @@
   14. Congrats + You won fix change finish message - Amir - VVVV
   4. base all "initCreature" creature function on constructors and distructors. //Amir - VVVV 
+
+
   10. Ghosts collision check every X times. consider genertate random or put on STAY to few moves. //Chen // Amir Completet union function.
   8. BFS - Save 5 or 4 last position, insert them into vector and implement full BFS only every 5-4 turns // Amir 
 
+  **** Give an option after full session to start a new one.
+  **** Give an option to choose board in the beginning.
 
-  **** Give an option after full session to start a new one
-  **** Give an option to choose board in the beginning
+
   17.12
   1. Build flow function which run all board one by one. //Amir VVVVVVVV
 
