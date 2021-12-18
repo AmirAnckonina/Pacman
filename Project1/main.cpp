@@ -7,7 +7,7 @@ using std::endl;
 int main()
 {
 	ThePacmanGame game;
-	game.startGameSessions();
+	game.runAllSessions();
 	return 0;
 }
 

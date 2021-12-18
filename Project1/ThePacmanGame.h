@@ -22,19 +22,19 @@ private:
 	Menu game_menu;
 	GameBoard game_board;
 	Pacman pacman;
-	//Fruit fruit;
 	int level;
 	Ghost ghost[MAXNUMOFGHOSTS];
 	Fruit fruit;
 	int numOfGhosts;
 	static bool gameColorized;
-	bool ghostsTurn = false;
+	bool activate = true;
 	bool fruitTurn = false;
 	bool playerWon = false;
 
 public:
 	//Preparartions functions
-	void startGameSessions();
+	void runAllSessions();
+	void runSingleSession(size_t& totalNumOfScreens);
 	void initGame();
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
@@ -46,6 +46,7 @@ public:
 	void printCollision() const;
 	void cellsRestoreAfterCollision() const;
 	void generalCellRestore(const Creature& creature) const;
+	void resetThePacmanGame();
 
 	//Game functionalliy 
 	void runGame();
