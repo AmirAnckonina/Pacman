@@ -7,7 +7,11 @@
 #include <cstdlib>
 #include "Windows.h"
 #include <ctime>
+#include <vector>
+#include <string>
 
+using std::string;
+using std::vector;
 using std::cout;
 using std::endl;
 

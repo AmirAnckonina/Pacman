@@ -4,7 +4,7 @@
 
 void Menu::pressAnyKey()
 {
-	cout << "Press any key to enter the game menu..." << endl;
+	cout << "Press any key to continue..." << endl;
 	userKey = _getch();
 	userKey = 0;
 	clearScreen();
@@ -12,11 +12,17 @@ void Menu::pressAnyKey()
 
 void Menu::entryMenu()
 {
+	static bool firstTimeMenu = true;
 	clearInput();
-	//cout << "Press any key to enter the game menu..." << endl;
 	pressAnyKey();
-	//userKey = _getch();
-	//userKey = 0;
+	if (firstTimeMenu)
+	{
+		gotoxy(0, 0);
+		cout << "Welcome to Pacman game!" << endl;
+		Sleep(2000);
+		firstTimeMenu = false;
+		clearScreen();
+	}
 
 	while (!userChoosedToStart())
 	{
@@ -28,10 +34,12 @@ void Menu::entryMenu()
 	clearScreen();
 }
 
+
+
 void Menu::printMenu() const
 {
 	gotoxy(0, 0);
-	cout << "Welcome to Pacman game!" << endl;
+	//cout << "Welcome to Pacman game!" << endl;
 	cout << "Press (1) to Start without colors" << endl;
 	cout << "Press (2) to Start with colors" << endl;
 	cout << "Press (8) for Instructions" << endl;
@@ -66,16 +74,66 @@ void Menu::printInstructions()
 	userKey = 0;
 }
 
-void Menu::betweenSessionsProcedure(int screenNumber, int totalNumOfScreens, int lastGamePacmanScore)
+void Menu::betweenSessionsProcedure(int screenNumber, size_t totalNumOfScreens, int lastGamePacmanScore, bool playerWon)
 {
 	updateTotalPlayerScore(lastGamePacmanScore);
-	printDataAfterSession(screenNumber, totalNumOfScreens);
-	//pressAnyKey();
-	if (screenNumber < totalNumOfScreens)
-		entryMenu();
+	if (playerWon != false)
+	{
+		printDataAfterSession(screenNumber, totalNumOfScreens);
+		if (screenNumber < totalNumOfScreens)
+			entryMenu();
+	}
+	else
+	{
+		printDataAfterLosing(screenNumber, totalNumOfScreens);
+	}
 }
 
-void Menu::printDataAfterSession(int screenNumber, int totalNumOfScreens)
+void Menu::printDataAfterLosing(int& screenNumber, size_t& totalNumOfScreens)
+{
+	cout << "We're Sorry, GAME OVER." << endl;
+	cout << "You reached screen No. " << screenNumber << " of " << totalNumOfScreens;
+	cout << "Your total score is: " << totalPlayerScore << endl;
+	cout << "Maybe next time!" << endl;
+}
+
+int Menu::getFirstBoardChoice(GameBoard& board) 
+{
+	bool boardChoosed = false;
+
+	while (!boardChoosed)
+	{
+		size_t numOfTemplates = board.getNumOfTemplates();
+		printBoardsSelectionMenu(board, numOfTemplates);
+		userKey = _getch();
+		userKey -= '0';
+		boardChoosed = userChoosedBoard(numOfTemplates);
+	}
+	int userChosenTemplate = userKey;
+	userKey = 0;
+	clearScreen();
+	return userChosenTemplate;
+}
+
+bool Menu::userChoosedBoard(size_t& boardTemplatesSize) const
+{
+	if (userKey >= 0 && userKey < boardTemplatesSize)
+		return true;
+
+	return false;
+}
+
+void Menu::printBoardsSelectionMenu(GameBoard& board, size_t& numOfTemplates) const
+{
+	gotoxy(0, 0);
+	cout << "Please choose your starting board:" << endl;
+	for (int templateInd = 0; templateInd < numOfTemplates; templateInd++)
+	{
+		cout << "Press (" << templateInd << ") for " << board.getScreenTemplateName(templateInd) << endl;
+	}
+}
+
+void Menu::printDataAfterSession(int& screenNumber, size_t& totalNumOfScreens) const
 {
 	cout << "You're doing well so far! You've just completed screen No. " << screenNumber << " of " << totalNumOfScreens << endl;
 	Sleep(2000);
@@ -84,7 +142,7 @@ void Menu::printDataAfterSession(int screenNumber, int totalNumOfScreens)
 	if (screenNumber < totalNumOfScreens)
 		cout << "Let's move to the next board, keep going playa!" << endl;
 	else
-		cout << "All boards completed successfully! CONGRATIOLATIONS!!!" << endl;
+		cout << "All boards completed successfully! You Won!!!" << endl;
 	Sleep(5000);
 	clearScreen();
 }
@@ -194,7 +252,7 @@ void Menu::singlePrintScore(int score) const
 	if (ThePacmanGame::isGameColorized())
 		setTextColor(detailsColor);
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 2);
-	cout << " The score is : " << score;
+	cout << "  The score is: " << score;
 }
 
 void Menu::printLives(int lives) const
@@ -216,9 +274,9 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 			if (ThePacmanGame::isGameColorized())
 				setTextColor(pacmanColor);
 			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
-			cout << "  Congratulations   ";
+			cout << "  Congratulations  ";
 			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-			cout << "      You Won!      ";
+			cout << "  Board Completed! ";
 			Sleep(750);
 			clearLegendArea();
 			Sleep(750);
@@ -247,7 +305,7 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 		setTextColor(detailsColor);
 
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-	cout << "Your final score is:" << endl;
+	cout << "    Final Score:    " << endl;
 	gotoxy(legendAreaPos.getXPos() + 8, legendAreaPos.getYPos() + 2);
 	cout << score;
 	Sleep(2500);
@@ -255,8 +313,8 @@ void Menu::printResult(bool playerWon, int score, Colors pacmanColor, Colors gho
 	clearLegendArea();
 
 	gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos() + 1);
-	cout << " Thanks for playing " << endl;
-	Sleep(3000);
+	cout << "@$@$@$@$@$@$@$@$@$@$";
+	Sleep(2000);
 }
 
 void Menu::printGameName() const

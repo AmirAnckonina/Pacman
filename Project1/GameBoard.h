@@ -27,12 +27,10 @@ private:
 	char board[ROWMAX][COLMAX];
 	int firstRow = ROWMAX, lastRow = -1, firstCol = COLMAX, lastCol = -1; //The first row and col that border appear, in order to recognize tunnels.
 	bool validBoard = true;
-	vector <string> boardTemplates;
-	vector <Position> breadCrumbsPos = {};
-	//int currBreadCrumbPos = 0;
+	vector <string> boardTemplates = {};
+	vector <Position> validPosStorage = {};
 	int currTemplate = 0;
 	int totalBreadcrumbs = 0;
-	bool boardColorized = false;
 	Colors borderColor = Colors::WHITE;
 	Colors breadcrumbColor = Colors::WHITE;
 	Colors tunnelColor = Colors::WHITE;
@@ -41,7 +39,9 @@ public:
 
 	//Init functions
 	void setBreadCrumbsPosArr();
-	const Position& getBreadCrumbPos(int index)const { return breadCrumbsPos[index]; };
+
+	const Position& getSpecificValidPosOnBoard(int index)const { return validPosStorage[index]; };
+
 	void readRawTemplate();
 	void loadAllScreenTemplates();
 	//const vector <string>& getTemplates()const { return boardTemplates; }
@@ -62,7 +62,6 @@ public:
 
 	//Printing and colors design
 	void printBoard() const;
-	void setBoardColorized() { boardColorized = true; }
 	void setBorderColor(Colors color = Colors::WHITE) { borderColor = color; }
 	void setBreadcrumbColor(Colors color) { breadcrumbColor = color; }
 	void settunnelColor(Colors color) { tunnelColor = color; }
