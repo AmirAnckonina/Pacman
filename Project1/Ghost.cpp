@@ -10,7 +10,7 @@ void Ghost::initGhost(GameBoard& board, int level)
 	ghostLevel = level;
 	convertGhostLevelToStrategy();
 	setCreatureStrategyType(ghostLevel);
-	initCreature(board, '$');
+	initCreature(board, Creature::GHOST);
 }
 
 void Ghost::convertGhostLevelToStrategy()
@@ -87,7 +87,7 @@ void Ghost::smartGhostMove(GameBoard& board, const Position& pacmanPos)
 {
 	int AddOrReduceRow[4] = { -1,0,1,0 }; //Up, Left, Down, Right
 	int AddOrReduceCol[4] = { 0,-1,0,1 };
-	
+
 	// Visited vector to so that
 	// a vertex is not visited more than once
 	// Initializing the vector to false as no
@@ -109,7 +109,7 @@ void Ghost::smartGhostMove(GameBoard& board, const Position& pacmanPos)
 		q.erase(q.begin());
 
 		// For every adjacent vertex to the current vertex
-		for (int i = 0; i < 4; i++) 
+		for (int i = 0; i < 4; i++)
 		{
 			int neighborX = temp.getXPos() + AddOrReduceRow[i];
 			int neighborY = temp.getYPos() + AddOrReduceCol[i];

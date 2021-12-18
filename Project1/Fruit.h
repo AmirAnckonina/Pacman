@@ -21,6 +21,7 @@ private:
 
 public:
 	Fruit(char _fruitIcon = Creature::FRUIT, int _fruitStrategyType = NORMAL);
+	~Fruit() {};
 
 	void generateFruitValue();
 	//void genrateAppearTime();
@@ -32,7 +33,7 @@ public:
 	int getTimeOffBoard() const { return timeOffBoard; };
 	int getFruitVal() const { return fruitVal; }
 	//bool isActivity() { return currentlyActive; }
-	void disableActivity(); 
+	void disableActivity();
 	void enableActivity() { currentlyActive = true; timeOnBoard = 40; }
 	void ReduceTimeOnBoard() { timeOnBoard--; }
 	void ReduceTimeOffBoard() { timeOffBoard--; }

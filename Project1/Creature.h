@@ -29,7 +29,7 @@ private:
 public:
 	Creature(char _creatureIcon = 0, int _creatureStrategyType = NONE, MoveStrategy* _mvStrategy = nullptr,
 		Colors _creatureColor = Colors::WHITE, Direction _creatureDirection = Direction::STAY);
-
+	virtual ~Creature();
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL);
 	void setMoveStrategy();
 	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }

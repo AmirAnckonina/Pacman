@@ -39,9 +39,14 @@ public:
 
 	//Init functions
 	void setBreadCrumbsPosArr();
+
 	const Position& getSpecificValidPosOnBoard(int index)const { return validPosStorage[index]; };
+
 	void readRawTemplate();
 	void loadAllScreenTemplates();
+	//const vector <string>& getTemplates()const { return boardTemplates; }
+	const string& getScreenTemplateName(int templateInd)const;
+	void sortByFirstBoardChosen(int userChosenTemplate);
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
 	void setBoardFrame(int _lastRow, int _lastCol);
