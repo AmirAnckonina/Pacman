@@ -97,6 +97,7 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 {
 	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
 
+
 	if (!templateFile)
 	{
 		printInvalidBoardError(RETRIEVE);
@@ -225,6 +226,17 @@ void GameBoard::loadAllScreenTemplates()
 		}
 	}
 	std::sort(boardTemplates.begin(), boardTemplates.end());
+	sortByFirstBoardChosen(4);
+
+}
+const string& GameBoard::getScreenTemplateName(int templateInd)const
+{
+	return boardTemplates[templateInd];
+}
+void GameBoard::sortByFirstBoardChosen(int userChosenTemplate)
+{
+
+	std::swap_ranges(boardTemplates.begin(), boardTemplates.begin() + getNumOfTemplates() - userChosenTemplate, boardTemplates.begin() + userChosenTemplate);
 }
 
 void GameBoard::initInvisibleTunnels()
@@ -309,6 +321,7 @@ void GameBoard::initBoard()
 	totalBreadcrumbs = 0;
 
 	resetBoard();
+	breadCrumbsPos.clear();
 	readRawTemplate();
 
 	if (validBoard)

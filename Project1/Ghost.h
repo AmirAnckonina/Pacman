@@ -21,6 +21,7 @@ private:
 	int ghostLevel; //= NOVICE;
 
 public:
+	~Ghost() {};
 	Ghost(char _ghostIcon = Creature::GHOST, int _ghostLevel = NOVICE);
 	void initGhost(GameBoard& board, int level);
 	void convertGhostLevelToStrategy();

@@ -8,6 +8,7 @@ class SmartStrategy : public MoveStrategy
 private:
 	int smartMoveInterval = 0;
 public:
+	~SmartStrategy()override {};
 	virtual void setMoveInterval(int _mvInterval) override { smartMoveInterval = _mvInterval; }
 	virtual int getMoveInterval() const override { return smartMoveInterval; }
 	virtual void executeMove(Creature& creature, GameBoard& board, const Position& pacmanPos) override;

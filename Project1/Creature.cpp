@@ -74,7 +74,7 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
 	replaceStrategyIfNeeded();
 	mvStrategy->executeMove(*this, board, pacmanPos);
-	
+
 	//Final Part
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	//The ghost printed and we want the print of the cell as it were before.
@@ -94,7 +94,7 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 
 void Creature::resetAfterInvalidNextPos()
 {
-	nextPos = currPos;	
+	nextPos = currPos;
 	if (creatureIcon != GHOST)
 		creatureDirection = Direction::STAY;
 }
@@ -106,6 +106,10 @@ void Creature::resetCreaturePosition()
 	currPos = startingPos;
 	nextPos = currPos;
 	creatureDirection = Direction::STAY;
+}
+Creature::~Creature()
+{
+	delete mvStrategy;
 }
 void Creature::setCurrPos(int x, int y)
 {
