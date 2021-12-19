@@ -257,8 +257,6 @@ void ThePacmanGame::printFigures() const
 {
 	pacman.printCreature();
 	printAllGhosts();
-	/*if (fruit.isActive())
-		fruit.printCreature();*/
 }
 
 bool ThePacmanGame::checkCollision() const
@@ -321,10 +319,8 @@ void ThePacmanGame::resetAfterCollision()
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.resetCreaturePosition();
-		//ghost[0].setGhostPosition(40, 9);
 		for (int i = 0; i < numOfGhosts; i++)
 			ghost[i].resetCreaturePosition();
-		//ghost[1].setGhostPosition(40, 15);
 		pacman.printCreature();
 		printAllGhosts();
 		Sleep(500);
@@ -338,25 +334,12 @@ void ThePacmanGame::resetAfterCollision()
 
 void ThePacmanGame::cellsRestoreAfterCollision() const
 {
-	
-
 	generalCellRestore(pacman);
-
 	//Handle it and restore to all ghosts
 	for (int i = 0; i < numOfGhosts; i++)
 	{
-
-		//cell = game_board.getCellInBoard(ghost[i].getCurrPos()); //CHANGED!
-
-		//if (cell == GameBoard::BREADCRUMB && gameColorized)
-		//	setTextColor(game_board.getBreadcrumbColor());
-
-		//gotoxy(ghost[i].getCurrPos().getXPos(), ghost[i].getCurrPos().getYPos());
-		//cout << cell;
-
 		generalCellRestore(ghost[i]);
 	}
-
 }
 
 void ThePacmanGame::generalCellRestore(const Creature& creature) const
@@ -364,7 +347,6 @@ void ThePacmanGame::generalCellRestore(const Creature& creature) const
 	char cell;
 
 	cell = game_board.getCellInBoard(creature.getCurrPos());
-	//if (cell == GameBoard::BREADCRUMB && gameColorized) -- CHANGED!
 	if (cell == GameBoard::BREADCRUMB && gameColorized)
 		setTextColor(game_board.getBreadcrumbColor());
 

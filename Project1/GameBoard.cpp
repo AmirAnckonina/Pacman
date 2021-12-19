@@ -24,7 +24,7 @@ void GameBoard::setBreadCrumbsPosArr()
 	}
 }
 
-void GameBoard::readRawTemplate() //(ifstream& templateFile)
+void GameBoard::readRawTemplate() 
 {
 	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
 
@@ -143,6 +143,7 @@ const string& GameBoard::getScreenTemplateName(int templateInd)const
 {
 	return boardTemplates[templateInd];
 }
+
 void GameBoard::sortByFirstBoardChosen(int userChosenTemplate)
 {
 	vector <string> tmp;

@@ -31,7 +31,6 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 void Pacman::updateScore(GameBoard& board)
 {
 	//Collect score if breadCrumb placed in currPos
-	/*if (board.getCellInBoard( getNextPos().getXPos(), getNextPos().getYPos() ) == GameBoard::BREADCRUMB)*/
 	if (board.getCellInBoard(getNextPos()) == GameBoard::BREADCRUMB)
 		score++;
 }

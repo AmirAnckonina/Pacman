@@ -78,16 +78,11 @@ void Menu::betweenSessionsProcedure(GameBoard& board, int currTemplate, int last
 	{
 		updateTotalPlayerScore(lastGamePacmanScore);
 		size_t numOfTemplates = board.getNumOfTemplates();
+
 		if (playerWon != false)
-		{
 			printDataAfterSession(board, currTemplate);
-			/*if (currTemplate < board.getNumOfTemplates() -1)
-				entryMenu();*/
-		}
 		else
-		{
 			printDataAfterLosing(board, currTemplate);
-		}
 	}
 	else if (currTemplate == board.getNumOfTemplates() - 1)
 	{
@@ -253,8 +248,6 @@ void Menu::printLevelsMenu()
 	cout << "Press (1) for Begginer" << endl;
 	cout << "Press (2) to for Amateur" << endl;
 	cout << "Press (3) for Professional" << endl;
-
-
 }
 
 void Menu::printAllLegend(int score, int lives)
@@ -423,7 +416,6 @@ void Menu::printPacmanAllAround(Colors pacmanColor) const
 //Ghost Animation at the end
 void Menu::printGhostsAllAround(Colors ghostColor) const
 {
-	//int x1 = 21, y1 = 11, x2 = 59, y2 = 13;
 	int x1 = legendAreaPos.getXPos();
 	int endX1 = x1 + 19;
 	int x2 = x1 + 19;
