@@ -3,22 +3,22 @@
 #include "SmartStrategy.h"
 #include "NormalStrategy.h"
 
-//char Creature::creatureIcon = 0;
-
 Creature::Creature(char _creatureIcon, int _creatureStrategyType, MoveStrategy* _mvStrategy, Colors _creatureColor, Direction _creatureDirection)
 	: creatureIcon(_creatureIcon), creatureStrategyType(_creatureStrategyType), mvStrategy(_mvStrategy), creatureColor(_creatureColor), creatureDirection(_creatureDirection) {}
 
+Creature::~Creature()
+{
+	delete mvStrategy;
+}
+
 void Creature::initCreature(GameBoard& board, char _creatureIcon)
 {
-	//creatureIcon = _creatureIcon;
 	creatureColor = Colors::WHITE;
-
 	if (creatureStrategyType == DYNAMIC)
 	{
 		hasIntervalTime = true;
 		creatureStrategyType = SMART;
 	}
-
 	setMoveStrategy();
 	collectCreatureStartingPos(board);
 	board.setCellInBoard(startingPos, GameBoard::BREADCRUMB);
@@ -28,7 +28,6 @@ void Creature::initCreature(GameBoard& board, char _creatureIcon)
 void Creature::setMoveStrategy() //set move strategy according to creatureStrategyType
 {
 	delete mvStrategy;
-
 	if (creatureStrategyType == SMART)
 	{
 		mvStrategy = new SmartStrategy;
@@ -40,12 +39,9 @@ void Creature::setMoveStrategy() //set move strategy according to creatureStrate
 		mvStrategy = new NormalStrategy;
 		if (hasIntervalTime)
 			mvStrategy->setMoveInterval(15);
-
 	}
 	else //creatureStrategyType == NONE
-	{
 		mvStrategy = nullptr;
-	}
 }
 
 void Creature::collectCreatureStartingPos(GameBoard& board)
@@ -57,27 +53,22 @@ void Creature::replaceStrategyIfNeeded()
 {
 	if (hasIntervalTime && mvStrategy->getMoveInterval() <= 0)
 	{
-		//Cnsider using typeid
 		if (creatureStrategyType == SMART)
 			creatureStrategyType = NORMAL;
 		else if (creatureStrategyType == NORMAL)
 			creatureStrategyType = SMART;
 
 		setMoveStrategy();
-		return;
 	}
-	else
-		return;
 }
 
 void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
 	replaceStrategyIfNeeded();
 	mvStrategy->executeMove(*this, board, pacmanPos);
-
 	//Final Part
 	gotoxy(currPos.getXPos(), currPos.getYPos());
-	//The ghost printed and we want the print of the cell as it were before.
+	//The creatured will move and we want to print the cell as it were before.
 	if (board.getCellInBoard(currPos) == GameBoard::BREADCRUMB)
 	{
 		if (ThePacmanGame::isGameColorized())
@@ -107,16 +98,13 @@ void Creature::resetCreaturePosition()
 	nextPos = currPos;
 	creatureDirection = Direction::STAY;
 }
-Creature::~Creature()
-{
-	delete mvStrategy;
-}
+
 void Creature::setCurrPos(int x, int y)
 {
 	currPos.setXPos(x);
 	currPos.setYPos(y);
 }
-//???????
+
 void Creature::setCreatureNextPos(GameBoard& board)
 {
 	nextPos.setNextPos(creatureDirection, creatureIcon, board); //????
@@ -133,32 +121,3 @@ void Creature::printCreature() const
 	if (ThePacmanGame::isGameColorized()) { setTextColor(creatureColor); }
 	cout << creatureIcon;
 }
-
-
-//ostream& operator << (ostream& os, Icon _icon)
-//{
-//	os << (char)_icon;
-//}
-
-//Icon Creature::convertCharToIcon(char ch)
-//{
-//	switch (ch)
-//	{
-//	case '@':
-//		return PACMAN;
-//		break;
-//	case '$':
-//		return GHOST;
-//		break;
-//	case '5':
-//	case '6':
-//	case '7':
-//	case '8':
-//	case '9':
-//		return; //FRUIT;
-//		break;
-//	default:
-//		break;
-//
-//	}
-//}

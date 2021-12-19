@@ -3,7 +3,7 @@
 
 Fruit::Fruit(char _fruitIcon, int _fruitStrategyType) : Creature(_fruitIcon, _fruitStrategyType) {}
 
-void Fruit::printCreature()const
+void Fruit::printCreature() const
 {
 	if (currentlyActive)
 	{
@@ -36,14 +36,11 @@ void Fruit::generateLocation(GameBoard& board)
 	Position newPos;
 	bool isValid = false;
 
-
 	while (!isValid)
 	{
 		size_t validPosArrSize = board.getValidPosStorage();
 		int generatedIndex = rand() % validPosArrSize;
 		newPos = board.getSpecificValidPosOnBoard(generatedIndex);
-		//newPos.setXPos((rand() % board.getLastCol()) + board.getFirstCol());
-		//newPos.setYPos((rand() % board.getLastRow()) + board.getFirstRow());
 		setNextPos(newPos);
 		isValid = isCreaturePositionValid(board);
 	}

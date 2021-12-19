@@ -2,7 +2,6 @@
 
 bool ThePacmanGame::gameColorized = false;
 
-
 void ThePacmanGame::runAllSessions()
 {
 	hideCursor();
@@ -13,13 +12,25 @@ void ThePacmanGame::runAllSessions()
 
 	game_board.loadAllScreenTemplates();
 	totalNumOfScreens = game_board.getNumOfTemplates();
+	game_menu.entryMenu();
 
 	while (activate)
 	{
-		game_menu.entryMenu();
-		runSingleSession(totalNumOfScreens);
-		resetThePacmanGame();
+		if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
+			gameColorized = true;
+
+		if (game_menu.getUserKey() == Menu::EXIT)
+			activate = false;
+		
+		if (activate)
+		{
+			runSingleSession(totalNumOfScreens);
+			resetThePacmanGame();
+		}
+
 	}
+	clearScreen();
+	gotoxy(0, 0);
 	cout << "Goodbye" << endl;
 }
 
@@ -45,10 +56,10 @@ void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
 				runGame();
 				if (pacman.getLivesLeft() == 0)
 					shouldEndSession = true;
-				game_menu.betweenSessionsProcedure(game_board, templateInd, pacman.getScore(), playerWon);
+
 			}
-			else
-				game_menu.entryMenu();
+			game_menu.betweenSessionsProcedure(game_board, templateInd, pacman.getScore(), playerWon);
+			game_menu.entryMenu();
 		}
 	}
 }
@@ -57,6 +68,7 @@ void ThePacmanGame::resetThePacmanGame()
 {
 	pacman.resetScoreAndLives();
 	game_board.lexSort();
+	game_board.resetCurrTemplate();
 	playerWon = false;
 }
 
@@ -134,6 +146,7 @@ void ThePacmanGame::runGame()
 
 	game_menu.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
 	if (gameColorized) { resetColors(); }
+	gameColorized = false;
 	clearScreen();
 	Sleep(1200);
 }
@@ -170,7 +183,6 @@ void ThePacmanGame::singleFruitSession()
 {
 	if (fruit.isActive())
 	{
-		//handleBornOfFruit --> ADD FUNCTION
 		if (fruit.getTimeOnBoard() == 40)
 		{
 			fruit.generateLocation(game_board);
@@ -195,7 +207,6 @@ void ThePacmanGame::singleFruitSession()
 
 		fruit.printCreature();
 
-		//handleDeathOfFruit --> ADD FUNCTION
 		if (fruit.getTimeOnBoard() == 0)
 		{
 			fruit.disableActivity();
@@ -203,9 +214,8 @@ void ThePacmanGame::singleFruitSession()
 		}
 
 	}
-	else //fruit not active
+	else 
 	{
-		//habdleInActivityFruit
 		fruit.ReduceTimeOffBoard();
 		if (fruit.getTimeOffBoard() == 0)
 			fruit.enableActivity();
@@ -214,7 +224,6 @@ void ThePacmanGame::singleFruitSession()
 
 void ThePacmanGame::singleGhostsSession()
 {
-	static int checkGhostUnionInterval = 10;
 	static int j = 0;
 
 	//PAY attention, ghost should move every other turn. so the condition manage it.
@@ -235,13 +244,6 @@ void ThePacmanGame::singleGhostsSession()
 
 	if (checkCollision())
 		resetAfterCollision();
-
-	checkGhostUnionInterval--;
-	if (checkGhostUnionInterval == 0)
-	{
-		//checkGhostsUnion();
-		checkGhostUnionInterval = 10;
-	}
 
 }
 
@@ -336,13 +338,7 @@ void ThePacmanGame::resetAfterCollision()
 
 void ThePacmanGame::cellsRestoreAfterCollision() const
 {
-	//cell = game_board.getCellInBoard(pacman.getCurrPos());
-	////if (cell == GameBoard::BREADCRUMB && gameColorized) -- CHANGED!
-	//if (cell == GameBoard::BREADCRUMB && gameColorized)
-	//	setTextColor(game_board.getBreadcrumbColor());
-
-	//gotoxy(pacman.getCurrPos().getXPos(), pacman.getCurrPos().getYPos());
-	//cout << cell;
+	
 
 	generalCellRestore(pacman);
 

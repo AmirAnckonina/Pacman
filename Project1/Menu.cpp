@@ -34,8 +34,6 @@ void Menu::entryMenu()
 	clearScreen();
 }
 
-
-
 void Menu::printMenu() const
 {
 	gotoxy(0, 0);
@@ -76,17 +74,24 @@ void Menu::printInstructions()
 
 void Menu::betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon) 
 {
-	updateTotalPlayerScore(lastGamePacmanScore);
-	size_t numOfTemplates = board.getNumOfTemplates();
-	if (playerWon != false)
+	if (board.isBoardValid())
+	{
+		updateTotalPlayerScore(lastGamePacmanScore);
+		size_t numOfTemplates = board.getNumOfTemplates();
+		if (playerWon != false)
+		{
+			printDataAfterSession(board, currTemplate);
+			/*if (currTemplate < board.getNumOfTemplates() -1)
+				entryMenu();*/
+		}
+		else
+		{
+			printDataAfterLosing(board, currTemplate);
+		}
+	}
+	else if (currTemplate == board.getNumOfTemplates() - 1)
 	{
 		printDataAfterSession(board, currTemplate);
-		if (currTemplate < board.getNumOfTemplates())
-			entryMenu();
-	}
-	else
-	{
-		printDataAfterLosing(board, currTemplate);
 	}
 }
 
@@ -102,16 +107,29 @@ void Menu::printDataAfterLosing(GameBoard& board, int& currTemplate) const
 
 void Menu::printDataAfterSession(GameBoard& board, int& currTemplate) const
 {
-	cout << "You're doing well so far! You've just completed screen: '" << board.getScreenTemplateName(currTemplate) << "'" << endl;
-	Sleep(2000);
-	cout << "The total score you've achieved: " << totalPlayerScore << endl;
-	Sleep(2000);
-	if (currTemplate < board.getNumOfTemplates())
-		cout << "Let's move to the next board, keep going playa!" << endl;
-	else
+	if (board.isValidBoard())
+	{
+		cout << "You're doing well so far! You've just completed screen: " << endl;
+		cout << "'" << board.getScreenTemplateName(currTemplate) << "'" << endl;
+		Sleep(2000);
+		cout << "The total score you've achieved: " << totalPlayerScore << endl;
+		Sleep(2000);
+		if (currTemplate < (board.getNumOfTemplates() - 1))
+			cout << "Let's move to the next board, keep going playa!" << endl;
+		else
+			cout << "All boards completed successfully! You Won!!!" << endl;
+		Sleep(5000);
+		clearScreen();
+	}
+	else if (currTemplate == board.getNumOfTemplates() - 1 && !(board.isValidBoard()))
+	{
+		cout << "The total score you've achieved: " << totalPlayerScore << endl;
+		Sleep(2000);
 		cout << "All boards completed successfully! You Won!!!" << endl;
-	Sleep(5000);
-	clearScreen();
+		Sleep(5000);
+		clearScreen();
+	}
+
 }
 
 int Menu::getFirstBoardChoice(GameBoard& board) 
@@ -222,7 +240,6 @@ bool Menu::userChoosedDifficulty() const
 	case BEGINNER:
 	case AMATEUR:
 	case PROFESSIONAL:
-	case EXTREME:
 		return true;
 	default:
 		return false;
@@ -236,7 +253,7 @@ void Menu::printLevelsMenu()
 	cout << "Press (1) for Begginer" << endl;
 	cout << "Press (2) to for Amateur" << endl;
 	cout << "Press (3) for Professional" << endl;
-	cout << "press (4) for Extreme" << endl;
+
 
 }
 

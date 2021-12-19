@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Utilities.h"
-//#include "Position.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -34,40 +33,41 @@ private:
 	Colors tunnelColor = Colors::WHITE;
 
 public:
-
+	~GameBoard();
 	//Init functions
-	void setBreadCrumbsPosArr();
-	const Position& getSpecificValidPosOnBoard(int index)const { return validPosStorage[index]; };
-	void readRawTemplate();
 	void loadAllScreenTemplates();
-	const string& getScreenTemplateName(int templateInd)const;
+	void readRawTemplate();
 	void sortByFirstBoardChosen(int userChosenTemplate);
 	char convertChar(const char& ch);
 	void initInvisibleTunnels();
-	void setBoardFrame(int _lastRow, int _lastCol);
+	void resetCurrTemplate() { currTemplate = 0; }
 	bool isValidBoard() { return validBoard; }
 	void handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsCounter);
-
 
 	void initBoard();
 	void countTotalBreadcrumbs();
 	void resetBoard();
-	bool isBoardValid() { return validBoard; }
-	bool isEmptyTemplate(char ch);
 
 	//Printing and colors design
 	void printBoard() const;
-	void setBorderColor(Colors color = Colors::WHITE) { borderColor = color; }
-	void setBreadcrumbColor(Colors color) { breadcrumbColor = color; }
-	void settunnelColor(Colors color) { tunnelColor = color; }
 	void boardColorizedProcedure(int rowInd, int colInd) const;
 	void reduceNumOfBreadCrumbs() { totalBreadcrumbs--; }
 	void printInvalidBoardError(int errorCode) const;
 	void lexSort();
-
-	//Others Get-Set functions.
+	Position collectStartingPos(char ch) const;
+	int collectnumOfGhosts() const;
 	bool inBoardDimensions(int& x, int& y) const;
 	bool inBoardDimensions(Position& pos) const;
+
+	//Others Get-Set functions.
+	bool isBoardValid() { return validBoard; }
+	const string& getScreenTemplateName(int templateInd)const;
+	const Position& getSpecificValidPosOnBoard(int index)const { return validPosStorage[index]; };
+	void setBreadCrumbsPosArr();
+	void setBoardFrame(int _lastRow, int _lastCol);
+	void setBorderColor(Colors color = Colors::WHITE) { borderColor = color; }
+	void setBreadcrumbColor(Colors color) { breadcrumbColor = color; }
+	void settunnelColor(Colors color) { tunnelColor = color; }
 	void setCellInBoard(int& x, int& y, char ch) { board[y][x] = ch; }
 	void setCellInBoard(const Position& pos, char ch);
 	Colors getBorderColor() const { return borderColor; }
@@ -77,14 +77,10 @@ public:
 	size_t getValidPosStorage() const;
 	char getCellInBoard(int x, int y) const { return board[y][x]; }
 	char getCellInBoard(const Position& pos) const;
-
 	int getFirstRow() const { return firstRow; }
 	int getFirstCol() const { return firstCol; }
 	int getLastRow() const { return lastRow; }
 	int getLastCol() const { return lastCol; }
 	int getCurrTemplate() const { return currTemplate; }
-
 	size_t getNumOfTemplates() const;
-	Position collectStartingPos(char ch) const;
-	int collectnumOfGhosts() const;
 };

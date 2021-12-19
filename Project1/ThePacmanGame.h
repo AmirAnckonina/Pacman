@@ -31,6 +31,7 @@ private:
 	bool fruitTurn = false;
 	bool playerWon = false;
 
+
 public:
 	//Preparartions functions
 	void runAllSessions();
@@ -38,7 +39,6 @@ public:
 	void initGame();
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
-
 
 	//Printing functions
 	void printFigures() const;

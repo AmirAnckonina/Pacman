@@ -3,80 +3,12 @@
 #include "ThePacmanGame.h" 
 
 
-//void GameBoard::readTemplateFromFile()
-//{
-	//ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
-	//if (templateFile)
-	//{
-	//	readRawTemplate(templateFile);
-	//	//templateFile.close();
-	//}
-	//else
-	//{
-	//	validBoard = false;
-	//	return;
-	//}
-//}
-
-/*
-void GameBoard::readRawTemplate(ifstream& templateFile)
+GameBoard::~GameBoard()
 {
-	int rowInd = 0, colInd = 0, countFirstLineCols = 0;
-	char tmpChar;
-	bool flag = false, inFirstRow = true;
-
-	tmpChar = templateFile.get();
-
-	if (isEmptyFile(tmpChar))
-	{
-		cout << "Empty File";
-		validBoard = false;
-	}
-
-	if (validBoard)
-	{
-
-		while (tmpChar != EOF && validBoard) //&& rowInd < ROWMAX)
-		{
-			if (tmpChar == '\n' && inFirstRow)
-				inFirstRow = false;
-
-			if (inFirstRow)
-				countFirstLineCols++;
-
-			if (tmpChar != '\n')
-				if (rowInd > ROWMAX || colInd > COLMAX)
-					validBoard = false;
-
-			if (tmpChar == '\n') //END_OF_LINE
-			{
-				rowInd++;
-				colInd = 0;
-			}
-			else
-			{
-				tmpChar = convertChar(tmpChar);
-				board[rowInd][colInd++] = tmpChar;
-			}
-
-
-			tmpChar = templateFile.get();
-		}
-	}
-
-
-	if (rowInd <= 1 && countFirstLineCols == 0)
-	{
-		cout << "invalid board." << endl;
-		validBoard = false;
-	}
-
-	lastRow = rowInd - 1;
-	lastCol = countFirstLineCols - 1;
-	firstCol = 0;
-	firstRow = 0;
+	boardTemplates.clear();
+	validPosStorage.clear();
 }
-*/
+
 
 void GameBoard::setBreadCrumbsPosArr()
 {
@@ -92,11 +24,9 @@ void GameBoard::setBreadCrumbsPosArr()
 	}
 }
 
-
 void GameBoard::readRawTemplate() //(ifstream& templateFile)
 {
 	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
-
 
 	if (!templateFile)
 	{
@@ -108,21 +38,10 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 	int rowInd = 0, colInd = 0;
 	int colsInFirstRow = 0;
 	char tmpChar;
-	//bool flag = false, inFirstRow = true;
 
 	tmpChar = templateFile.get();
-
-	/*if(isEmptyTemplate(tmpChar))
-	{
-		printInvalidBoardError(EMPTYFILE);
-		Sleep(2000);
-		validBoard = false;
-		return;
-	}*/
-
 	handleFirstRow(templateFile, tmpChar, colsInFirstRow);
 	rowInd = 1;
-
 	tmpChar = templateFile.get();
 	while (tmpChar != EOF && validBoard)
 	{
@@ -150,11 +69,8 @@ void GameBoard::readRawTemplate() //(ifstream& templateFile)
 			printInvalidBoardError(TOOLONG);
 			validBoard = false;
 		}
-
 		tmpChar = templateFile.get();
 	}
-
-
 	if (validBoard)
 		setBoardFrame(rowInd - 1, colsInFirstRow - 1);
 
@@ -188,14 +104,6 @@ void GameBoard::handleFirstRow(ifstream& templateFile, char& tmpChar, int& colsC
 }
 
 
-bool GameBoard::isEmptyTemplate(char ch)
-{
-	if (ch == '\n')
-		return true;
-	return false;
-}
-
-
 char GameBoard::convertChar(const char& ch)
 {
 	switch (ch)
@@ -203,11 +111,10 @@ char GameBoard::convertChar(const char& ch)
 	case '#':
 		return BORDER;
 	case '%':
-		//case '&':
 		return SPACE;
 	case ' ':
 		return BREADCRUMB;
-	default: //ch == 0, check waht happens with pacman and ghost icons
+	default: 
 		return ch;
 	}
 }
@@ -215,7 +122,6 @@ char GameBoard::convertChar(const char& ch)
 void GameBoard::loadAllScreenTemplates()
 {
 	string path;
-
 	for (const auto& file : filesystem::directory_iterator("."))
 	{
 		if (file.path().string().ends_with(".screen"))
@@ -226,9 +132,13 @@ void GameBoard::loadAllScreenTemplates()
 		}
 	}
 	std::sort(boardTemplates.begin(), boardTemplates.end());
-	
-
 }
+
+void GameBoard::lexSort()
+{
+	std::sort(boardTemplates.begin(), boardTemplates.end());
+}
+
 const string& GameBoard::getScreenTemplateName(int templateInd)const
 {
 	return boardTemplates[templateInd];
@@ -237,7 +147,6 @@ void GameBoard::sortByFirstBoardChosen(int userChosenTemplate)
 {
 	vector <string> tmp;
 	int i = userChosenTemplate;
-
 	while (i < boardTemplates.size())
 		tmp.push_back(boardTemplates[i++]);
 
@@ -248,18 +157,7 @@ void GameBoard::sortByFirstBoardChosen(int userChosenTemplate)
 		tmp.push_back(boardTemplates[i++]);
 		leftToInsert--;
 	}
-
 	boardTemplates = tmp;
-
-	/*for (int i = userChosenTemplate; i < getNumOfTemplates(); i++)
-		tmp.push_back(boardTemplates[i]);*/
-	/*
- 	std::swap_ranges(boardTemplates.begin(), boardTemplates.begin() + userChosenTemplate, tmp.begin() + userChosenTemplate);
-	std::swap_ranges(tmp.begin(), tmp.begin() + userChosenTemplate, boardTemplates.begin() + getNumOfTemplates())
-	
-	for (int j = userChosenTemplate ; j < getNumOfTemplates() - (getNumOfTemplates() - userChosenTemplate) ; j++)
-		boardTemplates.push_back(tmp[j]);*/
-
 }
 
 void GameBoard::initInvisibleTunnels()
@@ -297,7 +195,6 @@ void GameBoard::initInvisibleTunnels()
 			board[rowInd][lastCol] = TUNNEL;
 		}
 	}
-
 }
 
 void GameBoard::setBoardFrame(int _lastRow, int _lastCol)
@@ -341,19 +238,11 @@ void GameBoard::initBoard()
 {
 	borderColor = breadcrumbColor = tunnelColor = Colors::WHITE;
 	totalBreadcrumbs = 0;
-
 	resetBoard();
-
 	validPosStorage.clear();
-
 	readRawTemplate();
-
 	if (validBoard)
-	{
 		initInvisibleTunnels();
-		//countTotalBreadcrumbs();
-		//printBoard();
-	}
 }
 
 void GameBoard::printBoard() const
@@ -495,7 +384,4 @@ void GameBoard::printInvalidBoardError(int errorCode) const
 	clearScreen();
 }
 
-void GameBoard::lexSort()
-{
-	std::sort(boardTemplates.begin(), boardTemplates.end());
-}
+

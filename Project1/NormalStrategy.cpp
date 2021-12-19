@@ -3,12 +3,10 @@
 
 void NormalStrategy::executeMove(Creature& creature, GameBoard& board, const Position& pacmanPos)
 {
-	/*generateRandomDirection(creature);
-	creature.setCreatureNextPos(board);*/
 	bool isValid = false;
 	int maxTriesOfGettingValidPos = 30;
 
-	while (!isValid) //(creature.isCreaturePositionValid(board)))
+	while (!isValid)
 	{
 		if (--maxTriesOfGettingValidPos > 0)
 		{
