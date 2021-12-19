@@ -226,7 +226,7 @@ void GameBoard::loadAllScreenTemplates()
 		}
 	}
 	std::sort(boardTemplates.begin(), boardTemplates.end());
-	sortByFirstBoardChosen(4);
+	
 
 }
 const string& GameBoard::getScreenTemplateName(int templateInd)const
@@ -235,8 +235,31 @@ const string& GameBoard::getScreenTemplateName(int templateInd)const
 }
 void GameBoard::sortByFirstBoardChosen(int userChosenTemplate)
 {
+	vector <string> tmp;
+	int i = userChosenTemplate;
 
-	std::swap_ranges(boardTemplates.begin(), boardTemplates.begin() + getNumOfTemplates() - userChosenTemplate, boardTemplates.begin() + userChosenTemplate);
+	while (i < boardTemplates.size())
+		tmp.push_back(boardTemplates[i++]);
+
+	int leftToInsert = getNumOfTemplates() - (getNumOfTemplates() - userChosenTemplate);
+	i = 0;
+	while (leftToInsert > 0)
+	{
+		tmp.push_back(boardTemplates[i++]);
+		leftToInsert--;
+	}
+
+	boardTemplates = tmp;
+
+	/*for (int i = userChosenTemplate; i < getNumOfTemplates(); i++)
+		tmp.push_back(boardTemplates[i]);*/
+	/*
+ 	std::swap_ranges(boardTemplates.begin(), boardTemplates.begin() + userChosenTemplate, tmp.begin() + userChosenTemplate);
+	std::swap_ranges(tmp.begin(), tmp.begin() + userChosenTemplate, boardTemplates.begin() + getNumOfTemplates())
+	
+	for (int j = userChosenTemplate ; j < getNumOfTemplates() - (getNumOfTemplates() - userChosenTemplate) ; j++)
+		boardTemplates.push_back(tmp[j]);*/
+
 }
 
 void GameBoard::initInvisibleTunnels()
@@ -444,7 +467,7 @@ int GameBoard::collectnumOfGhosts() const
 
 void GameBoard::printInvalidBoardError(int errorCode) const
 {
-	cout << "Screen No. " << currTemplate << " ERROR." << endl;
+	cout << "ERROR! The screen '" << getScreenTemplateName(currTemplate-1) << "' isn't loaded correctly." << endl;
 	switch (errorCode)
 	{
 	case EMPTYFILE:
@@ -470,4 +493,9 @@ void GameBoard::printInvalidBoardError(int errorCode) const
 
 	Sleep(5000);
 	clearScreen();
+}
+
+void GameBoard::lexSort()
+{
+	std::sort(boardTemplates.begin(), boardTemplates.end());
 }

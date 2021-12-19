@@ -9,8 +9,6 @@
 #include <vector>
 
 using std::ifstream;
-using std::string;
-using std::vector;
 namespace filesystem = std::filesystem;
 
 class Position; //Forward declaration.
@@ -39,12 +37,9 @@ public:
 
 	//Init functions
 	void setBreadCrumbsPosArr();
-
 	const Position& getSpecificValidPosOnBoard(int index)const { return validPosStorage[index]; };
-
 	void readRawTemplate();
 	void loadAllScreenTemplates();
-	//const vector <string>& getTemplates()const { return boardTemplates; }
 	const string& getScreenTemplateName(int templateInd)const;
 	void sortByFirstBoardChosen(int userChosenTemplate);
 	char convertChar(const char& ch);
@@ -68,6 +63,7 @@ public:
 	void boardColorizedProcedure(int rowInd, int colInd) const;
 	void reduceNumOfBreadCrumbs() { totalBreadcrumbs--; }
 	void printInvalidBoardError(int errorCode) const;
+	void lexSort();
 
 	//Others Get-Set functions.
 	bool inBoardDimensions(int& x, int& y) const;
