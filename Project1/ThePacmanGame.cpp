@@ -55,7 +55,9 @@ void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
 
 void ThePacmanGame::resetThePacmanGame()
 {
-
+	pacman.resetScoreAndLives();
+	game_board.lexSort();
+	playerWon = false;
 }
 
 //Creating board which hold the information of every cell
