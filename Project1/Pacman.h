@@ -17,20 +17,15 @@ private:
 
 public:
 	Pacman(char _pacmanIcon = Creature::PACMAN);
-
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL) override;
 
-	void addFruitToScore(int fruitVal) { score += fruitVal; }
-	//void initPacman(GameBoard& board);
 	void updateLivesLeft() { livesLeft--; }
 	void increaseLivesLeft() { livesLeft++; }
+	void addFruitToScore(int fruitVal) { score += fruitVal; }
 	void updateScore(GameBoard& board);
-	void setScore(int _score) { score = _score; }
 	void resetScoreAndLives() { score = 0; livesLeft = 3; }
-
-	//Get-Set Functions
 	Direction convertKeyToDirection(char key) const;
+	void setScore(int _score) { score = _score; }
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
-
 };

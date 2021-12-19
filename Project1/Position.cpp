@@ -31,7 +31,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	case Direction::UP: //handleDirectionIsUP
 		if (nextStepIsTunnel(board, x, y - 1) && y - 1 == board.getFirstRow())
 		{
-			if (tunnelAllowd(figure, board, x, board.getLastRow()))
+			if (tunnelAllowed(figure, board, x, board.getLastRow()))
 				y = board.getLastRow() - 1;
 			else y = board.getFirstRow();
 		}
@@ -42,7 +42,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	case Direction::DOWN:
 		if (nextStepIsTunnel(board, x, y + 1) && y + 1 == board.getLastRow())
 		{
-			if (tunnelAllowd(figure, board, x, board.getFirstRow()))
+			if (tunnelAllowed(figure, board, x, board.getFirstRow()))
 				y = board.getFirstRow() + 1;
 			else y = board.getLastRow();
 		}
@@ -53,7 +53,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 	case Direction::LEFT:
 		if (nextStepIsTunnel(board, x - 1, y) && x - 1 == board.getFirstCol())
 		{
-			if (tunnelAllowd(figure, board, board.getLastCol(), y))
+			if (tunnelAllowed(figure, board, board.getLastCol(), y))
 				x = board.getLastCol() - 1;
 			else
 				x = board.getFirstCol();
@@ -66,7 +66,7 @@ void Position::setNextPos(Direction dir, char figure, GameBoard& board)
 		//if (_x == 78 && _y > 10 && _y < 14)
 		if (nextStepIsTunnel(board, x + 1, y) && x + 1 == board.getLastCol())
 		{
-			if (tunnelAllowd(figure, board, board.getFirstCol(), y))
+			if (tunnelAllowed(figure, board, board.getFirstCol(), y))
 				x = board.getFirstCol() + 1;
 			else
 				x = board.getLastCol();
@@ -92,7 +92,7 @@ bool Position::nextStepIsTunnel(GameBoard& board, int x, int y)const
 	return false;
 }
 
-bool Position::tunnelAllowd(char figure, GameBoard& board, int x, int y)const
+bool Position::tunnelAllowed(char figure, GameBoard& board, int x, int y)const
 {
 	if (figure == Creature::PACMAN && board.getCellInBoard(x, y) != GameBoard::BORDER)
 		return true;

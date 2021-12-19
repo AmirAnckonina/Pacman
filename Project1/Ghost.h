@@ -14,11 +14,10 @@ using std::endl;
 class Ghost : public Creature
 {
 public:
-	//enum StrategyType {NONE, NORMAL , SMART};
-	enum GhLevel { NOVICE = 1, GOOD, BEST, EXTREME };
+	enum GhLevel { NOVICE = 1, GOOD, BEST };
 
 private:
-	int ghostLevel; //= NOVICE;
+	int ghostLevel;
 
 public:
 	~Ghost() {};
@@ -26,7 +25,4 @@ public:
 	void initGhost(GameBoard& board, int level);
 	void convertGhostLevelToStrategy();
 	int getGhostLevel()const { return ghostLevel; }
-
-	//void moveGhost(GameBoard& board, const Position& pacmanPos);
-	//void smartGhostMove(GameBoard& board, Position start, Position ghostPos);
 };

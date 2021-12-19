@@ -22,7 +22,6 @@ enum class Colors {
 };
 
 //Global functions
-
 void init_srand();  
 void gotoxy(int x = 1, int y = 1);
 void setTextColor(Colors c);
