@@ -22,9 +22,9 @@ public:
 	void entryMenu();
 	void printMenu() const;
 	void printInstructions();
-	void betweenSessionsProcedure(int screenNumber, size_t totalNumOfScreens, int lastGamePacmanScore, bool playerWon);
-	void printDataAfterSession(int& screenNumber, size_t& totalNumOfScreens) const;
-	void printDataAfterLosing(int& screenNumber, size_t& totalNumOfScreens);
+	void betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon);
+	void printDataAfterSession(GameBoard& board, int& currTemplate) const;
+	void printDataAfterLosing(GameBoard& board, int& currTemplate) const;
 	int getFirstBoardChoice(GameBoard& board);
 	void printBoardsSelectionMenu(GameBoard& board, size_t& numOfTemplates) const;
 	bool userChoosedToStart() const;

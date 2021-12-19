@@ -11,14 +11,14 @@ void ThePacmanGame::runAllSessions()
 	activate = true;
 	size_t totalNumOfScreens;
 
+	game_board.loadAllScreenTemplates();
+	totalNumOfScreens = game_board.getNumOfTemplates();
+
 	while (activate)
 	{
 		game_menu.entryMenu();
-		game_board.loadAllScreenTemplates();
-		totalNumOfScreens = game_board.getNumOfTemplates();
 		runSingleSession(totalNumOfScreens);
-		if (activate)
-			resetThePacmanGame();
+		resetThePacmanGame();
 	}
 	cout << "Goodbye" << endl;
 }
@@ -26,9 +26,9 @@ void ThePacmanGame::runAllSessions()
 void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
 {
 	bool shouldEndSession = false;
-	//string* boardTemplates = getBoardTemplatesArray();
 	int userChosenTemplate = game_menu.getFirstBoardChoice(game_board);
 	game_board.sortByFirstBoardChosen(userChosenTemplate);
+
 	for (int templateInd = 0; templateInd < totalNumOfScreens && !shouldEndSession && activate; templateInd++)
 	{
 		if (game_menu.getUserKey() == Menu::EXIT)
@@ -45,7 +45,7 @@ void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
 				runGame();
 				if (pacman.getLivesLeft() == 0)
 					shouldEndSession = true;
-				game_menu.betweenSessionsProcedure(game_board.getCurrTemplate(), totalNumOfScreens, pacman.getScore(), playerWon);
+				game_menu.betweenSessionsProcedure(game_board, templateInd, pacman.getScore(), playerWon);
 			}
 			else
 				game_menu.entryMenu();

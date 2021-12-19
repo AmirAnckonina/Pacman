@@ -74,27 +74,44 @@ void Menu::printInstructions()
 	userKey = 0;
 }
 
-void Menu::betweenSessionsProcedure(int screenNumber, size_t totalNumOfScreens, int lastGamePacmanScore, bool playerWon)
+void Menu::betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon) 
 {
 	updateTotalPlayerScore(lastGamePacmanScore);
+	size_t numOfTemplates = board.getNumOfTemplates();
 	if (playerWon != false)
 	{
-		printDataAfterSession(screenNumber, totalNumOfScreens);
-		if (screenNumber < totalNumOfScreens)
+		printDataAfterSession(board, currTemplate);
+		if (currTemplate < board.getNumOfTemplates())
 			entryMenu();
 	}
 	else
 	{
-		printDataAfterLosing(screenNumber, totalNumOfScreens);
+		printDataAfterLosing(board, currTemplate);
 	}
 }
 
-void Menu::printDataAfterLosing(int& screenNumber, size_t& totalNumOfScreens)
+void Menu::printDataAfterLosing(GameBoard& board, int& currTemplate) const
 {
 	cout << "We're Sorry, GAME OVER." << endl;
-	cout << "You reached screen No. " << screenNumber << " of " << totalNumOfScreens;
+	cout << "You lost on screen '" << board.getScreenTemplateName(currTemplate) << "'" << endl;
 	cout << "Your total score is: " << totalPlayerScore << endl;
 	cout << "Maybe next time!" << endl;
+	Sleep(5000);
+	clearScreen();
+}
+
+void Menu::printDataAfterSession(GameBoard& board, int& currTemplate) const
+{
+	cout << "You're doing well so far! You've just completed screen: '" << board.getScreenTemplateName(currTemplate) << "'" << endl;
+	Sleep(2000);
+	cout << "The total score you've achieved: " << totalPlayerScore << endl;
+	Sleep(2000);
+	if (currTemplate < board.getNumOfTemplates())
+		cout << "Let's move to the next board, keep going playa!" << endl;
+	else
+		cout << "All boards completed successfully! You Won!!!" << endl;
+	Sleep(5000);
+	clearScreen();
 }
 
 int Menu::getFirstBoardChoice(GameBoard& board) 
@@ -131,20 +148,6 @@ void Menu::printBoardsSelectionMenu(GameBoard& board, size_t& numOfTemplates) co
 	{
 		cout << "Press (" << templateInd << ") for " << board.getScreenTemplateName(templateInd) << endl;
 	}
-}
-
-void Menu::printDataAfterSession(int& screenNumber, size_t& totalNumOfScreens) const
-{
-	cout << "You're doing well so far! You've just completed screen No. " << screenNumber << " of " << totalNumOfScreens << endl;
-	Sleep(2000);
-	cout << "The total score you've achieved: " << totalPlayerScore << endl;
-	Sleep(2000);
-	if (screenNumber < totalNumOfScreens)
-		cout << "Let's move to the next board, keep going playa!" << endl;
-	else
-		cout << "All boards completed successfully! You Won!!!" << endl;
-	Sleep(5000);
-	clearScreen();
 }
 
 bool Menu::userChoosedToStart() const
