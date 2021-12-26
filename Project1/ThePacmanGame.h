@@ -19,6 +19,7 @@ public:
 	static const int MAXNUMOFGHOSTS = 4;
 
 private:
+	//ModeManager mode; //get
 	Menu game_menu;
 	GameBoard game_board;
 	Pacman pacman;
@@ -30,6 +31,7 @@ private:
 	bool activate = true;
 	bool fruitTurn = false;
 	bool playerWon = false;
+	
 
 
 public:

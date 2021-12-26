@@ -136,7 +136,7 @@ void ThePacmanGame::runGame()
 
 		if (_kbhit())
 		{
-			key = _getch();
+			key = _getch(); //
 			currDir = pacman.convertKeyToDirection(key); //A kind of key translation to move.
 			if (currDir != Direction::WRONG_KEY)
 				pacman.setDirection(currDir);
