@@ -4,6 +4,7 @@
 
 class ActiveMode
 {
+
 private:
 	ofstream stepsFile, resultFile;
 	bool fruitTurn = false;
@@ -13,4 +14,5 @@ private:
 
 public:
 	void openFilesForWriting();
+
 };

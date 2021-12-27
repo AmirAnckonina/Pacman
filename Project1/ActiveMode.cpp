@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "ActiveMode.h"
 
 void ActiveMode::openFilesForWriting()
@@ -42,3 +43,4 @@ void ActiveMode::openFilesForWriting()
 //	gotoxy(0, 0);
 //	cout << "Goodbye" << endl;
 //}
+

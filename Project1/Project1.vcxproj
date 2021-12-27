@@ -170,7 +170,9 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MoveStrategy.h" />
     <ClInclude Include="PassiveMode.h" />
+
     <ClInclude Include="ThePacmanGameBackup.h" />
+
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Pacman.h" />

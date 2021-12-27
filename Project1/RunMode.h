@@ -1,37 +1,24 @@
 #pragma once
 
-#include "Utilities.h"
-#include "Menu.h"
-#include "Directions.h"
-#include "GameBoard.h"
-#include "Pacman.h"
-#include "Ghost.h"
-#include "Position.h"
-#include "Fruit.h"
+#include "ThePacmanGame.h"
 
-using std::fstream;
-using std::ifstream;
-using std::ofstream;
-using std::cout;
-using std::endl;
-
-class ThePacmanGame
+class RunMode
 {
-
-public:
-	static const int MAXNUMOFGHOSTS = 4;
-
 private:
 	//ModeManager mode; //get
-	//RunMode* run_mode;
+	RunMode* run_mode;
+	Menu game_menu;
 	GameBoard game_board;
 	Pacman pacman;
 	Ghost ghost[MAXNUMOFGHOSTS];
 	Fruit fruit;
 	int numOfGhosts;
+	int level;
 	static bool gameColorized;
+	bool activate = true;
+	bool fruitTurn = false;
 	bool playerWon = false;
-	
+
 public:
 	//Preparartions functions
 	void runAllSessions();

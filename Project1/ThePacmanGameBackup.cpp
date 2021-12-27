@@ -1,12 +1,10 @@
-#pragma once
-
-#include "RunMode.h"
+#include "ThePacmanGame.h"
 
 bool ThePacmanGame::gameColorized = false;
 
 void ThePacmanGame::runAllSessions()
 {
-	hideCursor(); //
+	hideCursor();
 	init_srand();
 
 	activate = true;
@@ -76,7 +74,6 @@ void ThePacmanGame::resetThePacmanGame()
 
 //Creating board which hold the information of every cell
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
-
 void ThePacmanGame::initGame()
 {
 	hideCursor();
@@ -215,6 +212,7 @@ void ThePacmanGame::singleFruitSession()
 			fruit.disableActivity();
 			generalCellRestore(fruit);
 		}
+
 	}
 	else
 	{
@@ -239,7 +237,7 @@ void ThePacmanGame::singleGhostsSession()
 		j = 1;
 	else
 		j = 0; //they won't move in the next step
-	//implementGhost
+
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
@@ -248,6 +246,21 @@ void ThePacmanGame::singleGhostsSession()
 		resetAfterCollision();
 
 }
+void ThePacmanGame::openFilesForWriting()
+{
+	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".steps";
+	string resultFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".result";
+	resultFile.open(resultFileName);
+	stepsFile.open(stepsFileName);
+
+
+}
+
+void ThePacmanGame::writePacmanStepToFile()
+{
+	stepsFile << "Pacman :" << (char)pacman.getDirection();
+}
+
 
 void ThePacmanGame::printAllGhosts() const
 {
@@ -380,4 +393,3 @@ bool ThePacmanGame::GameFinished()
 	}
 	return true;
 }
-

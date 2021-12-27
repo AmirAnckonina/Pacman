@@ -2,9 +2,13 @@
 
 bool ThePacmanGame::gameColorized = false;
 
+
+
+
+//---------------------------------------------------------------//
 void ThePacmanGame::runAllSessions()
 {
-	hideCursor();
+	hideCursor(); //
 	init_srand();
 
 	activate = true;
@@ -212,7 +216,6 @@ void ThePacmanGame::singleFruitSession()
 			fruit.disableActivity();
 			generalCellRestore(fruit);
 		}
-
 	}
 	else 
 	{
@@ -237,7 +240,7 @@ void ThePacmanGame::singleGhostsSession()
 		j = 1;
 	else
 		j = 0; //they won't move in the next step
-
+	//implementGhost
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();

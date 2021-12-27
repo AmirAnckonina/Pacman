@@ -51,6 +51,7 @@
     <ClCompile Include="NormalStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
     <ClCompile Include="ActiveMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,6 +61,7 @@
     <ClCompile Include="ThePacmanGameBackup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameBoard.h">
