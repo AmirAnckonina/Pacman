@@ -66,6 +66,7 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
 	replaceStrategyIfNeeded();
 	mvStrategy->executeMove(*this, board, pacmanPos);
+
 	//Final Part
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	//The creatured will move and we want to print the cell as it were before.

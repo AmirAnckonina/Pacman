@@ -9,9 +9,6 @@
 #include "Position.h"
 #include "Fruit.h"
 
-using std::fstream;
-using std::ifstream;
-using std::ofstream;
 using std::cout;
 using std::endl;
 
@@ -23,15 +20,19 @@ public:
 
 private:
 	//ModeManager mode; //get
-	//RunMode* run_mode;
+	Menu game_menu;
 	GameBoard game_board;
 	Pacman pacman;
+	int level;
 	Ghost ghost[MAXNUMOFGHOSTS];
 	Fruit fruit;
 	int numOfGhosts;
 	static bool gameColorized;
+	bool activate = true;
+	bool fruitTurn = false;
 	bool playerWon = false;
-	
+	ofstream resultFile;
+	ofstream stepsFile;
 
 
 public:
@@ -41,6 +42,7 @@ public:
 	void initGame();
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
+	void setGameColorized(bool isColorized) { gameColorized = isColorized; }
 
 	//Printing functions
 	void printFigures() const;
@@ -59,8 +61,19 @@ public:
 	bool isFruitEatenByPacman();
 	bool isFruitEatenByGhost();
 	void fruitEatenProcedure();
+
 	void resetAfterCollision();
 	bool GameFinished();
 	void runAllGameBoards(bool& activate);
+
+	GameBoard& getGameBoard() { return game_board; }
+	bool isActive() { return activate; }
+	bool setActivation(bool _activate) { activate = _activate; }
+	Menu& getMenu() { return game_menu; }
+
+	void writeMovesToFile();
+	void writePacmanStepToFile();
+	void writeGhostStepToFile();
+	void writeFruitStepToFile();
 
 };
