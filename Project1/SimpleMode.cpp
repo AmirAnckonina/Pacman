@@ -1,7 +1,6 @@
 #pragma once
 
-
-#include "ActiveMode.h"
+#include "ThePacmanGame.h"
 
 void ActiveMode::openFilesForWriting()
 {
