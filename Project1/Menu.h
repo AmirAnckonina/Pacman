@@ -23,8 +23,6 @@ public:
 	void entryMenu();
 	void printMenu() const;
 	void printInstructions();
-	void betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon);
-	void printDataAfterSession(GameBoard& board, int& currTemplate) const;
 	void printDataAfterLosing(GameBoard& board, int& currTemplate) const;
 	int getFirstBoardChoice(GameBoard& board);
 	void printBoardsSelectionMenu(GameBoard& board, size_t& numOfTemplates) const;
@@ -38,6 +36,9 @@ public:
 	void printLevelsMenu();
 	void updateTotalPlayerScore(int _totalPlayerScore) { totalPlayerScore = _totalPlayerScore; }
 
+	void clearLegendArea() const;
+	void betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon);
+	void printDataAfterSession(GameBoard& board, int& currTemplate) const;
 	void printAllLegend(int score, int lives);
 	void singlePrintScore(int score) const;
 	void printLives(int lives) const;
@@ -45,6 +46,5 @@ public:
 	void printRSG() const;
 	void printPacmanAllAround(Colors pacmanColor) const;
 	void printGhostsAllAround(Colors ghostColor) const;
-	void clearLegendArea() const;
 	void printResult(bool playerWon, int score, Colors pacmanColor, Colors ghostColor) const;
 };

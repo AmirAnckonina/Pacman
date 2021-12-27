@@ -2,13 +2,9 @@
 
 bool ThePacmanGame::gameColorized = false;
 
-
-
-
-//---------------------------------------------------------------//
 void ThePacmanGame::runAllSessions()
 {
-	hideCursor(); //
+	hideCursor();
 	init_srand();
 
 	activate = true;
@@ -25,7 +21,7 @@ void ThePacmanGame::runAllSessions()
 
 		if (game_menu.getUserKey() == Menu::EXIT)
 			activate = false;
-		
+
 		if (activate)
 		{
 			runSingleSession(totalNumOfScreens);
@@ -216,8 +212,9 @@ void ThePacmanGame::singleFruitSession()
 			fruit.disableActivity();
 			generalCellRestore(fruit);
 		}
+
 	}
-	else 
+	else
 	{
 		fruit.ReduceTimeOffBoard();
 		if (fruit.getTimeOffBoard() == 0)
@@ -240,7 +237,7 @@ void ThePacmanGame::singleGhostsSession()
 		j = 1;
 	else
 		j = 0; //they won't move in the next step
-	//implementGhost
+
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
@@ -249,6 +246,21 @@ void ThePacmanGame::singleGhostsSession()
 		resetAfterCollision();
 
 }
+void ThePacmanGame::openFilesForWriting()
+{
+	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".steps";
+	string resultFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".result";
+	resultFile.open(resultFileName);
+	stepsFile.open(stepsFileName);
+
+
+}
+
+void ThePacmanGame::writePacmanStepToFile()
+{
+	stepsFile << "Pacman :" << (char)pacman.getDirection();
+}
+
 
 void ThePacmanGame::printAllGhosts() const
 {
