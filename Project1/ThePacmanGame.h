@@ -32,8 +32,6 @@ private:
 	static bool gameColorized;
 	bool playerWon = false;
 	
-
-
 public:
 	//Preparartions functions
 	void runAllSessions();

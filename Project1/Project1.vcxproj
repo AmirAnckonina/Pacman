@@ -140,11 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActiveMode.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NormalStrategy.cpp" />
+    <ClCompile Include="RunMode.cpp" />
     <ClCompile Include="SmartStrategy.cpp" />
+    <ClCompile Include="ThePacmanGameBackup.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Pacman.cpp" />
@@ -167,6 +170,9 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MoveStrategy.h" />
     <ClInclude Include="PassiveMode.h" />
+
+    <ClInclude Include="ThePacmanGameBackup.h" />
+
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Pacman.h" />
