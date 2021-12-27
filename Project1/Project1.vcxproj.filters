@@ -51,7 +51,13 @@
     <ClCompile Include="NormalStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ModeManager.cpp">
+    <ClCompile Include="ActiveMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RunMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThePacmanGameBackup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +101,28 @@
     <ClInclude Include="SmartStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ModeManager.h">
+    <ClInclude Include="RunMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PassiveMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SilentMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThePacmanGameBackup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

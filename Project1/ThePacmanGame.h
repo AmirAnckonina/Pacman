@@ -9,6 +9,9 @@
 #include "Position.h"
 #include "Fruit.h"
 
+using std::fstream;
+using std::ifstream;
+using std::ofstream;
 using std::cout;
 using std::endl;
 
@@ -19,21 +22,14 @@ public:
 	static const int MAXNUMOFGHOSTS = 4;
 
 private:
-	//ModeManager mode; //get
-	Menu game_menu;
 	GameBoard game_board;
 	Pacman pacman;
-	int level;
 	Ghost ghost[MAXNUMOFGHOSTS];
 	Fruit fruit;
 	int numOfGhosts;
 	static bool gameColorized;
-	bool activate = true;
-	bool fruitTurn = false;
 	bool playerWon = false;
 	
-
-
 public:
 	//Preparartions functions
 	void runAllSessions();
@@ -59,10 +55,8 @@ public:
 	bool isFruitEatenByPacman();
 	bool isFruitEatenByGhost();
 	void fruitEatenProcedure();
-
 	void resetAfterCollision();
 	bool GameFinished();
 	void runAllGameBoards(bool& activate);
-
 
 };
