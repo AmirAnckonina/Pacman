@@ -75,12 +75,13 @@ void GameShell::printDataAfterSession(GameBoard& board, int& currTemplate) const
 	}
 
 }
-void GameShell::printAllLegend(int score, int lives)
+void GameShell::printAllLegend(int score, int lives) const
 {
 	printGameName();
 	printLives(lives);
 	singlePrintScore(score);
 }
+
 void GameShell::initDetailsArea(GameBoard& board)
 {
 	detailsColor = Colors::WHITE;
