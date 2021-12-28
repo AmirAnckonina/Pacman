@@ -25,7 +25,8 @@ void Ghost::convertGhostLevelToStrategy()
 	case NOVICE:
 		setCreatureStrategyType(NORMAL);
 		break;
-	default:
+	default: //NONE
+		setCreatureStrategyType(NONE);
 		break;
 	}
 }

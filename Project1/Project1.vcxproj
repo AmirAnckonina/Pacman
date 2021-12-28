@@ -140,14 +140,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ActiveMode.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="GameShell.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NormalStrategy.cpp" />
-    <ClCompile Include="RunMode.cpp" />
+    <ClCompile Include="SimpleMode.cpp" />
     <ClCompile Include="SmartStrategy.cpp" />
-    <ClCompile Include="ThePacmanGameBackup.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Pacman.cpp" />
@@ -160,6 +159,7 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="Fruit.h" />
+    <ClInclude Include="GameShell.h" />
     <ClInclude Include="RunMode.h" />
     <ClInclude Include="LoadMode.h" />
     <ClInclude Include="SilentMode.h" />
@@ -169,17 +169,12 @@
     <ClInclude Include="NormalStrategy.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MoveStrategy.h" />
-    <ClInclude Include="PassiveMode.h" />
-
-    <ClInclude Include="ThePacmanGameBackup.h" />
-
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="ThePacmanGame.h" />
-    <ClInclude Include="ActiveMode.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Notes.txt" />

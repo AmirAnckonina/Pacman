@@ -51,17 +51,12 @@
     <ClCompile Include="NormalStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
-    <ClCompile Include="ActiveMode.cpp">
+    <ClCompile Include="SimpleMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RunMode.cpp">
+    <ClCompile Include="GameShell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThePacmanGameBackup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameBoard.h">
@@ -106,12 +101,6 @@
     <ClInclude Include="RunMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PassiveMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ActiveMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SimpleMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -124,7 +113,7 @@
     <ClInclude Include="LoadMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThePacmanGameBackup.h">
+    <ClInclude Include="GameShell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
