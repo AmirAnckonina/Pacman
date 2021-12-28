@@ -14,11 +14,13 @@ class Pacman : public Creature
 private:
 	int livesLeft = 3;
 	int score = 0;
+	bool nextPosIsValid;
 
 public:
 	Pacman(char _pacmanIcon = Creature::PACMAN);
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL) override;
 
+	bool getNextPosIsValid() { return nextPosIsValid; }
 	void updateLivesLeft() { livesLeft--; }
 	void increaseLivesLeft() { livesLeft++; }
 	void addFruitToScore(int fruitVal) { score += fruitVal; }

@@ -1,8 +1,8 @@
-#pragma once
-
-#include "PassiveMode.h"
-
-class SilentMode
-{
-
-};
+//#pragma once
+//
+//#include "PassiveMode.h"
+//
+//class SilentMode
+//{
+//
+//};

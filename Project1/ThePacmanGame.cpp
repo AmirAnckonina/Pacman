@@ -2,13 +2,9 @@
 
 bool ThePacmanGame::gameColorized = false;
 
-
-
-
-//---------------------------------------------------------------//
 void ThePacmanGame::runAllSessions()
 {
-	hideCursor(); //
+	hideCursor();
 	init_srand();
 
 	activate = true;
@@ -25,7 +21,7 @@ void ThePacmanGame::runAllSessions()
 
 		if (game_menu.getUserKey() == Menu::EXIT)
 			activate = false;
-		
+
 		if (activate)
 		{
 			runSingleSession(totalNumOfScreens);
@@ -62,7 +58,7 @@ void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
 					shouldEndSession = true;
 
 			}
-			game_menu.betweenSessionsProcedure(game_board, templateInd, pacman.getScore(), playerWon);
+			game_shell.betweenSessionsProcedure(game_board, templateInd, pacman.getScore(), playerWon);
 			game_menu.entryMenu();
 		}
 	}
@@ -86,7 +82,7 @@ void ThePacmanGame::initGame()
 
 	if (game_board.isValidBoard())
 	{
-		game_menu.initDetailsArea(game_board);
+		game_shell.initDetailsArea(game_board);
 		numOfGhosts = game_board.collectnumOfGhosts();
 		pacman.initCreature(game_board, Creature::PACMAN);
 
@@ -98,19 +94,19 @@ void ThePacmanGame::initGame()
 		game_board.setBreadCrumbsPosArr();
 
 		if (gameColorized) setGameColors();
-		else game_menu.setDetailsColor(Colors::WHITE);
+		else game_shell.setDetailsColor(Colors::WHITE);
 
 		playerWon = false;
 		game_board.printBoard();
 		pacman.printCreature();
-		game_menu.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
+		game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
 		printAllGhosts();
 	}
 }
 
 void ThePacmanGame::setGameColors()
 {
-	game_menu.setDetailsColor(Colors::LIGHTGREEN);
+	game_shell.setDetailsColor(Colors::LIGHTGREEN);
 	game_board.setBorderColor(Colors::GRAY);
 	game_board.setBreadcrumbColor(Colors::BROWN);
 	game_board.settunnelColor(Colors::YELLOW);
@@ -129,7 +125,7 @@ void ThePacmanGame::runGame()
 	{
 		if (key == Menu::ESC)
 		{
-			game_menu.pauseGame(pacman.getLivesLeft());
+			game_shell.pauseGame(pacman.getLivesLeft());
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 		singleGhostsSession();
@@ -140,7 +136,7 @@ void ThePacmanGame::runGame()
 
 		if (_kbhit())
 		{
-			key = _getch(); //
+			key = _getch();
 			currDir = pacman.convertKeyToDirection(key); //A kind of key translation to move.
 			if (currDir != Direction::WRONG_KEY)
 				pacman.setDirection(currDir);
@@ -148,7 +144,7 @@ void ThePacmanGame::runGame()
 
 	} while (!GameFinished());
 
-	game_menu.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
+	game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
 	if (gameColorized) { resetColors(); }
 	gameColorized = false;
 	clearScreen();
@@ -160,10 +156,14 @@ void ThePacmanGame::singlePacmanSession()
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.move(game_board);
+
+		afterPacmanMoveProcedure();
+
 		pacman.updatePos();
 
 		if (isFruitEatenByPacman())
 			fruitEatenProcedure();
+
 
 		if (!checkCollision())
 		{
@@ -171,15 +171,37 @@ void ThePacmanGame::singlePacmanSession()
 			if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
 				game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
 
-			//game_menu.singlePrintScore(pacman.getScore());
-			game_menu.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
 
 			if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
 				game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
 
+			//game_menu.singlePrintScore(pacman.getScore());
+			game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
 		}
 		else
 			resetAfterCollision();
+	}
+
+}
+
+void ThePacmanGame::afterPacmanMoveProcedure()
+{
+	if (pacman.getNextPosIsValid()) //So we should move the pacman //getDirection() != Direction::STAY && 
+	{
+		//print space in current position because soon the pacman will be moved.
+		gotoxy(pacman.getCurrPos().getXPos(), pacman.getCurrPos().getYPos());
+		if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+		{
+			cout << GameBoard::SPACE;
+		}
+		else
+		{
+			if (ThePacmanGame::isGameColorized())
+				setTextColor(game_board.getTunnelColor());
+
+			cout << GameBoard::TUNNEL;
+		}
+
 	}
 }
 
@@ -216,8 +238,9 @@ void ThePacmanGame::singleFruitSession()
 			fruit.disableActivity();
 			generalCellRestore(fruit);
 		}
+
 	}
-	else 
+	else
 	{
 		fruit.ReduceTimeOffBoard();
 		if (fruit.getTimeOffBoard() == 0)
@@ -240,14 +263,13 @@ void ThePacmanGame::singleGhostsSession()
 		j = 1;
 	else
 		j = 0; //they won't move in the next step
-	//implementGhost
+	//--------
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
 
 	if (checkCollision())
 		resetAfterCollision();
-
 }
 
 void ThePacmanGame::printAllGhosts() const
@@ -318,7 +340,7 @@ void ThePacmanGame::resetAfterCollision()
 
 	cellsRestoreAfterCollision();
 	pacman.updateLivesLeft();
-	game_menu.printLives(pacman.getLivesLeft());
+	game_shell.printLives(pacman.getLivesLeft());
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.resetCreaturePosition();
@@ -327,8 +349,8 @@ void ThePacmanGame::resetAfterCollision()
 		pacman.printCreature();
 		printAllGhosts();
 		Sleep(500);
-		game_menu.printRSG();
-		game_menu.printGameName();
+		game_shell.printRSG();
+		game_shell.printGameName();
 		//Prevent the pacman to run immidiatley,
 		//So if any direction key pressed while the reset messages printed will be ignored.
 		clearInput();

@@ -67,6 +67,14 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 	replaceStrategyIfNeeded();
 	mvStrategy->executeMove(*this, board, pacmanPos);
 
+	afterMoveProcedure(board);
+
+	if (hasIntervalTime)
+		mvStrategy->setMoveInterval((mvStrategy->getMoveInterval() - 1));
+}
+
+void Creature::afterMoveProcedure(GameBoard& board)
+{
 	//Final Part
 	gotoxy(currPos.getXPos(), currPos.getYPos());
 	//The creatured will move and we want to print the cell as it were before.
@@ -79,9 +87,6 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 	}
 	else
 		cout << GameBoard::SPACE;
-
-	if (hasIntervalTime)
-		mvStrategy->setMoveInterval((mvStrategy->getMoveInterval() - 1));
 }
 
 void Creature::resetAfterInvalidNextPos()

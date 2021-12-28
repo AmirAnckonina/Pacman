@@ -13,16 +13,15 @@ using std::endl;
 
 class Ghost : public Creature
 {
-public:
-	enum GhLevel { NOVICE = 1, GOOD, BEST };
 
 private:
+	enum GhLevel { NONE = 0 ,NOVICE = 1, GOOD, BEST };	
 	int ghostLevel;
 
 public:
 	~Ghost() {};
 	Ghost(char _ghostIcon = Creature::GHOST, int _ghostLevel = NOVICE);
-	void initGhost(GameBoard& board, int level);
+	void initGhost(GameBoard& board, int level = NONE);
 	void convertGhostLevelToStrategy();
 	int getGhostLevel()const { return ghostLevel; }
 };
