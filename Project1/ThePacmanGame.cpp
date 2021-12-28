@@ -157,14 +157,11 @@ void ThePacmanGame::singlePacmanSession()
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.move(game_board);
-
-		afterPacmanMoveProcedure();
-
+		pacman.updatePrevPos();
 		pacman.updatePos();
 
 		if (isFruitEatenByPacman())
 			fruitEatenProcedure();
-
 
 		if (!checkCollision())
 		{
@@ -175,12 +172,12 @@ void ThePacmanGame::singlePacmanSession()
 
 			if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
 				game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
-
-			//game_menu.singlePrintScore(pacman.getScore());
-			game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
+		
 		}
 		else
 			resetAfterCollision();
+		
+		if (!checkCollision()) afterPacmanMoveProcedure();
 	}
 
 }
@@ -190,8 +187,8 @@ void ThePacmanGame::afterPacmanMoveProcedure()
 	if (pacman.getNextPosIsValid()) //So we should move the pacman //getDirection() != Direction::STAY && 
 	{
 		//print space in current position because soon the pacman will be moved.
-		gotoxy(pacman.getCurrPos().getXPos(), pacman.getCurrPos().getYPos());
-		if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+		gotoxy(pacman.getPrevPos().getXPos(), pacman.getPrevPos().getYPos());
+		if (game_board.getCellInBoard(pacman.getPrevPos()) != GameBoard::TUNNEL)
 		{
 			cout << GameBoard::SPACE;
 		}
@@ -202,7 +199,6 @@ void ThePacmanGame::afterPacmanMoveProcedure()
 
 			cout << GameBoard::TUNNEL;
 		}
-
 	}
 }
 
@@ -210,6 +206,7 @@ void ThePacmanGame::singleFruitSession()
 {
 	if (fruit.isActive())
 	{
+		//Only for Simple - Save
 		if (fruit.getTimeOnBoard() == 40)
 		{
 			fruit.generateLocation(game_board);
@@ -220,8 +217,10 @@ void ThePacmanGame::singleFruitSession()
 
 		if (fruitTurn)
 		{
+			//To all modes
 			fruit.move(game_board);
 			fruit.updatePos();
+			//Only for simple-save
 			fruit.ReduceTimeOnBoard();
 			fruitTurn = false; //it won't move in the next step
 		}
@@ -282,6 +281,7 @@ void ThePacmanGame::printAllGhosts() const
 
 void ThePacmanGame::printFigures() const
 {
+	game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
 	pacman.printCreature();
 	printAllGhosts();
 }

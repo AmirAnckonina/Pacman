@@ -18,6 +18,11 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 	//	resetAfterInvalidNextPos();
 }
 
+void Pacman::updatePrevPos()
+{
+	prevPos = getCurrPos();
+}
+
 
 //void Pacman::
 void Pacman::updateScore(GameBoard& board)

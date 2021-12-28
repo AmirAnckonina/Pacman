@@ -20,7 +20,7 @@ public:
 	void clearLegendArea() const;
 	void betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon);
 	void printDataAfterSession(GameBoard& board, int& currTemplate) const;
-	void printAllLegend(int score, int lives);
+	void printAllLegend(int score, int lives) const;
 	void singlePrintScore(int score) const;
 	void printLives(int lives) const;
 	void printGameName() const;

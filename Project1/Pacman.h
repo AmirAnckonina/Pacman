@@ -12,6 +12,7 @@ using std::endl;
 class Pacman : public Creature
 {
 private:
+	Position prevPos;
 	int livesLeft = 3;
 	int score = 0;
 	bool nextPosIsValid;
@@ -19,6 +20,9 @@ private:
 public:
 	Pacman(char _pacmanIcon = Creature::PACMAN);
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL) override;
+
+	const Position& getPrevPos() const { return prevPos; }
+	void updatePrevPos(); 
 
 	bool getNextPosIsValid() { return nextPosIsValid; }
 	void updateLivesLeft() { livesLeft--; }
