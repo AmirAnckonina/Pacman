@@ -64,6 +64,6 @@ public:
 	void resetAfterCollision();
 	bool GameFinished();
 	void runAllGameBoards(bool& activate);
-
+	void afterCollisionPrinting();
 
 };

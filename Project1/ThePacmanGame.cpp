@@ -129,6 +129,7 @@ void ThePacmanGame::runGame()
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 		singleGhostsSession();
+
 		singlePacmanSession();
 		singleFruitSession();
 		printFigures();
@@ -257,6 +258,7 @@ void ThePacmanGame::singleGhostsSession()
 	for (int i = j; i < numOfGhosts; i += 2)
 	{
 		ghost[i].move(game_board, pacman.getCurrPos());
+
 		ghost[i].updatePos();
 	}
 	if (j == 0)
@@ -338,14 +340,23 @@ bool ThePacmanGame::isFruitEatenByGhost()
 void ThePacmanGame::resetAfterCollision()
 {
 
+
 	cellsRestoreAfterCollision();
-	pacman.updateLivesLeft();
 	game_shell.printLives(pacman.getLivesLeft());
+	pacman.updateLivesLeft();
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.resetCreaturePosition();
 		for (int i = 0; i < numOfGhosts; i++)
 			ghost[i].resetCreaturePosition();
+
+	}
+	afterCollisionPrinting();
+}
+void ThePacmanGame::afterCollisionPrinting()
+{
+	if (pacman.getLivesLeft() > 0)
+	{
 		pacman.printCreature();
 		printAllGhosts();
 		Sleep(500);
@@ -356,7 +367,6 @@ void ThePacmanGame::resetAfterCollision()
 		clearInput();
 	}
 }
-
 void ThePacmanGame::cellsRestoreAfterCollision() const
 {
 	generalCellRestore(pacman);
