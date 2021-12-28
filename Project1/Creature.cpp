@@ -66,10 +66,13 @@ void Creature::move(GameBoard& board, const Position& pacmanPos)
 {
 	replaceStrategyIfNeeded();
 	mvStrategy->executeMove(*this, board, pacmanPos);
+	//afterMoveProcedure(board);
+}
 
+void Creature::updateIntervalInStrategyIfNeeded()
+{
 	if (hasIntervalTime)
 		mvStrategy->setMoveInterval((mvStrategy->getMoveInterval() - 1));
-	afterMoveProcedure(board);
 }
 
 void Creature::afterMoveProcedure(GameBoard& board)

@@ -29,7 +29,7 @@ public:
 		Colors _creatureColor = Colors::WHITE, Direction _creatureDirection = Direction::STAY);
 	virtual ~Creature();
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL);
-	void afterMoveProcedure(GameBoard& board);
+	virtual void afterMoveProcedure(GameBoard& board);
 	//Strategy
 	void setMoveStrategy();
 	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }
@@ -41,6 +41,8 @@ public:
 	void updatePos() { currPos = nextPos; }
 	void resetCreaturePosition();
 	bool isCreaturePositionValid(GameBoard& board);
+	void updateIntervalInStrategyIfNeeded();
+
 
 	//Get-Set Functions
 	virtual void printCreature() const;

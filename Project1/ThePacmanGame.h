@@ -41,6 +41,7 @@ public:
 	void initGame();
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
+	void printAfterInit();
 
 	//Printing functions
 	void printFigures() const;
@@ -53,7 +54,8 @@ public:
 	//Game functionalliy 
 	void runGame();
 	void singlePacmanSession();
-	void afterPacmanMoveProcedure();
+	void completePacmanSession();
+	
 	void singleFruitSession();
 	void singleGhostsSession();
 	bool checkCollision() const;
