@@ -97,11 +97,17 @@ void ThePacmanGame::initGame()
 		else game_shell.setDetailsColor(Colors::WHITE);
 
 		playerWon = false;
-		game_board.printBoard();
-		pacman.printCreature();
-		game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
-		printAllGhosts();
+
+		printAfterInit();
 	}
+}
+
+void ThePacmanGame::printAfterInit()
+{
+	game_board.printBoard();
+	pacman.printCreature();
+	game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
+	printAllGhosts();
 }
 
 void ThePacmanGame::setGameColors()
@@ -183,7 +189,7 @@ void ThePacmanGame::completePacmanSession()
 	else
 		resetAfterCollision();
 }
-}
+
 
 void ThePacmanGame::singleFruitSession()
 {
@@ -249,7 +255,6 @@ void ThePacmanGame::singleGhostsSession()
 		j = 1;
 	else
 		j = 0; //they won't move in the next step
-	//--------
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
