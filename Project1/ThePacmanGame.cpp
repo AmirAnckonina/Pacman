@@ -84,7 +84,7 @@ void ThePacmanGame::initGame()
 	{
 		game_shell.initDetailsArea(game_board);
 		numOfGhosts = game_board.collectnumOfGhosts();
-		pacman.initCreature(game_board, Creature::PACMAN);
+		pacman.initPacman(game_board, Creature::PACMAN);
 
 		for (int i = 0; i < numOfGhosts; i++)
 			ghost[i].initGhost(game_board, level);
@@ -129,8 +129,8 @@ void ThePacmanGame::runGame()
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 		singleGhostsSession();
-
 		singlePacmanSession();
+		completePacmanSession();
 		singleFruitSession();
 		printFigures();
 		Sleep(120);
@@ -160,46 +160,29 @@ void ThePacmanGame::singlePacmanSession()
 		pacman.updatePrevPos();
 		pacman.updatePos();
 
-		if (isFruitEatenByPacman())
-			fruitEatenProcedure();
-
-		if (!checkCollision())
-		{
-			pacman.updateScore(game_board);
-			if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
-				game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
-
-
-			if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
-				game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
-		
-		}
-		else
-			resetAfterCollision();
-		
-		if (!checkCollision()) afterPacmanMoveProcedure();
+		pacman.afterMoveProcedure(game_board);
 	}
 
 }
 
-void ThePacmanGame::afterPacmanMoveProcedure()
+void ThePacmanGame::completePacmanSession()
 {
-	if (pacman.getNextPosIsValid()) //So we should move the pacman //getDirection() != Direction::STAY && 
-	{
-		//print space in current position because soon the pacman will be moved.
-		gotoxy(pacman.getPrevPos().getXPos(), pacman.getPrevPos().getYPos());
-		if (game_board.getCellInBoard(pacman.getPrevPos()) != GameBoard::TUNNEL)
-		{
-			cout << GameBoard::SPACE;
-		}
-		else
-		{
-			if (ThePacmanGame::isGameColorized())
-				setTextColor(game_board.getTunnelColor());
+	if (isFruitEatenByPacman())
+		fruitEatenProcedure();
 
-			cout << GameBoard::TUNNEL;
-		}
+	if (!checkCollision())
+	{
+		pacman.updateScore(game_board);
+		if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
+			game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
+
+		if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+			game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+
 	}
+	else
+		resetAfterCollision();
+}
 }
 
 void ThePacmanGame::singleFruitSession()
@@ -219,6 +202,7 @@ void ThePacmanGame::singleFruitSession()
 		{
 			//To all modes
 			fruit.move(game_board);
+			fruit.afterMoveProcedure(game_board);
 			fruit.updatePos();
 			//Only for simple-save
 			fruit.ReduceTimeOnBoard();
@@ -257,7 +241,8 @@ void ThePacmanGame::singleGhostsSession()
 	for (int i = j; i < numOfGhosts; i += 2)
 	{
 		ghost[i].move(game_board, pacman.getCurrPos());
-
+		ghost[i].afterMoveProcedure(game_board);
+		ghost[i].updateIntervalInStrategyIfNeeded();
 		ghost[i].updatePos();
 	}
 	if (j == 0)
@@ -281,22 +266,23 @@ void ThePacmanGame::printAllGhosts() const
 
 void ThePacmanGame::printFigures() const
 {
-	game_shell.printAllLegend(pacman.getScore(), pacman.getLivesLeft());
 	pacman.printCreature();
 	printAllGhosts();
 }
 
 bool ThePacmanGame::checkCollision() const
 {
+	bool res = false;
 	for (int i = 0; i < numOfGhosts; i++)
 	{
 		if (pacman.getCurrPos() == ghost[i].getCurrPos())
 		{
-			printCollision();
-			return true;
+			res = true;
 		}
 	}
-	return false;
+
+	if (res == true) printCollision();
+	return res;
 }
 
 void ThePacmanGame::fruitEatenProcedure()
@@ -342,8 +328,8 @@ void ThePacmanGame::resetAfterCollision()
 
 
 	cellsRestoreAfterCollision();
-	game_shell.printLives(pacman.getLivesLeft());
 	pacman.updateLivesLeft();
+	game_shell.printLives(pacman.getLivesLeft());
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.resetCreaturePosition();

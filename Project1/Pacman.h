@@ -22,8 +22,9 @@ public:
 	virtual void move(GameBoard& board, const Position& pacmanPos = NULL) override;
 
 	const Position& getPrevPos() const { return prevPos; }
+	void initPacman(GameBoard& board, char _pacmanIcon);
 	void updatePrevPos(); 
-
+	virtual void afterMoveProcedure(GameBoard& board) override;
 	bool getNextPosIsValid() { return nextPosIsValid; }
 	void updateLivesLeft() { livesLeft--; }
 	void increaseLivesLeft() { livesLeft++; }

@@ -53,7 +53,7 @@ public:
 	//Game functionalliy 
 	void runGame();
 	void singlePacmanSession();
-	void afterPacmanMoveProcedure();
+	
 	void singleFruitSession();
 	void singleGhostsSession();
 	bool checkCollision() const;
