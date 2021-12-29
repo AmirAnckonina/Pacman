@@ -8,7 +8,7 @@
 
 void RunMode::assignGameModeAndRun(const char* _runModeType)
 {
-	if (strcmp(_runModeType, "load"))
+	/*if (strcmp(_runModeType, "load"))
 	{
 		game = new LoadMode;
 	}
@@ -21,9 +21,9 @@ void RunMode::assignGameModeAndRun(const char* _runModeType)
 		game = new SilentMode;
 	}
 	else
-	{
+	{*/
 		game = new SimpleMode;
-	}
+	//}
 
 	game->runAllSessions();
 }

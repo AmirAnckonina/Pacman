@@ -4,5 +4,7 @@
 
 class SilentMode : public ThePacmanGame
 {
-
+public:
+	virtual void runAllSessions() override;
+	virtual void runSingleSession(size_t& totalNumOfScreens) override;
 };

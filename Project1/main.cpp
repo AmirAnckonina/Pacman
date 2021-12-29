@@ -7,7 +7,8 @@ using std::endl;
 int main(int argc, char** argv)
 {
 	RunMode newGame;
-	newGame.assignGameModeAndRun(argv[1]);
+	//newGame.assignGameModeAndRun(argv[1]);
+	newGame.assignGameModeAndRun("simple");
 	return 0;
 }
 

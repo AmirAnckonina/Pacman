@@ -19,7 +19,7 @@ class ThePacmanGame
 public:
 	static const int MAXNUMOFGHOSTS = 4;
 
-private:
+protected:
 	int j = 0;//manage the turns of the ghosts(even/odd)
 	Menu game_menu;
 	GameShell game_shell;
@@ -37,9 +37,9 @@ private:
 
 public:
 	//Preparartions functions
-	void runAllSessions();
-	virtual void runSingleSession(size_t& totalNumOfScreens);
-	virtual void initGame();
+	virtual void runAllSessions() = 0;
+	virtual void runSingleSession(size_t& totalNumOfScreens) = 0;
+	void initGame(int ghostLevel = 0);
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
 	void printAfterInit();
@@ -50,25 +50,24 @@ public:
 	void printCollision() const;
 	void cellsRestoreAfterCollision() const;
 	void generalCellRestore(const Creature& creature) const;
-	void resetThePacmanGame();
+	
 
 	//Game functionalliy 
-	virtual void runGame();
-	virtual void singlePacmanSession();
-	void completePacmanSession();
-
-	void singleFruitSession();
+	virtual void runGame() = 0;
+	void singlePacmanSession() ;
+	virtual void completePacmanSession() = 0;
+	virtual void singleFruitSession() = 0;
 	virtual void singleGhostsSession();
-	void completeGhostSession();
+	virtual void completeGhostSession() = 0 ;
 	void afterGhostMove();
 
 	bool checkCollision() const;
 
 	bool isFruitEatenByPacman();
 	bool isFruitEatenByGhost();
-	void fruitEatenProcedure();
+	virtual void fruitEatenProcedure() = 0;
 
-	virtual void resetAfterCollision();
+	virtual void collisionProcedure();
 	bool GameFinished();
 	void runAllGameBoards(bool& activate);
 	void afterCollisionPrinting();
