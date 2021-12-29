@@ -20,6 +20,7 @@ public:
 	static const int MAXNUMOFGHOSTS = 4;
 
 private:
+	int j = 0;//manage the turns of the ghosts(even/odd)
 	Menu game_menu;
 	GameShell game_shell;
 	GameBoard game_board;
@@ -37,8 +38,8 @@ private:
 public:
 	//Preparartions functions
 	void runAllSessions();
-	void runSingleSession(size_t& totalNumOfScreens);
-	void initGame();
+	virtual void runSingleSession(size_t& totalNumOfScreens);
+	virtual void initGame();
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
 	void printAfterInit();
@@ -52,18 +53,22 @@ public:
 	void resetThePacmanGame();
 
 	//Game functionalliy 
-	void runGame();
-	void singlePacmanSession();
+	virtual void runGame();
+	virtual void singlePacmanSession();
 	void completePacmanSession();
-	
+
 	void singleFruitSession();
-	void singleGhostsSession();
+	virtual void singleGhostsSession();
+	void completeGhostSession();
+	void afterGhostMove();
+
 	bool checkCollision() const;
+
 	bool isFruitEatenByPacman();
 	bool isFruitEatenByGhost();
 	void fruitEatenProcedure();
 
-	void resetAfterCollision();
+	virtual void resetAfterCollision();
 	bool GameFinished();
 	void runAllGameBoards(bool& activate);
 	void afterCollisionPrinting();
