@@ -1,8 +1,8 @@
-//#pragma once
-//
-//#include "PassiveMode.h"
-//
-//class LoadMode
-//{
-//
-//};
+#pragma once
+
+#include "SilentMode.h"
+
+class LoadMode : public SilentMode
+{
+
+};

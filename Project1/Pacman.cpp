@@ -9,10 +9,12 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 	setCreatureNextPos(board);
 	if (!isCreaturePositionValid(board))
 	{
-		nextPosIsValid = false;
+		//nextPosIsValid = false;
+		setNextPosIsValid(false);
 		resetAfterInvalidNextPos();
 	}
-	else nextPosIsValid = true;
+	else //nextPosIsValid = true;
+		setNextPosIsValid(true);
 
 	//else //In case not, please stay on the current position. + Rollback to nextPos
 	//	resetAfterInvalidNextPos();
@@ -20,11 +22,11 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 
 void Pacman::afterMoveProcedure(GameBoard& board)
 {
-	if (nextPosIsValid) //So we should move the pacman //getDirection() != Direction::STAY && 
+	if (getNextPosIsValid()) //So we should move the pacman //getDirection() != Direction::STAY && 
 	{
 		//print space in current position because soon the pacman will be moved.
-		gotoxy(prevPos.getXPos(), prevPos.getYPos());
-		if (board.getCellInBoard(prevPos) != GameBoard::TUNNEL)
+		gotoxy(getPrevPos().getXPos(), getPrevPos().getYPos());
+		if (board.getCellInBoard(getPrevPos()) != GameBoard::TUNNEL)
 		{
 			cout << GameBoard::SPACE;
 		}
@@ -38,17 +40,17 @@ void Pacman::afterMoveProcedure(GameBoard& board)
 	}
 }
 
-void Pacman::updatePrevPos()
-{
-	prevPos = getCurrPos();
-}
+//void Pacman::updatePrevPos()
+//{
+//	prevPos = getCurrPos();
+//}
 
-void Pacman::initPacman(GameBoard& board, char _pacmanIcon)
-{
-	initCreature(board, _pacmanIcon);
-	prevPos = getCurrPos();
-	nextPosIsValid = false;
-}
+//void Pacman::initPacman(GameBoard& board, char _pacmanIcon)
+//{
+//	initCreature(board, _pacmanIcon);
+//	prevPos = getCurrPos();
+//	nextPosIsValid = false;
+//}
 
 
 //void Pacman::
