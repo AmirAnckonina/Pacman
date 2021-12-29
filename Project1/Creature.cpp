@@ -80,9 +80,9 @@ void Creature::updateIntervalInStrategyIfNeeded()
 void Creature::afterMoveProcedure(GameBoard& board)
 {
 	//Final Part
-	gotoxy(currPos.getXPos(), currPos.getYPos());
+	gotoxy(prevPos.getXPos(), prevPos.getYPos());
 	//The creatured will move and we want to print the cell as it were before.
-	if (board.getCellInBoard(currPos) == GameBoard::BREADCRUMB)
+	if (board.getCellInBoard(prevPos) == GameBoard::BREADCRUMB)
 	{
 		if (ThePacmanGame::isGameColorized())
 			setTextColor(board.getBreadcrumbColor());
