@@ -16,10 +16,11 @@ public:
 
 private:
 	bool hasIntervalTime = false;
+	bool nextPosIsValid = false;
 	const char creatureIcon;
 	int creatureStrategyType;
 	MoveStrategy* mvStrategy;
-	Position startingPos, currPos, nextPos;
+	Position startingPos, currPos, nextPos, prevPos;
 	Direction creatureDirection;
 	Colors creatureColor;
 
@@ -35,7 +36,6 @@ public:
 	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }
 	void replaceStrategyIfNeeded();
 
-	//
 	void initCreature(GameBoard& board, char _creatureIcon);
 	void resetNextPos() { nextPos = currPos; }
 	void updatePos() { currPos = nextPos; }
@@ -46,11 +46,15 @@ public:
 
 	//Get-Set Functions
 	virtual void printCreature() const;
+	bool getNextPosIsValid() { return nextPosIsValid; }
+	void setNextPosIsValid(bool _isValid) { nextPosIsValid = _isValid; }
 	void collectCreatureStartingPos(GameBoard& board);
 	void resetAfterInvalidNextPos();
 	char getCreatureIcon() { return creatureIcon; }
 	void setStartingPos(Position _startingPos) { startingPos = _startingPos; }
 	Position getStartingPos() const { return startingPos; }
+	const Position& getPrevPos() const { return prevPos; }
+	void updatePrevPos() { prevPos = currPos; }
 	void setCurrPos(int x, int y);
 	void setCurrPos(Position _currPos) { currPos = _currPos; }
 	const Position& getCurrPos() const { return currPos; }

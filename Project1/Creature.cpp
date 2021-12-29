@@ -23,6 +23,8 @@ void Creature::initCreature(GameBoard& board, char _creatureIcon)
 	collectCreatureStartingPos(board);
 	board.setCellInBoard(startingPos, GameBoard::BREADCRUMB);
 	resetCreaturePosition();
+	prevPos = currPos;
+	nextPosIsValid = false;
 }
 
 void Creature::setMoveStrategy() //set move strategy according to creatureStrategyType

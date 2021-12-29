@@ -1,13 +1,13 @@
-#include "ThePacmanGame.h"
+#include <iostream>
+#include "RunMode.h"
 
 using std::cout;
 using std::endl;
 
-int main()
+int main(int argc, char** argv)
 {
-	ThePacmanGame game;
-	//ModeManager //Will receive a mode, an according to that will run the game in the requested mode
-	game.runAllSessions();
+	RunMode newGame;
+	newGame.assignGameModeAndRun(argv[1]);
 	return 0;
 }
 

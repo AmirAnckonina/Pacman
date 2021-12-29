@@ -1,8 +1,8 @@
-//#pragma once
-//
-//#include "ActiveMode.h"
-//
-//class SaveMode
-//{
-//
-//};
+#pragma once
+
+#include "SimpleMode.h"
+
+class SaveMode : public SimpleMode
+{
+
+};
