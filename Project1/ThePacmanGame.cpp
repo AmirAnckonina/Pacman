@@ -4,15 +4,15 @@ bool ThePacmanGame::gameColorized = false;
 
 void ThePacmanGame::runAllSessions()
 {
-	hideCursor();
-	init_srand();
+	//hideCursor();
+	//init_srand();
 
 	activate = true;
 	size_t totalNumOfScreens;
 
 	game_board.loadAllScreenTemplates();
 	totalNumOfScreens = game_board.getNumOfTemplates();
-	game_menu.entryMenu();
+	//game_menu.entryMenu();
 
 	while (activate)
 	{
@@ -29,9 +29,9 @@ void ThePacmanGame::runAllSessions()
 		}
 
 	}
-	clearScreen();
-	gotoxy(0, 0);
-	cout << "Goodbye" << endl;
+	//clearScreen();
+	//gotoxy(0, 0);
+	//cout << "Goodbye" << endl;
 }
 
 void ThePacmanGame::runSingleSession(size_t& totalNumOfScreens)
@@ -76,13 +76,13 @@ void ThePacmanGame::resetThePacmanGame()
 //Creating creatures, initialize lives, set colors, printing rules, instructions, etc.
 void ThePacmanGame::initGame()
 {
-	hideCursor();
-	init_srand();
+	//hideCursor();
+	//init_srand();
 	game_board.initBoard();
 
 	if (game_board.isValidBoard())
 	{
-		game_shell.initDetailsArea(game_board);
+		//game_shell.initDetailsArea(game_board);
 		numOfGhosts = game_board.collectnumOfGhosts();
 		pacman.initPacman(game_board, Creature::PACMAN);
 
@@ -93,12 +93,12 @@ void ThePacmanGame::initGame()
 		game_board.countTotalBreadcrumbs();
 		game_board.setBreadCrumbsPosArr();
 
-		if (gameColorized) setGameColors();
-		else game_shell.setDetailsColor(Colors::WHITE);
+		//if (gameColorized) setGameColors();
+		//else game_shell.setDetailsColor(Colors::WHITE);
 
 		playerWon = false;
 
-		printAfterInit();
+		//printAfterInit();
 	}
 }
 
@@ -135,9 +135,16 @@ void ThePacmanGame::runGame()
 			key = 0; //So pacman will continue as he was before pausing.
 		}
 		singleGhostsSession();
+		afterGhostMove();
+		completeGhostSession();
+
+
 		singlePacmanSession();
+		pacman.afterMoveProcedure(game_board);
 		completePacmanSession();
+
 		singleFruitSession();
+
 		printFigures();
 		Sleep(120);
 
@@ -151,11 +158,11 @@ void ThePacmanGame::runGame()
 
 	} while (!GameFinished());
 
-	game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
-	if (gameColorized) { resetColors(); }
-	gameColorized = false;
-	clearScreen();
-	Sleep(1200);
+	//game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
+	//if (gameColorized) { resetColors(); }
+	//gameColorized = false;
+	//clearScreen();
+	//Sleep(1200);
 }
 
 void ThePacmanGame::singlePacmanSession()
@@ -166,7 +173,6 @@ void ThePacmanGame::singlePacmanSession()
 		pacman.updatePrevPos();
 		pacman.updatePos();
 
-		pacman.afterMoveProcedure(game_board);
 	}
 
 }
@@ -240,29 +246,37 @@ void ThePacmanGame::singleFruitSession()
 
 void ThePacmanGame::singleGhostsSession()
 {
-	static int j = 0;
 
 	//PAY attention, ghost should move every other turn. so the condition manage it.
 	//Splitted to odd and even ghosts indexes, in order to ease the BFS algorithem.
 	for (int i = j; i < numOfGhosts; i += 2)
 	{
 		ghost[i].move(game_board, pacman.getCurrPos());
-		ghost[i].afterMoveProcedure(game_board);
+
 		ghost[i].updateIntervalInStrategyIfNeeded();
+		ghost[i].updatePrevPos();
 		ghost[i].updatePos();
 	}
+
+}
+void ThePacmanGame::afterGhostMove()
+{
+	for (int i = j; i < numOfGhosts; i += 2)
+		ghost[i].afterMoveProcedure(game_board);
 	if (j == 0)
 		j = 1;
 	else
 		j = 0; //they won't move in the next step
+}
 
+void ThePacmanGame::completeGhostSession()
+{
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
 
 	if (checkCollision())
 		resetAfterCollision();
 }
-
 void ThePacmanGame::printAllGhosts() const
 {
 	for (int i = 0; i < numOfGhosts; i++)
@@ -286,13 +300,13 @@ bool ThePacmanGame::checkCollision() const
 		}
 	}
 
-	if (res == true) printCollision();
+	//if (res == true) printCollision();
 	return res;
 }
 
 void ThePacmanGame::fruitEatenProcedure()
 {
-	generalCellRestore(fruit);
+	//generalCellRestore(fruit);
 	fruit.disableActivity();
 	fruitTurn = true;
 }
@@ -332,9 +346,9 @@ void ThePacmanGame::resetAfterCollision()
 {
 
 
-	cellsRestoreAfterCollision();
+	//cellsRestoreAfterCollision();
 	pacman.updateLivesLeft();
-	game_shell.printLives(pacman.getLivesLeft());
+	//	game_shell.printLives(pacman.getLivesLeft());
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.resetCreaturePosition();
@@ -342,7 +356,7 @@ void ThePacmanGame::resetAfterCollision()
 			ghost[i].resetCreaturePosition();
 
 	}
-	afterCollisionPrinting();
+	//	afterCollisionPrinting();
 }
 void ThePacmanGame::afterCollisionPrinting()
 {
@@ -358,6 +372,7 @@ void ThePacmanGame::afterCollisionPrinting()
 		clearInput();
 	}
 }
+
 void ThePacmanGame::cellsRestoreAfterCollision() const
 {
 	generalCellRestore(pacman);
@@ -400,7 +415,7 @@ bool ThePacmanGame::GameFinished()
 	if (game_board.getBreadcrumbs() == 0)
 	{
 		playerWon = true;
-		pacman.printCreature(); //print pacman in the his last position, the winning one!
+		//pacman.printCreature(); //print pacman in the his last position, the winning one!
 	}
 	return true;
 }
