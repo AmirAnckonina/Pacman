@@ -3,7 +3,7 @@
 #include "Creature.h"
 
 
-void GameShell::betweenSessionsProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon)
+void GameShell::betweenScreensProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon)
 {
 	if (board.isBoardValid())
 	{
@@ -150,7 +150,7 @@ void GameShell::printResult(bool playerWon, int score, Colors pacmanColor, Color
 				setTextColor(ghostColor);
 
 			gotoxy(legendAreaPos.getXPos(), legendAreaPos.getYPos());
-			cout << "    GAME OVER!!!    " << endl;
+			cout << "    GAME OVER!!!   " << endl;
 			Sleep(500);
 			clearLegendArea();
 			Sleep(500);

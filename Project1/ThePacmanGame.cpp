@@ -82,7 +82,7 @@ void ThePacmanGame::completePacmanSession()
 		printCollision();
 		cellsRestoreAfterCollision();
 		collisionProcedure();
-		game_shell.printLives(pacman.getLivesLeft());
+		if(pacman.getLivesLeft() >= 0) game_shell.printLives(pacman.getLivesLeft());
 		afterCollisionPrinting();
 	}
 }
@@ -204,7 +204,8 @@ void ThePacmanGame::fruitEatenProcedure()
 
 void ThePacmanGame::collisionProcedure()
 {
-	pacman.updateLivesLeft();
+	if(pacman.getLivesLeft() > 0) pacman.updateLivesLeft();
+
 	if (pacman.getLivesLeft() > 0)
 	{
 		pacman.resetCreaturePosition();
@@ -259,6 +260,16 @@ void ThePacmanGame::printCollision() const
 		pacman.printCreature();
 		Sleep(300);
 	}
+}
+
+//void ThePacmanGame::printCellRestore(const Creature& creature) const
+//{
+//}
+
+void ThePacmanGame::loadScreens()
+{
+	game_board.loadAllScreenTemplates();
+	totalNumOfScreens = game_board.getNumOfTemplates();
 }
 
 bool ThePacmanGame::GameFinished()

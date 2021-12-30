@@ -1,0 +1,15 @@
+1. Validate num Of pacman - (try, catch? )
+2. Silent Mode impl
+3. load mode
+4. Save Mode - add Status to Fruit 
+Status = OFF
+Status = ON
+Status = BORN
+
+5. Result file context and impl
+6. BFS - add detDirection to Ghost so writing directions to file will be relevant
+7. clarify how to get from cmd each mode/parameter
+8. check about blocking functiom - ? Amir
+9. Test failed - Passed for load & Silent Mode
+10. We should know to stop loading after pacman died.
+11. add support for inputStrategy in initCreature (INPUT)

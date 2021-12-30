@@ -72,11 +72,6 @@ void Menu::printInstructions()
 	userKey = 0;
 }
 
-
-
-
-
-
 int Menu::getFirstBoardChoice(GameBoard& board)
 {
 	bool boardChoosed = false;

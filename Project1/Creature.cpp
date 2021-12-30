@@ -12,7 +12,7 @@ Creature::~Creature()
 	delete mvStrategy;
 }
 
-void Creature::initCreature(GameBoard& board, char _creatureIcon)
+void Creature::initCreature(GameBoard& board, char _creatureIcon) //add creatureStrategyType Prarmetet
 {
 	creatureColor = Colors::WHITE;
 	if (creatureStrategyType == DYNAMIC)
