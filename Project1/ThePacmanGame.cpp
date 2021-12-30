@@ -47,6 +47,19 @@ void ThePacmanGame::setGameColors()
 		ghost[i].setColor(Colors::LIGHTBLUE);
 }
 
+void ThePacmanGame::singleCreaturesIteration()
+{
+	singleGhostsSession();
+	afterGhostsMove();
+	completeGhostsSession();
+	singlePacmanSession();
+	pacman.afterMoveProcedure(game_board);
+	completePacmanSession();
+	singleFruitSession();
+	printFigures();
+	Sleep(120);
+}
+
 void ThePacmanGame::singlePacmanSession()
 {
 	if (pacman.getLivesLeft() > 0)
@@ -63,19 +76,26 @@ void ThePacmanGame::completePacmanSession()
 		fruitEatenProcedure();
 
 	if (!checkCollision())
-	{
-		pacman.updateScore(game_board);
-		if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
-			game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
-
-		if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
-			game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
-
-	}
+		updateScoreAndBoardAfterPacman();
 	else
+	{
+		printCollision();
+		cellsRestoreAfterCollision();
 		collisionProcedure();
+		game_shell.printLives(pacman.getLivesLeft());
+		afterCollisionPrinting();
+	}
 }
 
+void ThePacmanGame::updateScoreAndBoardAfterPacman()
+{
+	pacman.updateScore(game_board);
+	if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
+		game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
+
+	if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+		game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+}
 
 void ThePacmanGame::singleGhostsSession()
 {
@@ -92,7 +112,7 @@ void ThePacmanGame::singleGhostsSession()
 	}
 }
 
-void ThePacmanGame::afterGhostMove()
+void ThePacmanGame::afterGhostsMove()
 {
 	for (int i = j; i < numOfGhosts; i += 2)
 		ghost[i].afterMoveProcedure(game_board);
@@ -103,12 +123,20 @@ void ThePacmanGame::afterGhostMove()
 
 }
 
-//void ThePacmanGame::completeGhostSession()
-//{
-//	
-//
-//	
-//}
+void ThePacmanGame::completeGhostsSession()
+{
+	if (isFruitEatenByGhost())
+		fruitEatenProcedure();
+
+	if (checkCollision())
+	{
+		printCollision();
+		cellsRestoreAfterCollision();
+		collisionProcedure();
+		game_shell.printLives(pacman.getLivesLeft());
+		afterCollisionPrinting();
+	}
+}
 
 void ThePacmanGame::printAllGhosts() const
 {
@@ -135,7 +163,6 @@ bool ThePacmanGame::checkCollision() const
 	}
 	return res;
 }
-
 
 bool ThePacmanGame::isFruitEatenByPacman()
 {
@@ -166,6 +193,13 @@ bool ThePacmanGame::isFruitEatenByGhost()
 		}
 	}
 	return false;
+}
+
+void ThePacmanGame::fruitEatenProcedure()
+{
+	generalCellRestore(fruit);
+	fruit.disableActivity();
+	fruitTurn = true;
 }
 
 void ThePacmanGame::collisionProcedure()
@@ -239,4 +273,13 @@ bool ThePacmanGame::GameFinished()
 		//pacman.printCreature(); //print pacman in the his last position, the winning one!
 	}
 	return true;
+}
+
+void ThePacmanGame::afterRunGameProcedure()
+{
+	game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
+	if (gameColorized) { resetColors(); }
+	gameColorized = false;
+	clearScreen();
+	Sleep(1200);
 }
