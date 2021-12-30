@@ -1,141 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="GameShell.cpp" />
+    <ClCompile Include="InputStrategy.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="NormalStrategy.cpp" />
+    <ClCompile Include="RunMode.cpp" />
+    <ClCompile Include="SaveMode.cpp" />
+    <ClCompile Include="SilentMode.cpp" />
+    <ClCompile Include="SimpleMode.cpp" />
+    <ClCompile Include="SmartStrategy.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="GameBoard.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Position.cpp" />
+    <ClCompile Include="ThePacmanGame.cpp" />
+    <ClCompile Include="LoadMode.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameBoard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ThePacmanGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pacman.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ghost.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Position.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Creature.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fruit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SmartStrategy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalStrategy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameShell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RunMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveMode.cpp">
-    <ClCompile Include="InputStrategy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SilentMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Creature.h" />
+    <ClInclude Include="Directions.h" />
+    <ClInclude Include="Fruit.h" />
+    <ClInclude Include="GameShell.h" />
+    <ClInclude Include="InputStrategy.h" />
+    <ClInclude Include="RunMode.h" />
+    <ClInclude Include="LoadMode.h" />
+    <ClInclude Include="SilentMode.h" />
+    <ClInclude Include="SimpleMode.h" />
+    <ClInclude Include="SaveMode.h" />
+    <ClInclude Include="SmartStrategy.h" />
+    <ClInclude Include="NormalStrategy.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MoveStrategy.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Pacman.h" />
+    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="Position.h" />
+    <ClInclude Include="ThePacmanGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameBoard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThePacmanGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pacman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ghost.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Position.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Directions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Creature.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Fruit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveStrategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalStrategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SmartStrategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RunMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SilentMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameShell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputStrategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Notes.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="Testing.txt">
-      <Filter>Source Files</Filter>
-    </Text>
+    <Text Include="Notes.txt" />
+    <Text Include="Testing.txt" />
   </ItemGroup>
 </Project>
