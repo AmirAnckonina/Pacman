@@ -60,6 +60,7 @@
     <ClCompile Include="RunMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SaveMode.cpp">
     <ClCompile Include="InputStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
