@@ -7,11 +7,12 @@
 class MoveStrategy;
 class SmartStrategy;
 class NormalStrategy;
+class InputStrategy;
 
 class Creature
 {
 public:
-	enum StrategyType { NONE, NORMAL, DYNAMIC, SMART }; 
+	enum StrategyType { NONE, NORMAL, DYNAMIC, SMART, INPUT }; 
 	static constexpr char PACMAN = '@', GHOST = '$', FRUIT = 'F';
 
 private:

@@ -61,6 +61,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SaveMode.cpp">
+    <ClCompile Include="InputStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SilentMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -120,6 +124,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameShell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

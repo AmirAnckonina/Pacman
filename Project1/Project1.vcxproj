@@ -143,10 +143,12 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="GameShell.cpp" />
+    <ClCompile Include="InputStrategy.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NormalStrategy.cpp" />
     <ClCompile Include="RunMode.cpp" />
     <ClCompile Include="SaveMode.cpp" />
+    <ClCompile Include="SilentMode.cpp" />
     <ClCompile Include="SimpleMode.cpp" />
     <ClCompile Include="SmartStrategy.cpp" />
     <ClCompile Include="Utilities.cpp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="Directions.h" />
     <ClInclude Include="Fruit.h" />
     <ClInclude Include="GameShell.h" />
+    <ClInclude Include="InputStrategy.h" />
     <ClInclude Include="RunMode.h" />
     <ClInclude Include="LoadMode.h" />
     <ClInclude Include="SilentMode.h" />
