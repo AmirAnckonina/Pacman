@@ -36,6 +36,7 @@ protected:
 
 
 public:
+
 	//Preparartions functions
 	virtual void runAllSessions() = 0;
 	virtual void runSingleSession(size_t& totalNumOfScreens) = 0;
@@ -49,27 +50,28 @@ public:
 	void printAllGhosts() const;
 	void printCollision() const;
 	void cellsRestoreAfterCollision() const;
+	void afterCollisionPrinting();
 	void generalCellRestore(const Creature& creature) const;
+	void afterGhostsMove();
 	
-
 	//Game functionalliy 
 	virtual void runGame() = 0;
 	void singlePacmanSession() ;
-	virtual void completePacmanSession() = 0;
+	virtual void completePacmanSession();
+	void singleGhostsSession();
+	virtual void completeGhostsSession();
+	void updateScoreAndBoardAfterPacman();
 	virtual void singleFruitSession() = 0;
-	virtual void singleGhostsSession();
-	virtual void completeGhostSession() = 0 ;
-	void afterGhostMove();
-
+	virtual void fruitEatenProcedure(); 
+	void singleCreaturesIteration();
+	void afterRunGameProcedure();
 	bool checkCollision() const;
-
 	bool isFruitEatenByPacman();
 	bool isFruitEatenByGhost();
-	virtual void fruitEatenProcedure() = 0;
-
-	virtual void collisionProcedure();
+	void collisionProcedure();
 	bool GameFinished();
-	void runAllGameBoards(bool& activate);
-	void afterCollisionPrinting();
+	//void runAllGameBoards(bool& activate);
+	
+	
 
 };

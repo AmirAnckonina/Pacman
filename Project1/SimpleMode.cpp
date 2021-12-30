@@ -89,88 +89,35 @@ void SimpleMode::resetThePacmanGame()
 //Running a game session, according to do-while loop condition
 void SimpleMode::runGame()
 {
-	char key = 0;
-	Direction currDir;
 	do
 	{
-		if (key == Menu::ESC)
-		{
-			game_shell.pauseGame(pacman.getLivesLeft());
-			key = 0; //So pacman will continue as he was before pausing.
-		}
-		singleGhostsSession();
-		afterGhostMove();
-		completeGhostSession();
-		singlePacmanSession();
-		pacman.afterMoveProcedure(game_board);
-		completePacmanSession();
-		singleFruitSession();
-		printFigures();
-		Sleep(120);
-
-		if (_kbhit())
-		{
-			key = _getch();
-			currDir = pacman.convertKeyToDirection(key); //A kind of key translation to move.
-			if (currDir != Direction::WRONG_KEY)
-				pacman.setDirection(currDir);
-		}
-
+		singlePlayerIteration();
+		singleCreaturesIteration();
+		//steps
+		
 	} while (!GameFinished());
 
-	game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
-	if (gameColorized) { resetColors(); }
-	gameColorized = false;
-	clearScreen();
-	Sleep(1200);
+	afterRunGameProcedure();
+	//result
 }
 
-void SimpleMode::collisionProcedure()
+void SimpleMode::singlePlayerIteration()
 {
-	printCollision();
-	cellsRestoreAfterCollision();
-	ThePacmanGame::collisionProcedure();
-	game_shell.printLives(pacman.getLivesLeft());
-	afterCollisionPrinting();
-}
-
-
-void SimpleMode::completeGhostSession()
-{
-	if (isFruitEatenByGhost())
-		fruitEatenProcedure();
-
-	if (checkCollision())
-		collisionProcedure();
-}
-
-
-void SimpleMode::completePacmanSession()
-{
-	if (isFruitEatenByPacman())
-		fruitEatenProcedure();
-
-	if (!checkCollision())
+	char key = 0;
+	Direction currDir;
+	if (_kbhit())
 	{
-		pacman.updateScore(game_board);
-		if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
-			game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
-
-		if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
-			game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+		key = _getch();
+		currDir = pacman.convertKeyToDirection(key); //A kind of key translation to move.
+		if (currDir != Direction::WRONG_KEY)
+			pacman.setDirection(currDir);
 	}
-	else
-		collisionProcedure();
+	if (key == Menu::ESC)
+	{
+		game_shell.pauseGame(pacman.getLivesLeft());
+		key = 0; //So pacman will continue as he was before pausing.
+	}
 }
-
-
-void SimpleMode::fruitEatenProcedure()
-{
-	//generalCellRestore(fruit);
-	fruit.disableActivity();
-	fruitTurn = true;
-}
-
 
 void SimpleMode::singleFruitSession()
 {
@@ -182,6 +129,7 @@ void SimpleMode::singleFruitSession()
 			fruit.generateLocation(game_board);
 			fruit.generateFruitValue();
 			fruit.ReduceTimeOnBoard();
+			fruitTurn = false;
 		}
 
 
@@ -189,11 +137,13 @@ void SimpleMode::singleFruitSession()
 		{
 			//To all modes
 			fruit.move(game_board);
-			fruit.afterMoveProcedure(game_board);
+			fruit.updatePrevPos();
 			fruit.updatePos();
+
 			//Only for simple-save
 			fruit.ReduceTimeOnBoard();
 			fruitTurn = false; //it won't move in the next step
+			fruit.afterMoveProcedure(game_board);
 		}
 		else
 			fruitTurn = true;
@@ -218,3 +168,56 @@ void SimpleMode::singleFruitSession()
 			fruit.enableActivity();
 	}
 }
+//void SimpleMode::collisionProcedure()
+//{
+//	printCollision();
+//	cellsRestoreAfterCollision();
+//	ThePacmanGame::collisionProcedure();
+//	game_shell.printLives(pacman.getLivesLeft());
+//	afterCollisionPrinting();
+//}
+
+/*
+void SimpleMode::completeGhostSession()
+{
+	if (isFruitEatenByGhost())
+		fruitEatenProcedure();
+
+	if (checkCollision())
+	{
+		printCollision();
+		cellsRestoreAfterCollision();
+		collisionProcedure();
+		game_shell.printLives(pacman.getLivesLeft());
+		afterCollisionPrinting();
+	}
+}
+*/
+/*
+void SimpleMode::completePacmanSession()
+{
+	if (isFruitEatenByPacman())
+		fruitEatenProcedure();
+
+	if (!checkCollision())
+	{
+		pacman.updateScore(game_board);
+		if (game_board.getCellInBoard(pacman.getNextPos()) == GameBoard::BREADCRUMB)
+			game_board.reduceNumOfBreadCrumbs(); // should check if we ate breadcrumb\
+
+		if (game_board.getCellInBoard(pacman.getCurrPos()) != GameBoard::TUNNEL)
+			game_board.setCellInBoard(pacman.getCurrPos(), GameBoard::SPACE);
+	}
+	else
+		collisionProcedure();
+}
+*/
+
+//void SimpleMode::fruitEatenProcedure()
+//{
+//	generalCellRestore(fruit);
+//	fruit.disableActivity();
+//	fruitTurn = true;
+//}
+
+

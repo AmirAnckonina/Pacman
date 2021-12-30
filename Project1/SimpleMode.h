@@ -18,13 +18,8 @@ private:
 public:
 	virtual void runAllSessions() override;
 	virtual void runSingleSession(size_t& totalNumOfScreens) override;
-	void resetThePacmanGame();
 	virtual void runGame() override;
-	virtual void collisionProcedure() override;
-	virtual void fruitEatenProcedure() override;
 	virtual void singleFruitSession() override;
-	virtual void completeGhostSession() override; 
-	virtual void completePacmanSession() override;
-
-
+	void resetThePacmanGame();
+	void singlePlayerIteration();
 };

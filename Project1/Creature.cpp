@@ -2,6 +2,7 @@
 #include "ThePacmanGame.h"
 #include "SmartStrategy.h"
 #include "NormalStrategy.h"
+#include "InputStrategy.h"
 
 Creature::Creature(char _creatureIcon, int _creatureStrategyType, MoveStrategy* _mvStrategy, Colors _creatureColor, Direction _creatureDirection)
 	: creatureIcon(_creatureIcon), creatureStrategyType(_creatureStrategyType), mvStrategy(_mvStrategy), creatureColor(_creatureColor), creatureDirection(_creatureDirection) {}
@@ -30,20 +31,40 @@ void Creature::initCreature(GameBoard& board, char _creatureIcon)
 void Creature::setMoveStrategy() //set move strategy according to creatureStrategyType
 {
 	delete mvStrategy;
-	if (creatureStrategyType == SMART)
+	//if (creatureStrategyType == SMART)
+	//{
+	//	mvStrategy = new SmartStrategy;
+	//	if (hasIntervalTime)
+	//		mvStrategy->setMoveInterval(20);
+	//}
+	//else if (creatureStrategyType == NORMAL)
+	//{
+	//	mvStrategy = new NormalStrategy;
+	//	if (hasIntervalTime)
+	//		mvStrategy->setMoveInterval(15);
+	//}
+	//else//creatureStrategyType == NONE
+	//	mvStrategy = nullptr;
+
+	switch (creatureStrategyType)
 	{
+	case SMART:
 		mvStrategy = new SmartStrategy;
 		if (hasIntervalTime)
 			mvStrategy->setMoveInterval(20);
-	}
-	else if (creatureStrategyType == NORMAL)
-	{
+		break;
+	case NORMAL:
 		mvStrategy = new NormalStrategy;
 		if (hasIntervalTime)
 			mvStrategy->setMoveInterval(15);
-	}
-	else //creatureStrategyType == NONE
+		break;
+	case INPUT:
+		mvStrategy = new InputStrategy;
+		break;
+	default: //NONE
 		mvStrategy = nullptr;
+		break;
+	}
 }
 
 void Creature::collectCreatureStartingPos(GameBoard& board)
@@ -117,7 +138,7 @@ void Creature::setCurrPos(int x, int y)
 
 void Creature::setCreatureNextPos(GameBoard& board)
 {
-	nextPos.setNextPos(creatureDirection, creatureIcon, board); //????
+	nextPos.setNextPos(creatureDirection, creatureIcon, board); 
 }
 
 bool Creature::isCreaturePositionValid(GameBoard& board)
