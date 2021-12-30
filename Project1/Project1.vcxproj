@@ -146,6 +146,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NormalStrategy.cpp" />
     <ClCompile Include="RunMode.cpp" />
+    <ClCompile Include="SaveMode.cpp" />
     <ClCompile Include="SimpleMode.cpp" />
     <ClCompile Include="SmartStrategy.cpp" />
     <ClCompile Include="Utilities.cpp" />
