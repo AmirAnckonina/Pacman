@@ -1,4 +1,47 @@
-#include"SaveMode.h"
+#include "SaveMode.h"
+
+void SaveMode::run()
+{
+	runAllSessions();
+}
+
+void SaveMode::runAllSessions()
+{
+	preparations();
+	while (activate)
+	{
+		presentMenu();
+		handleSetGameColorized();
+		firstBoardProcedure();
+		runSingleScreensSession();
+		resetThePacmanGame();
+	}
+	goodBye();
+}
+
+void SaveMode::runSingleScreensSession()
+{
+	pacmanDied = false;
+	for (currScreenInd = 0; currScreenInd < totalNumOfScreens && !pacmanDied && activate; currScreenInd++)
+	{
+		handleQuit();
+		initSingleScreen();
+		runSingleScreen();
+		game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+		//game_menu.entryMenu();
+	}
+	//resetThePacmanGame();
+}
+
+void SaveMode::runSingleScreen()
+{
+	if (game_board.isValidBoard())
+	{
+		runGame();
+		if (pacman.getLivesLeft() == 0)
+			pacmanDied = true;
+	}
+}
 
 void SaveMode::openFilesForWriting()
 {
@@ -6,7 +49,6 @@ void SaveMode::openFilesForWriting()
 	string resultFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".result";
 	resultFile.open(resultFileName);
 	stepsFile.open(stepsFileName);
-
 }
 
 void SaveMode::convertDirToInput(Direction _dir)
@@ -67,6 +109,7 @@ void SaveMode::writeMovesToStepsFile()
 //Running a game session, according to do-while loop condition
 void SaveMode::runGame()
 {
+	openFilesForWriting();
 	do
 	{
 		singlePlayerIteration();
@@ -80,8 +123,6 @@ void SaveMode::runGame()
 	//result
 }
 
-
-
 void SaveMode::writeToresultFile()
 {
 	resultFile << "Died in step: ";
@@ -92,8 +133,6 @@ void SaveMode::writeToresultFile()
 		resultFile << " lose the game on step: " << countsteps << '\n';
 		resetStepsCounter();
 	}
-
-
 }
 
 void SaveMode::closeFiles()

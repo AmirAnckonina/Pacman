@@ -1,81 +1,99 @@
 #pragma once
-
-
 #include "SimpleMode.h"
-//#include "ThePacmanGame.h"
 
-
-
-//void SimpleMode::openFilesForWriting()
-//{
-//	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".steps";
-//	string resultFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".result";
-//	resultFile.open(resultFileName);
-//	stepsFile.open(stepsFileName);
+void SimpleMode::run()
+{
+	runAllSessions();	
+}
 
 
 void SimpleMode::runAllSessions()
 {
-	hideCursor();
-	init_srand();
-
-	activate = true;
-	size_t totalNumOfScreens;
-
-	game_board.loadAllScreenTemplates();
-	totalNumOfScreens = game_board.getNumOfTemplates();
-	game_menu.entryMenu();
-
+	preparations();
 	while (activate)
 	{
-		if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
-			gameColorized = true;
-
-		if (game_menu.getUserKey() == Menu::EXIT)
-			activate = false;
-
-		if (activate)
-		{
-			runSingleSession(totalNumOfScreens);
-			resetThePacmanGame();
-		}
-
+		presentMenu();
+		handleSetGameColorized();
+		firstBoardProcedure();
+		runSingleScreensSession();
+		resetThePacmanGame();
 	}
+	goodBye();
+}
+
+void SimpleMode::goodBye()
+{
 	clearScreen();
 	gotoxy(0, 0);
 	cout << "Goodbye" << endl;
 }
 
-void SimpleMode::runSingleSession(size_t& totalNumOfScreens)
+void SimpleMode::handleQuit()
 {
-	bool shouldEndSession = false;
+	if (game_menu.getUserKey() == Menu::EXIT)
+		activate = false;
+}
+
+void SimpleMode::handleSetGameColorized()
+{
+	if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
+		gameColorized = true;
+}
+
+void SimpleMode::presentMenu()
+{
+	game_menu.entryMenu();
+	handleQuit();
+}
+
+void SimpleMode::firstBoardProcedure()
+{
 	int userChosenTemplate = game_menu.getFirstBoardChoice(game_board);
 	game_board.sortByFirstBoardChosen(userChosenTemplate);
+}
 
-	for (int templateInd = 0; templateInd < totalNumOfScreens && !shouldEndSession && activate; templateInd++)
+void SimpleMode::initSingleScreen()
+{
+	if (activate)
 	{
-		if (game_menu.getUserKey() == Menu::EXIT)
-			activate = false;
-		else
-		{
-			if (game_menu.getUserKey() == Menu::STARTCOLORIZED)
-				gameColorized = true;
-
-			level = game_menu.getGameDifficulty();
-			initGame(level);
-			if (game_board.isValidBoard())
-			{
-				printAfterInit();
-				runGame();
-				if (pacman.getLivesLeft() == 0)
-					shouldEndSession = true;
-
-			}
-			game_shell.betweenSessionsProcedure(game_board, templateInd, pacman.getScore(), playerWon);
-			game_menu.entryMenu();
-		}
+		handleSetGameColorized();
+		level = game_menu.getGameDifficulty();
+		initGame(level);
+		if (game_board.isValidBoard())
+			printAfterInit();
 	}
-	resetThePacmanGame();
+}
+
+void SimpleMode::runSingleScreensSession()
+{
+	pacmanDied = false;
+	for (currScreenInd = 0; currScreenInd < totalNumOfScreens && !pacmanDied && activate; currScreenInd++)
+	{
+		handleQuit();
+		initSingleScreen();
+		runSingleScreen();
+		game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+		//game_menu.entryMenu();
+	}
+	//resetThePacmanGame();
+}
+
+void SimpleMode::preparations()
+{
+	hideCursor();
+	init_srand();
+	activate = true;
+	loadScreens();
+}
+
+void SimpleMode::runSingleScreen()
+{
+	if (game_board.isValidBoard())
+	{
+		runGame();
+		if (pacman.getLivesLeft() == 0)
+			pacmanDied = true;
+	}
 }
 
 void SimpleMode::resetThePacmanGame()

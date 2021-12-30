@@ -2,6 +2,7 @@
 
 #include "SimpleMode.h"
 #include <fstream>
+
 using std::ofstream;
 
 class SaveMode : public SimpleMode
@@ -12,6 +13,10 @@ class SaveMode : public SimpleMode
 	ofstream resultFile;
 
 public:
+	virtual void run() override;
+	virtual void runAllSessions() override;
+	virtual void runSingleScreensSession() override;
+	virtual void runSingleScreen() override;
 	void resetStepsCounter() { countsteps = 0; }
 	void openFilesForWriting();
 	void convertDirToInput(Direction _dir);
@@ -20,6 +25,6 @@ public:
 	//void writeGhostDirToStepsFile(string input);
 	//void writeFruitDirToStepsFile(string input);
 
-	void writeToresultFile();
+	void writeToResultFile();
 	void closeFiles();
 };

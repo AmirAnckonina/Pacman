@@ -13,18 +13,18 @@ void RunMode::assignGameModeAndRun(const char* _runModeType)
 		game = new LoadMode;
 	}
 	else if (strcmp(_runModeType, "save"))
-	{
-		game = new SaveMode;
-	}
+	{*/
+		//game = new SaveMode;
+	/*}
 	else if (strcmp(_runModeType, "silent"))
 	{
 		game = new SilentMode;
 	}
 	else
 	{*/
-		game = new SimpleMode;
+		game = new SaveMode;
 	//}
 
-	game->runAllSessions();
+	game->run();
 }
 

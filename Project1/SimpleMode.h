@@ -12,12 +12,24 @@ public:
 private:
 	Menu game_menu;
 	int level;
-	bool activate = true;
 	bool fruitTurn = false;
-	
+
+protected:
+	bool activate = true;
 public:
+	virtual void run() override;
+
+	
 	virtual void runAllSessions() override;
-	virtual void runSingleSession(size_t& totalNumOfScreens) override;
+	virtual void runSingleScreensSession() override;
+	void preparations();
+	void presentMenu();
+	void initSingleScreen();
+	virtual void runSingleScreen();
+	void firstBoardProcedure();
+	void handleQuit();
+	void goodBye();
+	void handleSetGameColorized();
 	virtual void runGame() override;
 	virtual void singleFruitSession() override;
 	void resetThePacmanGame();

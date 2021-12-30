@@ -25,9 +25,12 @@ protected:
 	GameShell game_shell;
 	GameBoard game_board;
 	Pacman pacman;
-	int level;
 	Ghost ghost[MAXNUMOFGHOSTS];
 	Fruit fruit;
+	int currScreenInd = 0;
+	size_t totalNumOfScreens;
+	bool pacmanDied = false; //Pacman Direction: 
+	int level;
 	int numOfGhosts;
 	static bool gameColorized;
 	bool activate = true;
@@ -38,8 +41,11 @@ protected:
 public:
 
 	//Preparartions functions
+	virtual void run() = 0;
 	virtual void runAllSessions() = 0;
-	virtual void runSingleSession(size_t& totalNumOfScreens) = 0;
+	void loadScreens();
+	
+	virtual void runSingleScreensSession()= 0;
 	void initGame(int ghostLevel = 0);
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
@@ -70,8 +76,5 @@ public:
 	bool isFruitEatenByGhost();
 	void collisionProcedure();
 	bool GameFinished();
-	//void runAllGameBoards(bool& activate);
-	
-	
 
 };
