@@ -77,13 +77,13 @@ void SaveMode::writeMovesToStepsFile()
 {
 	stepsFile << "Pacman: ";
 	convertDirToInput(pacman.getDirection());
-	stepsFile << dir << '|';
+	stepsFile << dir << '\n';
 
 	for (int i = 0; i < numOfGhosts; i++)
 	{
-		stepsFile << "ghost " << i << ': ';
+		stepsFile << "Ghost" << i << ": ";
 		convertDirToInput(ghost[i].getDirection());
-		stepsFile << dir << '|';
+		stepsFile << dir << '\n';
 	}
 	stepsFile << "Fruit:  ";
 	if (!fruit.isActive())
