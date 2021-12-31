@@ -1,4 +1,5 @@
 #pragma once
+#include "InputParser.h"
 
 class ThePacmanGame;
 class SimpleMode;
@@ -10,9 +11,13 @@ class RunMode
 {
 public:
 	enum RunModeType {SIMPLE, SAVE, LOAD, SILENT};
+
 private:
+	InputParser input;
 	ThePacmanGame* game;
 
 public:
-	void assignGameModeAndRun(const char* _runModeType);
+	RunMode(int& _argc, char** _argv) : input(_argc, _argv), game(nullptr) {}
+	~RunMode();
+	void assignGameModeAndRun();
 };

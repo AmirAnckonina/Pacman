@@ -12,14 +12,17 @@ Creature::~Creature()
 	delete mvStrategy;
 }
 
-void Creature::initCreature(GameBoard& board, char _creatureIcon) //add creatureStrategyType Prarmetet
+void Creature::initCreature(GameBoard& board, char _creatureIcon, int _creatureStrategyType) 
 {
 	creatureColor = Colors::WHITE;
+	creatureStrategyType = _creatureStrategyType;
+
 	if (creatureStrategyType == DYNAMIC)
 	{
 		hasIntervalTime = true;
 		creatureStrategyType = SMART;
 	}
+
 	setMoveStrategy();
 	collectCreatureStartingPos(board);
 	board.setCellInBoard(startingPos, GameBoard::BREADCRUMB);

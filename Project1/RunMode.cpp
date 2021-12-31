@@ -6,24 +6,24 @@
 #include "SaveMode.h"
 
 
-void RunMode::assignGameModeAndRun(const char* _runModeType)
+RunMode::~RunMode()
 {
-	/*if (strcmp(_runModeType, "load"))
+	delete game;
+}
+
+void RunMode::assignGameModeAndRun()
+{
+	delete game;
+
+	if (input.cmdOptionExists("-load"))
 	{
-		game = new LoadMode;
+		if (input.cmdOptionExists("-silent")) game = new SilentMode;
+		else game = new LoadMode;
 	}
-	else if (strcmp(_runModeType, "save"))
-	{*/
-		//game = new SaveMode;
-	/*}
-	else if (strcmp(_runModeType, "silent"))
-	{
-		game = new SilentMode;
-	}
+	else if (input.cmdOptionExists("-save"))
+		game = new SaveMode;
 	else
-	{*/
 		game = new SimpleMode;
-	//}
 
 	game->run();
 }

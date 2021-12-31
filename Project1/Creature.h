@@ -37,7 +37,7 @@ public:
 	void setCreatureStrategyType(int _creatureStrategyType) { creatureStrategyType = _creatureStrategyType; }
 	void replaceStrategyIfNeeded();
 
-	void initCreature(GameBoard& board, char _creatureIcon);
+	void initCreature(GameBoard& board, char _creatureIcon, int _creatureStrategyType = NONE);
 	void resetNextPos() { nextPos = currPos; }
 	void updatePos() { currPos = nextPos; }
 	void resetCreaturePosition();

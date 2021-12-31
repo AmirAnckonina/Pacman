@@ -40,6 +40,7 @@ void SmartStrategy::setNextPosBFS(GameBoard& board, Creature& creature, const Po
 
 			if (adjCoord == creature.getCurrPos())
 			{
+				creature.setDirection(convertAdjCoordToDirection(creature, adjCoord));
 				creature.setNextPos(currCoord);
 				return;
 			}
@@ -67,5 +68,24 @@ bool SmartStrategy::cellShouldEnterQueue(GameBoard& board, Position& adjCoord)
 		return false;
 
 	return true;
+}
+
+Direction SmartStrategy::convertAdjCoordToDirection(Creature& creature, Position& adjCoord)
+{
+	int creatureX = creature.getCurrPos().getXPos();
+	int creatureY = creature.getCurrPos().getYPos();
+	int adjCoordX = adjCoord.getXPos();
+	int adjCoordY = adjCoord.getYPos();
+	
+	if (creatureY == adjCoordY + 1 && creatureX == adjCoordX)
+		return Direction::UP;
+	else if (creatureY == adjCoordY - 1 && creatureX == adjCoordX)
+		return Direction::DOWN;
+	else if (creatureX == adjCoordX + 1 && creatureY == adjCoordY)
+		return Direction::LEFT;
+	else if (creatureX == adjCoordX - 1 && creatureY == adjCoordY)
+		return Direction::RIGHT;
+	else
+		return Direction::STAY;
 }
 

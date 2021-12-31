@@ -20,6 +20,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="ThePacmanGame.cpp" />
     <ClCompile Include="LoadMode.cpp" />
+    <ClCompile Include="InputParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Creature.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="ThePacmanGame.h" />
+    <ClInclude Include="InputParser.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Notes.txt" />
