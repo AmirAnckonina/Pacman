@@ -22,7 +22,7 @@ void RunMode::assignGameModeAndRun(const char* _runModeType)
 	}
 	else
 	{*/
-		game = new SaveMode;
+		game = new SimpleMode;
 	//}
 
 	game->run();
