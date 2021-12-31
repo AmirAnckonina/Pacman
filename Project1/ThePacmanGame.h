@@ -43,9 +43,12 @@ public:
 	//Preparartions functions
 	virtual void run() = 0;
 	virtual void runAllSessions() = 0;
+	virtual void runSingleScreensSession()= 0;
+	virtual void runGame() = 0;
+	virtual void singleFruitSession() = 0;
+	
 	void loadScreens();
 	
-	virtual void runSingleScreensSession()= 0;
 	void initGame(int ghostLevel = 0);
 	void setGameColors();
 	static bool isGameColorized() { return gameColorized; }
@@ -61,13 +64,12 @@ public:
 	void afterGhostsMove();
 	
 	//Game functionalliy 
-	virtual void runGame() = 0;
+	
 	void singlePacmanSession() ;
 	virtual void completePacmanSession();
 	void singleGhostsSession();
 	virtual void completeGhostsSession();
 	void updateScoreAndBoardAfterPacman();
-	virtual void singleFruitSession() = 0;
 	virtual void fruitEatenProcedure(); 
 	void singleCreaturesIteration();
 	void afterRunGameProcedure();

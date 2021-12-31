@@ -6,7 +6,6 @@ void SimpleMode::run()
 	runAllSessions();	
 }
 
-
 void SimpleMode::runAllSessions()
 {
 	preparations();
@@ -48,8 +47,11 @@ void SimpleMode::presentMenu()
 
 void SimpleMode::firstBoardProcedure()
 {
-	int userChosenTemplate = game_menu.getFirstBoardChoice(game_board);
-	game_board.sortByFirstBoardChosen(userChosenTemplate);
+	if (activate)
+	{
+		int userChosenTemplate = game_menu.getFirstBoardChoice(game_board);
+		game_board.sortByFirstBoardChosen(userChosenTemplate);
+	}
 }
 
 void SimpleMode::initSingleScreen()
