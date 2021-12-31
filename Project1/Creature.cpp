@@ -12,11 +12,9 @@ Creature::~Creature()
 	delete mvStrategy;
 }
 
-void Creature::initCreature(GameBoard& board, char _creatureIcon, int _creatureStrategyType) 
+void Creature::initCreature(GameBoard& board, char _creatureIcon) 
 {
 	creatureColor = Colors::WHITE;
-	creatureStrategyType = _creatureStrategyType;
-
 	if (creatureStrategyType == DYNAMIC)
 	{
 		hasIntervalTime = true;
