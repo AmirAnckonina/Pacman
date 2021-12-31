@@ -90,7 +90,8 @@ void SimpleMode::runSingleScreen()
 {
 	if (game_board.isValidBoard())
 	{
-		runGame();
+		//runGame();
+		this->runGame();
 		if (pacman.getLivesLeft() == 0)
 			pacmanDied = true;
 	}

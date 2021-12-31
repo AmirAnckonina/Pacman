@@ -12,6 +12,7 @@ protected:
 
 
 public:
+	/*virtual void run() override;
 	virtual void runAllSessions() override;
-	virtual void runSingleSession(size_t& totalNumOfScreens) override;
+	virtual void runSingleSession(size_t& totalNumOfScreens) override;*/
 };

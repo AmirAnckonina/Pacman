@@ -4,7 +4,7 @@ void SaveMode::run()
 {
 	runAllSessions();
 }
-
+/*
 void SaveMode::runAllSessions()
 {
 	preparations();
@@ -42,7 +42,7 @@ void SaveMode::runSingleScreen()
 			pacmanDied = true;
 	}
 }
-
+*/
 void SaveMode::openFilesForWriting()
 {
 	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".steps";
@@ -56,24 +56,23 @@ void SaveMode::convertDirToInput(Direction _dir)
 	switch (_dir)
 	{
 	case Direction::UP:
-		dir = "UP";
+		dir = "UP   ";
 		break;
 	case Direction::DOWN:
-		dir = "DOWN";
+		dir = "DOWN ";
 		break;
 	case Direction::LEFT:
-		dir = "LEFT";
+		dir = "LEFT ";
 		break;
 	case Direction::RIGHT:
 		dir = "RIGHT";
 		break;
 	case Direction::STAY:
-		dir = "STAY";
+		dir = "STAY ";
 		break;
 
 	}
 }
-
 void SaveMode::writeMovesToStepsFile()
 {
 	stepsFile << "Pacman: ";
@@ -123,7 +122,7 @@ void SaveMode::runGame()
 	//result
 }
 
-void SaveMode::writeToresultFile()
+void SaveMode::writeToResultFile()
 {
 	resultFile << "Died in step: ";
 	resultFile << countsteps;
