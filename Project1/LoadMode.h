@@ -22,7 +22,9 @@ public:
 	void closeCurrFiles();
 	void readInfoFromStepsFile();
 	void convertInputToDirection(string _dir);
-	//setPacDirectionFromFile();
-	//setGhostsDirectionFromFile();
-	//setFruitDirectionFromFile();
+	int convertStrToNum(string numToConvert);
+	void setPacDirectionFromFile();
+	void setGhostsDirectionFromFile();
+	void setFruitDirectionFromFile();
+
 };
