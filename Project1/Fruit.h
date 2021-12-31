@@ -20,6 +20,7 @@ public:
 	~Fruit() {};
 
 	void generateFruitValue();
+	void setFruitVal(int val) { fruitVal = val; }
 	void generateLocation(GameBoard& board);
 
 	//Get-Set Functions
