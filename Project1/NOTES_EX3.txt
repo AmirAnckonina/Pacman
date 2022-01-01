@@ -1,13 +1,9 @@
-1. Validate num Of pacman - (try, catch? )
-2. Silent Mode impl
-3. load mode 
-
-5. Result file context and impl 
-6. BFS - add detDirection to Ghost so writing directions to file will be relevant - VVVVV - TEST
-7. clarify how to get from cmd each mode/parameter 
-9. Test failed - Passed for load & Silent Mode
+1. Validate num Of pacman - (try, catch? ) - VVVV - TEST
+2. Silent Mode impl + build runGame function in "LoadMode"
+3. Test failed & test Passed - build cases. -> connect it to Chen's function "Compare..." 
+4. Reading Files (Directions) Test
+5. Fruit Session - Build separate function on loafd mode
+6. Init LoadMode - set strategy to all creatures to be via input.
 10. We should know to stop loading after pacman died.
-11. add support for inputStrategy in initCreature (INPUT) - VVVV
+11. add support for inputStrategy in initCreature (INPUT) - VVVV - Should be TESTED
 
-
-void ThePacmanGame::runSingleScreen() //We should test that this is actually the object we want

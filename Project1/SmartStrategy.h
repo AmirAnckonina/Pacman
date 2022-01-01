@@ -14,5 +14,5 @@ public:
 	virtual void executeMove(Creature& creature, GameBoard& board, const Position& pacmanPos) override;
 	void setNextPosBFS(GameBoard& board, Creature& creature, const Position& pacmanPos);
 	bool cellShouldEnterQueue(GameBoard& board, Position& adjCoord);
-	Direction convertAdjCoordToDirection(Creature& creature, Position& adjCoord);
+	Direction convertCurrCoordToDirection(Creature& creature, Position& currCoord);
 };

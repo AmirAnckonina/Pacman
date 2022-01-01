@@ -48,8 +48,8 @@ void SaveMode::runSingleScreen()
 */
 void SaveMode::openFilesForWriting()
 {
-	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".steps";
-	string resultFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 6)) + ".result";
+	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate() - 1).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate() - 1).size() - 6)) + "steps";
+	string resultFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate() - 1).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate() - 1).size() - 6)) + "result";
 	resultFile.open(resultFileName);
 	stepsFile.open(stepsFileName);
 }
@@ -113,10 +113,13 @@ void SaveMode::runGame()
 	openFilesForWriting();
 	do
 	{
+		countsteps++;
+
 		singlePlayerIteration();
 		singleCreaturesIteration();
-		//steps
+		//Steps
 		writeMovesToStepsFile();
+		writeToResultFileDuringSession();
 	} while (!GameFinished());
 
 	writeToResultFileEndOfSession();
@@ -141,8 +144,13 @@ void SaveMode::writeToResultFileInvalidBoard()
 
 void SaveMode::writeToResultFileDuringSession()
 {
-	resultFile << "Pacman eaten on step: " << countsteps;
-	resultFile << '\n';
+	if (collisionInCurrStepIndicator == true)
+	{
+		resultFile << "Pacman eaten on step: " << countsteps;
+		resultFile << '\n';
+		collisionInCurrStepIndicator = false;
+	}
+
 }
 
 void SaveMode::closeFiles()

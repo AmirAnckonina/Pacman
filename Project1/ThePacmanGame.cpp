@@ -226,6 +226,7 @@ void ThePacmanGame::fruitEatenProcedure()
 
 void ThePacmanGame::collisionProcedure()
 {
+	collisionInCurrStepIndicator = true;
 	if(pacman.getLivesLeft() > 0) pacman.updateLivesLeft();
 
 	if (pacman.getLivesLeft() > 0)

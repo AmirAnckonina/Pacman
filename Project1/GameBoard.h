@@ -84,6 +84,6 @@ public:
 	int getCurrTemplate() const { return currTemplate; }
 	size_t getNumOfTemplates() const;
 
-	bool validNumOfCreaturesOnBoard() const;
-	bool getNumOfghosts() const;
+	void validNumOfCreaturesOnBoard();
+
 };
