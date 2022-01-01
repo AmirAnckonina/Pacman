@@ -34,6 +34,7 @@ protected:
 	bool activate = true;
 	bool playerWon = false;
 	bool fruitTurn = false;
+	bool collisionInCurrStepIndicator = false;
 
 
 public:

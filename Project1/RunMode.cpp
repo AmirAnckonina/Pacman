@@ -14,11 +14,11 @@ RunMode::~RunMode()
 void RunMode::assignGameModeAndRun()
 {
 	delete game;
-
+	/*
 	if (input.cmdOptionExists("-load"))
 	{
 		/*if (input.cmdOptionExists("-silent")) 
-			game = new SilentMode;*/
+			game = new SilentMode;
 		//else 
 		game = new LoadMode;
 	}
@@ -26,7 +26,8 @@ void RunMode::assignGameModeAndRun()
 		game = new SaveMode;
 	else
 		game = new SimpleMode;
-
+	*/
+	game = new SaveMode;
 	game->run();
 }
 
