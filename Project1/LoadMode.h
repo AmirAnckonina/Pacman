@@ -10,6 +10,8 @@ class LoadMode : public SilentMode
 {
 	int currStepsFile = 0;
 	int currResultFile = 0;
+	int stepsCounter = 0;
+	bool testPassed = true;;
 	ifstream stepsFile;
 	ifstream resultFile;
 	vector <string> stepsfilesArr;
@@ -17,6 +19,12 @@ class LoadMode : public SilentMode
 
 	Direction direction;
 public:
+	virtual void run() override;
+	virtual void runAllSessions() override;
+	virtual void runSingleScreensSession() override;
+	virtual void runGame() override;
+	virtual void singleFruitSession() override;
+
 	void loadAllStepsAndResultFiles();
 	void openFilesForRead();
 	void closeCurrFiles();
@@ -26,5 +34,6 @@ public:
 	void setPacDirectionFromFile();
 	void setGhostsDirectionFromFile();
 	void setFruitDirectionFromFile();
-
+	void comparestepsToResultFile(int indexInFile);
+	void printAfterTest();
 };

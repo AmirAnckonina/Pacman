@@ -18,7 +18,7 @@ public:
 	static const int ROWMAX = 25;
 	static const int COLMAX = 80;
 	static constexpr char SPACE = ' ', BORDER = (char)219, BREADCRUMB = (char)249, TUNNEL = (char)176, LEGEND = '&';
-	enum BoardLoadingErrorTypes { EMPTYFILE, TOOWIDE, TOOLONG, RETRIEVE };
+	enum BoardLoadingErrorTypes { EMPTYFILE, TOOWIDE, TOOLONG, RETRIEVE, INVALIDCREATURES };
 
 private:
 	char board[ROWMAX][COLMAX];
@@ -83,4 +83,7 @@ public:
 	int getLastCol() const { return lastCol; }
 	int getCurrTemplate() const { return currTemplate; }
 	size_t getNumOfTemplates() const;
+
+	bool validNumOfCreaturesOnBoard() const;
+	bool getNumOfghosts() const;
 };

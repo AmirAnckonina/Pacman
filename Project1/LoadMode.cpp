@@ -1,5 +1,41 @@
 #include "LoadMode.h"
 
+void LoadMode::run()
+{
+	cout << "Hey, LoadMode" << endl;
+	Sleep(2000);
+	clearScreen();
+	runAllSessions();
+}
+
+void LoadMode::runAllSessions()
+{
+	loadScreens();
+	runSingleScreensSession();
+	goodBye();
+}
+
+void LoadMode::runSingleScreensSession()
+{
+	pacmanDied = false;
+	for (currScreenInd = 0; currScreenInd < totalNumOfScreens && !pacmanDied && activate; currScreenInd++)
+	{
+		initSingleScreen();
+		runSingleScreen();
+		game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+	}
+}
+
+void LoadMode::runGame()
+{
+	return;
+}
+
+void LoadMode::singleFruitSession()
+{
+	return;
+}
+
 void LoadMode::loadAllStepsAndResultFiles()
 {
 	string path;
@@ -46,7 +82,7 @@ void LoadMode::readInfoFromStepsFile()
 }
 int LoadMode::convertStrToNum(string numToConvert)
 {
-	int res;
+	int res = 0;
 	int i = 0;
 	while (numToConvert[i] != '\n')
 	{
@@ -93,14 +129,43 @@ void LoadMode::setFruitDirectionFromFile()
 	if (!subStr.starts_with('\n'))
 	{
 		subStr = line.substr(13, 14);
-		int xPos = convertStrToNum(subStr);
+		int xPos = stoi(subStr);
 		subStr = line.substr(16, 17);
-		int yPos = convertStrToNum(subStr);
+		int yPos = stoi(subStr);
 		fruit.setCurrPos(xPos, yPos);
 		subStr = line.substr(22);
-		fruit.setFruitVal(convertStrToNum(subStr));
+		fruit.setFruitVal(stoi(subStr));
 	}
 }
+
+void LoadMode::comparestepsToResultFile(int indexInFile)
+{
+	int numOfStepsInFile;
+
+	string line;
+	string subStr;
+
+	getline(resultFile, line);
+	subStr = line.substr(22);
+
+	numOfStepsInFile = stoi(subStr);
+
+	if (numOfStepsInFile == stepsCounter)
+		testPassed = true;
+	else
+		testPassed = false;
+}
+
+void LoadMode::printAfterTest()
+{
+	clearScreen();
+	if (testPassed)
+		cout << "Test passed" << endl;
+	else
+		cout << "Test failed" << endl;
+
+}
+
 
 void LoadMode::convertInputToDirection(string _dir)
 {

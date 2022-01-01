@@ -2,6 +2,9 @@
 
 void SaveMode::run()
 {
+	cout << "Hey, SaveMode" << endl;
+	Sleep(2000);
+	clearScreen();
 	runAllSessions();
 }
 /*
@@ -102,7 +105,6 @@ void SaveMode::writeMovesToStepsFile()
 		}
 	}
 	stepsFile << '\n';
-
 }
 
 //Running a game session, according to do-while loop condition
@@ -117,21 +119,30 @@ void SaveMode::runGame()
 		writeMovesToStepsFile();
 	} while (!GameFinished());
 
+	writeToResultFileEndOfSession();
 	afterRunGameProcedure();
 	closeFiles();
 	//result
 }
 
-void SaveMode::writeToResultFile()
+void SaveMode::writeToResultFileEndOfSession()
 {
-	resultFile << "Died in step: ";
-	resultFile << countsteps;
+	if (playerWon == true)
+		resultFile << "1.Congrats, you finished the board on step: " << countsteps;
+	else
+		resultFile << "2.You lost on step: " << countsteps;
 	resultFile << '\n';
-	if (pacman.getLivesLeft() == 0)
-	{
-		resultFile << " lose the game on step: " << countsteps << '\n';
-		resetStepsCounter();
-	}
+}
+void SaveMode::writeToResultFileInvalidBoard()
+{
+	if (!game_board.isValidBoard())
+		resultFile << "3.Invalid board" << '\n';
+}
+
+void SaveMode::writeToResultFileDuringSession()
+{
+	resultFile << "Pacman eaten on step: " << countsteps;
+	resultFile << '\n';
 }
 
 void SaveMode::closeFiles()
