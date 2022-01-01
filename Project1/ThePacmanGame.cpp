@@ -27,6 +27,28 @@ void ThePacmanGame::initGame(int ghostLevel)
 	}
 }
 
+void ThePacmanGame::initSingleScreen(int _level)
+{
+	if (activate)
+	{
+		initGame(_level);
+		if (game_board.isValidBoard() && typeid(*this).name() != "SilentMode")
+			printAfterInit();
+	}
+}
+
+
+void ThePacmanGame::runSingleScreen() //We should test that this is actually the object we want
+{
+	if (game_board.isValidBoard())
+	{
+		this->runGame();
+		if (pacman.getLivesLeft() == 0)
+			pacmanDied = true;
+	}
+}
+
+
 void ThePacmanGame::printAfterInit()
 {
 	game_board.printBoard();
@@ -265,6 +287,14 @@ void ThePacmanGame::printCollision() const
 //void ThePacmanGame::printCellRestore(const Creature& creature) const
 //{
 //}
+
+void ThePacmanGame::goodBye()
+{
+	clearScreen();
+	gotoxy(0, 0);
+	cout << "Goodbye" << endl;
+}
+
 
 void ThePacmanGame::loadScreens()
 {

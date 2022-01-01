@@ -24,11 +24,9 @@ public:
 	virtual void runSingleScreensSession() override;
 	void preparations();
 	void presentMenu();
-	void initSingleScreen();
-	virtual void runSingleScreen();
+	virtual void initSingleScreen(int _level = 0) override;
 	void firstBoardProcedure();
 	void handleQuit();
-	void goodBye();
 	void handleSetGameColorized();
 	virtual void runGame() override;
 	virtual void singleFruitSession() override;

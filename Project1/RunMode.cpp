@@ -15,15 +15,17 @@ void RunMode::assignGameModeAndRun()
 {
 	delete game;
 
-	/*if (input.cmdOptionExists("-load"))
+	if (input.cmdOptionExists("-load"))
 	{
-		if (input.cmdOptionExists("-silent")) game = new SilentMode;
-		else game = new LoadMode;
+		/*if (input.cmdOptionExists("-silent")) 
+			game = new SilentMode;*/
+		//else 
+		game = new LoadMode;
 	}
 	else if (input.cmdOptionExists("-save"))
 		game = new SaveMode;
-	else*/
-		game = new SaveMode;
+	else
+		game = new SimpleMode;
 
 	game->run();
 }

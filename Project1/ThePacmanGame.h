@@ -21,7 +21,6 @@ public:
 
 protected:
 	int j = 0;//manage the turns of the ghosts(even/odd)
-	Menu game_menu;
 	GameShell game_shell;
 	GameBoard game_board;
 	Pacman pacman;
@@ -30,12 +29,11 @@ protected:
 	int currScreenInd = 0;
 	size_t totalNumOfScreens;
 	bool pacmanDied = false; //Pacman Direction: 
-	int level;
 	int numOfGhosts;
 	static bool gameColorized;
 	bool activate = true;
-	bool fruitTurn = false;
 	bool playerWon = false;
+	bool fruitTurn = false;
 
 
 public:
@@ -46,8 +44,11 @@ public:
 	virtual void runSingleScreensSession()= 0;
 	virtual void runGame() = 0;
 	virtual void singleFruitSession() = 0;
+	virtual void initSingleScreen(int _level = 0);
+	virtual void runSingleScreen();
 	
 	void loadScreens();
+	void goodBye();
 	
 	void initGame(int ghostLevel = 0);
 	void setGameColors();
