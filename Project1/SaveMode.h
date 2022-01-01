@@ -25,7 +25,11 @@ public:
 	virtual void runGame() override;
 	//void writeGhostDirToStepsFile(string input);
 	//void writeFruitDirToStepsFile(string input);
-	void writeToResultFile();
+
+
+	void writeToResultFileEndOfSession();
+	void writeToResultFileDuringSession();
+	void writeToResultFileInvalidBoard();
 	void closeFiles();
 
 };

@@ -24,7 +24,7 @@ void GameBoard::setBreadCrumbsPosArr()
 	}
 }
 
-void GameBoard::readRawTemplate() 
+void GameBoard::readRawTemplate()
 {
 	ifstream templateFile(boardTemplates[currTemplate++], std::ios::in);
 
@@ -114,7 +114,7 @@ char GameBoard::convertChar(const char& ch)
 		return SPACE;
 	case ' ':
 		return BREADCRUMB;
-	default: 
+	default:
 		return ch;
 	}
 }
@@ -242,6 +242,7 @@ void GameBoard::initBoard()
 	resetBoard();
 	validPosStorage.clear();
 	readRawTemplate();
+	validNumOfCreaturesOnBoard();
 	if (validBoard)
 		initInvisibleTunnels();
 }
@@ -323,6 +324,29 @@ size_t GameBoard::getNumOfTemplates() const
 	return boardTemplates.size();
 }
 
+void GameBoard::validNumOfCreaturesOnBoard()
+{
+	int numOfPacmans = 0;
+	int numOfGhosts = 0;
+
+	for (int i = firstRow; i < lastRow; i++)
+	{
+		for (int j = firstCol; j < lastCol; j++)
+		{
+			if (board[i][j] == Creature::PACMAN)
+				numOfPacmans++;
+			if (board[i][j] == Creature::GHOST)
+				numOfGhosts++;
+		}
+	}
+	if (numOfPacmans > 1 || numOfPacmans == 0 || numOfGhosts > 4)
+	{
+		printInvalidBoardError(INVALIDCREATURES);
+		validBoard = false;
+	}
+
+}
+
 Position GameBoard::collectStartingPos(char ch) const
 {
 	Position res;
@@ -355,9 +379,10 @@ int GameBoard::collectnumOfGhosts() const
 	return counter;
 }
 
+
 void GameBoard::printInvalidBoardError(int errorCode) const
 {
-	cout << "ERROR! The screen '" << getScreenTemplateName(currTemplate-1) << "' isn't loaded correctly." << endl;
+	cout << "ERROR! The screen '" << getScreenTemplateName(currTemplate - 1) << "' isn't loaded correctly." << endl;
 	switch (errorCode)
 	{
 	case EMPTYFILE:
@@ -375,6 +400,10 @@ void GameBoard::printInvalidBoardError(int errorCode) const
 	case TOOWIDE:
 		cout << "Sorry! The recieved screen is TOO WIDE." << endl;
 		cout << "We recommend you to shorten the width of board's cols.";
+		break;
+	case INVALIDCREATURES:
+		cout << "Sorry! The num of creatures is invalid." << endl;
+		cout << "We recommend you to check the creatures in board.";
 		break;
 	default:
 		cout << "Invalid board.";
