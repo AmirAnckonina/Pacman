@@ -3,6 +3,9 @@
 
 void SimpleMode::run()
 {
+	cout << "Hey, SimpleMode" << endl;
+	Sleep(2000);
+	clearScreen();
 	runAllSessions();	
 }
 
@@ -18,13 +21,6 @@ void SimpleMode::runAllSessions()
 		resetThePacmanGame();
 	}
 	goodBye();
-}
-
-void SimpleMode::goodBye()
-{
-	clearScreen();
-	gotoxy(0, 0);
-	cout << "Goodbye" << endl;
 }
 
 void SimpleMode::handleQuit()
@@ -54,17 +50,16 @@ void SimpleMode::firstBoardProcedure()
 	}
 }
 
-void SimpleMode::initSingleScreen()
+void SimpleMode::initSingleScreen(int _level)
 {
 	if (activate)
 	{
 		handleSetGameColorized();
 		level = game_menu.getGameDifficulty();
-		initGame(level);
-		if (game_board.isValidBoard())
-			printAfterInit();
+		ThePacmanGame::initSingleScreen(level);
 	}
 }
+
 
 void SimpleMode::runSingleScreensSession()
 {
@@ -75,9 +70,7 @@ void SimpleMode::runSingleScreensSession()
 		initSingleScreen();
 		runSingleScreen();
 		game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
-		//game_menu.entryMenu();
 	}
-	//resetThePacmanGame();
 }
 
 void SimpleMode::preparations()
@@ -88,16 +81,16 @@ void SimpleMode::preparations()
 	loadScreens();
 }
 
-void SimpleMode::runSingleScreen()
-{
-	if (game_board.isValidBoard())
-	{
-		//runGame();
-		this->runGame();
-		if (pacman.getLivesLeft() == 0)
-			pacmanDied = true;
-	}
-}
+//void SimpleMode::runSingleScreen()
+//{
+//	if (game_board.isValidBoard())
+//	{
+//		//runGame();
+//		this->runGame();
+//		if (pacman.getLivesLeft() == 0)
+//			pacmanDied = true;
+//	}
+//}
 
 void SimpleMode::resetThePacmanGame()
 {
