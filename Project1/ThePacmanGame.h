@@ -44,7 +44,7 @@ public:
 	virtual void runAllSessions() = 0;
 	virtual void runSingleScreensSession()= 0;
 	virtual void runGame() = 0;
-	virtual void singleFruitSession() = 0;
+	virtual void singleFruitSession();
 	virtual void initSingleScreen(int _level = 0);
 	virtual void runSingleScreen();
 	
@@ -64,6 +64,7 @@ public:
 	void afterCollisionPrinting();
 	void generalCellRestore(const Creature& creature) const;
 	void afterGhostsMove();
+	virtual void executeSleepBetweenSessions();
 	
 	//Game functionalliy 
 	

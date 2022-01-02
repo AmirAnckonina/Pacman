@@ -24,27 +24,30 @@ void SilentMode::runSingleScreensSession()
 	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && !pacmanDied && activate; currStepsFile++, currResultFile++)
 	{
 		openFilesForRead();
-
 		initSingleScreen();
 		setAllCreaturesMoveStrategy();
 		runSingleScreen();
-		//game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+		if (typeid(*this).name() == "LoadMode")
+			game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
 	}
 }
 
 void SilentMode::runGame()
 {
-	bool fixed = true;
-
 	do
 	{
 		readInfoFromStepsFile();
-		singleCreaturesIteration();
+
+		if (typeid(*this).name() == "LoadMode")
+			ThePacmanGame::singleCreaturesIteration();
+		else
+			singleCreaturesIteration();
+
 		comparestepsToResultFile();
 
 	} while (!GameFinished() && testPassed);
 
-	testResultProcedure();
+	//testResultProcedure();
 
 	return;
 }
@@ -58,10 +61,61 @@ void SilentMode::singleCreaturesIteration()
 	singleFruitSession();
 }
 
+void SilentMode::completeGhostsSession()
+{
+	if (isFruitEatenByGhost())
+		fruit.disableActivity();
+
+	if (checkCollision())
+		collisionProcedure();
+}
+
+void SilentMode::completePacmanSession()
+{
+	if (isFruitEatenByPacman())
+		fruit.disableActivity();
+
+	if (!checkCollision())
+		updateScoreAndBoardAfterPacman();
+	else
+		collisionProcedure();
+}
+
 
 void SilentMode::singleFruitSession()
 {
-	return;
+
+	if (fruit.isActive())
+	{
+		//Only for Simple - Save
+
+
+		if (fruitTurn)
+		{
+			//To all modes
+			fruit.move(game_board);
+			fruit.updatePrevPos();
+			fruit.updatePos();
+		}
+		else
+			fruitTurn = true;
+
+
+		if (isFruitEatenByPacman() || isFruitEatenByGhost())
+			fruit.disableActivity();
+
+
+		if (fruit.getDirection() == Direction::STAY)
+		{
+			fruit.disableActivity();
+		}
+
+	}
+	else
+	{
+		if (fruit.getTimeOffBoard() == 0)
+			fruit.enableActivity();
+	}
 }
 
 void SilentMode::setAllCreaturesMoveStrategy()
@@ -174,7 +228,7 @@ void SilentMode::setFruitDirectionFromFile()
 	}
 }
 
-void SilentMode::comparestepsToResultFile(int indexInFile)
+void SilentMode::comparestepsToResultFile()
 {
 	int numOfStepsInFile;
 
@@ -182,7 +236,8 @@ void SilentMode::comparestepsToResultFile(int indexInFile)
 	string subStr;
 
 	getline(resultFile, line);
-	subStr = line.substr(22);
+	size_t last_index = line.find_last_not_of("0123456789");
+	subStr = line.substr(last_index + 1);
 
 	numOfStepsInFile = stoi(subStr);
 
