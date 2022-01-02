@@ -26,8 +26,11 @@ public:
 	virtual void runGame() override;
 	virtual void singleFruitSession() override;
 	virtual void singleCreaturesIteration() override;
-	virtual bool validateCollisionWithFiles();
-	virtual void testResultProcedure();
+	virtual void completeGhostsSession() override;
+	virtual void completePacmanSession() override; 
+	
+
+	//virtual void testResultProcedure();
 
 	void setAllCreaturesMoveStrategy();
 	void loadAllStepsAndResultFiles();
@@ -39,6 +42,6 @@ public:
 	void setPacDirectionFromFile();
 	void setGhostsDirectionFromFile();
 	void setFruitDirectionFromFile();
-	void comparestepsToResultFile(int indexInFile);
+	void comparestepsToResultFile();
 	void printAfterTest();
 };

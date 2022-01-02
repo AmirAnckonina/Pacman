@@ -24,12 +24,10 @@ public:
 	virtual void runSingleScreensSession() override;
 	void preparations();
 	void presentMenu();
-	virtual void initSingleScreen(int _level = 0) override;
 	void firstBoardProcedure();
 	void handleQuit();
 	void handleSetGameColorized();
 	virtual void runGame() override;
-	virtual void singleFruitSession() override;
 	void resetThePacmanGame();
 	void singlePlayerIteration();
 };
