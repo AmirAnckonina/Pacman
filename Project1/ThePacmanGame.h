@@ -73,7 +73,7 @@ public:
 	virtual void completeGhostsSession();
 	void updateScoreAndBoardAfterPacman();
 	virtual void fruitEatenProcedure(); 
-	void singleCreaturesIteration();
+	virtual void singleCreaturesIteration();
 	void afterRunGameProcedure();
 	bool checkCollision() const;
 	bool isFruitEatenByPacman();

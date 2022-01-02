@@ -18,6 +18,7 @@ void LoadMode::runAllSessions()
 void LoadMode::runSingleScreensSession()
 {
 	pacmanDied = false;
+
 	for (currScreenInd = 0; currScreenInd < totalNumOfScreens && !pacmanDied && activate; currScreenInd++)
 	{
 		initSingleScreen();
@@ -28,6 +29,7 @@ void LoadMode::runSingleScreensSession()
 
 void LoadMode::runGame()
 {
+
 	return;
 }
 
@@ -75,9 +77,7 @@ void LoadMode::readInfoFromStepsFile()
 	string line;
 	string subStr;
 	setPacDirectionFromFile();
-
 	setGhostsDirectionFromFile();
-
 	setFruitDirectionFromFile();
 }
 int LoadMode::convertStrToNum(string numToConvert)
