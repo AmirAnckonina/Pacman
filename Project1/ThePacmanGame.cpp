@@ -38,7 +38,7 @@ void ThePacmanGame::initSingleScreen(int _level)
 }
 
 
-void ThePacmanGame::runSingleScreen() //We should test that this is actually the object we want
+void ThePacmanGame::runSingleScreen() 
 {
 	if (game_board.isValidBoard())
 	{

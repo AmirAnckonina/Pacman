@@ -7,45 +7,7 @@ void SaveMode::run()
 	clearScreen();
 	runAllSessions();
 }
-/*
-void SaveMode::runAllSessions()
-{
-	preparations();
-	while (activate)
-	{
-		presentMenu();
-		handleSetGameColorized();
-		firstBoardProcedure();
-		runSingleScreensSession();
-		resetThePacmanGame();
-	}
-	goodBye();
-}
 
-void SaveMode::runSingleScreensSession()
-{
-	pacmanDied = false;
-	for (currScreenInd = 0; currScreenInd < totalNumOfScreens && !pacmanDied && activate; currScreenInd++)
-	{
-		handleQuit();
-		initSingleScreen();
-		runSingleScreen();
-		game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
-		//game_menu.entryMenu();
-	}
-	//resetThePacmanGame();
-}
-
-void SaveMode::runSingleScreen()
-{
-	if (game_board.isValidBoard())
-	{
-		runGame();
-		if (pacman.getLivesLeft() == 0)
-			pacmanDied = true;
-	}
-}
-*/
 void SaveMode::openFilesForWriting()
 {
 	string stepsFileName = game_board.getScreenTemplateName(game_board.getCurrTemplate() - 1).substr(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate() - 1).size() - 6)) + "steps";
@@ -136,6 +98,7 @@ void SaveMode::writeToResultFileEndOfSession()
 		resultFile << "2.You lost on step: " << countsteps;
 	resultFile << '\n';
 }
+
 void SaveMode::writeToResultFileInvalidBoard()
 {
 	if (!game_board.isValidBoard())
