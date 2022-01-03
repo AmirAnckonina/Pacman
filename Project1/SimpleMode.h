@@ -22,6 +22,7 @@ public:
 	
 	virtual void runAllSessions() override;
 	virtual void runSingleScreensSession() override;
+	virtual void initSingleScreen(int _level = 0);
 	void preparations();
 	void presentMenu();
 	void firstBoardProcedure();

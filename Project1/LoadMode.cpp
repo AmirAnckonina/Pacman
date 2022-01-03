@@ -8,17 +8,6 @@ void LoadMode::run()
 	runAllSessions();
 }
 
-void LoadMode::runGame()
-{
-
-	return;
-}
-
-void LoadMode::singleFruitSession()
-{
-	return;
-}
-
 void LoadMode::executeSleepBetweenSessions()
 {
 	Sleep(20);
