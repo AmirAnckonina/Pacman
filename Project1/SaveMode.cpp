@@ -62,13 +62,34 @@ void SaveMode::writeMovesToStepsFile()
 		if (fruit.getTimeOnBoard() == 39)
 		{
 			stepsFile << '|' << '(';
-			stepsFile << fruit.getCurrPos().getXPos() << ',' << fruit.getCurrPos().getYPos() << ") | ";
+			int x = fruit.getCurrPos().getXPos();
+			int y = fruit.getCurrPos().getYPos();
+
+			if (x < 10)
+			{
+				stepsFile << '0' << fruit.getCurrPos().getXPos();
+			}
+			else
+			{
+				stepsFile << fruit.getCurrPos().getXPos();
+			}
+			stepsFile << ',';
+
+			if (y < 10)
+			{
+				stepsFile << '0' << fruit.getCurrPos().getYPos();
+			}
+			else
+			{
+				stepsFile << fruit.getCurrPos().getYPos();
+			}
+
+			stepsFile << ") | ";
 			stepsFile << fruit.getFruitVal();
 		}
 	}
 	stepsFile << '\n';
 }
-
 //Running a game session, according to do-while loop condition
 void SaveMode::runGame()
 {
