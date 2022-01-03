@@ -81,16 +81,6 @@ void SimpleMode::preparations()
 	loadScreens();
 }
 
-//void SimpleMode::runSingleScreen()
-//{
-//	if (game_board.isValidBoard())
-//	{
-//		//runGame();
-//		this->runGame();
-//		if (pacman.getLivesLeft() == 0)
-//			pacmanDied = true;
-//	}
-//}
 
 void SimpleMode::resetThePacmanGame()
 {
@@ -132,7 +122,7 @@ void SimpleMode::singlePlayerIteration()
 		key = 0; //So pacman will continue as he was before pausing.
 	}
 }
-
+/*
 void SimpleMode::singleFruitSession()
 {
 	if (fruit.isActive())
@@ -181,7 +171,7 @@ void SimpleMode::singleFruitSession()
 		if (fruit.getTimeOffBoard() == 0)
 			fruit.enableActivity();
 	}
-}
+}*/
 //void SimpleMode::collisionProcedure()
 //{
 //	printCollision();

@@ -32,15 +32,16 @@ void ThePacmanGame::initSingleScreen(int _level)
 	if (activate)
 	{
 		initGame(_level);
-		if (game_board.isValidBoard() && typeid(*this).name() != "SilentMode")
+		cout << typeid(*this).name() << endl;
+		string currObj = typeid(*this).name();
+		currObj = currObj.substr(6);
+		cout << currObj;
+		if (game_board.isValidBoard() && currObj != "SilentMode")
+		{
 			printAfterInit();
+		}
 	}
 }
-
-void ThePacmanGame::singleFruitSession()
-{
-}
-
 
 void ThePacmanGame::runSingleScreen() 
 {
@@ -51,7 +52,6 @@ void ThePacmanGame::runSingleScreen()
 			pacmanDied = true;
 	}
 }
-
 
 void ThePacmanGame::printAfterInit()
 {
@@ -168,7 +168,6 @@ void ThePacmanGame::completeGhostsSession()
 		afterCollisionPrinting();
 	}
 }
-
 
 void ThePacmanGame::singleFruitSession()
 {
@@ -345,17 +344,12 @@ void ThePacmanGame::printCollision() const
 	}
 }
 
-//void ThePacmanGame::printCellRestore(const Creature& creature) const
-//{
-//}
-
 void ThePacmanGame::goodBye()
 {
 	clearScreen();
 	gotoxy(0, 0);
 	cout << "Goodbye" << endl;
 }
-
 
 void ThePacmanGame::loadScreens()
 {

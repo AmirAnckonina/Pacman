@@ -13,12 +13,17 @@ void SilentMode::run()
 void SilentMode::runAllSessions()
 {
 	loadScreens();
+	loadAllStepsAndResultFiles();
 	runSingleScreensSession();
 	goodBye();
 }
 
 void SilentMode::runSingleScreensSession()
 {
+	string currObj;
+	//Typeid helper
+	currObj = typeid(*this).name();
+	currObj = currObj.substr(6);
 	pacmanDied = false;
 
 	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && !pacmanDied && activate; currStepsFile++, currResultFile++)
@@ -27,27 +32,37 @@ void SilentMode::runSingleScreensSession()
 		initSingleScreen();
 		setAllCreaturesMoveStrategy();
 		runSingleScreen();
-		if (typeid(*this).name() == "LoadMode")
+
+		if (currObj == "LoadMode")
 			game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
 	}
 }
 
 void SilentMode::runGame()
 {
+	string currObj;
+	//Typeid helper
+	currObj = typeid(*this).name();
+	currObj = currObj.substr(6);
+
 	do
 	{
+		stepsCounter++;
 		readInfoFromStepsFile();
 
-		if (typeid(*this).name() == "LoadMode")
-			ThePacmanGame::singleCreaturesIteration();
-		else
-			singleCreaturesIteration();
+		if (currObj == "LoadMode") ThePacmanGame::singleCreaturesIteration();
+		else singleCreaturesIteration();
 
-		comparestepsToResultFile();
+		if (collisionInCurrStepIndicator) 
+			comparestepsToResultFile();
 
 	} while (!GameFinished() && testPassed);
 
-	//testResultProcedure();
+	comparestepsToResultFile();
+	printAfterTest();
+
+
+	if (currObj == "LoadMode") afterRunGameProcedure();
 
 	return;
 }
@@ -121,9 +136,14 @@ void SilentMode::singleFruitSession()
 void SilentMode::setAllCreaturesMoveStrategy()
 {
 	pacman.setCreatureStrategyType(Creature::INPUT);
+	pacman.setMoveStrategy();
 	for (int i = 0; i < numOfGhosts; i++)
+	{
 		ghost[i].setCreatureStrategyType(Creature::INPUT);
+		ghost[i].setMoveStrategy();
+	}
 	fruit.setCreatureStrategyType(Creature::INPUT);
+	fruit.setMoveStrategy();
 }
 
 void SilentMode::loadAllStepsAndResultFiles()
@@ -151,7 +171,7 @@ void SilentMode::loadAllStepsAndResultFiles()
 void SilentMode::openFilesForRead()
 {
 	stepsFile.open(stepsfilesArr[currStepsFile]);
-	resultFile.open(stepsfilesArr[currResultFile]);
+	resultFile.open(resultfilesArr[currResultFile]);
 }
 
 void SilentMode::closeCurrFiles()
@@ -195,10 +215,10 @@ void SilentMode::setGhostsDirectionFromFile()
 {
 	string line;
 	string subStr;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < numOfGhosts; i++)
 	{
 		getline(stepsFile, line);
-		subStr = line.substr(9, 13);
+		subStr = line.substr(8, 12);
 		convertInputToDirection(subStr);
 		ghost[i].setDirection(direction);
 	}
@@ -215,12 +235,12 @@ void SilentMode::setFruitDirectionFromFile()
 	fruit.setDirection(direction);
 
 	//handles the case when the fruit born
-	subStr = line.substr(12);
-	if (!subStr.starts_with('\n'))
+	subStr = line.substr(11);
+	if (subStr[0] != '\0') //)//(!subStr.starts_with('\n'))
 	{
-		subStr = line.substr(13, 14);
+		subStr = line.substr(15);
 		int xPos = stoi(subStr);
-		subStr = line.substr(16, 17);
+		subStr = line.substr(17);
 		int yPos = stoi(subStr);
 		fruit.setCurrPos(xPos, yPos);
 		subStr = line.substr(22);
@@ -255,6 +275,7 @@ void SilentMode::printAfterTest()
 	else
 		cout << "Test failed" << endl;
 
+	Sleep(2000);
 }
 
 void SilentMode::convertInputToDirection(string _dir)
