@@ -36,17 +36,6 @@ void SilentMode::runSingleScreensSession()
 			testPassed = true;
 			setAllCreaturesMoveStrategy();
 			runSingleScreen();
-
-			if (testPassed)
-				testScreen.push_back(true);
-			else
-				testScreen.push_back(false);
-
-			if (currObj == "LoadMode")
-			{
-				cout << "between screens..."; //game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
-				Sleep(2000);
-			}
 		}
 		else
 		{
@@ -87,18 +76,29 @@ void SilentMode::runGame()
 	comparestepsToResultFile();
 	printAfterTest();
 	closeCurrFiles();
-
 	return;
 }
 
 void SilentMode::singleCreaturesIteration()
 {
-	singleGhostsSession();
+	/*singleGhostsSession();
 	completeGhostsSession();
 	singlePacmanSession();
 	completePacmanSession();
+	handleFruitActivityBeforeSession();
+	ThePacmanGame::singleFruitSession();
+	ThePacmanGame::completeFruitSession();
+	handleFruitActivityAfterSession();*/
+	singleGhostsSession();
+	afterGhostsMove();
+	ThePacmanGame::completeGhostsSession();
+	singlePacmanSession();
+	pacman.afterMoveProcedure(game_board);
+	ThePacmanGame::completePacmanSession();
 	singleFruitSession();
+	
 }
+
 
 void SilentMode::completeGhostsSession()
 {
@@ -117,7 +117,9 @@ void SilentMode::completePacmanSession()
 	if (!checkCollision())
 		updateScoreAndBoardAfterPacman();
 	else
+	{
 		collisionProcedure();
+	}
 }
 
 void SilentMode::singleFruitSession()
@@ -138,6 +140,7 @@ void SilentMode::singleFruitSession()
 		if (isFruitEatenByPacman() || isFruitEatenByGhost())
 			fruit.disableActivity();
 
+		ThePacmanGame::completeFruitSession();
 
 		if (fruit.getDirection() == Direction::STAY)
 		{
@@ -149,6 +152,7 @@ void SilentMode::singleFruitSession()
 		if (fruit.getTimeOffBoard() == 0)
 			fruit.enableActivity();
 	}
+
 }
 
 void SilentMode::setAllCreaturesMoveStrategy()
@@ -351,7 +355,3 @@ void SilentMode::setLivesLeftFromResFile()
 	pacman.setLivesLeft(livesLeft);
 }
 
-
-//string str = "sdfsd34";
-//size_t last_index = str.find_last_not_of("0123456789");
-//string result = str.substr(last_index + 1);

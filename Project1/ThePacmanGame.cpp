@@ -32,10 +32,8 @@ void ThePacmanGame::initSingleScreen(int _level)
 	if (activate)
 	{
 		initGame(_level);
-		cout << typeid(*this).name() << endl;
 		string currObj = typeid(*this).name();
 		currObj = currObj.substr(6);
-		cout << currObj;
 		if (game_board.isValidBoard() && currObj != "SilentMode")
 		{
 			printAfterInit();
@@ -81,10 +79,7 @@ void ThePacmanGame::singleCreaturesIteration()
 	singlePacmanSession();
 	pacman.afterMoveProcedure(game_board);
 	ThePacmanGame::completePacmanSession();
-	handleFruitActivityBeforeSession();
 	singleFruitSession();
-	ThePacmanGame::completeFruitSession();
-	handleFruitActivityAfterSession();
 	printFigures();
 	this->executeSleepBetweenSessions();
 }
@@ -153,15 +148,20 @@ void ThePacmanGame::afterGhostsMove()
 	for (int i = j; i < numOfGhosts; i += 2)
 		ghost[i].afterMoveProcedure(game_board);
 	
-	if (j == 0)
-		j = 1;
-	else
-		j = 0; //they won't move in the next step
+	//if (j == 0)
+	//	j = 1;
+	//else
+	//	j = 0; //they won't move in the next step
 
 }
 
 void ThePacmanGame::completeGhostsSession() //over
 {
+
+	if (j == 0)
+		j = 1;
+	else
+		j = 0; //they won't move in the next step
 
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
@@ -178,19 +178,9 @@ void ThePacmanGame::completeGhostsSession() //over
 
 void ThePacmanGame::singleFruitSession()
 {
+	handleFruitActivityBeforeSession();
 	if (fruit.isActive())
 	{
-		//Only for Simple - Save
-		//handleFruitActivityBeforeSession();
-		/*if (fruit.getTimeOnBoard() == 40)
-		{
-			fruit.generateLocation(game_board);
-			fruit.generateFruitValue();
-			fruit.ReduceTimeOnBoard();
-			fruitTurn = false;
-		}*/
-
-
 		if (fruitTurn)
 		{
 			//To all modes
@@ -205,26 +195,9 @@ void ThePacmanGame::singleFruitSession()
 		}
 		else
 			fruitTurn = true;
-
-		//completeFruitSession();
-		//if (isFruitEatenByPacman() || isFruitEatenByGhost())
-		//	fruitEatenProcedure();//when it becomes 
-
-		//fruit.printCreature();
-		
-		/*if (fruit.getTimeOnBoard() == 0)
-		{
-			fruit.disableActivity();
-			generalCellRestore(fruit);
-		}*/
-
 	}
-	//else
-	//{
-		//fruit.ReduceTimeOffBoard();
-		//if (fruit.getTimeOffBoard() == 0)
-			//fruit.enableActivity();
-	//}
+	ThePacmanGame::completeFruitSession();
+	handleFruitActivityAfterSession();
 }
 
 void ThePacmanGame::handleFruitActivityBeforeSession()
@@ -249,7 +222,13 @@ void ThePacmanGame::completeFruitSession()
 		if (isFruitEatenByPacman() || isFruitEatenByGhost())
 			fruitEatenProcedure();//when it becomes 
 
-		fruit.printCreature();
+		string currObj = typeid(*this).name();
+		currObj = currObj.substr(6);
+
+		if (currObj != "SilentMode")
+		{
+			fruit.printCreature();
+		}
 	}
 }
 

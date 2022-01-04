@@ -27,7 +27,7 @@ void RunMode::assignGameModeAndRun()
 	else
 		game = new SimpleMode;
 	*/
-	game = new SaveMode;
+	game = new LoadMode;
 	game->run();
 }
 
