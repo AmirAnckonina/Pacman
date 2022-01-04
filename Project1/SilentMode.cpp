@@ -117,7 +117,7 @@ void SilentMode::completePacmanSession()
 
 void SilentMode::singleFruitSession()
 {
-	if (fruit.getDirection() != Direction::STAY)
+	if (fruit.isActive())
 	{
 		if (fruitTurn)
 		{
@@ -128,14 +128,18 @@ void SilentMode::singleFruitSession()
 		}
 		else
 			fruitTurn = true;
-
+		
 		completeFruitSession();
+		fruit.ReduceTimeOnBoard();
+
+		if (fruit.getTimeOnBoard() == 0)
+			fruit.disableActivity();
 	}
 }
 
 void SilentMode::completeFruitSession()
 {
-	if (fruit.getDirection() != Direction::STAY)
+	if (fruit.isActive())
 	{
 		if (isFruitEatenByPacman() || isFruitEatenByGhost())
 			return;
@@ -265,6 +269,8 @@ void SilentMode::setFruitDirectionFromFile()
 		fruit.setCurrPos(xPos, yPos);
 		subStr = line.substr(24);
 		fruit.setFruitVal(stoi(subStr));
+		fruit.enableActivity();
+		fruit.setTimeOnBoard(40);
 	}
 }
 

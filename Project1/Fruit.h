@@ -24,6 +24,8 @@ public:
 	void generateLocation(GameBoard& board);
 
 	//Get-Set Functions
+	void setTimeOnBoard(int _timeOnBoard) { timeOnBoard = _timeOnBoard; }
+	void setTimeOffBoard(int _timeOffBoard) { timeOffBoard = _timeOffBoard; }
 	int getTimeOnBoard() const { return timeOnBoard; };
 	int getTimeOffBoard() const { return timeOffBoard; };
 	int getFruitVal() const { return fruitVal; }
