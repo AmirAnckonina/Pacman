@@ -28,13 +28,27 @@ void SilentMode::runSingleScreensSession()
 
 	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && !pacmanDied && activate; currStepsFile++, currResultFile++)
 	{
-		openFilesForRead();
 		initSingleScreen();
-		setAllCreaturesMoveStrategy();
-		runSingleScreen();
+		if (game_board.isValidBoard())
+		{
+			testPassed = true;
+			openFilesForRead();
+			setAllCreaturesMoveStrategy();
+			runSingleScreen();
 
-		if (currObj == "LoadMode")
-			game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+			if (testPassed)
+				testScreen.push_back(true);
+			else
+				testScreen.push_back(false);
+
+			if (currObj == "LoadMode")
+				game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+		}
+		else
+		{
+			--currResultFile;
+			--currStepsFile;
+		}
 	}
 }
 
@@ -45,24 +59,31 @@ void SilentMode::runGame()
 	currObj = typeid(*this).name();
 	currObj = currObj.substr(6);
 
+	stepsCounter = 0;
+	
 	do
 	{
 		stepsCounter++;
 		readInfoFromStepsFile();
 
-		if (currObj == "LoadMode") ThePacmanGame::singleCreaturesIteration();
-		else singleCreaturesIteration();
+		if (currObj == "LoadMode")
+		{
+			ThePacmanGame::singleCreaturesIteration();
+		}
+		else
+		{
+			singleCreaturesIteration();
+		}
 
 		if (collisionInCurrStepIndicator) 
 			comparestepsToResultFile();
 
-	} while (!GameFinished() && testPassed);
+
+	}while (!GameFinished); 
 
 	comparestepsToResultFile();
 	printAfterTest();
-
-
-	if (currObj == "LoadMode") afterRunGameProcedure();
+	closeCurrFiles();
 
 	return;
 }
@@ -236,14 +257,15 @@ void SilentMode::setFruitDirectionFromFile()
 
 	//handles the case when the fruit born
 	subStr = line.substr(11);
-	if (subStr[0] != '\0') //)//(!subStr.starts_with('\n'))
+	//if (subStr[0] != '\0') //)//(!subStr.starts_with('\n'))
+	if ( isdigit( line[line.length() - 1] ) )
 	{
-		subStr = line.substr(15);
+		subStr = line.substr(15, 16);
 		int xPos = stoi(subStr);
-		subStr = line.substr(17);
+		subStr = line.substr(18, 19);
 		int yPos = stoi(subStr);
 		fruit.setCurrPos(xPos, yPos);
-		subStr = line.substr(22);
+		subStr = line.substr(24);
 		fruit.setFruitVal(stoi(subStr));
 	}
 }
@@ -261,10 +283,12 @@ void SilentMode::comparestepsToResultFile()
 
 	numOfStepsInFile = stoi(subStr);
 
-	if (numOfStepsInFile == stepsCounter)
+	if (numOfStepsInFile == stepsCounter || numOfStepsInFile - 1 == stepsCounter )
 		testPassed = true;
 	else
 		testPassed = false;
+
+	collisionInCurrStepIndicator = false;
 }
 
 void SilentMode::printAfterTest()
