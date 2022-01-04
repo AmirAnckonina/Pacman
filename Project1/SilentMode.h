@@ -32,6 +32,7 @@ public:
 	
 
 	//virtual void testResultProcedure();
+	void handleInvalidScreen();
 	void setLivesLeftFromResFile();
 	void setAllCreaturesMoveStrategy();
 	void loadAllStepsAndResultFiles();

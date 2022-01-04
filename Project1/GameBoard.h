@@ -36,6 +36,7 @@ public:
 	~GameBoard();
 	//Init functions
 	void loadAllScreenTemplates();
+	void moveToNextTemplate() { currTemplate++; }
 	void readRawTemplate();
 	void sortByFirstBoardChosen(int userChosenTemplate);
 	char convertChar(const char& ch);

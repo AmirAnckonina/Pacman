@@ -32,6 +32,13 @@ public:
 	void writeToResultFileDuringSession();
 	void writeToResultFileInvalidBoard();
 	void removeOldFiles();
+	virtual void singleCreaturesIteration() override;
+	virtual void completeGhostsSession() override;
+	virtual void completePacmanSession() override;
+	virtual void completeFruitSession() override;
+	void WritePacmanMoveToStepsFile();
+	void WriteGhostsMoveToStepsFile();
+	void WriteFruitMoveToStepsFile();
 	void closeFiles();
 
 };
