@@ -98,11 +98,10 @@ void SaveMode::WriteFruitMoveToStepsFile()
 		}
 	}
 	stepsFile << '\n';
-
 }
 
-void SaveMode::writeMovesToStepsFile()
-{
+//void SaveMode::writeMovesToStepsFile()
+//{
 	/*stepsFile << "Pacman: ";
 	convertDirToInput(pacman.getDirection());
 	stepsFile << dir << '\n';*/
@@ -153,7 +152,8 @@ void SaveMode::writeMovesToStepsFile()
 	//	}
 	//}
 	//stepsFile << '\n';
-}
+//}
+
 //Running a game session, according to do-while loop condition
 void SaveMode::runGame()
 {
