@@ -36,17 +36,6 @@ void SilentMode::runSingleScreensSession()
 			testPassed = true;
 			setAllCreaturesMoveStrategy();
 			runSingleScreen();
-
-			if (testPassed)
-				testScreen.push_back(true);
-			else
-				testScreen.push_back(false);
-
-			if (currObj == "LoadMode")
-			{
-				cout << "between screens..."; //game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
-				Sleep(2000);
-			}
 		}
 		else
 		{
@@ -87,7 +76,6 @@ void SilentMode::runGame()
 	comparestepsToResultFile();
 	printAfterTest();
 	closeCurrFiles();
-
 	return;
 }
 
@@ -102,6 +90,11 @@ void SilentMode::singleCreaturesIteration()
 
 void SilentMode::completeGhostsSession()
 {
+	if (j == 0)
+		j = 1;
+	else
+		j = 0; //they won't move in the next step
+
 	if (isFruitEatenByGhost())
 		fruit.disableActivity();
 
@@ -117,7 +110,9 @@ void SilentMode::completePacmanSession()
 	if (!checkCollision())
 		updateScoreAndBoardAfterPacman();
 	else
+	{
 		collisionProcedure();
+	}
 }
 
 void SilentMode::singleFruitSession()
@@ -133,23 +128,33 @@ void SilentMode::singleFruitSession()
 		}
 		else
 			fruitTurn = true;
+		
+		completeFruitSession();
+		fruit.ReduceTimeOnBoard();
 
-
-		if (isFruitEatenByPacman() || isFruitEatenByGhost())
+		if (fruit.getTimeOnBoard() == 0)
 			fruit.disableActivity();
-
-
-		if (fruit.getDirection() == Direction::STAY)
-		{
-			fruit.disableActivity();
-		}
-	}
-	else
-	{
-		if (fruit.getTimeOffBoard() == 0)
-			fruit.enableActivity();
 	}
 }
+
+void SilentMode::completeFruitSession()
+{
+	if (fruit.isActive())
+	{
+		if (isFruitEatenByPacman() || isFruitEatenByGhost())
+			return;
+
+		string currObj = typeid(*this).name();
+		currObj = currObj.substr(6);
+
+		if (currObj != "SilentMode")
+		{
+			fruit.printCreature();
+		}
+	}
+}
+
+
 
 void SilentMode::setAllCreaturesMoveStrategy()
 {
@@ -264,13 +269,14 @@ void SilentMode::setFruitDirectionFromFile()
 		fruit.setCurrPos(xPos, yPos);
 		subStr = line.substr(24);
 		fruit.setFruitVal(stoi(subStr));
+		fruit.enableActivity();
+		fruit.setTimeOnBoard(40);
 	}
 }
 
 void SilentMode::comparestepsToResultFile()
 {
 	int numOfStepsInFile;
-
 	string line;
 	string subStr;
 
@@ -351,7 +357,3 @@ void SilentMode::setLivesLeftFromResFile()
 	pacman.setLivesLeft(livesLeft);
 }
 
-
-//string str = "sdfsd34";
-//size_t last_index = str.find_last_not_of("0123456789");
-//string result = str.substr(last_index + 1);
