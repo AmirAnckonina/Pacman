@@ -200,8 +200,8 @@ void SilentMode::closeCurrFiles()
 
 void SilentMode::readInfoFromStepsFile()
 {
-	setPacDirectionFromFile();
 	setGhostsDirectionFromFile();
+	setPacDirectionFromFile();
 	setFruitDirectionFromFile();
 }
 

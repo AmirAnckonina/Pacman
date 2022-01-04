@@ -77,13 +77,13 @@ void ThePacmanGame::singleCreaturesIteration()
 {
 	singleGhostsSession();
 	afterGhostsMove();
-	completeGhostsSession();
+	ThePacmanGame::completeGhostsSession();
 	singlePacmanSession();
 	pacman.afterMoveProcedure(game_board);
-	completePacmanSession();
+	ThePacmanGame::completePacmanSession();
 	handleFruitActivityBeforeSession();
 	singleFruitSession();
-	completeFruitSession();
+	ThePacmanGame::completeFruitSession();
 	handleFruitActivityAfterSession();
 	printFigures();
 	this->executeSleepBetweenSessions();
@@ -152,6 +152,7 @@ void ThePacmanGame::afterGhostsMove()
 {
 	for (int i = j; i < numOfGhosts; i += 2)
 		ghost[i].afterMoveProcedure(game_board);
+	
 	if (j == 0)
 		j = 1;
 	else
