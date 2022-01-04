@@ -81,7 +81,10 @@ void ThePacmanGame::singleCreaturesIteration()
 	singlePacmanSession();
 	pacman.afterMoveProcedure(game_board);
 	completePacmanSession();
-	this->singleFruitSession();
+	handleFruitActivityBeforeSession();
+	singleFruitSession();
+	completeFruitSession();
+	handleFruitActivityAfterSession();
 	printFigures();
 	this->executeSleepBetweenSessions();
 }
@@ -103,6 +106,7 @@ void ThePacmanGame::singlePacmanSession()
 
 void ThePacmanGame::completePacmanSession()
 {
+
 	if (isFruitEatenByPacman())
 		fruitEatenProcedure();
 
@@ -141,6 +145,7 @@ void ThePacmanGame::singleGhostsSession()
 		ghost[i].updatePrevPos();
 		ghost[i].updatePos();
 	}
+
 }
 
 void ThePacmanGame::afterGhostsMove()
@@ -154,8 +159,9 @@ void ThePacmanGame::afterGhostsMove()
 
 }
 
-void ThePacmanGame::completeGhostsSession()
+void ThePacmanGame::completeGhostsSession() //over
 {
+
 	if (isFruitEatenByGhost())
 		fruitEatenProcedure();
 
@@ -174,13 +180,14 @@ void ThePacmanGame::singleFruitSession()
 	if (fruit.isActive())
 	{
 		//Only for Simple - Save
-		if (fruit.getTimeOnBoard() == 40)
+		//handleFruitActivityBeforeSession();
+		/*if (fruit.getTimeOnBoard() == 40)
 		{
 			fruit.generateLocation(game_board);
 			fruit.generateFruitValue();
 			fruit.ReduceTimeOnBoard();
 			fruitTurn = false;
-		}
+		}*/
 
 
 		if (fruitTurn)
@@ -198,18 +205,62 @@ void ThePacmanGame::singleFruitSession()
 		else
 			fruitTurn = true;
 
+		//completeFruitSession();
+		//if (isFruitEatenByPacman() || isFruitEatenByGhost())
+		//	fruitEatenProcedure();//when it becomes 
 
+		//fruit.printCreature();
+		
+		/*if (fruit.getTimeOnBoard() == 0)
+		{
+			fruit.disableActivity();
+			generalCellRestore(fruit);
+		}*/
+
+	}
+	//else
+	//{
+		//fruit.ReduceTimeOffBoard();
+		//if (fruit.getTimeOffBoard() == 0)
+			//fruit.enableActivity();
+	//}
+}
+
+void ThePacmanGame::handleFruitActivityBeforeSession()
+{
+	if (fruit.isActive())
+	{
+		//Only for Simple - Save
+		if (fruit.getTimeOnBoard() == 40)
+		{
+			fruit.generateLocation(game_board);
+			fruit.generateFruitValue();
+			fruit.ReduceTimeOnBoard();
+			fruitTurn = false;
+		}
+	}
+}
+
+void ThePacmanGame::completeFruitSession()
+{
+	if (fruit.isActive())
+	{
 		if (isFruitEatenByPacman() || isFruitEatenByGhost())
 			fruitEatenProcedure();//when it becomes 
 
 		fruit.printCreature();
+	}
+}
 
+void ThePacmanGame::handleFruitActivityAfterSession()
+{
+	if (fruit.isActive())
+	{
 		if (fruit.getTimeOnBoard() == 0)
 		{
 			fruit.disableActivity();
 			generalCellRestore(fruit);
 		}
-
 	}
 	else
 	{

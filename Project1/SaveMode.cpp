@@ -40,19 +40,25 @@ void SaveMode::convertDirToInput(Direction _dir)
 	}
 }
 
-void SaveMode::writeMovesToStepsFile()
+void SaveMode::WritePacmanMoveToStepsFile()
 {
 	stepsFile << "Pacman: ";
 	convertDirToInput(pacman.getDirection());
 	stepsFile << dir << '\n';
+}
 
+void SaveMode::WriteGhostsMoveToStepsFile()
+{
 	for (int i = 0; i < numOfGhosts; i++)
 	{
 		stepsFile << "Ghost" << i << ": ";
 		convertDirToInput(ghost[i].getDirection());
 		stepsFile << dir << '\n';
 	}
+}
 
+void SaveMode::WriteFruitMoveToStepsFile()
+{
 	stepsFile << "Fruit:  ";
 	if (!fruit.isActive())
 	{
@@ -92,6 +98,61 @@ void SaveMode::writeMovesToStepsFile()
 		}
 	}
 	stepsFile << '\n';
+
+}
+
+void SaveMode::writeMovesToStepsFile()
+{
+	/*stepsFile << "Pacman: ";
+	convertDirToInput(pacman.getDirection());
+	stepsFile << dir << '\n';*/
+
+	/*for (int i = 0; i < numOfGhosts; i++)
+	{
+		stepsFile << "Ghost" << i << ": ";
+		convertDirToInput(ghost[i].getDirection());
+		stepsFile << dir << '\n';
+	}*/
+
+	//stepsFile << "Fruit:  ";
+	//if (!fruit.isActive())
+	//{
+	//	stepsFile << "OFF";
+	//}
+	//else
+	//{
+	//	convertDirToInput(fruit.getDirection());
+	//	stepsFile << dir;
+	//	if (fruit.getTimeOnBoard() == 39)
+	//	{
+	//		stepsFile << '|' << '(';
+	//		int x = fruit.getCurrPos().getXPos();
+	//		int y = fruit.getCurrPos().getYPos();
+
+	//		if (x < 10)
+	//		{
+	//			stepsFile << '0' << fruit.getCurrPos().getXPos();
+	//		}
+	//		else
+	//		{
+	//			stepsFile << fruit.getCurrPos().getXPos();
+	//		}
+	//		stepsFile << ',';
+
+	//		if (y < 10)
+	//		{
+	//			stepsFile << '0' << fruit.getCurrPos().getYPos();
+	//		}
+	//		else
+	//		{
+	//			stepsFile << fruit.getCurrPos().getYPos();
+	//		}
+
+	//		stepsFile << ") | ";
+	//		stepsFile << fruit.getFruitVal();
+	//	}
+	//}
+	//stepsFile << '\n';
 }
 //Running a game session, according to do-while loop condition
 void SaveMode::runGame()
@@ -106,7 +167,7 @@ void SaveMode::runGame()
 		singlePlayerIteration();
 		singleCreaturesIteration();
 		//Steps
-		writeMovesToStepsFile();
+		//writeMovesToStepsFile();
 		writeToResultFileDuringSession();
 
 	} while (!GameFinished());
@@ -156,6 +217,43 @@ void SaveMode::removeOldFiles()
 			remove(path.c_str());
 		}
 	}
+}
+
+void SaveMode::singleCreaturesIteration()
+{
+	singleGhostsSession();
+	afterGhostsMove();
+	completeGhostsSession();
+	singlePacmanSession();
+	pacman.afterMoveProcedure(game_board);
+	completePacmanSession();
+	handleFruitActivityBeforeSession();
+	singleFruitSession();
+	completeFruitSession();
+	handleFruitActivityAfterSession();
+	printFigures();
+	executeSleepBetweenSessions();
+}
+
+void SaveMode::completeGhostsSession()
+{
+	//Write To Files
+	WriteGhostsMoveToStepsFile();
+	ThePacmanGame::completeGhostsSession();
+}
+
+void SaveMode::completePacmanSession()
+{
+	//Write To Files
+	WritePacmanMoveToStepsFile();
+	ThePacmanGame::completePacmanSession();
+}
+
+void SaveMode::completeFruitSession()
+{
+	//WriteToFiles
+	WriteFruitMoveToStepsFile();
+	ThePacmanGame::completeFruitSession();
 }
 
 void SaveMode::writeToResultFileDuringSession()

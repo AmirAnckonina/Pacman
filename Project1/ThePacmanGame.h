@@ -67,7 +67,9 @@ public:
 	virtual void executeSleepBetweenSessions();
 	
 	//Game functionalliy 
-	
+	void handleFruitActivityAfterSession();
+	void handleFruitActivityBeforeSession();
+	virtual void completeFruitSession();
 	void singlePacmanSession() ;
 	virtual void completePacmanSession();
 	void singleGhostsSession();

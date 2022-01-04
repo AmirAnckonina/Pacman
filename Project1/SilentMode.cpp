@@ -14,6 +14,7 @@ void SilentMode::runAllSessions()
 {
 	loadScreens();
 	loadAllStepsAndResultFiles();
+
 	runSingleScreensSession();
 	goodBye();
 }
@@ -28,6 +29,7 @@ void SilentMode::runSingleScreensSession()
 
 	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && activate; currStepsFile++, currResultFile++)
 	{
+		handleInvalidScreen();
 		initSingleScreen();
 		if (game_board.isValidBoard())
 		{
@@ -120,12 +122,8 @@ void SilentMode::completePacmanSession()
 
 void SilentMode::singleFruitSession()
 {
-
 	if (fruit.isActive())
 	{
-		//Only for Simple - Save
-
-
 		if (fruitTurn)
 		{
 			//To all modes
@@ -145,7 +143,6 @@ void SilentMode::singleFruitSession()
 		{
 			fruit.disableActivity();
 		}
-
 	}
 	else
 	{
@@ -319,6 +316,26 @@ void SilentMode::convertInputToDirection(string _dir)
 
 	else
 		direction = Direction::STAY;
+
+}
+
+void SilentMode::handleInvalidScreen()
+{
+	string tempTemplate = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr
+	(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 7));
+
+	string tempstepsFile = stepsfilesArr[currStepsFile].substr(0, stepsfilesArr[currStepsFile].size() - 6);
+
+
+	while (tempstepsFile != tempTemplate && currStepsFile < stepsfilesArr.size())
+	{
+
+		game_board.moveToNextTemplate();
+
+		tempTemplate = game_board.getScreenTemplateName(game_board.getCurrTemplate()).substr
+		(0, (game_board.getScreenTemplateName(game_board.getCurrTemplate()).size() - 7));
+		tempstepsFile = stepsfilesArr[currStepsFile].substr(0, stepsfilesArr[currStepsFile].size() - 6);
+	}
 
 }
 
