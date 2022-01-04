@@ -18,6 +18,7 @@ protected:
 	ifstream resultFile;
 	vector <string> stepsfilesArr;
 	vector <string> resultfilesArr;
+	vector <bool> testScreen;
 
 public:
 	virtual void run() override;
@@ -31,7 +32,7 @@ public:
 	
 
 	//virtual void testResultProcedure();
-
+	void setLivesLeftFromResFile();
 	void setAllCreaturesMoveStrategy();
 	void loadAllStepsAndResultFiles();
 	void openFilesForRead();

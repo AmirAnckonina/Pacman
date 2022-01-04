@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SimpleMode.h"
+#include <cstdio>
 #include <fstream>
 
 using std::ofstream;
@@ -26,10 +27,11 @@ public:
 	//void writeGhostDirToStepsFile(string input);
 	//void writeFruitDirToStepsFile(string input);
 
-
+	void writeLivesLeftToResultFile();
 	void writeToResultFileEndOfSession();
 	void writeToResultFileDuringSession();
 	void writeToResultFileInvalidBoard();
+	void removeOldFiles();
 	void closeFiles();
 
 };

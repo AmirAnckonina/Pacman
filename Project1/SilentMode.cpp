@@ -26,13 +26,12 @@ void SilentMode::runSingleScreensSession()
 	currObj = currObj.substr(6);
 	pacmanDied = false;
 
-	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && !pacmanDied && activate; currStepsFile++, currResultFile++)
+	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && activate; currStepsFile++, currResultFile++)
 	{
 		initSingleScreen();
 		if (game_board.isValidBoard())
 		{
 			testPassed = true;
-			openFilesForRead();
 			setAllCreaturesMoveStrategy();
 			runSingleScreen();
 
@@ -42,7 +41,10 @@ void SilentMode::runSingleScreensSession()
 				testScreen.push_back(false);
 
 			if (currObj == "LoadMode")
-				game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+			{
+				cout << "between screens..."; //game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+				Sleep(2000);
+			}
 		}
 		else
 		{
@@ -54,6 +56,9 @@ void SilentMode::runSingleScreensSession()
 
 void SilentMode::runGame()
 {
+	openFilesForRead();
+	setLivesLeftFromResFile();
+
 	string currObj;
 	//Typeid helper
 	currObj = typeid(*this).name();
@@ -67,19 +72,15 @@ void SilentMode::runGame()
 		readInfoFromStepsFile();
 
 		if (currObj == "LoadMode")
-		{
 			ThePacmanGame::singleCreaturesIteration();
-		}
 		else
-		{
 			singleCreaturesIteration();
-		}
 
 		if (collisionInCurrStepIndicator) 
 			comparestepsToResultFile();
 
 
-	}while (!GameFinished); 
+	} while (!GameFinished() && testPassed); 
 
 	comparestepsToResultFile();
 	printAfterTest();
@@ -116,7 +117,6 @@ void SilentMode::completePacmanSession()
 	else
 		collisionProcedure();
 }
-
 
 void SilentMode::singleFruitSession()
 {
@@ -191,8 +191,8 @@ void SilentMode::loadAllStepsAndResultFiles()
 
 void SilentMode::openFilesForRead()
 {
-	stepsFile.open(stepsfilesArr[currStepsFile]);
-	resultFile.open(resultfilesArr[currResultFile]);
+		stepsFile.open(stepsfilesArr[currStepsFile]);
+		resultFile.open(resultfilesArr[currResultFile]);
 }
 
 void SilentMode::closeCurrFiles()
@@ -321,6 +321,19 @@ void SilentMode::convertInputToDirection(string _dir)
 		direction = Direction::STAY;
 
 }
+
+void SilentMode::setLivesLeftFromResFile()
+{
+	int livesLeft;
+	string line;
+	string subStr;
+	getline(resultFile, line);
+	size_t last_index = line.find_last_not_of("0123456789");
+	subStr = line.substr(last_index + 1);
+	livesLeft = stoi(subStr);
+	pacman.setLivesLeft(livesLeft);
+}
+
 
 //string str = "sdfsd34";
 //size_t last_index = str.find_last_not_of("0123456789");
