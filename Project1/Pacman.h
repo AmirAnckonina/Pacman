@@ -30,4 +30,5 @@ public:
 	void setScore(int _score) { score = _score; }
 	int getScore() const { return score; }
 	int getLivesLeft() const { return livesLeft; }
+	void setLivesLeft(int _lives) { livesLeft = _lives; }
 };

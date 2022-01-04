@@ -5,6 +5,7 @@ void SaveMode::run()
 	cout << "Hey, SaveMode" << endl;
 	Sleep(2000);
 	clearScreen();
+	removeOldFiles();
 	runAllSessions();
 }
 
@@ -38,6 +39,7 @@ void SaveMode::convertDirToInput(Direction _dir)
 
 	}
 }
+
 void SaveMode::writeMovesToStepsFile()
 {
 	stepsFile << "Pacman: ";
@@ -95,6 +97,7 @@ void SaveMode::writeMovesToStepsFile()
 void SaveMode::runGame()
 {
 	openFilesForWriting();
+	writeLivesLeftToResultFile();
 	countsteps = 0;
 	do
 	{
@@ -114,6 +117,12 @@ void SaveMode::runGame()
 	//result
 }
 
+void SaveMode::writeLivesLeftToResultFile()
+{
+	resultFile << "Pacman's lives Left: " << pacman.getLivesLeft();
+	resultFile << '\n';
+}
+
 void SaveMode::writeToResultFileEndOfSession()
 {
 	if (playerWon == true)
@@ -127,6 +136,26 @@ void SaveMode::writeToResultFileInvalidBoard()
 {
 	if (!game_board.isValidBoard())
 		resultFile << "3.Invalid board" << '\n';
+}
+
+void SaveMode::removeOldFiles()
+{
+	string path;
+	for (const auto& file : filesystem::directory_iterator("."))
+	{
+		if (file.path().string().ends_with(".steps"))
+		{
+			path = file.path().string();
+			path.erase(0, 2);
+			remove(path.c_str());
+		}
+		else if (file.path().string().ends_with(".result"))
+		{
+			path = file.path().string();
+			path.erase(0, 2);
+			remove(path.c_str());
+		}
+	}
 }
 
 void SaveMode::writeToResultFileDuringSession()

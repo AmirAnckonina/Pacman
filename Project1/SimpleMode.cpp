@@ -68,6 +68,7 @@ void SimpleMode::runSingleScreensSession()
 	{
 		handleQuit();
 		initSingleScreen();
+
 		runSingleScreen();
 		game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
 	}
