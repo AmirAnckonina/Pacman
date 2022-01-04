@@ -5,7 +5,7 @@
 
 void GameShell::betweenScreensProcedure(GameBoard& board, int currTemplate, int lastGamePacmanScore, bool playerWon)
 {
-	if (board.isBoardValid())
+	if (board.isValidBoard())
 	{
 		updateTotalPlayerScore(lastGamePacmanScore);
 		size_t numOfTemplates = board.getNumOfTemplates();

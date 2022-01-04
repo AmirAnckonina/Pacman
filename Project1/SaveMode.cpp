@@ -50,6 +50,7 @@ void SaveMode::writeMovesToStepsFile()
 		convertDirToInput(ghost[i].getDirection());
 		stepsFile << dir << '\n';
 	}
+
 	stepsFile << "Fruit:  ";
 	if (!fruit.isActive())
 	{
@@ -94,6 +95,7 @@ void SaveMode::writeMovesToStepsFile()
 void SaveMode::runGame()
 {
 	openFilesForWriting();
+	countsteps = 0;
 	do
 	{
 		countsteps++;
@@ -103,6 +105,7 @@ void SaveMode::runGame()
 		//Steps
 		writeMovesToStepsFile();
 		writeToResultFileDuringSession();
+
 	} while (!GameFinished());
 
 	writeToResultFileEndOfSession();

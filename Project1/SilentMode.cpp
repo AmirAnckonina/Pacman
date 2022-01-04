@@ -28,13 +28,27 @@ void SilentMode::runSingleScreensSession()
 
 	for (currStepsFile = 0, currResultFile = 0; currStepsFile < stepsfilesArr.size() && !pacmanDied && activate; currStepsFile++, currResultFile++)
 	{
-		openFilesForRead();
 		initSingleScreen();
-		setAllCreaturesMoveStrategy();
-		runSingleScreen();
+		if (game_board.isValidBoard())
+		{
+			testPassed = true;
+			openFilesForRead();
+			setAllCreaturesMoveStrategy();
+			runSingleScreen();
 
-		if (currObj == "LoadMode")
-			game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+			if (testPassed)
+				testScreen.push_back(true);
+			else
+				testScreen.push_back(false);
+
+			if (currObj == "LoadMode")
+				game_shell.betweenScreensProcedure(game_board, currScreenInd, pacman.getScore(), playerWon);
+		}
+		else
+		{
+			--currResultFile;
+			--currStepsFile;
+		}
 	}
 }
 
@@ -45,24 +59,31 @@ void SilentMode::runGame()
 	currObj = typeid(*this).name();
 	currObj = currObj.substr(6);
 
+	stepsCounter = 0;
+	
 	do
 	{
 		stepsCounter++;
 		readInfoFromStepsFile();
 
-		if (currObj == "LoadMode") ThePacmanGame::singleCreaturesIteration();
-		else singleCreaturesIteration();
+		if (currObj == "LoadMode")
+		{
+			ThePacmanGame::singleCreaturesIteration();
+		}
+		else
+		{
+			singleCreaturesIteration();
+		}
 
 		if (collisionInCurrStepIndicator) 
 			comparestepsToResultFile();
 
-	} while (!GameFinished() && testPassed);
+
+	}while (!GameFinished); 
 
 	comparestepsToResultFile();
 	printAfterTest();
-
-
-	if (currObj == "LoadMode") afterRunGameProcedure();
+	closeCurrFiles();
 
 	return;
 }
@@ -262,10 +283,12 @@ void SilentMode::comparestepsToResultFile()
 
 	numOfStepsInFile = stoi(subStr);
 
-	if (numOfStepsInFile == stepsCounter)
+	if (numOfStepsInFile == stepsCounter || numOfStepsInFile - 1 == stepsCounter )
 		testPassed = true;
 	else
 		testPassed = false;
+
+	collisionInCurrStepIndicator = false;
 }
 
 void SilentMode::printAfterTest()

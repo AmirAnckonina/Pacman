@@ -60,7 +60,6 @@ public:
 	bool inBoardDimensions(Position& pos) const;
 
 	//Others Get-Set functions.
-	bool isBoardValid() { return validBoard; }
 	const string& getScreenTemplateName(int templateInd)const;
 	const Position& getSpecificValidPosOnBoard(int index)const { return validPosStorage[index]; };
 	void setBreadCrumbsPosArr();
