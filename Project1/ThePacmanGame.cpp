@@ -196,7 +196,7 @@ void ThePacmanGame::singleFruitSession()
 		else
 			fruitTurn = true;
 	}
-	ThePacmanGame::completeFruitSession();
+	completeFruitSession();
 	handleFruitActivityAfterSession();
 }
 

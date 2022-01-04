@@ -29,7 +29,7 @@ public:
 	virtual void singleCreaturesIteration() override;
 	virtual void completeGhostsSession() override;
 	virtual void completePacmanSession() override; 
-	
+	virtual void completeFruitSession() override;
 
 	//virtual void testResultProcedure();
 	void handleInvalidScreen();

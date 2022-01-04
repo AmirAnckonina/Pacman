@@ -81,27 +81,20 @@ void SilentMode::runGame()
 
 void SilentMode::singleCreaturesIteration()
 {
-	/*singleGhostsSession();
+	singleGhostsSession();
 	completeGhostsSession();
 	singlePacmanSession();
 	completePacmanSession();
-	handleFruitActivityBeforeSession();
-	ThePacmanGame::singleFruitSession();
-	ThePacmanGame::completeFruitSession();
-	handleFruitActivityAfterSession();*/
-	singleGhostsSession();
-	afterGhostsMove();
-	ThePacmanGame::completeGhostsSession();
-	singlePacmanSession();
-	pacman.afterMoveProcedure(game_board);
-	ThePacmanGame::completePacmanSession();
 	singleFruitSession();
-	
 }
-
 
 void SilentMode::completeGhostsSession()
 {
+	if (j == 0)
+		j = 1;
+	else
+		j = 0; //they won't move in the next step
+
 	if (isFruitEatenByGhost())
 		fruit.disableActivity();
 
@@ -124,7 +117,7 @@ void SilentMode::completePacmanSession()
 
 void SilentMode::singleFruitSession()
 {
-	if (fruit.isActive())
+	if (fruit.getDirection() != Direction::STAY)
 	{
 		if (fruitTurn)
 		{
@@ -136,24 +129,28 @@ void SilentMode::singleFruitSession()
 		else
 			fruitTurn = true;
 
+		completeFruitSession();
+	}
+}
 
+void SilentMode::completeFruitSession()
+{
+	if (fruit.getDirection() != Direction::STAY)
+	{
 		if (isFruitEatenByPacman() || isFruitEatenByGhost())
-			fruit.disableActivity();
+			return;
 
-		ThePacmanGame::completeFruitSession();
+		string currObj = typeid(*this).name();
+		currObj = currObj.substr(6);
 
-		if (fruit.getDirection() == Direction::STAY)
+		if (currObj != "SilentMode")
 		{
-			fruit.disableActivity();
+			fruit.printCreature();
 		}
 	}
-	else
-	{
-		if (fruit.getTimeOffBoard() == 0)
-			fruit.enableActivity();
-	}
-
 }
+
+
 
 void SilentMode::setAllCreaturesMoveStrategy()
 {
@@ -274,7 +271,6 @@ void SilentMode::setFruitDirectionFromFile()
 void SilentMode::comparestepsToResultFile()
 {
 	int numOfStepsInFile;
-
 	string line;
 	string subStr;
 
