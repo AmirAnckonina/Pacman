@@ -2,7 +2,7 @@
 
 void LoadMode::run()
 {
-	cout << "Hey, LoadMode" << endl;
+	cout << "Load Mode" << endl;
 	Sleep(2000);
 	clearScreen();
 	runAllSessions();
