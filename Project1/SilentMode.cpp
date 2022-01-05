@@ -56,7 +56,7 @@ void SilentMode::runGame()
 	currObj = currObj.substr(6);
 
 	stepsCounter = 0;
-	
+
 	do
 	{
 		stepsCounter++;
@@ -67,11 +67,11 @@ void SilentMode::runGame()
 		else
 			singleCreaturesIteration();
 
-		if (collisionInCurrStepIndicator) 
+		if (collisionInCurrStepIndicator)
 			comparestepsToResultFile();
 
 
-	} while (!GameFinished() && testPassed); 
+	} while (!GameFinished() && testPassed);
 
 	comparestepsToResultFile();
 	printAfterTest();
@@ -125,24 +125,38 @@ void SilentMode::singleFruitSession()
 			fruit.move(game_board);
 			fruit.updatePrevPos();
 			fruit.updatePos();
+			fruitTurn = false;
+			fruit.afterMoveProcedure(game_board);
 		}
 		else
 			fruitTurn = true;
-		
+
+
 		completeFruitSession();
 		fruit.ReduceTimeOnBoard();
 
 		if (fruit.getTimeOnBoard() == 0)
+		{
+			fruit.updatePrevPos();
+			fruit.afterMoveProcedure(game_board);
 			fruit.disableActivity();
+		}
+
 	}
+
 }
 
 void SilentMode::completeFruitSession()
 {
+	//fruit.afterMoveProcedure(game_board);
 	if (fruit.isActive())
 	{
 		if (isFruitEatenByPacman() || isFruitEatenByGhost())
+		{
+			fruit.disableActivity();
 			return;
+
+		}
 
 		string currObj = typeid(*this).name();
 		currObj = currObj.substr(6);
@@ -151,6 +165,7 @@ void SilentMode::completeFruitSession()
 		{
 			fruit.printCreature();
 		}
+
 	}
 }
 
@@ -193,8 +208,8 @@ void SilentMode::loadAllStepsAndResultFiles()
 
 void SilentMode::openFilesForRead()
 {
-		stepsFile.open(stepsfilesArr[currStepsFile]);
-		resultFile.open(resultfilesArr[currResultFile]);
+	stepsFile.open(stepsfilesArr[currStepsFile]);
+	resultFile.open(resultfilesArr[currResultFile]);
 }
 
 void SilentMode::closeCurrFiles()
@@ -253,23 +268,27 @@ void SilentMode::setFruitDirectionFromFile()
 	string subStr;
 
 	getline(stepsFile, line);
-	subStr = line.substr(7, 11);
+	subStr = line.substr(8, 11);
 	convertInputToDirection(subStr);
 	fruit.setDirection(direction);
 
 	//handles the case when the fruit born
 	subStr = line.substr(11);
 	//if (subStr[0] != '\0') //)//(!subStr.starts_with('\n'))
-	if ( isdigit( line[line.length() - 1] ) )
+	if (isdigit(line[line.length() - 1]))
 	{
+
 		subStr = line.substr(15, 16);
 		int xPos = stoi(subStr);
 		subStr = line.substr(18, 19);
 		int yPos = stoi(subStr);
 		fruit.setCurrPos(xPos, yPos);
+		fruit.updatePrevPos();
+		fruit.setNextPos(fruit.getCurrPos());
 		subStr = line.substr(24);
 		fruit.setFruitVal(stoi(subStr));
 		fruit.enableActivity();
+		fruitTurn = false;
 		fruit.setTimeOnBoard(40);
 	}
 }
@@ -286,7 +305,7 @@ void SilentMode::comparestepsToResultFile()
 
 	numOfStepsInFile = stoi(subStr);
 
-	if (numOfStepsInFile == stepsCounter || numOfStepsInFile - 1 == stepsCounter )
+	if (numOfStepsInFile == stepsCounter || numOfStepsInFile - 1 == stepsCounter)
 		testPassed = true;
 	else
 		testPassed = false;
