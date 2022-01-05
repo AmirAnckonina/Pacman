@@ -41,7 +41,7 @@ void ThePacmanGame::initSingleScreen(int _level)
 	}
 }
 
-void ThePacmanGame::runSingleScreen() 
+void ThePacmanGame::runSingleScreen()
 {
 	if (game_board.isValidBoard())
 	{
@@ -80,6 +80,8 @@ void ThePacmanGame::singleCreaturesIteration()
 	pacman.afterMoveProcedure(game_board);
 	ThePacmanGame::completePacmanSession();
 	singleFruitSession();
+	//fruit.afterMoveProcedure(game_board);
+	//ThePacmanGame::completeFruitSession();
 	printFigures();
 	this->executeSleepBetweenSessions();
 }
@@ -112,7 +114,7 @@ void ThePacmanGame::completePacmanSession()
 		printCollision();
 		cellsRestoreAfterCollision();
 		collisionProcedure();
-		if(pacman.getLivesLeft() >= 0) game_shell.printLives(pacman.getLivesLeft());
+		if (pacman.getLivesLeft() >= 0) game_shell.printLives(pacman.getLivesLeft());
 		afterCollisionPrinting();
 	}
 }
@@ -147,7 +149,7 @@ void ThePacmanGame::afterGhostsMove()
 {
 	for (int i = j; i < numOfGhosts; i += 2)
 		ghost[i].afterMoveProcedure(game_board);
-	
+
 	//if (j == 0)
 	//	j = 1;
 	//else
@@ -198,6 +200,7 @@ void ThePacmanGame::singleFruitSession()
 	}
 	completeFruitSession();
 	handleFruitActivityAfterSession();
+
 }
 
 void ThePacmanGame::handleFruitActivityBeforeSession()
@@ -317,7 +320,7 @@ void ThePacmanGame::fruitEatenProcedure()
 void ThePacmanGame::collisionProcedure()
 {
 	collisionInCurrStepIndicator = true;
-	if(pacman.getLivesLeft() > 0) pacman.updateLivesLeft();
+	if (pacman.getLivesLeft() > 0) pacman.updateLivesLeft();
 
 	if (pacman.getLivesLeft() > 0)
 	{
@@ -406,7 +409,7 @@ void ThePacmanGame::afterRunGameProcedure()
 {
 	game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
 	if (gameColorized) { resetColors(); }
-	gameColorized = false;
+	//gameColorized = false;
 	clearScreen();
 	Sleep(1200);
 }

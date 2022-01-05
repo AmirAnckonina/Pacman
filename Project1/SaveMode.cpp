@@ -175,7 +175,7 @@ void SaveMode::singleCreaturesIteration()
 	completePacmanSession();
 	handleFruitActivityBeforeSession();
 	ThePacmanGame::singleFruitSession();
-	completeFruitSession();
+	//completeFruitSession();
 	handleFruitActivityAfterSession();
 	printFigures();
 	executeSleepBetweenSessions();
