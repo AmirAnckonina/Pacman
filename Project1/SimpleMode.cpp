@@ -3,7 +3,7 @@
 
 void SimpleMode::run()
 {
-	cout << "Hey, SimpleMode" << endl;
+	cout << "Simple Mode" << endl;
 	Sleep(2000);
 	clearScreen();
 	runAllSessions();	

@@ -16,8 +16,6 @@ void Pacman::move(GameBoard& board, const Position& pacmanPos)
 	else //nextPosIsValid = true;
 		setNextPosIsValid(true);
 
-	//else //In case not, please stay on the current position. + Rollback to nextPos
-	//	resetAfterInvalidNextPos();
 }
 
 void Pacman::afterMoveProcedure(GameBoard& board)
@@ -39,19 +37,6 @@ void Pacman::afterMoveProcedure(GameBoard& board)
 		}
 	}
 }
-
-//void Pacman::updatePrevPos()
-//{
-//	prevPos = getCurrPos();
-//}
-
-//void Pacman::initPacman(GameBoard& board, char _pacmanIcon)
-//{
-//	initCreature(board, _pacmanIcon);
-//	prevPos = getCurrPos();
-//	nextPosIsValid = false;
-//}
-
 
 //void Pacman::
 void Pacman::updateScore(GameBoard& board)

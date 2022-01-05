@@ -32,21 +32,6 @@ void Creature::initCreature(GameBoard& board, char _creatureIcon)
 void Creature::setMoveStrategy() //set move strategy according to creatureStrategyType
 {
 	delete mvStrategy;
-	//if (creatureStrategyType == SMART)
-	//{
-	//	mvStrategy = new SmartStrategy;
-	//	if (hasIntervalTime)
-	//		mvStrategy->setMoveInterval(20);
-	//}
-	//else if (creatureStrategyType == NORMAL)
-	//{
-	//	mvStrategy = new NormalStrategy;
-	//	if (hasIntervalTime)
-	//		mvStrategy->setMoveInterval(15);
-	//}
-	//else//creatureStrategyType == NONE
-	//	mvStrategy = nullptr;
-
 	switch (creatureStrategyType)
 	{
 	case SMART:

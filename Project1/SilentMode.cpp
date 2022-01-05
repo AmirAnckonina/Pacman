@@ -1,5 +1,4 @@
 #include "SilentMode.h"
-
 #include "LoadMode.h"
 
 void SilentMode::run()
@@ -56,22 +55,30 @@ void SilentMode::runGame()
 	currObj = currObj.substr(6);
 
 	stepsCounter = 0;
-
+	bool endFile = false;
 	do
 	{
 		stepsCounter++;
-		readInfoFromStepsFile();
+		try
+		{
 
-		if (currObj == "LoadMode")
-			ThePacmanGame::singleCreaturesIteration();
-		else
-			singleCreaturesIteration();
+			readInfoFromStepsFile();
 
-		if (collisionInCurrStepIndicator)
-			comparestepsToResultFile();
+			if (currObj == "LoadMode")
+				ThePacmanGame::singleCreaturesIteration();
+			else
+				singleCreaturesIteration();
+
+			if (collisionInCurrStepIndicator)
+				comparestepsToResultFile();
+		}
+		catch (...)
+		{
+			endFile = true;
+		}
 
 
-	} while (!GameFinished() && testPassed);
+	} while (!GameFinished() && testPassed && !endFile);
 
 	comparestepsToResultFile();
 	printAfterTest();
@@ -299,13 +306,13 @@ void SilentMode::comparestepsToResultFile()
 	string line;
 	string subStr;
 
-	getline(resultFile, line);
+	getline(resultFile, line); 
 	size_t last_index = line.find_last_not_of("0123456789");
 	subStr = line.substr(last_index + 1);
 
 	numOfStepsInFile = stoi(subStr);
 
-	if (numOfStepsInFile == stepsCounter || numOfStepsInFile - 1 == stepsCounter)
+	if (numOfStepsInFile == stepsCounter || numOfStepsInFile - 1 == stepsCounter || numOfStepsInFile == stepsCounter - 1)
 		testPassed = true;
 	else
 		testPassed = false;
@@ -322,6 +329,7 @@ void SilentMode::printAfterTest()
 		cout << "Test failed" << endl;
 
 	Sleep(2000);
+	clearScreen();
 }
 
 void SilentMode::convertInputToDirection(string _dir)

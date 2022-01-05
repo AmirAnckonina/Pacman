@@ -83,7 +83,6 @@ public:
 	int getLastCol() const { return lastCol; }
 	int getCurrTemplate() const { return currTemplate; }
 	size_t getNumOfTemplates() const;
-
 	void validNumOfCreaturesOnBoard();
 
 };
