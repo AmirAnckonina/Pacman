@@ -80,8 +80,6 @@ void ThePacmanGame::singleCreaturesIteration()
 	pacman.afterMoveProcedure(game_board);
 	ThePacmanGame::completePacmanSession();
 	singleFruitSession();
-	//fruit.afterMoveProcedure(game_board);
-	//ThePacmanGame::completeFruitSession();
 	printFigures();
 	this->executeSleepBetweenSessions();
 }
@@ -149,12 +147,6 @@ void ThePacmanGame::afterGhostsMove()
 {
 	for (int i = j; i < numOfGhosts; i += 2)
 		ghost[i].afterMoveProcedure(game_board);
-
-	//if (j == 0)
-	//	j = 1;
-	//else
-	//	j = 0; //they won't move in the next step
-
 }
 
 void ThePacmanGame::completeGhostsSession() //over
@@ -400,7 +392,6 @@ bool ThePacmanGame::GameFinished()
 	if (game_board.getBreadcrumbs() == 0)
 	{
 		playerWon = true;
-		//pacman.printCreature(); //print pacman in the his last position, the winning one!
 	}
 	return true;
 }
@@ -409,7 +400,6 @@ void ThePacmanGame::afterRunGameProcedure()
 {
 	game_shell.printResult(playerWon, pacman.getScore(), pacman.getColor(), ghost[0].getColor());
 	if (gameColorized) { resetColors(); }
-	//gameColorized = false;
 	clearScreen();
 	Sleep(1200);
 }

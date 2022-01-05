@@ -113,7 +113,6 @@ void SaveMode::runGame()
 		singlePlayerIteration();
 		singleCreaturesIteration();
 		//Steps
-		//writeMovesToStepsFile();
 		writeToResultFileDuringSession();
 
 	} while (!GameFinished());
@@ -175,7 +174,6 @@ void SaveMode::singleCreaturesIteration()
 	completePacmanSession();
 	handleFruitActivityBeforeSession();
 	ThePacmanGame::singleFruitSession();
-	//completeFruitSession();
 	handleFruitActivityAfterSession();
 	printFigures();
 	executeSleepBetweenSessions();
