@@ -2,7 +2,7 @@
 
 void SaveMode::run()
 {
-	cout << "Hey, SaveMode" << endl;
+	cout << "Save Mode" << endl;
 	Sleep(2000);
 	clearScreen();
 	removeOldFiles();

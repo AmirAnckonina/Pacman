@@ -4,7 +4,7 @@
 
 void SilentMode::run()
 {
-	cout << "Running in Silent Mode" << endl;
+	cout << "Silent Mode" << endl;
 	Sleep(2000);
 	clearScreen();
 	runAllSessions();
