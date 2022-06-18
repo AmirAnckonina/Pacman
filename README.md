@@ -93,7 +93,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd Pacman-Game
+  cd Pacman
 ```
 
 Run Solution ->
