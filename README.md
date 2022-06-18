@@ -13,17 +13,26 @@ Hey Guys,
 
 Welcome to Pacman Game!
 
-The main goal of this project is to exercise the using of OOP with C++.
+The main goal of this project is to implement the using of OOP with C++.
 
 I've implemented the OOP principles, using classes, inheritence and polymorphism.
 
-Also, I put my effforts on buliding "Strategy" design pattern.
+Also, I put my effforts on implementing "Strategy" design pattern.
 
-Personally, it was my breakthrough in this project. Since then, adding objects and features became easier and more practical.
+Personally, it was my breakthrough in this project. Since then, adding objects and features became easier and practical.
 
-Another nice thing to mention is that in order to instruct the ghosts to chase the Pac-Man (in professional diffculty level -> see down below in the rules), I've used BFS algorithem, that checks in every single move what's the shortest possible path from the ghost to the Pac-Man.
+Another nice thing to mention is that in order to instruct the ghosts to chase the Pac-Man (in professional diffculty level -> see down below in the rules), I've implemented BFS algorithem, that check in every single move what's the shortest possible path from the ghost to the Pac-Man.
 
 For optimal game experience, set your console resolution to 25X80.
+
+Note that the game could run in 4 modes:
+
+1. Simple mode - running regular game via console UI.
+2. Save mode - running the game with capturing all steps of the Pac-Man and Ghosts into a file.
+3. Load mode - loading the last game that "Saved" in watching mode.
+4. Load [Silent] mode - loading the last game that "Saved", but without any display to the user.
+
+for 3,4 you'll get a message whether the "Test Passed" or not. (Menaning that the loaded game is same as the last that saved.)
 
 Enjoy!
 
@@ -45,7 +54,7 @@ Only after completing all boards, the Pac-Man will be the winner.
 Starting with 3 lives. each collision with the ghost will reduce the the lives by one.
 
 "Special" breadcrumbs, (a number between 5 to 9) will appear sometimes on the board.
-If the Pac-Man eats this special breadcrumb it gets the points as the value of the digit (5 to 9).
+If the pacman eats this special breadcrumb it gets the points as the value of the digit (5 to 9).
 *Note that eating a breadcrumb with the value of "9" (The max), will add lives to the Pac-Man by one.
 
 In some boards, there are "Invisible-Tunnels". Namely, a tunnel that only the Pac-Man can go through. 
@@ -75,13 +84,6 @@ PAUSE GAME -> Esc
 
 ## Run Locally
 
-Note that the game could run in 4 modes: 
-
-1. Simple mode - running the game via console UI.
-2. Save mode - running the game with capturing all steps of the Pac-Man and Ghosts into a file.
-3. Load mode - loading the last game that "Saved" in watching mode. 
-4. Load [Silent] mode - loading the last game that "Saved", but without any display to the user.
-
 Clone the project
 
 ```bash
@@ -99,9 +101,24 @@ Run Solution ->
 pacman_project.sln
 ```
 
-Run Executable ->
+Run Executable *Simple Mode* ->
 ```bash
 pacman_project.exe
+```
+
+Run Executable  *Save Mode* ->
+```bash
+pacman_project.exe -save
+```
+
+Run Executable  *Load Mode* ->
+```bash
+pacman_project.exe -load
+```
+
+Run Executable  *Load [Silent] Mode* ->
+```bash
+pacman_project.exe -load -silent
 ```
 
 ## Running Examples
