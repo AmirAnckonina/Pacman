@@ -75,6 +75,13 @@ PAUSE GAME -> Esc
 
 ## Run Locally
 
+Note that the game could run in 4 modes: 
+
+1. Simple mode - running the game via console UI.
+2. Save mode - running the game with capturing all steps of the Pac-Man and Ghosts into a file.
+3. Load mode - loading the last game that "Saved" in watching mode. 
+4. Load [Silent] mode - loading the last game that "Saved", but without any display to the user.
+
 Clone the project
 
 ```bash
