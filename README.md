@@ -99,14 +99,6 @@ pacman_project.exe
 
 ## Running Examples
 
-Main Menu
-
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/MainMenu.jpg)
-
-Boards Examples:
-
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/BoardSelection.jpg)
-
 
 ![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/Board.jpg)
 
@@ -115,9 +107,6 @@ Boards Examples:
 
 
 ![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/Board3.jpg)
-
-
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/InvalidBoard.jpg)
 
 
 ![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/TinyBoard.jpg)
