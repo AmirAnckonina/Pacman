@@ -124,13 +124,13 @@ pacman_project.exe -load -silent
 ## Running Examples
 
 
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/Board.jpg)
+![App Screenshot](https://github.com/AmirAnckonina/Pacman/blob/35d51d7230a34d49800f350ce12864d5ec86eae5/Screenshots/Board.jpg)
 
 
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/Board2.jpg)
+![App Screenshot](https://github.com/AmirAnckonina/Pacman/blob/35d51d7230a34d49800f350ce12864d5ec86eae5/Screenshots/Board2.jpg)
 
 
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/Board3.jpg)
+![App Screenshot](https://github.com/AmirAnckonina/Pacman/blob/35d51d7230a34d49800f350ce12864d5ec86eae5/Screenshots/Board3.jpg)
 
 
-![App Screenshot](https://github.com/AmirAnckonina/Pacman-Game/blob/c832fa59aeedf8c0e997cbc2ab4afc989e73b8ab/Screenshots/TinyBoard.jpg)
+![App Screenshot](https://github.com/AmirAnckonina/Pacman/blob/35d51d7230a34d49800f350ce12864d5ec86eae5/Screenshots/TinyBoard.jpg)
